@@ -644,6 +644,7 @@ public class muminFragment extends Fragment {
         ezanVaktiNotification = new Notification.Builder(getActivity())
                 .setContentTitle(ContentTitle)
                 .setContentText(ContentText)
+                .setStyle()
 
 
                 .build();
