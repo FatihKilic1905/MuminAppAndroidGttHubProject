@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EzanVaktiCoplete.EzanVaktiActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="380dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="89dp"
+
+        android:background="@drawable/layer_stroke_4_corner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/imsakTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="2dp"
+            android:text="İmsak"
+            android:textColor="@color/muminAppGreen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/gunesTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="2dp"
+            android:text="Güneş"
+            android:textColor="@color/muminAppGreen"
+            app:layout_constraintStart_toEndOf="@+id/imsakTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ogleTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="2dp"
+            android:text="Öğle"
+            android:textColor="@color/muminAppGreen"
+            app:layout_constraintStart_toEndOf="@+id/gunesTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/aikindiTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="25dp"
+            android:text="İkindi"
+            android:textColor="@color/muminAppGreen"
+            app:layout_constraintEnd_toStartOf="@+id/aksamTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/aksamTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="25dp"
+            android:text="Akşam"
+            android:textColor="@color/muminAppGreen"
+            app:layout_constraintEnd_toStartOf="@+id/yatsiTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/yatsiTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="20dp"
+            android:text="Yatsı"
+            android:textColor="@color/muminAppGreen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/aksamTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginBottom="2dp"
+            android:text="00:00"
+            android:textColor="@color/muminAppGreen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ikindiTime" />
+
+        <TextView
+            android:id="@+id/gunesTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginBottom="2dp"
+            android:text="00:00"
+            android:textColor="@color/muminAppGreen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imsakTime" />
+
+        <TextView
+            android:id="@+id/imsakTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginBottom="2dp"
+            android:text="00:00"
+            android:textColor="@color/muminAppGreen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/ikindiTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="2dp"
+            android:text="00:00"
+            android:textColor="@color/muminAppGreen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ogleTime" />
+
+        <TextView
+            android:id="@+id/ogleTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="2dp"
+            android:text="00:00"
+            android:textColor="@color/muminAppGreen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/gunesTime" />
+
+        <TextView
+            android:id="@+id/yatsiTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginBottom="2dp"
+            android:text="00:00"
+            android:textColor="@color/muminAppGreen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/aksamTime" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/konumOnaylaButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="79dp"
+        android:text="Onayla"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/konumLabel2" />
+
+    <TextView
+        android:id="@+id/konumTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginTop="30dp"
+        android:text="Konum"
+        android:textAlignment="center"
+        android:textColor="@color/muminAppGreen"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/konumLabel1" />
+
+    <TextView
+        android:id="@+id/konumLabel2"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginTop="30dp"
+        android:text="olarak kaydedilecektir."
+        android:textAlignment="center"
+        android:textColor="@color/muminAppGreen"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/konumTextView" />
+
+    <TextView
+        android:id="@+id/konumLabel1"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginTop="225dp"
+        android:text="Konumunuz"
+        android:textAlignment="center"
+        android:textColor="@color/muminAppGreen"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
