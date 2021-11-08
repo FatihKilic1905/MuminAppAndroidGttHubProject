@@ -98,7 +98,7 @@ public class muminFragment extends Fragment {
         sistemTarihiVoid();
         sistemSaatiVoid();
         getEzanVakti();
-        VaktinCikmasinaTimer();
+
 
 
 
@@ -617,6 +617,7 @@ public class muminFragment extends Fragment {
         SimpleDateFormat sistemtarih = new SimpleDateFormat("dd.M.yyyy");
         Date sistemtarihi = new Date();
         sistemTarihiStr = sistemtarih.format(sistemtarihi);
+        System.out.println("Merhaba");
 
 
 
@@ -644,10 +645,11 @@ public class muminFragment extends Fragment {
         ezanVaktiNotification = new Notification.Builder(getActivity())
                 .setContentTitle(ContentTitle)
                 .setContentText(ContentText)
-                .setStyle()
+
 
 
                 .build();
+
 
 
 
