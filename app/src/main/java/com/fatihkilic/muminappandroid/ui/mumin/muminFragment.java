@@ -98,13 +98,7 @@ public class muminFragment extends Fragment {
         sistemTarihiVoid();
         sistemSaatiVoid();
         getEzanVakti();
-
-
-
-
         System.out.println("tarih" + System.currentTimeMillis());
-
-
 
         return root;
 
@@ -177,9 +171,6 @@ public class muminFragment extends Fragment {
                 binding.aytitle.setText(miladiSplit[1]);
                 binding.gunlertitle.setText(miladiSplit[3]);
 
-
-
-
             }
 
             StringBuilder timeToday = new StringBuilder();
@@ -193,13 +184,6 @@ public class muminFragment extends Fragment {
             e.printStackTrace();
 
         }
-
-
-
-
-
-
-
 
         vakitGeldi();
 

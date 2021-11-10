@@ -67,6 +67,7 @@ public class SehirlerActivity extends AppCompatActivity {
 
         Intent sehirIDIntent = getIntent();
         String sehirIDGet = sehirIDIntent.getStringExtra("ulkeID");
+        System.out.println("sehirid" + sehirIDGet);
 
 
         SehirlerService sehirlerService = retrofitSehir.create(SehirlerService.class);

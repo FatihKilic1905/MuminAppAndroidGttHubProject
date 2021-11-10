@@ -15,7 +15,7 @@ public interface SehirlerService {
 
 
 
-    @GET("sehirler/{sehirID}/sadasd{sehirddd}")
+    @GET("sehirler/{sehirID}")
     Call<List<SehirlerModel>> getSehirlerData(@Path("sehirID") String sehirID);
 
 }
