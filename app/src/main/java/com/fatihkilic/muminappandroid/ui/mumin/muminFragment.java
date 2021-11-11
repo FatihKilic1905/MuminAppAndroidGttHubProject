@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.databinding.FragmentMuminBinding;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -97,9 +98,13 @@ public class muminFragment extends Fragment {
 
         sistemTarihiVoid();
         sistemSaatiVoid();
-        getEzanVakti();
-        VaktinCikmasinaTimer();
-        System.out.println("tarih" + System.currentTimeMillis());
+
+        try {
+            bildirimGonderVoid("Bildirim","gonder","2021/11/11 18:12:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println("vakitMilliss" + System.currentTimeMillis());
 
         return root;
 
@@ -619,11 +624,13 @@ public class muminFragment extends Fragment {
 
     }
 
-    public void bildirimGonderVoid(String ContentTitle, String ContentText, String Time ){
+    public void bildirimGonderVoid(String ContentTitle, String ContentText, String Time ) throws ParseException {
 
         SimpleDateFormat convertVakittoMillis = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = convertVakittoMillis.parse(Time);
         long vakitMillis = date.getTime();
+
+        System.out.println("vakitMillis" + vakitMillis);
 
         ezanVaktiNotification = new Notification.Builder(getActivity())
                 .setContentTitle(ContentTitle)

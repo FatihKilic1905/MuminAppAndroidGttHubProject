@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MuminAppAndroid">
         <activity
+            android:name=".Ayarlar.SesSettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Ayarlar.AyarlarActivity"
+            android:exported="false" />
+        <activity
             android:name=".EzanVaktiCoplete.EzanVaktiActivity"
             android:exported="true" />
         <activity
