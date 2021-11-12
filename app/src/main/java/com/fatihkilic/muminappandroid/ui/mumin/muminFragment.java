@@ -98,13 +98,9 @@ public class muminFragment extends Fragment {
 
         sistemTarihiVoid();
         sistemSaatiVoid();
-
-        try {
-            bildirimGonderVoid("Bildirim","gonder","2021/11/11 18:12:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        System.out.println("vakitMilliss" + System.currentTimeMillis());
+        getEzanVakti();
+        VaktinCikmasinaTimer();
+        System.out.println("tarih" + System.currentTimeMillis());
 
         return root;
 
@@ -629,8 +625,6 @@ public class muminFragment extends Fragment {
         SimpleDateFormat convertVakittoMillis = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = convertVakittoMillis.parse(Time);
         long vakitMillis = date.getTime();
-
-        System.out.println("vakitMillis" + vakitMillis);
 
         ezanVaktiNotification = new Notification.Builder(getActivity())
                 .setContentTitle(ContentTitle)

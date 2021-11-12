@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MuminAppAndroid">
         <activity
+            android:name=".Ayarlar.SoundSettingsDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".Ayarlar.SesSettingsActivity"
             android:exported="false" />
         <activity
