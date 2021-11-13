@@ -25,6 +25,7 @@ public class AyarlarActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        getSupportActionBar().setTitle("Ayarlar");
 
 
 

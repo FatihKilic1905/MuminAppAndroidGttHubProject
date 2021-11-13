@@ -98,8 +98,7 @@ public class muminFragment extends Fragment {
 
         sistemTarihiVoid();
         sistemSaatiVoid();
-        getEzanVakti();
-        VaktinCikmasinaTimer();
+
         System.out.println("tarih" + System.currentTimeMillis());
 
         return root;

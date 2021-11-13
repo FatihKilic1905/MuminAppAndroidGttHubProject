@@ -14,6 +14,10 @@ public class SesSettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ses_settings);
+
+        getSupportActionBar().setTitle("Ses Ayarları");
+
+
     }
 
 
