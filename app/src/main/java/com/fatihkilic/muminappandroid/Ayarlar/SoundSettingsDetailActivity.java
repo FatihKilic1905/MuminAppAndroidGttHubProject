@@ -16,6 +16,7 @@ import android.widget.CompoundButton;
 import android.widget.NumberPicker;
 import android.widget.Switch;
 
+import com.fatihkilic.muminappandroid.EzanSoundList;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.ActivitySoundSettingsDetailBinding;;
 
@@ -64,9 +65,11 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
             }
         });
 
-        binding.soundPickerList.setMaxValue(5);
+        EzanSoundList.initEzanSound();
+
+        binding.soundPickerList.setMaxValue(EzanSoundList.getEzanSoundListArray().size() - 1);
         binding.soundPickerList.setMinValue(0);
-        binding.soundPickerList.setValue(0);
+        binding.soundPickerList.setDisplayedValues(EzanSoundList.ezanNames());
 
         binding.soundPickerList.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override

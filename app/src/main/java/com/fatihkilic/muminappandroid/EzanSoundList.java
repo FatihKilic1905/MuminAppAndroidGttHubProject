@@ -19,9 +19,28 @@ public class EzanSoundList {
         EzanSoundList ezan1 = new EzanSoundList(0, "Kuş Sesi");
         EzanSoundListArray.add(ezan1);
 
+        EzanSoundList ezan2 = new EzanSoundList(1, "Kuş Sesi 2");
+        EzanSoundListArray.add(ezan2);
+
+        EzanSoundList ezan3 = new EzanSoundList(2, "Kuş Sesi 3");
+        EzanSoundListArray.add(ezan3);
+
 
     }
 
+    public static ArrayList<EzanSoundList> getEzanSoundListArray() {
+        return EzanSoundListArray;
+    }
+
+    public static  String[] ezanNames() {
+
+        String[] names = new String[EzanSoundListArray.size()];
+        for(int i = 0; i < EzanSoundListArray.size(); i++) {
+
+            names[i] = EzanSoundListArray.get(i).soundName;
+
+        }
+    }
 
     public int getId() {
         return id;
