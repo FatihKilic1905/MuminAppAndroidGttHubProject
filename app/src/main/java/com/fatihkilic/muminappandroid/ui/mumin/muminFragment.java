@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -80,6 +81,8 @@ public class muminFragment extends Fragment {
 
     Notification ezanVaktiNotification;
 
+    SharedPreferences sharedPreferences;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -87,6 +90,12 @@ public class muminFragment extends Fragment {
 
 
 
+        sharedPreferences = requireActivity().getSharedPreferences("com.fatihkilic.muminappandroid.Ayarlar", Context.MODE_PRIVATE);
+
+        String storedImsak = sharedPreferences.getString("imsakVOSes", "imsakVOSes");
+        vOImsakSesStr = storedImsak;
+
+        System.out.println("imsakSessss" + vOImsakSesStr);
 
 
         binding = FragmentMuminBinding.inflate(inflater, container, false);

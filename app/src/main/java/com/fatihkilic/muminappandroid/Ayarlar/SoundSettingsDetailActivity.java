@@ -1,22 +1,20 @@
 package com.fatihkilic.muminappandroid.Ayarlar;
 
-import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.NumberPicker;
 import android.widget.Switch;
 
-import com.fatihkilic.muminappandroid.EzanSoundList;
+import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.ActivitySoundSettingsDetailBinding;;
 
@@ -25,12 +23,16 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
     String VakitInfo;
     private ActivitySoundSettingsDetailBinding binding;
     Switch anahtarVaktinde;
+    SharedPreferences sharedPreferences;
+    String VOSesString;
 
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sound_settings_detail);
+
+        sharedPreferences = this.getSharedPreferences("com.fatihkilic.muminappandroid.Ayarlar", Context.MODE_PRIVATE);
 
         binding = ActivitySoundSettingsDetailBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -58,13 +60,70 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
                     binding.vaktindenOnceSoundTitle.setText("Kapalı");
                     binding.vaktindenOnceSoundSelectButton.setEnabled(false);
 
-
                 }
 
 
             }
         });
 
+        Button VOSesSecButton = binding.vaktindenOnceSoundSelectButton;
+
+        VOSesSecButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                binding.soundPickerList.setVisibility(View.VISIBLE);
+                binding.secimiTamamlaButton.setVisibility(View.VISIBLE);
+
+                System.out.println("Fatih");
+
+
+            }
+        });
+
+        Button secimiTamamlaButton = binding.secimiTamamlaButton;
+
+        secimiTamamlaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                binding.soundPickerList.setVisibility(View.INVISIBLE);
+                binding.secimiTamamlaButton.setVisibility(View.INVISIBLE);
+
+            }
+        });
+
+        Button kaydetButton = binding.kaydetButton;
+        kaydetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (VakitInfo == "İmsak Vakti") {
+
+                    if (VOSesString == "Kuş Sesi") {
+
+                        sharedPreferences.edit().putString("imsakVOSes", "kusSesi").apply();
+
+                    } else if (VOSesString == "Kuş Sesi2") {
+
+                        sharedPreferences.edit().putString("imsakVOSes", "kusSesi2").apply();
+
+                    }
+
+                } else if (VakitInfo == "Gunes Vakti") {
+
+                }
+
+                Intent sesKaydetIntent = new Intent(SoundSettingsDetailActivity.this, MainActivity.class);
+                startActivity(sesKaydetIntent);
+
+            }
+        });
+
+
+        binding.soundPickerList.setVisibility(View.INVISIBLE);
+        binding.secimiTamamlaButton.setVisibility(View.INVISIBLE);
         EzanSoundList.initEzanSound();
 
         binding.soundPickerList.setMaxValue(EzanSoundList.getEzanSoundListArray().size() - 1);
@@ -75,8 +134,14 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
+                binding.vaktindenOnceSoundTitle.setText(EzanSoundList.getEzanSoundListArray().get(newVal).getSoundName());
+                VOSesString = EzanSoundList.getEzanSoundListArray().get(newVal).getSoundName();
+
+
             }
         });
+
+
 
 
 

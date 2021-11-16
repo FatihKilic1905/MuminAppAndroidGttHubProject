@@ -161,4 +161,24 @@ android:thumbTint="@color/muminAppGreen"         app:layout_constraintStart_toEn
 
     ></NumberPicker>
 
+    <Button
+        android:id="@+id/secimiTamamlaButton"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:text="Tamam"
+        android:layout_gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/kaydetButton"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:text="Kaydet"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.fatihkilic.muminappandroid;
+package com.fatihkilic.muminappandroid.Ayarlar;
 
 import java.util.ArrayList;
 
@@ -15,6 +15,8 @@ public class EzanSoundList {
     }
 
     public static void initEzanSound() {
+
+        EzanSoundListArray = new ArrayList<>();
 
         EzanSoundList ezan1 = new EzanSoundList(0, "Kuş Sesi");
         EzanSoundListArray.add(ezan1);
@@ -40,6 +42,8 @@ public class EzanSoundList {
             names[i] = EzanSoundListArray.get(i).soundName;
 
         }
+
+        return names;
     }
 
     public int getId() {
