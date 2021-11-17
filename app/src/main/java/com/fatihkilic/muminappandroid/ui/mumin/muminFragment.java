@@ -1,6 +1,7 @@
 package com.fatihkilic.muminappandroid.ui.mumin;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,8 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,6 +29,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.fatihkilic.muminappandroid.MainActivity;
+import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.FragmentMuminBinding;
 
 import java.text.ParseException;
@@ -79,9 +83,11 @@ public class muminFragment extends Fragment {
 
     String vaktinCikmasinaString;
 
-    Notification ezanVaktiNotification;
+    NotificationManager notificationManager;
 
     SharedPreferences sharedPreferences;
+
+    long vakiMillis;
 
 
 
@@ -90,10 +96,14 @@ public class muminFragment extends Fragment {
 
 
 
-        sharedPreferences = requireActivity().getSharedPreferences("com.fatihkilic.muminappandroid.Ayarlar", Context.MODE_PRIVATE);
 
-        String storedImsak = sharedPreferences.getString("imsakVOSes", "imsakVOSes");
-        vOImsakSesStr = storedImsak;
+
+        sharedPreferences = requireActivity().getSharedPreferences("com.fatihkilic.muminappandroid", Context.MODE_PRIVATE);
+
+        vOImsakSesStr = sharedPreferences.getString("imsakVOSes", "imsakVOSes");
+
+        notificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
 
         System.out.println("imsakSessss" + vOImsakSesStr);
 
@@ -110,6 +120,47 @@ public class muminFragment extends Fragment {
 
         System.out.println("tarih" + System.currentTimeMillis());
 
+
+        bildirimgonder();
+
+
+        Button notBut = binding.buttonnotification;
+        notBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+
+
+
+                String chanelId = "chanel_ID";
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                    NotificationChannel channel = new NotificationChannel(chanelId,"example channel", NotificationManager.IMPORTANCE_HIGH);
+                    channel.setLightColor(Color.RED);
+                    notificationManager.createNotificationChannel(channel);
+
+                }
+
+
+                NotificationCompat.Builder NotBuild = new NotificationCompat.Builder(getActivity(),chanelId);
+
+                NotBuild.setContentText("bbb");
+                NotBuild.setContentTitle("bbbb");
+                NotBuild.setSmallIcon(R.drawable.compas_bottom_24);
+                NotBuild.setWhen(vakiMillis);
+               // NotBuild.setSound(Uri.parse(R.raw.ahmedalnafes)));
+
+                notificationManager.notify(2,NotBuild.build());
+
+                System.out.println("vakitMillis " + vakiMillis);
+
+            }
+        });
+
+
         return root;
 
 
@@ -125,6 +176,48 @@ public class muminFragment extends Fragment {
 
 
     }
+
+    public void bildirimgonder() {
+
+        String Time = "2021/11/17 10:07:00";
+
+
+        SimpleDateFormat convertVakittoMillis = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = convertVakittoMillis.parse(Time);
+            vakiMillis = date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        String chanelId = "chanel_ID_1";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            NotificationChannel channel = new NotificationChannel(chanelId,"example channels", NotificationManager.IMPORTANCE_HIGH);
+            channel.setLightColor(Color.RED);
+            notificationManager.createNotificationChannel(channel);
+
+        }
+
+        NotificationCompat.Builder NotBuild = new NotificationCompat.Builder(getActivity(),chanelId);
+
+        NotBuild.setContentText("bbb");
+        NotBuild.setContentTitle("bbbb");
+        NotBuild.setSmallIcon(R.drawable.compas_bottom_24);
+        NotBuild.setWhen(vakiMillis);
+        // NotBuild.setSound(Uri.parse(R.raw.ahmedalnafes)));
+
+        notificationManager.notify(3,NotBuild.build());
+
+        System.out.println("vakitMillis10 " + vakiMillis);
+
+    }
+
+
+
 
 
 
@@ -634,11 +727,7 @@ public class muminFragment extends Fragment {
         Date date = convertVakittoMillis.parse(Time);
         long vakitMillis = date.getTime();
 
-        ezanVaktiNotification = new Notification.Builder(getActivity())
-                .setContentTitle(ContentTitle)
-                .setContentText(ContentText)
-                .setWhen(vakitMillis)
-                .build();
+
 
     }
 

@@ -32,7 +32,7 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sound_settings_detail);
 
-        sharedPreferences = this.getSharedPreferences("com.fatihkilic.muminappandroid.Ayarlar", Context.MODE_PRIVATE);
+        sharedPreferences = this.getSharedPreferences("com.fatihkilic.muminappandroid", Context.MODE_PRIVATE);
 
         binding = ActivitySoundSettingsDetailBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -99,26 +99,25 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                if (VakitInfo == "İmsak Vakti") {
+                if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Kuş Sesi")) {
 
-                    if (VOSesString == "Kuş Sesi") {
+                    System.out.println("vakit11" + VakitInfo);
+                    System.out.println("vakit22" + VOSesString);
 
-                        sharedPreferences.edit().putString("imsakVOSes", "kusSesi").apply();
+                    sharedPreferences.edit().putString("imsakVOSes", "kusSesi").apply();
 
-                    } else if (VOSesString == "Kuş Sesi2") {
+                } else if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Kuş Sesi 2"))  {
 
-                        sharedPreferences.edit().putString("imsakVOSes", "kusSesi2").apply();
-
-                    }
-
-                } else if (VakitInfo == "Gunes Vakti") {
+                    sharedPreferences.edit().putString("imsakVOSes", "kusSesi2").apply();
 
                 }
+
 
                 Intent sesKaydetIntent = new Intent(SoundSettingsDetailActivity.this, MainActivity.class);
                 startActivity(sesKaydetIntent);
 
-            }
+                }
+
         });
 
 
@@ -136,6 +135,7 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 binding.vaktindenOnceSoundTitle.setText(EzanSoundList.getEzanSoundListArray().get(newVal).getSoundName());
                 VOSesString = EzanSoundList.getEzanSoundListArray().get(newVal).getSoundName();
+                System.out.println("Ses" + VOSesString + VakitInfo);
 
 
             }
