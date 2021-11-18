@@ -1,8 +1,10 @@
 package com.fatihkilic.muminappandroid.ui.mumin;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,7 +29,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.fatihkilic.muminappandroid.Ayarlar.EzanVaktiBildirimReceiver;
 import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.FragmentMuminBinding;
@@ -104,6 +108,8 @@ public class muminFragment extends Fragment {
 
         notificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 
+        createNotificationChannel();
+
 
         System.out.println("imsakSessss" + vOImsakSesStr);
 
@@ -121,7 +127,7 @@ public class muminFragment extends Fragment {
         System.out.println("tarih" + System.currentTimeMillis());
 
 
-        bildirimgonder();
+
 
 
         Button notBut = binding.buttonnotification;
@@ -179,40 +185,41 @@ public class muminFragment extends Fragment {
 
     public void bildirimgonder() {
 
-        String Time = "2021/11/17 10:07:00";
+        Toast.makeText(requireActivity(), "Ezan Vakti", Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(getActivity(), EzanVaktiBildirimReceiver.class);
+        PendingIntent PendingEzan = PendingIntent.getBroadcast(MainActivity.class, 0, 0);
+
+        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+
+        long time = System.currentTimeMillis();
+
+        long teenSeconds = 1000 * 10;
+
+        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, time,teenSeconds,);
 
 
-        SimpleDateFormat convertVakittoMillis = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = null;
-        try {
-            date = convertVakittoMillis.parse(Time);
-            vakiMillis = date.getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
+
+
+
+    }
+
+
+    public void createNotificationChannel() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Ezan Vakitleri Kanalı";
+            String description = "Ezan Vakitleri için hatırlatma";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
+            ezanChannel.setDescription(description);
+
+            NotificationManager ezanVaktinotificationManager = requireActivity().getSystemService(NotificationManager.class);
+            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
+
+
+
         }
-
-
-        String chanelId = "chanel_ID_1";
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            NotificationChannel channel = new NotificationChannel(chanelId,"example channels", NotificationManager.IMPORTANCE_HIGH);
-            channel.setLightColor(Color.RED);
-            notificationManager.createNotificationChannel(channel);
-
-        }
-
-        NotificationCompat.Builder NotBuild = new NotificationCompat.Builder(getActivity(),chanelId);
-
-        NotBuild.setContentText("bbb");
-        NotBuild.setContentTitle("bbbb");
-        NotBuild.setSmallIcon(R.drawable.compas_bottom_24);
-        NotBuild.setWhen(vakiMillis);
-        // NotBuild.setSound(Uri.parse(R.raw.ahmedalnafes)));
-
-        notificationManager.notify(3,NotBuild.build());
-
-        System.out.println("vakitMillis10 " + vakiMillis);
 
     }
 
