@@ -91,6 +91,10 @@ public class muminFragment extends Fragment {
 
     SharedPreferences sharedPreferences;
 
+    EzanVaktiBildirimReceiver EzanVaktiReceivers;
+
+
+
     long vakiMillis;
 
 
@@ -139,8 +143,9 @@ public class muminFragment extends Fragment {
 
 
 
+                bildirimgonder();
 
-                String chanelId = "chanel_ID";
+              /*  String chanelId = "chanel_ID";
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
@@ -161,7 +166,7 @@ public class muminFragment extends Fragment {
 
                 notificationManager.notify(2,NotBuild.build());
 
-                System.out.println("vakitMillis " + vakiMillis);
+                System.out.println("vakitMillis " + vakiMillis); */
 
             }
         });
@@ -185,10 +190,13 @@ public class muminFragment extends Fragment {
 
     public void bildirimgonder() {
 
-        Toast.makeText(requireActivity(), "Ezan Vakti", Toast.LENGTH_LONG).show();
+        Toast.makeText(requireActivity(), "Ezan Vakti", Toast.LENGTH_SHORT).show();
+
 
         Intent intent = new Intent(getActivity(), EzanVaktiBildirimReceiver.class);
-        PendingIntent PendingEzan = PendingIntent.getBroadcast(MainActivity.class, 0, 0);
+        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
+
+
 
         AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
 
@@ -196,7 +204,7 @@ public class muminFragment extends Fragment {
 
         long teenSeconds = 1000 * 10;
 
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, time,teenSeconds,);
+        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, time + teenSeconds,PendingEzan);
 
 
 
