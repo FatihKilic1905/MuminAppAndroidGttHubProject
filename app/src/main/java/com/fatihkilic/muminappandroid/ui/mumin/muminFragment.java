@@ -1,7 +1,6 @@
 package com.fatihkilic.muminappandroid.ui.mumin;
 
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,29 +10,22 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavDirections;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fatihkilic.muminappandroid.Ayarlar.EzanVaktiBildirimReceiver;
-import com.fatihkilic.muminappandroid.MainActivity;
-import com.fatihkilic.muminappandroid.R;
+import com.fatihkilic.muminappandroid.Ayarlar.EzanVaktiBildirimleriSet;
+import com.fatihkilic.muminappandroid.Ayarlar.ImsakVaktiBildirimReceiver;
 import com.fatihkilic.muminappandroid.databinding.FragmentMuminBinding;
 
 import java.text.ParseException;
@@ -143,7 +135,8 @@ public class muminFragment extends Fragment {
 
 
 
-                bildirimgonder();
+                bildirimgonder("gggg");
+                imsakbildirimgonder("imsakkks");
 
               /*  String chanelId = "chanel_ID";
 
@@ -188,12 +181,19 @@ public class muminFragment extends Fragment {
 
     }
 
-    public void bildirimgonder() {
+    public void bildirimgonder(String title) {
+
+
 
         Toast.makeText(requireActivity(), "Ezan Vakti", Toast.LENGTH_SHORT).show();
 
+        sharedPreferences.edit().putString("VakitBildirimTitle", title).apply();
+
+
+
 
         Intent intent = new Intent(getActivity(), EzanVaktiBildirimReceiver.class);
+
         PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
 
 
@@ -204,10 +204,39 @@ public class muminFragment extends Fragment {
 
         long teenSeconds = 1000 * 10;
 
+
+
         ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, time + teenSeconds,PendingEzan);
 
 
+    }
 
+    public void imsakbildirimgonder(String title) {
+
+
+
+        Toast.makeText(requireActivity(), "Ezan Vakti", Toast.LENGTH_SHORT).show();
+
+        sharedPreferences.edit().putString("imsakVaktiBildirim", title).apply();
+
+
+
+
+        Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
+
+        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
+
+
+
+        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+
+        long time = System.currentTimeMillis();
+
+        long teenSeconds = 1500 * 10;
+
+
+
+        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, time + teenSeconds,PendingEzan);
 
 
     }

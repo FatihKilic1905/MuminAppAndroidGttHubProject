@@ -1,6 +1,5 @@
 package com.fatihkilic.muminappandroid.Ayarlar;
 
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +11,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.fatihkilic.muminappandroid.R;
 
-public class EzanVaktiBildirimReceiver extends BroadcastReceiver {
+public class ImsakVaktiBildirimReceiver extends BroadcastReceiver {
 
     SharedPreferences sharedPreferences;
 
@@ -23,7 +22,7 @@ public class EzanVaktiBildirimReceiver extends BroadcastReceiver {
 
         sharedPreferences = context.getSharedPreferences("com.fatihkilic.muminappandroid", Context.MODE_PRIVATE);
 
-        String titles = sharedPreferences.getString("VakitBildirimTitle", "dddd");
+        String titles = sharedPreferences.getString("imsakVaktiBildirim", "dddd");
 
 
 
@@ -37,7 +36,7 @@ public class EzanVaktiBildirimReceiver extends BroadcastReceiver {
 
         NotificationManagerCompat ezanNotificationManager = NotificationManagerCompat.from(context);
 
-        ezanNotificationManager.notify(1, EzanNotifyBuilder.build());
+        ezanNotificationManager.notify(2, EzanNotifyBuilder.build());
 
 
 
