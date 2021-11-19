@@ -98,6 +98,9 @@ public class muminFragment extends Fragment {
 
 
 
+
+
+
         sharedPreferences = requireActivity().getSharedPreferences("com.fatihkilic.muminappandroid", Context.MODE_PRIVATE);
 
         vOImsakSesStr = sharedPreferences.getString("imsakVOSes", "imsakVOSes");
@@ -117,6 +120,7 @@ public class muminFragment extends Fragment {
         vakitDatabase = requireActivity().openOrCreateDatabase("EZANVAKITLERIDATA", Context.MODE_PRIVATE,null);
 
 
+
         sistemTarihiVoid();
         sistemSaatiVoid();
 
@@ -133,10 +137,14 @@ public class muminFragment extends Fragment {
 
 
 
+                bildirimgonder("Allahım","neolur","",1, 10000);
+                imsakbildirimgonder("çoksukur","Allahım","",2, 15000);
 
 
-                bildirimgonder("gggg");
-                imsakbildirimgonder("imsakkks");
+
+
+
+
 
               /*  String chanelId = "chanel_ID";
 
@@ -181,62 +189,67 @@ public class muminFragment extends Fragment {
 
     }
 
-    public void bildirimgonder(String title) {
+    public void bildirimgonder(String titles, String descriptions, String sounds ,int notifyNum, int time ) {
 
 
 
         Toast.makeText(requireActivity(), "Ezan Vakti", Toast.LENGTH_SHORT).show();
-
-        sharedPreferences.edit().putString("VakitBildirimTitle", title).apply();
-
-
 
 
         Intent intent = new Intent(getActivity(), EzanVaktiBildirimReceiver.class);
 
+        intent.putExtra("NotTitle", titles);
+        intent.putExtra("NotDescription", descriptions);
+        intent.putExtra("NotSound", sounds);
+        intent.putExtra("NotNotifNum", notifyNum);
+
+        System.out.println("notifyNum" + notifyNum);
+
         PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
+
 
 
 
         AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
 
-        long time = System.currentTimeMillis();
+        long times = System.currentTimeMillis();
 
-        long teenSeconds = 1000 * 10;
+        long teenSeconds = time;
 
 
 
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, time + teenSeconds,PendingEzan);
+        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, times + teenSeconds,PendingEzan);
 
 
     }
 
-    public void imsakbildirimgonder(String title) {
-
-
+    public void imsakbildirimgonder(String titles, String descriptions, String sounds ,int notifyNum, int time) {
 
         Toast.makeText(requireActivity(), "Ezan Vakti", Toast.LENGTH_SHORT).show();
 
-        sharedPreferences.edit().putString("imsakVaktiBildirim", title).apply();
+        Intent intent1 = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
+
+        intent1.putExtra("NotTitle1", titles);
+        intent1.putExtra("NotDescription1", descriptions);
+        intent1.putExtra("NotSound1", sounds);
+        intent1.putExtra("NotNotifNum1", notifyNum);
+
+        System.out.println("notifyNum" + notifyNum);
 
 
-
-
-        Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
-
-        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
+        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent1, 0);
 
 
 
         AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
 
-        long time = System.currentTimeMillis();
+        long times = System.currentTimeMillis();
 
-        long teenSeconds = 1500 * 10;
+        long teenSeconds = time;
 
 
 
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, time + teenSeconds,PendingEzan);
+        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, times + teenSeconds,PendingEzan);
 
 
     }

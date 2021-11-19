@@ -17,26 +17,29 @@ public class ImsakVaktiBildirimReceiver extends BroadcastReceiver {
 
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(Context context, Intent intent1) {
 
+        String title = intent1.getStringExtra("NotTitle1");
+        String description = intent1.getStringExtra("NotDescription1");
+        String sound = intent1.getStringExtra("NotSound1");
+        int notifyNum = intent1.getIntExtra("NotNotifNum1",0);
 
-        sharedPreferences = context.getSharedPreferences("com.fatihkilic.muminappandroid", Context.MODE_PRIVATE);
+        System.out.println("notify"  + notifyNum);
 
-        String titles = sharedPreferences.getString("imsakVaktiBildirim", "dddd");
 
 
 
 
         NotificationCompat.Builder EzanNotifyBuilder = new NotificationCompat.Builder(context, "notifyEzan")
                 .setSmallIcon(R.drawable.ic_mumin_toolbar_logo)
-                .setContentTitle(titles)
-                .setContentText("descriptions")
-                .setSound(Uri.parse(""))
+                .setContentTitle(title)
+                .setContentText(description)
+                .setSound(Uri.parse(sound))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManagerCompat ezanNotificationManager = NotificationManagerCompat.from(context);
 
-        ezanNotificationManager.notify(2, EzanNotifyBuilder.build());
+        ezanNotificationManager.notify(notifyNum, EzanNotifyBuilder.build());
 
 
 
