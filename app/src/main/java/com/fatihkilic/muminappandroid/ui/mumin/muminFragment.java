@@ -4,12 +4,16 @@ import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -23,9 +27,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.fatihkilic.muminappandroid.Ayarlar.EzanVaktiBildirimReceiver;
-import com.fatihkilic.muminappandroid.Ayarlar.EzanVaktiBildirimleriSet;
-import com.fatihkilic.muminappandroid.Ayarlar.ImsakVaktiBildirimReceiver;
+import com.fatihkilic.muminappandroid.Ayarlar.Receiver.EzanVaktiBildirimReceiver;
+import com.fatihkilic.muminappandroid.Ayarlar.Receiver.ImsakVaktiBildirimReceiver;
+import com.fatihkilic.muminappandroid.MainActivity;
+import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.FragmentMuminBinding;
 
 import java.text.ParseException;
@@ -137,37 +142,10 @@ public class muminFragment extends Fragment {
 
 
 
-                bildirimgonder("Allahım","neolur","",1, 10000);
-                imsakbildirimgonder("çoksukur","Allahım","",2, 15000);
+                bildirimgonder("Şükürler","Allahım","rrh.mp3",1, 5000);
 
+                //imsakbildirimgonder("Sana","Olsun","",2, 0);
 
-
-
-
-
-
-              /*  String chanelId = "chanel_ID";
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-                    NotificationChannel channel = new NotificationChannel(chanelId,"example channel", NotificationManager.IMPORTANCE_HIGH);
-                    channel.setLightColor(Color.RED);
-                    notificationManager.createNotificationChannel(channel);
-
-                }
-
-
-                NotificationCompat.Builder NotBuild = new NotificationCompat.Builder(getActivity(),chanelId);
-
-                NotBuild.setContentText("bbb");
-                NotBuild.setContentTitle("bbbb");
-                NotBuild.setSmallIcon(R.drawable.compas_bottom_24);
-                NotBuild.setWhen(vakiMillis);
-               // NotBuild.setSound(Uri.parse(R.raw.ahmedalnafes)));
-
-                notificationManager.notify(2,NotBuild.build());
-
-                System.out.println("vakitMillis " + vakiMillis); */
 
             }
         });
@@ -191,9 +169,40 @@ public class muminFragment extends Fragment {
 
     public void bildirimgonder(String titles, String descriptions, String sounds ,int notifyNum, int time ) {
 
-
-
         Toast.makeText(requireActivity(), "Ezan Vakti", Toast.LENGTH_SHORT).show();
+
+        StringBuilder SoundUrl = new StringBuilder();
+        SoundUrl.append("/raw/");
+        SoundUrl.append(sounds);
+
+        Uri customSoundUri = Uri.parse("android.resource://" + requireActivity().getPackageName() + "/" + R.raw.rrh);
+        Uri customSoundUri1 = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + "/raw/rrh.mp3" );
+
+
+
+        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .build();
+
+            CharSequence name = "Ezan Vakitleri Kanalı";
+            String description = "Ezan Vakitleri için hatırlatma";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+
+
+            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
+            ezanChannel.setDescription(description);
+            ezanChannel.setSound(customSoundUri, audioAttributes);
+            System.out.println("URI " + customSoundUri);
+
+
+            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
+
+        }
 
 
         Intent intent = new Intent(getActivity(), EzanVaktiBildirimReceiver.class);
@@ -202,8 +211,11 @@ public class muminFragment extends Fragment {
         intent.putExtra("NotDescription", descriptions);
         intent.putExtra("NotSound", sounds);
         intent.putExtra("NotNotifNum", notifyNum);
-
         System.out.println("notifyNum" + notifyNum);
+
+
+
+
 
         PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
 
@@ -225,7 +237,16 @@ public class muminFragment extends Fragment {
 
     public void imsakbildirimgonder(String titles, String descriptions, String sounds ,int notifyNum, int time) {
 
+
         Toast.makeText(requireActivity(), "Ezan Vakti", Toast.LENGTH_SHORT).show();
+
+
+
+
+        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+
 
         Intent intent1 = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
 
@@ -236,10 +257,7 @@ public class muminFragment extends Fragment {
 
         System.out.println("notifyNum" + notifyNum);
 
-
         PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent1, 0);
-
-
 
         AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
 
@@ -247,9 +265,11 @@ public class muminFragment extends Fragment {
 
         long teenSeconds = time;
 
-
-
         ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, times + teenSeconds,PendingEzan);
+
+
+
+
 
 
     }
@@ -257,19 +277,7 @@ public class muminFragment extends Fragment {
 
     public void createNotificationChannel() {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            CharSequence name = "Ezan Vakitleri Kanalı";
-            String description = "Ezan Vakitleri için hatırlatma";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
-            ezanChannel.setDescription(description);
 
-            NotificationManager ezanVaktinotificationManager = requireActivity().getSystemService(NotificationManager.class);
-            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
-
-
-
-        }
 
     }
 

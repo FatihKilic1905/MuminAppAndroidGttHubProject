@@ -43,8 +43,8 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".Ayarlar.EzanVaktiBildirimReceiver"/>
-        <receiver android:name=".Ayarlar.EzanVaktiBildirimReceiver"/>
+        <receiver android:name=".Ayarlar.Receiver.EzanVaktiBildirimReceiver"/>
+        <receiver android:name=".Ayarlar.Receiver.ImsakVaktiBildirimReceiver"/>
 
     </application>
 
