@@ -70,17 +70,32 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sound_settings_detail);
 
-        Intent VakitIntent = getIntent();
-        VakitInfo = VakitIntent.getStringExtra("VakitInfo");
-
-
-        getSupportActionBar().setTitle(VakitInfo);
-
-        sharedPreferences = this.getSharedPreferences("com.fatihkilic.muminappandroid", Context.MODE_PRIVATE);
-
         binding = ActivitySoundSettingsDetailBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        Intent VakitIntent = getIntent();
+        VakitInfo = VakitIntent.getStringExtra("VakitInfo");
+
+        sharedPreferences = this.getSharedPreferences("com.fatihkilic.muminappandroid", Context.MODE_PRIVATE);
+
+        getSupportActionBar().setTitle(VakitInfo);
+
+
+        binding.soundPickerList.setVisibility(View.INVISIBLE);
+        binding.secimiTamamlaButton.setVisibility(View.INVISIBLE);
+        binding.surePickerList.setVisibility(View.INVISIBLE);
+        binding.pickerListBack.setVisibility(View.INVISIBLE);
+
+        EzanSoundList.initEzanSound();
+
+        binding.soundPickerList.setMaxValue(EzanSoundList.getEzanSoundListArray().size() - 1);
+        binding.soundPickerList.setMinValue(0);
+        binding.soundPickerList.setDisplayedValues(EzanSoundList.ezanNames());
+
+        binding.surePickerList.setMaxValue(60);
+        binding.surePickerList.setMinValue(5);
+        binding.surePickerList.setValue(45);
 
         anahtarVaktinde = binding.vaktindeSwitch;
         anahtarVaktindenOnce = binding.vaktindenOnceSwitch;
@@ -128,7 +143,6 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 } else {
 
-
                     binding.vaktindeSoundTitle.setText("Kapalı");
                     binding.vaktindeSoundSelectButton.setVisibility(View.INVISIBLE);
 
@@ -139,6 +153,14 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
         });
 
         getBildirimSound();
+
+
+
+
+
+
+
+
 
         Button VOSesSecButton = binding.vaktindenOnceSoundSelectButton;
 
@@ -204,14 +226,17 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
                 binding.secimiTamamlaButton.setVisibility(View.INVISIBLE);
                 binding.surePickerList.setVisibility(View.INVISIBLE);
                 binding.pickerListBack.setVisibility(View.INVISIBLE);
-                binding.pickerListBack.setVisibility(View.INVISIBLE);
                 binding.kaydetButton.setVisibility(View.VISIBLE);
                 binding.vaktindenOnceSoundSelectButton.setVisibility(View.VISIBLE);
                 binding.vaktindeSoundSelectButton.setVisibility(View.VISIBLE);
                 binding.minuteSelectButton.setVisibility(View.VISIBLE);
                 binding.vaktindenOnceSwitch.setVisibility(View.VISIBLE);
                 binding.vaktindeSwitch.setVisibility(View.VISIBLE);
-                EzanSound1.stop();
+
+                System.out.println(VOSesString);
+                System.out.println(VaktindeSesString);
+                System.out.println(VOsureInt);
+
 
             }
         });
@@ -237,11 +262,15 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
             }
         });
 
-
         Button kaydetButton = binding.kaydetButton;
+
         kaydetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                System.out.println("Kaydet" + VOSesString);
+                System.out.println("Kaydet" + VaktindeSesString);
+                System.out.println("Kaydet" + VOsureInt);
 
                 if (VOSesString.equals("Kapalı")) {
 
@@ -253,32 +282,32 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
                     if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Kuş Sesi")) {
 
                         sharedPreferences.edit().putString("vOImsakSesStr", "kussesi1.mp3").apply();
-                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt).apply();
 
 
                     } else if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Kuş Sesi 2")) {
 
                         sharedPreferences.edit().putString("vOImsakSesStr", "kussesi2.mp3").apply();
-                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt).apply();
 
 
                     } else if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Ahmad Al Nafees")) {
 
                         sharedPreferences.edit().putString("vOImsakSesStr", "ahmadalnafes.mp3").apply();
-                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt).apply();
 
 
 
                     } else if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Masjid Al Haram")) {
 
                         sharedPreferences.edit().putString("vOImsakSesStr", "masjidalharam.mp3").apply();
-                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt).apply();
 
 
                     } else if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Mishary Rashid Alafasy")) {
 
                         sharedPreferences.edit().putString("vOImsakSesStr", "misharyrasidalafasy.mp3").apply();
-                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt).apply();
 
 
                     }
@@ -324,27 +353,27 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
                     if (VakitInfo.equals("Güneş Vakti") && VOSesString.equals("Kuş Sesi")) {
 
                         sharedPreferences.edit().putString("vOGunesSesStr", "kussesi1.mp3").apply();
-                        sharedPreferences.edit().putInt("vOGunesSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOGunesSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("Güneş Vakti") && VOSesString.equals("Kuş Sesi 2")) {
 
                         sharedPreferences.edit().putString("vOGunesSesStr", "kussesi2.mp3").apply();
-                        sharedPreferences.edit().putInt("vOGunesSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOGunesSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("Güneş Vakti") && VOSesString.equals("Ahmad Al Nafees")) {
 
                         sharedPreferences.edit().putString("vOGunesSesStr", "ahmadalnafes.mp3").apply();
-                        sharedPreferences.edit().putInt("vOGunesSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOGunesSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("Güneş Vakti") && VOSesString.equals("Masjid Al Haram")) {
 
                         sharedPreferences.edit().putString("vOGunesSesStr", "masjidalharam.mp3").apply();
-                        sharedPreferences.edit().putInt("vOGunesSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOGunesSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("Güneş Vakti") && VOSesString.equals("Mishary Rashid Alafasy")) {
 
                         sharedPreferences.edit().putString("vOGunesSesStr", "misharyrasidalafasy.mp3").apply();
-                        sharedPreferences.edit().putInt("vOGunesSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOGunesSureInt", VOsureInt).apply();
 
                     }
 
@@ -390,27 +419,27 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
                     if (VakitInfo.equals("Öğle Vakti") && VOSesString.equals("Kuş Sesi")) {
 
                         sharedPreferences.edit().putString("vOOgleSesStr", "kussesi1.mp3").apply();
-                        sharedPreferences.edit().putInt("vOOgleSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOOgleSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("Öğle Vakti") && VOSesString.equals("Kuş Sesi 2")) {
 
                         sharedPreferences.edit().putString("vOOgleSesStr", "kussesi2.mp3").apply();
-                        sharedPreferences.edit().putInt("vOOgleSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOOgleSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("Öğle Vakti") && VOSesString.equals("Ahmad Al Nafees")) {
 
                         sharedPreferences.edit().putString("vOOgleSesStr", "ahmadalnafes.mp3").apply();
-                        sharedPreferences.edit().putInt("vOOgleSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOOgleSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("Öğle Vakti") && VOSesString.equals("Masjid Al Haram")) {
 
                         sharedPreferences.edit().putString("vOOgleSesStr", "masjidalharam.mp3").apply();
-                        sharedPreferences.edit().putInt("vOOgleSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOOgleSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("Öğle Vakti") && VOSesString.equals("Mishary Rashid Alafasy")) {
 
                         sharedPreferences.edit().putString("vOOgleSesStr", "misharyrasidalafasy.mp3").apply();
-                        sharedPreferences.edit().putInt("vOOgleSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOOgleSureInt", VOsureInt).apply();
 
                     }
 
@@ -457,27 +486,27 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
                     if (VakitInfo.equals("İkindi Vakti") && VOSesString.equals("Kuş Sesi")) {
 
                         sharedPreferences.edit().putString("vOIkindiSesStr", "kussesi1.mp3").apply();
-                        sharedPreferences.edit().putInt("vOIkindiSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOIkindiSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("İkindi Vakti") && VOSesString.equals("Kuş Sesi 2")) {
 
                         sharedPreferences.edit().putString("vOIkindiSesStr", "kussesi2.mp3").apply();
-                        sharedPreferences.edit().putInt("vOIkindiSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOIkindiSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("İkindi Vakti") && VOSesString.equals("Ahmad Al Nafees")) {
 
                         sharedPreferences.edit().putString("vOIkindiSesStr", "ahmadalnafes.mp3").apply();
-                        sharedPreferences.edit().putInt("vOIkindiSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOIkindiSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("İkindi Vakti") && VOSesString.equals("Masjid Al Haram")) {
 
                         sharedPreferences.edit().putString("vOIkindiSesStr", "masjidalharam.mp3").apply();
-                        sharedPreferences.edit().putInt("vOIkindiSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOIkindiSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("İkindi Vakti") && VOSesString.equals("Mishary Rashid Alafasy")) {
 
                         sharedPreferences.edit().putString("vOIkindiSesStr", "misharyrasidalafasy.mp3").apply();
-                        sharedPreferences.edit().putInt("vOIkindiSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOIkindiSureInt", VOsureInt).apply();
 
                     }
 
@@ -525,27 +554,27 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
                     if (VakitInfo.equals("Akşam Vakti") && VOSesString.equals("Kuş Sesi")) {
 
                         sharedPreferences.edit().putString("vOAksamSesStr", "kussesi1.mp3").apply();
-                        sharedPreferences.edit().putInt("vOAksamSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOAksamSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("Akşam Vakti") && VOSesString.equals("Kuş Sesi 2")) {
 
                         sharedPreferences.edit().putString("vOAksamSesStr", "kussesi2.mp3").apply();
-                        sharedPreferences.edit().putInt("vOAksamSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOAksamSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("Akşam Vakti") && VOSesString.equals("Ahmad Al Nafees")) {
 
                         sharedPreferences.edit().putString("vOAksamSesStr", "ahmadalnafes.mp3").apply();
-                        sharedPreferences.edit().putInt("vOAksamSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOAksamSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("Akşam Vakti") && VOSesString.equals("Masjid Al Haram")) {
 
                         sharedPreferences.edit().putString("vOAksamSesStr", "masjidalharam.mp3").apply();
-                        sharedPreferences.edit().putInt("vOAksamSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOAksamSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("Akşam Vakti") && VOSesString.equals("Mishary Rashid Alafasy")) {
 
                         sharedPreferences.edit().putString("vOAksamSesStr", "misharyrasidalafasy.mp3").apply();
-                        sharedPreferences.edit().putInt("vOAksamSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOAksamSureInt", VOsureInt).apply();
 
                     }
 
@@ -591,27 +620,27 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
                     if (VakitInfo.equals("Yatsı Vakti") && VOSesString.equals("Kuş Sesi")) {
 
                         sharedPreferences.edit().putString("vOYatsiSesStr", "kussesi1.mp3").apply();
-                        sharedPreferences.edit().putInt("vOYatsiSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOYatsiSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("Yatsı Vakti") && VOSesString.equals("Kuş Sesi 2")) {
 
                         sharedPreferences.edit().putString("vOYatsiSesStr", "kussesi2.mp3").apply();
-                        sharedPreferences.edit().putInt("vOYatsiSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOYatsiSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("Yatsı Vakti") && VOSesString.equals("Ahmad Al Nafees")) {
 
                         sharedPreferences.edit().putString("vOYatsiSesStr", "ahmadalnafes.mp3").apply();
-                        sharedPreferences.edit().putInt("vOYatsiSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOYatsiSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("Yatsı Vakti") && VOSesString.equals("Masjid Al Haram")) {
 
                         sharedPreferences.edit().putString("vOYatsiSesStr", "masjidalharam.mp3").apply();
-                        sharedPreferences.edit().putInt("vOYatsiSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOYatsiSureInt", VOsureInt).apply();
 
                     } else if (VakitInfo.equals("Yatsı Vakti") && VOSesString.equals("Mishary Rashid Alafasy")) {
 
                         sharedPreferences.edit().putString("vOYatsiSesStr", "misharyrasidalafasy.mp3").apply();
-                        sharedPreferences.edit().putInt("vOYatsiSureInt", VOsureInt);
+                        sharedPreferences.edit().putInt("vOYatsiSureInt", VOsureInt).apply();
 
                     }
 
@@ -654,22 +683,6 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
             }
 
         });
-
-
-        binding.soundPickerList.setVisibility(View.INVISIBLE);
-        binding.secimiTamamlaButton.setVisibility(View.INVISIBLE);
-        binding.surePickerList.setVisibility(View.INVISIBLE);
-        binding.pickerListBack.setVisibility(View.INVISIBLE);
-
-        EzanSoundList.initEzanSound();
-
-        binding.soundPickerList.setMaxValue(EzanSoundList.getEzanSoundListArray().size() - 1);
-        binding.soundPickerList.setMinValue(0);
-        binding.soundPickerList.setDisplayedValues(EzanSoundList.ezanNames());
-
-        binding.surePickerList.setMaxValue(60);
-        binding.surePickerList.setMinValue(5);
-        binding.surePickerList.setValue(45);
 
         binding.soundPickerList.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
@@ -778,6 +791,7 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
 
                 VOsureInt = newVal;
+                System.out.println(VOsureInt);
 
                 String newValue = String.valueOf(newVal);
 
@@ -786,6 +800,7 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
             }
         });
+
 
 
     }
@@ -816,10 +831,6 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
         vOYatsiSesStr = sharedPreferences.getString("vOYatsiSesStr", "");
         vYatsiSesStr = sharedPreferences.getString("vYatsiSesStr", "");
 
-        System.out.println(vOImsakSureInt);
-        System.out.println(vOImsakSesStr);
-        System.out.println(vImsakSesStr);
-
         String voTitle;
         String vtitle;
 
@@ -838,6 +849,11 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
         if (VakitInfo.equals("İmsak Vakti")) {
 
+            System.out.println("cekti " + vOImsakSureInt);
+            System.out.println("cekti " + vOImsakSesStr);
+            System.out.println("cekti " +vImsakSesStr);
+
+
             String sure = String.valueOf(vOImsakSureInt);
             binding.minuteTitle.setText(sure);
 
@@ -846,25 +862,35 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
             if (voTitle == notSesi11) {
 
+                System.out.println("TitleVo" + voTitle);
+
                 binding.vaktindenOnceSoundTitle.setText(notSesi1);
                 mainvOTitle = notSesi1;
 
             } else if (voTitle == notSesi22) {
+
+                System.out.println("TitleVo" + voTitle);
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi2);
                 mainvOTitle = notSesi2;
 
             } else if (voTitle == notSesi33) {
 
+                System.out.println("TitleVo" + voTitle);
+
                 binding.vaktindenOnceSoundTitle.setText(notSesi3);
                 mainvOTitle = notSesi3;
 
             } else if (voTitle == notSesi44) {
 
+                System.out.println("TitleVo" + voTitle);
+
                 binding.vaktindenOnceSoundTitle.setText(notSesi4);
                 mainvOTitle = notSesi4;
 
             } else if (voTitle == notSesi55) {
+
+                System.out.println("TitleVo" + voTitle);
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi5);
                 mainvOTitle = notSesi5;
