@@ -101,30 +101,15 @@ public class muminFragment extends Fragment {
 
 
 
-
-
-
-
-
         sharedPreferences = requireActivity().getSharedPreferences("com.fatihkilic.muminappandroid", Context.MODE_PRIVATE);
 
-        vOImsakSesStr = sharedPreferences.getString("imsakVOSes", "imsakVOSes");
-
         notificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        createNotificationChannel();
-
-
-        System.out.println("imsakSessss" + vOImsakSesStr);
 
 
         binding = FragmentMuminBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
         vakitDatabase = requireActivity().openOrCreateDatabase("EZANVAKITLERIDATA", Context.MODE_PRIVATE,null);
-
-
 
         sistemTarihiVoid();
         sistemSaatiVoid();
@@ -133,19 +118,14 @@ public class muminFragment extends Fragment {
 
 
 
-
-
         Button notBut = binding.buttonnotification;
         notBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
-
                 bildirimgonder("Şükürler","Allahım","rrh.mp3",1, 5000);
 
                 //imsakbildirimgonder("Sana","Olsun","",2, 0);
-
 
             }
         });
@@ -165,6 +145,13 @@ public class muminFragment extends Fragment {
 
 
 
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
     public void bildirimgonder(String titles, String descriptions, String sounds ,int notifyNum, int time ) {
@@ -204,7 +191,6 @@ public class muminFragment extends Fragment {
 
         }
 
-
         Intent intent = new Intent(getActivity(), EzanVaktiBildirimReceiver.class);
 
         intent.putExtra("NotTitle", titles);
@@ -213,15 +199,8 @@ public class muminFragment extends Fragment {
         intent.putExtra("NotNotifNum", notifyNum);
         System.out.println("notifyNum" + notifyNum);
 
-
-
-
-
         PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
 
-
-
-
         AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
 
         long times = System.currentTimeMillis();
@@ -234,67 +213,6 @@ public class muminFragment extends Fragment {
 
 
     }
-
-    public void imsakbildirimgonder(String titles, String descriptions, String sounds ,int notifyNum, int time) {
-
-
-        Toast.makeText(requireActivity(), "Ezan Vakti", Toast.LENGTH_SHORT).show();
-
-
-
-
-        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-
-
-
-        Intent intent1 = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
-
-        intent1.putExtra("NotTitle1", titles);
-        intent1.putExtra("NotDescription1", descriptions);
-        intent1.putExtra("NotSound1", sounds);
-        intent1.putExtra("NotNotifNum1", notifyNum);
-
-        System.out.println("notifyNum" + notifyNum);
-
-        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent1, 0);
-
-        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        long times = System.currentTimeMillis();
-
-        long teenSeconds = time;
-
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, times + teenSeconds,PendingEzan);
-
-
-
-
-
-
-    }
-
-
-    public void createNotificationChannel() {
-
-
-
-    }
-
-
-
-
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-
-
-
-
 
     public void getEzanVakti() {
 
@@ -786,14 +704,6 @@ public class muminFragment extends Fragment {
 
     }
 
-    public void bildirimGonderVoid(String ContentTitle, String ContentText, String Time ) throws ParseException {
 
-        SimpleDateFormat convertVakittoMillis = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = convertVakittoMillis.parse(Time);
-        long vakitMillis = date.getTime();
-
-
-
-    }
 
 }

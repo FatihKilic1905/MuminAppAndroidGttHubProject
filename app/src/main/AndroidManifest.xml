@@ -45,6 +45,17 @@
 
         <receiver android:name=".Ayarlar.Receiver.EzanVaktiBildirimReceiver"/>
         <receiver android:name=".Ayarlar.Receiver.ImsakVaktiBildirimReceiver"/>
+        <receiver android:name=".Ayarlar.Receiver.ImsakOncesiBildirimReceiver"/>
+        <receiver android:name=".Ayarlar.Receiver.GunesBildirimReceiver"/>
+        <receiver android:name=".Ayarlar.Receiver.GunesOncesiBildirimReceiver"/>
+        <receiver android:name=".Ayarlar.Receiver.OglenBildirimReceiver"/>
+        <receiver android:name=".Ayarlar.Receiver.OglenOncesiBildirimReceiver"/>
+        <receiver android:name=".Ayarlar.Receiver.IkindiBildirimReceiver"/>
+        <receiver android:name=".Ayarlar.Receiver.IkindiOncesiBildirimReceiver"/>
+        <receiver android:name=".Ayarlar.Receiver.AksamBildirimReceiver"/>
+        <receiver android:name=".Ayarlar.Receiver.AksamOncesiBildirimReceiver"/>
+        <receiver android:name=".Ayarlar.Receiver.YatsiBildirimReceiver"/>
+        <receiver android:name=".Ayarlar.Receiver.YatsiOncesiBildirimReceiver"/>
 
     </application>
 

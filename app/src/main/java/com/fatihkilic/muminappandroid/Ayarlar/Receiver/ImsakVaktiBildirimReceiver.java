@@ -13,21 +13,14 @@ import com.fatihkilic.muminappandroid.R;
 
 public class ImsakVaktiBildirimReceiver extends BroadcastReceiver {
 
-    SharedPreferences sharedPreferences;
-
 
     @Override
-    public void onReceive(Context context, Intent intent1) {
+    public void onReceive(Context context, Intent intentImsak) {
 
-        String title = intent1.getStringExtra("NotTitle1");
-        String description = intent1.getStringExtra("NotDescription1");
-        String sound = intent1.getStringExtra("NotSound1");
-        int notifyNum = intent1.getIntExtra("NotNotifNum1",0);
-
-        System.out.println("notify"  + notifyNum);
-
-
-
+        String title = intentImsak.getStringExtra("ImsakNotTitle");
+        String description = intentImsak.getStringExtra("ImsakNotDescription");
+        String sound = intentImsak.getStringExtra("ImsakNotSound");
+        int notifyNum = intentImsak.getIntExtra("ImsakNotNotifyNum",0);
 
 
         NotificationCompat.Builder EzanNotifyBuilder = new NotificationCompat.Builder(context, "notifyEzan")
@@ -40,8 +33,6 @@ public class ImsakVaktiBildirimReceiver extends BroadcastReceiver {
         NotificationManagerCompat ezanNotificationManager = NotificationManagerCompat.from(context);
 
         ezanNotificationManager.notify(notifyNum, EzanNotifyBuilder.build());
-
-
 
     }
 }

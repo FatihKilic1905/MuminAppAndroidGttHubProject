@@ -24,8 +24,14 @@ public class EzanSoundList {
         EzanSoundList ezan2 = new EzanSoundList(1, "Kuş Sesi 2");
         EzanSoundListArray.add(ezan2);
 
-        EzanSoundList ezan3 = new EzanSoundList(2, "Kuş Sesi 3");
+        EzanSoundList ezan3 = new EzanSoundList(2, "Ahmad Al Nafees");
         EzanSoundListArray.add(ezan3);
+
+        EzanSoundList ezan4 = new EzanSoundList(3, "Masjid Al Haram");
+        EzanSoundListArray.add(ezan4);
+
+        EzanSoundList ezan5 = new EzanSoundList(3, "Mishary Rashid Alafasy");
+        EzanSoundListArray.add(ezan5);
 
 
     }

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,13 +25,24 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
     private ActivitySoundSettingsDetailBinding binding;
     Switch anahtarVaktinde;
     SharedPreferences sharedPreferences;
+
     String VOSesString;
+    String VaktindeSesString;
+    String VOControl;
+    MediaPlayer EzanSound1;
+
+
 
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sound_settings_detail);
+
+        Intent VakitIntent = getIntent();
+        VakitInfo = VakitIntent.getStringExtra("VakitInfo");
+
+        getSupportActionBar().setTitle(VakitInfo);
 
         sharedPreferences = this.getSharedPreferences("com.fatihkilic.muminappandroid", Context.MODE_PRIVATE);
 
@@ -75,8 +87,32 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
                 binding.soundPickerList.setVisibility(View.VISIBLE);
                 binding.secimiTamamlaButton.setVisibility(View.VISIBLE);
 
-                System.out.println("Fatih");
+                VOControl = "VO";
+                System.out.println(VOControl);
 
+                EzanSound1 = MediaPlayer.create(SoundSettingsDetailActivity.this, R.raw.kussesi1);
+
+                EzanSound1.start();
+
+            }
+        });
+
+        Button VSesSecButton = binding.vaktindeSoundSelectButton;
+
+        VSesSecButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                binding.soundPickerList.setVisibility(View.VISIBLE);
+                binding.secimiTamamlaButton.setVisibility(View.VISIBLE);
+
+                VOControl = "V";
+
+                System.out.println(VOControl);
+
+                EzanSound1 = MediaPlayer.create(SoundSettingsDetailActivity.this, R.raw.kussesi1);
+
+                EzanSound1.start();
 
             }
         });
@@ -89,6 +125,7 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 binding.soundPickerList.setVisibility(View.INVISIBLE);
                 binding.secimiTamamlaButton.setVisibility(View.INVISIBLE);
+                EzanSound1.stop();
 
             }
         });
@@ -101,14 +138,33 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Kuş Sesi")) {
 
-                    System.out.println("vakit11" + VakitInfo);
-                    System.out.println("vakit22" + VOSesString);
+                    sharedPreferences.edit().putString("imsakVOSes", "kussesi1.mp3").apply();
 
-                    sharedPreferences.edit().putString("imsakVOSes", "kusSesi").apply();
+
 
                 } else if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Kuş Sesi 2"))  {
 
-                    sharedPreferences.edit().putString("imsakVOSes", "kusSesi2").apply();
+                    sharedPreferences.edit().putString("imsakVOSes", "kussesi2.mp3").apply();
+
+
+
+                } else if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Ahmad Al Nafees")) {
+
+                    sharedPreferences.edit().putString("imsakVOSes", "ahmadalnafes.mp3").apply();
+
+
+
+                } else if  (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Masjid Al Haram")) {
+
+                    sharedPreferences.edit().putString("imsakVOSes", "masjidalharam.mp3").apply();
+
+
+
+                } else if  (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Mishary Rashid Alafasy")) {
+
+                    sharedPreferences.edit().putString("imsakVOSes", "misharyrasidalafasy.mp3").apply();
+
+
 
                 }
 
@@ -133,9 +189,99 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
-                binding.vaktindenOnceSoundTitle.setText(EzanSoundList.getEzanSoundListArray().get(newVal).getSoundName());
-                VOSesString = EzanSoundList.getEzanSoundListArray().get(newVal).getSoundName();
-                System.out.println("Ses" + VOSesString + VakitInfo);
+                if (VOControl.equals("VO")) {
+
+                    binding.vaktindenOnceSoundTitle.setText(EzanSoundList.getEzanSoundListArray().get(newVal).getSoundName());
+                    VOSesString = EzanSoundList.getEzanSoundListArray().get(newVal).getSoundName();
+
+                    if (VOSesString.equals("Kuş Sesi")) {
+
+                        EzanSound1.stop();
+
+                        EzanSound1 = MediaPlayer.create(SoundSettingsDetailActivity.this, R.raw.kussesi1);
+
+                        EzanSound1.start();
+
+                    } else if (VOSesString.equals("Kuş Sesi 2"))  {
+                        EzanSound1.stop();
+
+                        EzanSound1 = MediaPlayer.create(SoundSettingsDetailActivity.this, R.raw.kussesi2);
+
+                        EzanSound1.start();
+
+                    } else if (VOSesString.equals("Ahmad Al Nafees")) {
+
+                        EzanSound1.stop();
+
+                        EzanSound1 = MediaPlayer.create(SoundSettingsDetailActivity.this, R.raw.ahmadalnafes);
+
+                        EzanSound1.start();
+
+                    } else if  (VOSesString.equals("Masjid Al Haram")) {
+
+                        EzanSound1.stop();
+
+                        EzanSound1 = MediaPlayer.create(SoundSettingsDetailActivity.this, R.raw.masjidalharam);
+
+                        EzanSound1.start();
+
+                    } else if  (VOSesString.equals("Mishary Rashid Alafasy")) {
+
+                        EzanSound1.stop();
+
+                        EzanSound1 = MediaPlayer.create(SoundSettingsDetailActivity.this, R.raw.misharyrasidalafasy);
+
+                        EzanSound1.start();
+
+                    }
+
+                } else if (VOControl.equals("V")) {
+
+                    binding.vaktindeSoundTitle.setText(EzanSoundList.getEzanSoundListArray().get(newVal).getSoundName());
+                    VaktindeSesString = EzanSoundList.getEzanSoundListArray().get(newVal).getSoundName();
+
+                    if (VaktindeSesString.equals("Kuş Sesi")) {
+
+                        EzanSound1.stop();
+
+                        EzanSound1 = MediaPlayer.create(SoundSettingsDetailActivity.this, R.raw.kussesi1);
+
+                        EzanSound1.start();
+
+                    } else if (VaktindeSesString.equals("Kuş Sesi 2"))  {
+                        EzanSound1.stop();
+
+                        EzanSound1 = MediaPlayer.create(SoundSettingsDetailActivity.this, R.raw.kussesi2);
+
+                        EzanSound1.start();
+
+                    } else if (VaktindeSesString.equals("Ahmad Al Nafees")) {
+
+                        EzanSound1.stop();
+
+                        EzanSound1 = MediaPlayer.create(SoundSettingsDetailActivity.this, R.raw.ahmadalnafes);
+
+                        EzanSound1.start();
+
+                    } else if  (VaktindeSesString.equals("Masjid Al Haram")) {
+
+                        EzanSound1.stop();
+
+                        EzanSound1 = MediaPlayer.create(SoundSettingsDetailActivity.this, R.raw.masjidalharam);
+
+                        EzanSound1.start();
+
+                    } else if  (VaktindeSesString.equals("Mishary Rashid Alafasy")) {
+
+                        EzanSound1.stop();
+
+                        EzanSound1 = MediaPlayer.create(SoundSettingsDetailActivity.this, R.raw.misharyrasidalafasy);
+
+                        EzanSound1.start();
+
+                    }
+                }
+
 
 
             }
@@ -145,16 +291,9 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
 
 
-
-        Intent VakitIntent = getIntent();
-        VakitInfo = VakitIntent.getStringExtra("VakitInfo");
-
-        getSupportActionBar().setTitle(VakitInfo);
-
-
         //binding.vaktindenOnceBaslikBack.setBackground(ContextCompat.getDrawable(this, R.drawable.corner_layer_top_2_radius_red));
 
-        binding.vaktindeSoundSelectButton.setBackgroundColor(Color.rgb(0,149,254));
+
 
 
 
