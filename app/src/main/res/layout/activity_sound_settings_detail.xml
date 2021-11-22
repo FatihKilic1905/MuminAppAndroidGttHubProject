@@ -30,6 +30,7 @@
             android:id="@+id/dakikaOnceTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="44dp"
             android:text="dakika önce"
             android:textSize="20dp"
@@ -37,7 +38,7 @@
             app:layout_constraintHorizontal_bias="0.17"
             app:layout_constraintStart_toEndOf="@+id/minuteTitle"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints,UnknownId" />
 
         <TextView
             android:id="@+id/minuteTitle"
@@ -52,7 +53,7 @@
             tools:ignore="MissingConstraints" />
 
         <Button
-            android:id="@+id/mibuteSelectButton"
+            android:id="@+id/minuteSelectButton"
             android:layout_width="70dp"
             android:layout_height="35dp"
             android:layout_marginTop="40dp"
@@ -151,24 +152,50 @@ android:thumbTint="@color/muminAppGreen"         app:layout_constraintStart_toEn
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<NumberPicker
-    android:id="@+id/soundPickerList"
-    android:layout_width="380dp"
-    android:layout_height="150dp"
-    android:layout_marginTop="30dp"
-    android:layout_gravity="center"
-
-
-    ></NumberPicker>
-
-    <Button
-        android:id="@+id/secimiTamamlaButton"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pickerListBack"
         android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:text="Tamam"
+        android:layout_height="220dp"
         android:layout_gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="30dp"
+        android:background="@drawable/layer_stroke_4_corner"
+        >
+
+        <NumberPicker
+            android:id="@+id/soundPickerList"
+            android:layout_width="380dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="68dp"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"></NumberPicker>
+
+        <NumberPicker
+            android:id="@+id/surePickerList"
+            android:layout_width="380dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="68dp"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"></NumberPicker>
+
+        <Button
+            android:id="@+id/secimiTamamlaButton"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            android:text="Tamam"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <Button
@@ -180,5 +207,11 @@ android:thumbTint="@color/muminAppGreen"         app:layout_constraintStart_toEn
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
