@@ -278,38 +278,27 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 } else {
 
+                    sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt).apply();
 
                     if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Kuş Sesi")) {
 
                         sharedPreferences.edit().putString("vOImsakSesStr", "kussesi1.mp3").apply();
-                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt).apply();
-
 
                     } else if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Kuş Sesi 2")) {
 
                         sharedPreferences.edit().putString("vOImsakSesStr", "kussesi2.mp3").apply();
-                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt).apply();
-
 
                     } else if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Ahmad Al Nafees")) {
 
                         sharedPreferences.edit().putString("vOImsakSesStr", "ahmadalnafes.mp3").apply();
-                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt).apply();
-
-
 
                     } else if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Masjid Al Haram")) {
 
                         sharedPreferences.edit().putString("vOImsakSesStr", "masjidalharam.mp3").apply();
-                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt).apply();
-
 
                     } else if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Mishary Rashid Alafasy")) {
 
                         sharedPreferences.edit().putString("vOImsakSesStr", "misharyrasidalafasy.mp3").apply();
-                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt).apply();
-
-
                     }
 
                 }
@@ -849,75 +838,60 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
         if (VakitInfo.equals("İmsak Vakti")) {
 
-            System.out.println("cekti " + vOImsakSureInt);
-            System.out.println("cekti " + vOImsakSesStr);
-            System.out.println("cekti " +vImsakSesStr);
-
-
             String sure = String.valueOf(vOImsakSureInt);
             binding.minuteTitle.setText(sure);
 
             voTitle = vOImsakSesStr;
             vtitle = vImsakSesStr;
 
-            if (voTitle == notSesi11) {
-
-                System.out.println("TitleVo" + voTitle);
+            if (voTitle.equals(notSesi11)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi1);
                 mainvOTitle = notSesi1;
 
-            } else if (voTitle == notSesi22) {
-
-                System.out.println("TitleVo" + voTitle);
+            } else if (voTitle.equals(notSesi22)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi2);
                 mainvOTitle = notSesi2;
 
-            } else if (voTitle == notSesi33) {
-
-                System.out.println("TitleVo" + voTitle);
+            } else if (voTitle.equals(notSesi33)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi3);
                 mainvOTitle = notSesi3;
 
-            } else if (voTitle == notSesi44) {
-
-                System.out.println("TitleVo" + voTitle);
+            } else if (voTitle.equals(notSesi44)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi4);
                 mainvOTitle = notSesi4;
 
-            } else if (voTitle == notSesi55) {
-
-                System.out.println("TitleVo" + voTitle);
+            } else if (voTitle.equals(notSesi55)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi5);
                 mainvOTitle = notSesi5;
             }
 
 
-            if (vtitle == notSesi11) {
+            if (vtitle.equals(notSesi11)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi1);
                 mainVtitle = notSesi1;
 
-            } else if (vtitle == notSesi22) {
+            } else if (vtitle.equals(notSesi22)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi2);
                 mainVtitle = notSesi2;
 
-            } else if (vtitle == notSesi33) {
+            } else if (vtitle.equals(notSesi33)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi3);
                 mainVtitle = notSesi3;
 
-            } else if (vtitle == notSesi44) {
+            } else if (vtitle.equals(notSesi44)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi4);
                 mainVtitle = notSesi4;
 
-            } else if (vtitle == notSesi55) {
+            } else if (vtitle.equals(notSesi55)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi5);
                 mainVtitle = notSesi5;
@@ -932,58 +906,59 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
             voTitle = vOGunesSesStr;
             vtitle = vGunesSesStr;
 
-            if (voTitle == notSesi11) {
+            if (voTitle.equals(notSesi11)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi1);
                 mainvOTitle = notSesi1;
 
-            } else if (voTitle == notSesi22) {
+            } else if (voTitle.equals(notSesi22)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi2);
                 mainvOTitle = notSesi2;
 
-            } else if (voTitle == notSesi33) {
+            } else if (voTitle.equals(notSesi33)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi3);
                 mainvOTitle = notSesi3;
 
-            } else if (voTitle == notSesi44) {
+            } else if (voTitle.equals(notSesi44)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi4);
                 mainvOTitle = notSesi4;
 
-            } else if (voTitle == notSesi55) {
+            } else if (voTitle.equals(notSesi55)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi5);
                 mainvOTitle = notSesi5;
             }
 
 
-            if (vtitle == notSesi11) {
+            if (vtitle.equals(notSesi11)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi1);
                 mainVtitle = notSesi1;
 
-            } else if (vtitle == notSesi22) {
+            } else if (vtitle.equals(notSesi22)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi2);
                 mainVtitle = notSesi2;
 
-            } else if (vtitle == notSesi33) {
+            } else if (vtitle.equals(notSesi33)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi3);
                 mainVtitle = notSesi3;
 
-            } else if (vtitle == notSesi44) {
+            } else if (vtitle.equals(notSesi44)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi4);
                 mainVtitle = notSesi4;
 
-            } else if (vtitle == notSesi55) {
+            } else if (vtitle.equals(notSesi55)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi5);
                 mainVtitle = notSesi5;
             }
+
 
         } else if (VakitInfo.equals("Öğle Vakti")) {
 
@@ -993,58 +968,59 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
             voTitle = vOOgleSesStr;
             vtitle = vOgleSesStr;
 
-            if (voTitle == notSesi11) {
+            if (voTitle.equals(notSesi11)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi1);
                 mainvOTitle = notSesi1;
 
-            } else if (voTitle == notSesi22) {
+            } else if (voTitle.equals(notSesi22)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi2);
                 mainvOTitle = notSesi2;
 
-            } else if (voTitle == notSesi33) {
+            } else if (voTitle.equals(notSesi33)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi3);
                 mainvOTitle = notSesi3;
 
-            } else if (voTitle == notSesi44) {
+            } else if (voTitle.equals(notSesi44)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi4);
                 mainvOTitle = notSesi4;
 
-            } else if (voTitle == notSesi55) {
+            } else if (voTitle.equals(notSesi55)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi5);
                 mainvOTitle = notSesi5;
             }
 
 
-            if (vtitle == notSesi11) {
+            if (vtitle.equals(notSesi11)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi1);
                 mainVtitle = notSesi1;
 
-            } else if (vtitle == notSesi22) {
+            } else if (vtitle.equals(notSesi22)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi2);
                 mainVtitle = notSesi2;
 
-            } else if (vtitle == notSesi33) {
+            } else if (vtitle.equals(notSesi33)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi3);
                 mainVtitle = notSesi3;
 
-            } else if (vtitle == notSesi44) {
+            } else if (vtitle.equals(notSesi44)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi4);
                 mainVtitle = notSesi4;
 
-            } else if (vtitle == notSesi55) {
+            } else if (vtitle.equals(notSesi55)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi5);
                 mainVtitle = notSesi5;
             }
+
 
         } else if (VakitInfo.equals("İkindi Vakti")) {
 
@@ -1054,58 +1030,59 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
             voTitle = vOIkindiSesStr;
             vtitle = vIkindiSesStr;
 
-            if (voTitle == notSesi11) {
+            if (voTitle.equals(notSesi11)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi1);
                 mainvOTitle = notSesi1;
 
-            } else if (voTitle == notSesi22) {
+            } else if (voTitle.equals(notSesi22)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi2);
                 mainvOTitle = notSesi2;
 
-            } else if (voTitle == notSesi33) {
+            } else if (voTitle.equals(notSesi33)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi3);
                 mainvOTitle = notSesi3;
 
-            } else if (voTitle == notSesi44) {
+            } else if (voTitle.equals(notSesi44)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi4);
                 mainvOTitle = notSesi4;
 
-            } else if (voTitle == notSesi55) {
+            } else if (voTitle.equals(notSesi55)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi5);
                 mainvOTitle = notSesi5;
             }
 
 
-            if (vtitle == notSesi11) {
+            if (vtitle.equals(notSesi11)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi1);
                 mainVtitle = notSesi1;
 
-            } else if (vtitle == notSesi22) {
+            } else if (vtitle.equals(notSesi22)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi2);
                 mainVtitle = notSesi2;
 
-            } else if (vtitle == notSesi33) {
+            } else if (vtitle.equals(notSesi33)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi3);
                 mainVtitle = notSesi3;
 
-            } else if (vtitle == notSesi44) {
+            } else if (vtitle.equals(notSesi44)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi4);
                 mainVtitle = notSesi4;
 
-            } else if (vtitle == notSesi55) {
+            } else if (vtitle.equals(notSesi55)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi5);
                 mainVtitle = notSesi5;
             }
+
 
         } else if (VakitInfo.equals("Akşam Vakti")) {
 
@@ -1115,58 +1092,59 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
             voTitle = vOAksamSesStr;
             vtitle = vAksamSesStr;
 
-            if (voTitle == notSesi11) {
+            if (voTitle.equals(notSesi11)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi1);
                 mainvOTitle = notSesi1;
 
-            } else if (voTitle == notSesi22) {
+            } else if (voTitle.equals(notSesi22)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi2);
                 mainvOTitle = notSesi2;
 
-            } else if (voTitle == notSesi33) {
+            } else if (voTitle.equals(notSesi33)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi3);
                 mainvOTitle = notSesi3;
 
-            } else if (voTitle == notSesi44) {
+            } else if (voTitle.equals(notSesi44)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi4);
                 mainvOTitle = notSesi4;
 
-            } else if (voTitle == notSesi55) {
+            } else if (voTitle.equals(notSesi55)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi5);
                 mainvOTitle = notSesi5;
             }
 
 
-            if (vtitle == notSesi11) {
+            if (vtitle.equals(notSesi11)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi1);
                 mainVtitle = notSesi1;
 
-            } else if (vtitle == notSesi22) {
+            } else if (vtitle.equals(notSesi22)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi2);
                 mainVtitle = notSesi2;
 
-            } else if (vtitle == notSesi33) {
+            } else if (vtitle.equals(notSesi33)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi3);
                 mainVtitle = notSesi3;
 
-            } else if (vtitle == notSesi44) {
+            } else if (vtitle.equals(notSesi44)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi4);
                 mainVtitle = notSesi4;
 
-            } else if (vtitle == notSesi55) {
+            } else if (vtitle.equals(notSesi55)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi5);
                 mainVtitle = notSesi5;
             }
+
 
         } else if (VakitInfo.equals("Yatsı Vakti")) {
 
@@ -1176,54 +1154,54 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
             voTitle = vOYatsiSesStr;
             vtitle = vYatsiSesStr;
 
-            if (voTitle == notSesi11) {
+            if (voTitle.equals(notSesi11)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi1);
                 mainvOTitle = notSesi1;
 
-            } else if (voTitle == notSesi22) {
+            } else if (voTitle.equals(notSesi22)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi2);
                 mainvOTitle = notSesi2;
 
-            } else if (voTitle == notSesi33) {
+            } else if (voTitle.equals(notSesi33)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi3);
                 mainvOTitle = notSesi3;
 
-            } else if (voTitle == notSesi44) {
+            } else if (voTitle.equals(notSesi44)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi4);
                 mainvOTitle = notSesi4;
 
-            } else if (voTitle == notSesi55) {
+            } else if (voTitle.equals(notSesi55)) {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi5);
                 mainvOTitle = notSesi5;
             }
 
 
-            if (vtitle == notSesi11) {
+            if (vtitle.equals(notSesi11)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi1);
                 mainVtitle = notSesi1;
 
-            } else if (vtitle == notSesi22) {
+            } else if (vtitle.equals(notSesi22)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi2);
                 mainVtitle = notSesi2;
 
-            } else if (vtitle == notSesi33) {
+            } else if (vtitle.equals(notSesi33)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi3);
                 mainVtitle = notSesi3;
 
-            } else if (vtitle == notSesi44) {
+            } else if (vtitle.equals(notSesi44)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi4);
                 mainVtitle = notSesi4;
 
-            } else if (vtitle == notSesi55) {
+            } else if (vtitle.equals(notSesi55)) {
 
                 binding.vaktindeSoundTitle.setText(notSesi5);
                 mainVtitle = notSesi5;
