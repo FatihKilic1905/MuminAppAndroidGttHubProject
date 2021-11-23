@@ -38,6 +38,7 @@ public class EzanVaktiBildirimReceiver extends BroadcastReceiver {
 
         Uri custumSoundUri = Uri.parse("android.resource://" + intent.getComponent().getPackageName() + "/" + R.raw.rrh);
         Uri customSoundUri1 = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + intent.getComponent().getPackageName() + "/raw/rrh.mp3" );
+       // Uri customSoundUri = Uri.parse("android.resource://" + intentImsak.getComponent().getPackageName()+ SoundUrl);
         System.out.println("URII " + custumSoundUri);
 
 

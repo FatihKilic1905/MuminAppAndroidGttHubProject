@@ -33,10 +33,13 @@ import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.FragmentMuminBinding;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 
 public class muminFragment extends Fragment {
@@ -51,27 +54,27 @@ public class muminFragment extends Fragment {
     String aksamVakti;
     String yatsiVakti;
 
-    String vOImsakSureStr;
+    Integer vOImsakSureInt;
     String vOImsakSesStr;
     String vImsakSesStr;
 
-    String vOGunesSureStr;
+    Integer vOGunesSureInt;
     String vOGunesSesStr;
     String vGunesSesStr;
 
-    String vOOgleSureStr;
+    Integer vOOgleSureInt;
     String vOOgleSesStr;
     String vOgleSesStr;
 
-    String vOIkindiSureStr;
+    Integer vOIkindiSureInt;
     String vOIkindiSesStr;
     String vIkindiSesStr;
 
-    String vOAksamSureStr;
+    Integer vOAksamSureInt;
     String vOAksamSesStr;
     String vAksamSesStr;
 
-    String vOYatsiSureStr;
+    Integer vOYatsiSureInt;
     String vOYatsiSesStr;
     String vYatsiSesStr;
 
@@ -90,31 +93,25 @@ public class muminFragment extends Fragment {
 
     EzanVaktiBildirimReceiver EzanVaktiReceivers;
 
-
-
-    long vakiMillis;
-
+    String vaktinAyetiStr;
+    String vaktinHadisiStr;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-
+        binding = FragmentMuminBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
 
         sharedPreferences = requireActivity().getSharedPreferences("com.fatihkilic.muminappandroid", Context.MODE_PRIVATE);
 
         notificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 
-
-        binding = FragmentMuminBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
         vakitDatabase = requireActivity().openOrCreateDatabase("EZANVAKITLERIDATA", Context.MODE_PRIVATE,null);
 
         sistemTarihiVoid();
         sistemSaatiVoid();
-
-        System.out.println("tarih" + System.currentTimeMillis());
+        getBildirimSound();
 
 
 
@@ -123,7 +120,11 @@ public class muminFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                bildirimgonder("Şükürler","Allahım","rrh.mp3",1, 5000);
+                try {
+                    bildirimGonderImsak("Şükürler",vImsakSesStr,1,"2021-11-23 18:11:00");
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
                 //imsakbildirimgonder("Sana","Olsun","",2, 0);
 
@@ -154,65 +155,7 @@ public class muminFragment extends Fragment {
         binding = null;
     }
 
-    public void bildirimgonder(String titles, String descriptions, String sounds ,int notifyNum, int time ) {
 
-        Toast.makeText(requireActivity(), "Ezan Vakti", Toast.LENGTH_SHORT).show();
-
-        StringBuilder SoundUrl = new StringBuilder();
-        SoundUrl.append("/raw/");
-        SoundUrl.append(sounds);
-
-        Uri customSoundUri = Uri.parse("android.resource://" + requireActivity().getPackageName() + "/" + R.raw.rrh);
-        Uri customSoundUri1 = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + "/raw/rrh.mp3" );
-
-
-
-        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build();
-
-            CharSequence name = "Ezan Vakitleri Kanalı";
-            String description = "Ezan Vakitleri için hatırlatma";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-
-
-            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
-            ezanChannel.setDescription(description);
-            ezanChannel.setSound(customSoundUri, audioAttributes);
-            System.out.println("URI " + customSoundUri);
-
-
-            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
-
-        }
-
-        Intent intent = new Intent(getActivity(), EzanVaktiBildirimReceiver.class);
-
-        intent.putExtra("NotTitle", titles);
-        intent.putExtra("NotDescription", descriptions);
-        intent.putExtra("NotSound", sounds);
-        intent.putExtra("NotNotifNum", notifyNum);
-        System.out.println("notifyNum" + notifyNum);
-
-        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
-
-        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        long times = System.currentTimeMillis();
-
-        long teenSeconds = time;
-
-
-
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, times + teenSeconds,PendingEzan);
-
-
-    }
 
     public void getEzanVakti() {
 
@@ -700,6 +643,124 @@ public class muminFragment extends Fragment {
         sistemSaatiStr = sistemSaat.format(sistemSaati);
 
         System.out.println("Saaat" + sistemSaatiStr);
+
+
+    }
+
+    public void bildirimGonderImsak(String titles, String sounds ,int notifyNum, String time ) throws ParseException {
+
+        vaktinHAdisi();
+
+        // Create Sounds Link
+        StringBuilder SoundUrl = new StringBuilder();
+        SoundUrl.append("/raw/");
+        SoundUrl.append(sounds);
+
+
+        // Convert LongTime
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = formatter.parse(time);
+        long  longdate = date.getTime();
+        System.out.println(date);
+        System.out.println(longdate);
+
+        Uri customSoundUri = Uri.parse("android.resource://" + requireActivity().getPackageName() + "/" + R.raw.kussesi1);
+       // Uri customSoundUri = Uri.parse("android.resource://" + requireActivity().getPackageName()+ SoundUrl);
+       // Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + SoundUrl);
+       // System.out.println(customSoundUri);
+
+        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .build();
+
+            CharSequence name = "Ezan Vakitleri Kanalı";
+            String description = "Ezan Vakitleri için hatırlatma";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+
+
+            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
+            ezanChannel.setDescription(description);
+            ezanChannel.setSound(customSoundUri, audioAttributes);
+
+
+            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
+
+        }
+
+        Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
+
+        intent.putExtra("vImsakTitle", titles);
+        intent.putExtra("vImsakDescription", vaktinHadisiStr);
+        intent.putExtra("vImsakSound", sounds);
+        intent.putExtra("vImsakNotifyNum", notifyNum);
+
+        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
+
+        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+
+        long along = System.currentTimeMillis();
+        long timesss = 1000 * 5;
+
+        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, along + timesss,PendingEzan);
+
+    }
+
+    public void vaktinHAdisi () {
+
+        Random random = new Random();
+        int a = random.nextInt(10);
+
+        String[] vaktinHadisiArray = {"1","2","3","4","5","6","7","8","9","10"};
+
+        vaktinHadisiStr = vaktinHadisiArray[a];
+
+    }
+
+    public void vaktinAyeti () {
+
+        Random random = new Random();
+        int a = random.nextInt(10);
+
+        String[] vaktinAyetiArray = {"1","2","3","4","5","6","7","8","9","10"};
+
+        vaktinAyetiStr = vaktinAyetiArray[a];
+
+    }
+
+    public void getBildirimSound() {
+
+        vOImsakSureInt = sharedPreferences.getInt("vOImsakSureInt", 0);
+        vOImsakSesStr = sharedPreferences.getString("vOImsakSesStr", "");
+        vImsakSesStr = sharedPreferences.getString("vImsakSesStr", "");
+
+        vOGunesSureInt = sharedPreferences.getInt("vOGunesSureInt", 0);
+        vOGunesSesStr = sharedPreferences.getString("vOGunesSesStr", "");
+        vGunesSesStr = sharedPreferences.getString("vGunesSesStr", "");
+
+        vOOgleSureInt = sharedPreferences.getInt("vOOgleSureInt", 0);
+        vOOgleSesStr = sharedPreferences.getString("vOOgleSesStr", "");
+        vOgleSesStr = sharedPreferences.getString("vOgleSesStr", "");
+
+        vOIkindiSureInt = sharedPreferences.getInt("vOIkindiSureInt", 0);
+        vOIkindiSesStr = sharedPreferences.getString("vOIkindiSesStr", "");
+        vIkindiSesStr = sharedPreferences.getString("vIkindiSesStr", "");
+
+        vOAksamSureInt = sharedPreferences.getInt("vOAksamSureInt", 0);
+        vOAksamSesStr = sharedPreferences.getString("vOAksamSesStr", "");
+        vAksamSesStr = sharedPreferences.getString("vAksamSesStr", "");
+
+        vOYatsiSureInt = sharedPreferences.getInt("vOYatsiSureInt", 0);
+        vOYatsiSesStr = sharedPreferences.getString("vOYatsiSesStr", "");
+        vYatsiSesStr = sharedPreferences.getString("vYatsiSesStr", "");
+
+
+
+
 
 
     }

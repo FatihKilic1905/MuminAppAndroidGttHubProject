@@ -222,6 +222,12 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if (EzanSound1.isPlaying()) {
+
+                    EzanSound1.stop();
+
+                }
+
                 binding.soundPickerList.setVisibility(View.INVISIBLE);
                 binding.secimiTamamlaButton.setVisibility(View.INVISIBLE);
                 binding.surePickerList.setVisibility(View.INVISIBLE);
@@ -836,7 +842,13 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
         String notSesi55 = "misharyrasidalafasy.mp3";
 
 
+
+
         if (VakitInfo.equals("İmsak Vakti")) {
+
+            VOSesString = vOImsakSesStr;
+            VaktindeSesString = vImsakSesStr;
+            VOsureInt = vOImsakSureInt;
 
             String sure = String.valueOf(vOImsakSureInt);
             binding.minuteTitle.setText(sure);
@@ -900,6 +912,10 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
         } else if (VakitInfo.equals("Güneş Vakti")) {
 
+            VOSesString = vOGunesSesStr;
+            VaktindeSesString = vGunesSesStr;
+            VOsureInt = vOGunesSureInt;
+
             String sure = String.valueOf(vOGunesSureInt);
             binding.minuteTitle.setText(sure);
 
@@ -961,6 +977,10 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
 
         } else if (VakitInfo.equals("Öğle Vakti")) {
+
+            VOSesString = vOOgleSesStr;
+            VaktindeSesString = vOgleSesStr;
+            VOsureInt = vOOgleSureInt;
 
             String sure = String.valueOf(vOOgleSureInt);
             binding.minuteTitle.setText(sure);
@@ -1024,6 +1044,10 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
         } else if (VakitInfo.equals("İkindi Vakti")) {
 
+            VOSesString = vOIkindiSesStr;
+            VaktindeSesString = vIkindiSesStr;
+            VOsureInt = vOIkindiSureInt;
+
             String sure = String.valueOf(vOIkindiSureInt);
             binding.minuteTitle.setText(sure);
 
@@ -1086,6 +1110,10 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
         } else if (VakitInfo.equals("Akşam Vakti")) {
 
+            VOSesString = vOAksamSesStr;
+            VaktindeSesString = vAksamSesStr;
+            VOsureInt = vOAksamSureInt;
+
             String sure = String.valueOf(vOAksamSureInt);
             binding.minuteTitle.setText(sure);
 
@@ -1147,6 +1175,10 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
 
         } else if (VakitInfo.equals("Yatsı Vakti")) {
+
+            VOSesString = vOYatsiSesStr;
+            VaktindeSesString = vYatsiSesStr;
+            VOsureInt = vOYatsiSureInt;
 
             String sure = String.valueOf(vOYatsiSureInt);
             binding.minuteTitle.setText(sure);

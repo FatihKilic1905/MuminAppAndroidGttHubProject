@@ -27,7 +27,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
-                    android:id="@+id/imsakVaktiSoundSettingTitle"
+                    android:id="@+id/imsakTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="İmsak Vakti"
@@ -61,7 +61,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
-                    android:id="@+id/İmsakVaktindenOnceLabel"
+                    android:id="@+id/imsakVOLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vaktinden Önce"
@@ -75,7 +75,7 @@
                     app:layout_constraintVertical_bias="0.13" />
 
                 <TextView
-                    android:id="@+id/imsakVaktindenoncetimeLabel2"
+                    android:id="@+id/imsakVOSoundTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sound"
@@ -88,7 +88,7 @@
                     app:layout_constraintVertical_bias="0.398" />
 
                 <TextView
-                    android:id="@+id/imsakVaktindeLabel2"
+                    android:id="@+id/imsakVTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vaktinde"
@@ -101,7 +101,7 @@
                     app:layout_constraintVertical_bias="0.691" />
 
                 <TextView
-                    android:id="@+id/imsakVaktindeSoundLabel3"
+                    android:id="@+id/imsakVSoundTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sound"
@@ -125,7 +125,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
-                    android:id="@+id/gunesVaktiSoundSettingTitle"
+                    android:id="@+id/gunesTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Güneş"
@@ -159,7 +159,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
-                    android:id="@+id/gunesVaktindenOnceLabel"
+                    android:id="@+id/gunesVOTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vaktinden Önce"
@@ -173,7 +173,7 @@
                     app:layout_constraintVertical_bias="0.13" />
 
                 <TextView
-                    android:id="@+id/gunesVaktindenoncetimeLabel2"
+                    android:id="@+id/gunesVOSoundTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sound"
@@ -186,7 +186,7 @@
                     app:layout_constraintVertical_bias="0.398" />
 
                 <TextView
-                    android:id="@+id/gunesVaktindeLabel2"
+                    android:id="@+id/gunesVTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vaktinde"
@@ -199,7 +199,7 @@
                     app:layout_constraintVertical_bias="0.691" />
 
                 <TextView
-                    android:id="@+id/gunesVaktindeTimeLabel"
+                    android:id="@+id/gunesVSoundTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sound"
@@ -223,7 +223,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
-                    android:id="@+id/ogleVaktiSoundSettingTitle"
+                    android:id="@+id/ogleTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Öğle Vakti"
@@ -257,7 +257,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
-                    android:id="@+id/ogleVaktindenOnceLabel"
+                    android:id="@+id/ogleVOtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vaktinden Önce"
@@ -271,7 +271,7 @@
                     app:layout_constraintVertical_bias="0.13" />
 
                 <TextView
-                    android:id="@+id/oglevaktindenoncetimeLabel"
+                    android:id="@+id/ogleVOSoundTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sound"
@@ -284,7 +284,7 @@
                     app:layout_constraintVertical_bias="0.398" />
 
                 <TextView
-                    android:id="@+id/ogleVaktindeLabel"
+                    android:id="@+id/ogleVTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vaktinde"
@@ -297,7 +297,7 @@
                     app:layout_constraintVertical_bias="0.691" />
 
                 <TextView
-                    android:id="@+id/ogleVaktindeTimeLabel"
+                    android:id="@+id/ogleVSoundTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sound"
@@ -320,7 +320,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
-                    android:id="@+id/ikindiVaktiSoundSettingTitle"
+                    android:id="@+id/ikindiTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="İkindi Vakti"
@@ -354,7 +354,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
-                    android:id="@+id/ikindiVaktindenOnceLabel"
+                    android:id="@+id/ikindiVOTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vaktinden Önce"
@@ -368,7 +368,7 @@
                     app:layout_constraintVertical_bias="0.13" />
 
                 <TextView
-                    android:id="@+id/ikindiVaktindenoncetimeLabel"
+                    android:id="@+id/ikindiVOSoundTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sound"
@@ -381,7 +381,7 @@
                     app:layout_constraintVertical_bias="0.398" />
 
                 <TextView
-                    android:id="@+id/ikindiVaktindeLabel"
+                    android:id="@+id/ikindiVTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vaktinde"
@@ -394,7 +394,7 @@
                     app:layout_constraintVertical_bias="0.691" />
 
                 <TextView
-                    android:id="@+id/ikindiVaktindeTimeLabel"
+                    android:id="@+id/ikindiVSoundTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sound"
@@ -417,7 +417,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
-                    android:id="@+id/aksamVaktiSoundSettingTitle"
+                    android:id="@+id/aksamTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Akşam Vakti"
@@ -451,7 +451,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
-                    android:id="@+id/aksamVaktindenOnceLabel"
+                    android:id="@+id/aksamVOTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vaktinden Önce"
@@ -465,7 +465,7 @@
                     app:layout_constraintVertical_bias="0.13" />
 
                 <TextView
-                    android:id="@+id/aksamVaktindenoncetimeLabel"
+                    android:id="@+id/aksamVOSoundTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sound"
@@ -478,7 +478,7 @@
                     app:layout_constraintVertical_bias="0.398" />
 
                 <TextView
-                    android:id="@+id/aksamVaktindeLabel"
+                    android:id="@+id/aksamVTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vaktinde"
@@ -491,7 +491,7 @@
                     app:layout_constraintVertical_bias="0.691" />
 
                 <TextView
-                    android:id="@+id/aksamVaktindeTimeLabel"
+                    android:id="@+id/aksamVSoundTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sound"
@@ -514,7 +514,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
-                    android:id="@+id/yatsiVaktiSoundSettingTitle"
+                    android:id="@+id/yatsiTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Yatsı Vakti"
@@ -548,7 +548,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
-                    android:id="@+id/yatsiVaktindenOnceLabel"
+                    android:id="@+id/yatsiVOTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vaktinden Önce"
@@ -562,7 +562,7 @@
                     app:layout_constraintVertical_bias="0.13" />
 
                 <TextView
-                    android:id="@+id/yatsiVaktindenoncetimeLabel"
+                    android:id="@+id/yatsiVOSoundTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sound"
@@ -575,7 +575,7 @@
                     app:layout_constraintVertical_bias="0.398" />
 
                 <TextView
-                    android:id="@+id/yatsiVaktindeLabel"
+                    android:id="@+id/yatsiVaktindeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vaktinde"
@@ -588,7 +588,7 @@
                     app:layout_constraintVertical_bias="0.691" />
 
                 <TextView
-                    android:id="@+id/yatsiVaktindeTimeLabel"
+                    android:id="@+id/yatsiVSoundTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sound"
@@ -601,6 +601,7 @@
                     app:layout_constraintVertical_bias="0.967" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
