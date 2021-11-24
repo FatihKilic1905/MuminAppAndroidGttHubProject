@@ -12,6 +12,7 @@
         android:layout_height="186dp"
         android:text="Ben bildirim Ekranıyım"
         android:textSize="50dp"
+        android:inputType="number"
         tools:layout_editor_absoluteX="54dp"
         tools:layout_editor_absoluteY="208dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

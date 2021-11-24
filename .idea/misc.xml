@@ -13,13 +13,15 @@
         <entry key="..\:/SOFTWARE/muminAppAndroid/app/src/main/res/layout/fragment_notifications.xml" value="0.25" />
         <entry key="..\:/SOFTWARE/muminAppAndroid/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Pc/Creative Cloud Files/SOFTWARE/ANDROID/MuminAppAndroid/app/src/main/res/layout/activity_main.xml" value="0.23233695652173914" />
+        <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_bildirim.xml" value="0.23385416666666667" />
+        <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_ses_settings.xml" value="0.33" />
+        <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_zekat_matik.xml" value="0.23385416666666667" />
         <entry key="..\:/Users/alone/Creative Cloud Files/SOFTWARE/ANDROID/MuminAppAndroid/app/src/main/res/layout/activity_konum.xml" value="0.25" />
         <entry key="..\:/Users/alone/Creative Cloud Files/SOFTWARE/ANDROID/MuminAppAndroid/app/src/main/res/layout/activity_main.xml" value="0.12771739130434784" />
         <entry key="..\:/Users/alone/Creative Cloud Files/SOFTWARE/ANDROID/MuminAppAndroid/app/src/main/res/layout/fragment_mumin.xml" value="0.22" />
         <entry key="app/src/main/res/drawable/compas_bottom_24.xml" value="0.3963541666666667" />
         <entry key="app/src/main/res/drawable/compass_black_24dp.xml" value="0.23072916666666668" />
         <entry key="app/src/main/res/drawable/corner_4_radius.xml" value="0.44583333333333336" />
-        <entry key="app/src/main/res/drawable/corner_4_radius_red.xml" value="0.390625" />
         <entry key="app/src/main/res/drawable/corner_layer_top_2_radius.xml" value="0.44583333333333336" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.23072916666666668" />
         <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.23072916666666668" />
@@ -27,7 +29,6 @@
         <entry key="app/src/main/res/drawable/ic_mumin_toolbar_logo.xml" value="0.3963541666666667" />
         <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.23072916666666668" />
         <entry key="app/src/main/res/drawable/layer_stroke_4_corner.xml" value="0.44583333333333336" />
-        <entry key="app/src/main/res/drawable/layer_stroke_4_corner_red.xml" value="0.390625" />
         <entry key="app/src/main/res/drawable/layer_stroke_bottom_corner_radius.xml" value="0.44583333333333336" />
         <entry key="app/src/main/res/layout/activity_ezan_vakti.xml" value="0.40677083333333336" />
         <entry key="app/src/main/res/layout/activity_ilceler.xml" value="0.35625" />
@@ -35,7 +36,6 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_sehirler.xml" value="0.42083333333333334" />
         <entry key="app/src/main/res/layout/activity_sound_settings_detail.xml" value="0.38179347826086957" />
-        <entry key="app/src/main/res/layout/activity_zekat_matik.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.75" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.5172101449275363" />
         <entry key="app/src/main/res/layout/fragment_mumin.xml" value="0.47685834502103785" />
