@@ -33,19 +33,15 @@ public class ImsakVaktiBildirimReceiver extends BroadcastReceiver {
         SoundUrl.append(sound);
 
 
+        Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + context.getPackageName() + SoundUrl);
 
-
-
-       Uri custumSoundUri = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.kussesi1);
-       Uri customSoundUri = Uri.parse("android.resource://" + intentImsak.getComponent().getPackageName()+ SoundUrl);
-        System.out.println(custumSoundUri);
 
 
         NotificationCompat.Builder EzanNotifyBuilder = new NotificationCompat.Builder(context, "notifyEzan")
                 .setSmallIcon(R.drawable.ic_mumin_toolbar_logo)
                 .setContentTitle(title)
                 .setContentText(description)
-                .setSound(custumSoundUri)
+                .setSound(customSoundUri)
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
 
         Intent intent = new Intent(context, BildirimActivity.class);

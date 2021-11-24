@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.fatihkilic.muminappandroid.Ayarlar.AyarlarActivity;
 import com.fatihkilic.muminappandroid.Ulkeler.KonumActivity;
 import com.fatihkilic.muminappandroid.R;
+import com.fatihkilic.muminappandroid.ZekatMatik.ZekatMatikActivity;
 import com.fatihkilic.muminappandroid.databinding.FragmentNotificationsBinding;
 
 public class NotificationsFragment extends Fragment {
@@ -36,6 +37,19 @@ public class NotificationsFragment extends Fragment {
                 startActivity(konum);
             }
         });
+
+        Button zekatMatikButton = (Button)root.findViewById(R.id.ZekatmatikButton);
+        zekatMatikButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent zekatmatikIntent = new Intent(getActivity(), ZekatMatikActivity.class);
+                startActivity(zekatmatikIntent);
+
+            }
+        });
+
+
 
 
 

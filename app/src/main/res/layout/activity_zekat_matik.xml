@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayoutCompat"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ZekatMatik.ZekatMatikActivity">
+
+
+    <Button
+        android:id="@+id/varliklarButton"
+        android:layout_width="160dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:text="Varlıklarım"
+        app:layout_constraintBottom_toTopOf="@+id/tlTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/borclarButton"
+        android:layout_width="160dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="30dp"
+        android:text="Borçlarım"
+        android:backgroundTint="@color/red"
+        app:layout_constraintBottom_toTopOf="@+id/tlTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/varliklarButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/tlTextView"
+        android:layout_width="377dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="76dp"
+        android:background="@drawable/layer_stroke_4_corner"
+
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="TL"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dolarTextView"
+        android:layout_width="377dp"
+        android:layout_height="36dp"
+        android:background="@drawable/layer_stroke_4_corner"
+        android:layout_marginTop="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="Dolar"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tlTextView" />
+
+    <EditText
+        android:id="@+id/euroTextView"
+        android:layout_width="377dp"
+        android:layout_height="36dp"
+        android:background="@drawable/layer_stroke_4_corner"
+        android:layout_marginTop="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="Euro"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dolarTextView" />
+
+    <EditText
+        android:id="@+id/tamAltinTexView"
+        android:layout_width="377dp"
+        android:layout_height="36dp"
+        android:background="@drawable/layer_stroke_4_corner"
+        android:layout_marginTop="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="Tam Altın"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/euroTextView" />
+
+    <EditText
+        android:id="@+id/yarimAltinTextView"
+        android:layout_width="377dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/layer_stroke_4_corner"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="Yarım Altın"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tamAltinTexView" />
+
+    <EditText
+        android:id="@+id/ayar22TextView"
+        android:layout_width="377dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/layer_stroke_4_corner"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="22 Ayar Altın"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ceyrekAltinTextView" />
+
+    <EditText
+        android:id="@+id/ayar18TextView"
+        android:layout_width="377dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/layer_stroke_4_corner"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="18 Ayar Altın"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ayar22TextView" />
+
+    <EditText
+        android:id="@+id/ayar14TextView"
+        android:layout_width="377dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/layer_stroke_4_corner"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="14 Ayar Altın"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ayar18TextView" />
+
+    <EditText
+        android:id="@+id/ceyrekAltinTextView"
+        android:layout_width="377dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="36dp"
+        android:background="@drawable/layer_stroke_4_corner"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="Çeyrek Altın"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/yarimAltinTextView" />
+
+    <EditText
+
+        android:id="@+id/borctlTextView"
+
+
+        android:layout_width="377dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="76dp"
+        android:background="@drawable/layer_stroke_4_corner_red"
+        android:hint="TL"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:text=""
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/borcdolarTextView"
+        android:layout_width="377dp"
+        android:layout_height="36dp"
+        android:background="@drawable/layer_stroke_4_corner_red"
+        android:layout_marginTop="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="Dolar"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tlTextView" />
+
+    <EditText
+        android:id="@+id/borceuroTextView"
+        android:layout_width="377dp"
+        android:layout_height="36dp"
+        android:background="@drawable/layer_stroke_4_corner_red"
+        android:layout_marginTop="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="Euro"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dolarTextView" />
+
+    <EditText
+        android:id="@+id/borctamAltinTexView"
+        android:layout_width="377dp"
+        android:layout_height="36dp"
+        android:background="@drawable/layer_stroke_4_corner_red"
+        android:layout_marginTop="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="Tam Altın"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/euroTextView" />
+
+    <EditText
+        android:id="@+id/borcyarimAltinTextView"
+        android:layout_width="377dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/layer_stroke_4_corner_red"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="Yarım Altın"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tamAltinTexView" />
+
+    <EditText
+        android:id="@+id/borcayar22TextView"
+        android:layout_width="377dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/layer_stroke_4_corner_red"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="22 Ayar Altın"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ceyrekAltinTextView" />
+
+    <EditText
+        android:id="@+id/borcayar18TextView"
+        android:layout_width="377dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/layer_stroke_4_corner_red"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="18 Ayar Altın"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ayar22TextView" />
+
+    <EditText
+        android:id="@+id/borcayar14TextView"
+        android:layout_width="377dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/layer_stroke_4_corner_red"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="14 Ayar Altın"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ayar18TextView" />
+
+    <EditText
+        android:id="@+id/borcceyrekAltinTextView"
+        android:layout_width="377dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="36dp"
+        android:background="@drawable/layer_stroke_4_corner_red"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:hint="Çeyrek Altın"
+        android:textAlignment="inherit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/yarimAltinTextView" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="230dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="Hesapla"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ayar14TextView"
+        app:layout_constraintVertical_bias="0.869" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

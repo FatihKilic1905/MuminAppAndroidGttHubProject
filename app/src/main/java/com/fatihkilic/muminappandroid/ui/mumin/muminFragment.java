@@ -649,6 +649,8 @@ public class muminFragment extends Fragment {
 
     public void bildirimGonderImsak(String titles, String sounds ,int notifyNum, String time ) throws ParseException {
 
+
+
         vaktinHAdisi();
 
         // Create Sounds Link
@@ -664,10 +666,9 @@ public class muminFragment extends Fragment {
         System.out.println(date);
         System.out.println(longdate);
 
-        Uri customSoundUri = Uri.parse("android.resource://" + requireActivity().getPackageName() + "/" + R.raw.kussesi1);
-       // Uri customSoundUri = Uri.parse("android.resource://" + requireActivity().getPackageName()+ SoundUrl);
-       // Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + SoundUrl);
-       // System.out.println(customSoundUri);
+
+        Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + SoundUrl);
+
 
         NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 

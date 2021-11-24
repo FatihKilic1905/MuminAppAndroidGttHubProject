@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "77595841979",
+    "project_id": "muminapp-8b77b",
+    "storage_bucket": "muminapp-8b77b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77595841979:android:796e7873a8d257087a209e",
+        "android_client_info": {
+          "package_name": "com.fatihkilic.muminappandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "77595841979-f90bmcuklitv96fjakuqrntq8ckt04d8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCf0DDFX6ixaizuXLZatFDNEwhD8vW_1-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "77595841979-f90bmcuklitv96fjakuqrntq8ckt04d8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "77595841979-18qn9u6qkof1i8naciic1pkpkqlh60r2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "KGMedya.MuminApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -160,11 +160,11 @@ public class SesSettingsActivity extends AppCompatActivity {
         String notSesi4 = "Masjid Al Haram";
         String notSesi5 = "Mishary Rashid Alafasy";
 
-        String notSesi11 = "kussesi1.mp3";
-        String notSesi22 = "kussesi2.mp3";
-        String notSesi33 = "ahmadalnafes.mp3";
-        String notSesi44 = "masjidalharam.mp3";
-        String notSesi55 = "misharyrasidalafasy.mp3";
+        String notSesi11 = "kussesi1";
+        String notSesi22 = "kussesi2";
+        String notSesi33 = "ahmadalnafes";
+        String notSesi44 = "masjidalharam";
+        String notSesi55 = "misharyrasidalafasy";
 
         binding.imsakVOLabel.setText("Vaktinden " + vOImsakSureInt + " Dakika Önce");
         binding.gunesVOTitle.setText("Vaktinden " + vOGunesSureInt + " Dakika Önce");
