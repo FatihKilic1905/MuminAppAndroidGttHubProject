@@ -100,6 +100,14 @@ public class ZekatMatikActivity extends AppCompatActivity {
         binding.borcayar18TextView.setVisibility(View.INVISIBLE);
         binding.borcayar14TextView.setVisibility(View.INVISIBLE);
         binding.borcgramAltinTextView.setVisibility(View.INVISIBLE);
+        binding.borclarButton.setVisibility(View.INVISIBLE);
+        binding.hesaplaButton.setVisibility(View.INVISIBLE);
+        binding.varliklarButton.setVisibility(View.INVISIBLE);
+        binding.nisabMiktariText.setVisibility(View.INVISIBLE);
+        binding.nisabMiktariDeger.setVisibility(View.INVISIBLE);
+        binding.zekatMiktariText.setVisibility(View.INVISIBLE);
+        binding.zekatMiktariDeger.setVisibility(View.INVISIBLE);
+
 
 
 
@@ -162,6 +170,8 @@ public class ZekatMatikActivity extends AppCompatActivity {
                 binding.ayar18TextView.setVisibility(View.INVISIBLE);
                 binding.ayar14TextView.setVisibility(View.INVISIBLE);
                 binding.gramAltinTextView.setVisibility(View.INVISIBLE);
+                binding.borclarButton.setVisibility(View.INVISIBLE);
+
 
             }
         });
@@ -177,108 +187,68 @@ public class ZekatMatikActivity extends AppCompatActivity {
                     double data = Double.parseDouble(binding.tlTextView.getText().toString());
                     varlikTl = data;
 
-                } else {
-
-                    varlikTl = 1.0;
-
                 }
 
                 if (!binding.dolarTextView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.dolarTextView.getText().toString());
-                    varlikDolar = data;
-
-                } else {
-
-                    varlikDolar = 1.0;
+                    varlikDolar = data * dolarCr;
 
                 }
 
                 if (!binding.euroTextView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.euroTextView.getText().toString());
-                    varlikeuro = data;
-
-                } else {
-
-                    varlikeuro = 1.0;
+                    varlikeuro = data * euroCr;
 
                 }
 
                 if (!binding.tamAltinTexView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.tamAltinTexView.getText().toString());
-                    varlikFullGold = data;
-
-                } else {
-
-                    varlikFullGold = 1.0;
+                    varlikFullGold = data * fullGoldCr;
 
                 }
 
                 if (!binding.yarimAltinTextView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.yarimAltinTextView.getText().toString());
-                    varlikHalfGold = data;
-
-                } else {
-
-                    varlikHalfGold = 1.0;
+                    varlikHalfGold = data * halfGoldCr;
 
                 }
 
                 if (!binding.ceyrekAltinTextView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.ceyrekAltinTextView.getText().toString());
-                    varlikQuarterGold = data;
-
-                } else {
-
-                    varlikQuarterGold = 1.0;
+                    varlikQuarterGold = data * quarterGoldCr;
 
                 }
 
                 if (!binding.ayar14TextView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.ayar14TextView.getText().toString());
-                    varlikcarat14 = data;
-
-                } else {
-
-                    varlikcarat14 = 1.0;
+                    varlikcarat14 = data * carats14Cr;
 
                 }
 
                 if (!binding.ayar18TextView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.ayar18TextView.getText().toString());
-                    varlikcarat18 = data;
-
-                }  else {
-
-                    varlikcarat18 = 1.0;
+                    varlikcarat18 = data * carats18Cr;
 
                 }
 
                 if (!binding.ayar22TextView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.ayar22TextView.getText().toString());
-                    varlikcarat22 = data;
-
-                } else {
-
-                    varlikcarat22 = 1.0;
+                    varlikcarat22 = data * carats22Cr;
 
                 }
 
                 if (!binding.gramAltinTextView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.gramAltinTextView.getText().toString());
-                    varlikgram = data;
-
-                } else {
-
-                    varlikgram = 1.0;
+                    varlikgram = data * gramCr;
 
                 }
 
@@ -291,97 +261,60 @@ public class ZekatMatikActivity extends AppCompatActivity {
                     double data = Double.parseDouble(binding.borctlTextView.getText().toString());
                     borcTl = data;
 
-                } else {
-
-                    borcTl = 1.0;
-
                 }
 
                 if (!binding.borcdolarTextView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.borcdolarTextView.getText().toString());
-                    borcDolar = data;
-
-                }  else {
-
-                    borcDolar = 1.0;
+                    borcDolar = data * dolarCr;
 
                 }
 
                 if (!binding.borceuroTextView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.borceuroTextView.getText().toString());
-                    borceuro = data;
-
-                }  else {
-
-                    borceuro = 1.0;
+                    borceuro = data * euroCr;
 
                 }
 
                 if (!binding.borctamAltinTexView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.borctamAltinTexView.getText().toString());
-                    borcFullGold = data;
-
-                } else {
-
-                    borcFullGold = 1.0;
+                    borcFullGold = data * fullGoldCr;
 
                 }
 
                 if (!binding.borcyarimAltinTextView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.borcyarimAltinTextView.getText().toString());
-                    borcHalfGold = data;
-
-                } else {
-
-                    borcHalfGold = 1.0;
+                    borcHalfGold = data * halfGoldCr;
 
                 }
-
                 if (!binding.borcceyrekAltinTextView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.borcceyrekAltinTextView.getText().toString());
-                    borcQuarterGold = data;
-
-                }  else {
-
-                    borcQuarterGold = 1.0;
+                    borcQuarterGold = data * quarterGoldCr;
 
                 }
 
                 if (!binding.borcayar14TextView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.borcayar14TextView.getText().toString());
-                    borccarat14 = data;
-
-                }  else {
-
-                    borccarat14 = 1.0;
+                    borccarat14 = data * carats14Cr;
 
                 }
 
                 if (!binding.borcayar18TextView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.borcayar18TextView.getText().toString());
-                    borccarat18 = data;
-
-                }  else {
-
-                    borccarat18 = 1.0;
+                    borccarat18 = data * carats18Cr;
 
                 }
 
                 if (!binding.borcayar22TextView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.borcayar22TextView.getText().toString());
-                    borccarat22 = data;
-
-                } else {
-
-                    borccarat22 = 1.0;
+                    borccarat22 = data * carats22Cr;
 
                 }
 
@@ -389,12 +322,44 @@ public class ZekatMatikActivity extends AppCompatActivity {
                 if (!binding.borcgramAltinTextView.getText().toString().matches("")) {
 
                     double data = Double.parseDouble(binding.borcgramAltinTextView.getText().toString());
-                    borcgram = data;
+                    borcgram = data * gramCr;
+
+                }
+
+
+                double varlikToplam = varlikTl + varlikDolar + varlikeuro + varlikFullGold + varlikHalfGold + varlikQuarterGold + varlikcarat14 + varlikcarat18 + varlikcarat22 + varlikgram;
+                double borcToplam = borcTl + borcDolar + borceuro + borcFullGold + borcHalfGold + borcQuarterGold + borccarat14 + borccarat18 + borccarat22 + borcgram;
+
+                double toplamVarlık = varlikToplam - borcToplam;
+                System.out.println("Toplam Varlık" + toplamVarlık);
+
+                double nisabMiktariDouble = toplamVarlık / gramCr;
+                double zekat = toplamVarlık / 40;
+
+
+                if (nisabMiktariDouble >= 80.18) {
+
+                    StringBuilder nisabMiktariStr = new StringBuilder();
+                    nisabMiktariStr.append(Math.round(nisabMiktariDouble));
+                    nisabMiktariStr.append("Altın");
+
+                    StringBuilder zekatMiktariStr = new StringBuilder();
+                    zekatMiktariStr.append(Math.round(zekat));
+                    zekatMiktariStr.append("TL");
+
+
+                    binding.infoBack.setVisibility(View.VISIBLE);
+                    binding.nisabMiktariText.setVisibility(View.VISIBLE);
+                    binding.nisabMiktariDeger.setVisibility(View.VISIBLE);
+                    binding.zekatMiktariText.setVisibility(View.VISIBLE);
+                    binding.zekatMiktariDeger.setVisibility(View.VISIBLE);
+                    binding.nisabMiktariDeger.setText(nisabMiktariStr);
+                    binding.zekatMiktariDeger.setText(zekatMiktariStr);
 
                 } else {
 
-                    borcgram = 1.0;
 
+                    System.out.println("get garnın doyur");
                 }
 
 
@@ -402,6 +367,27 @@ public class ZekatMatikActivity extends AppCompatActivity {
 
 
 
+
+
+
+
+
+
+
+            }
+        });
+
+        Button infoCloseButton = binding.infoBackCloseButton;
+
+        infoCloseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                binding.infoBack.setVisibility(View.INVISIBLE);
+                binding.girisText.setVisibility(View.INVISIBLE);
+                binding.borclarButton.setVisibility(View.VISIBLE);
+                binding.hesaplaButton.setVisibility(View.VISIBLE);
+                binding.varliklarButton.setVisibility(View.VISIBLE);
 
 
 

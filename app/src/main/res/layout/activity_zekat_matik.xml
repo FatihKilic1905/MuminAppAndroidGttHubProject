@@ -391,4 +391,107 @@
         app:layout_constraintTop_toBottomOf="@+id/ayar14TextView"
         app:layout_constraintVertical_bias="0.869" />
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/infoBack"
+        android:layout_width="380dp"
+        android:layout_height="550dp"
+        android:background="@drawable/corner_4_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/nisabMiktariText"
+            android:layout_width="286dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="Nisab Miktarı"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/infoBackCloseButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.002" />
+
+        <TextView
+            android:id="@+id/nisabMiktariDeger"
+            android:layout_width="286dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="Nisab Miktarı Değer"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/infoBackCloseButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.206" />
+
+        <TextView
+            android:id="@+id/zekatMiktariText"
+            android:layout_width="286dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="Zekat Miktarı"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/infoBackCloseButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.709" />
+
+        <TextView
+            android:id="@+id/zekatMiktariDeger"
+            android:layout_width="336dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+
+            android:text="Zekat Miktarı Değer"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+
+            app:layout_constraintBottom_toTopOf="@+id/infoBackCloseButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.835" />
+
+        <TextView
+            android:id="@+id/girisText"
+            android:layout_width="286dp"
+            android:layout_height="293dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="Kabaca zekat malın 40'da 1'idir. Yani 40 lirası olan kişinin 1 lirasını vermaesi gerekir. Zekat için en önemli şart malın üzerinden 1 yıl geçmiş olmasıdır. Yani bir yıldır kasada bekleyen 80.18 gr altın bir yıl dolunca 40'da 1 nisbetinde zekatının verilmesi gerekmektedir."
+            android:textColor="@color/white"
+            android:textSize="20dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.004" />
+
+        <Button
+            android:id="@+id/infoBackCloseButton"
+            android:layout_width="160dp"
+            android:layout_height="45dp"
+            android:backgroundTint="@color/white"
+            android:text="Kapat"
+            android:textColor="@color/muminAppGreen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/girisText"></Button>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
