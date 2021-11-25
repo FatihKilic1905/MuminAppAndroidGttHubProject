@@ -399,8 +399,10 @@
         android:background="@drawable/corner_4_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.58"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.301">
 
 
         <TextView
@@ -409,14 +411,15 @@
             android:layout_height="40dp"
             android:layout_marginTop="50dp"
             android:gravity="center"
-            android:text="Nisab Miktarı"
+            android:text="Varlık"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="30dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/infoBackCloseButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.002" />
+            app:layout_constraintVertical_bias="0.065" />
 
         <TextView
             android:id="@+id/nisabMiktariDeger"
@@ -441,18 +444,18 @@
             android:gravity="center"
             android:text="Zekat Miktarı"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="30dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/infoBackCloseButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.709" />
+            app:layout_constraintVertical_bias="0.613" />
 
         <TextView
             android:id="@+id/zekatMiktariDeger"
-            android:layout_width="336dp"
-            android:layout_height="43dp"
-            android:layout_marginTop="50dp"
+            android:layout_width="340dp"
+            android:layout_height="76dp"
             android:gravity="center"
 
             android:text="Zekat Miktarı Değer"
@@ -462,8 +465,8 @@
             app:layout_constraintBottom_toTopOf="@+id/infoBackCloseButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.835" />
+            app:layout_constraintTop_toBottomOf="@+id/zekatMiktariText"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/girisText"
@@ -484,14 +487,54 @@
         <Button
             android:id="@+id/infoBackCloseButton"
             android:layout_width="160dp"
-            android:layout_height="45dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="52dp"
+            android:backgroundTint="@color/white"
+            android:text="Kapat"
+            android:textColor="@color/muminAppGreen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/girisText"></Button>
+
+        <Button
+            android:id="@+id/duzenleButton"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:backgroundTint="@color/white"
+            android:text="Düzenle"
+            android:textColor="@color/muminAppGreen"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/girisText"
+            app:layout_constraintVertical_bias="0.904"></Button>
+
+        <Button
+            android:id="@+id/sifirlaButton"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/white"
+            android:text="Sıfırla"
+            android:textColor="@color/muminAppGreen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/kapatButton"
+            app:layout_constraintStart_toEndOf="@+id/duzenleButton"
+            app:layout_constraintTop_toBottomOf="@+id/girisText"
+            app:layout_constraintVertical_bias="0.904"></Button>
+
+        <Button
+            android:id="@+id/kapatButton"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
             android:backgroundTint="@color/white"
             android:text="Kapat"
             android:textColor="@color/muminAppGreen"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/girisText"></Button>
+            app:layout_constraintTop_toBottomOf="@+id/girisText"
+            app:layout_constraintVertical_bias="0.904"></Button>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

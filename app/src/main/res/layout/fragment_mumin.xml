@@ -402,6 +402,16 @@
                 android:layout_gravity="center"
                 android:background="@drawable/layer_stroke_bottom_corner_radius">
 
+                <TextView
+                    android:id="@+id/todayHistoryText"
+                    android:layout_width="350dp"
+                    android:layout_height="60dp"
+                    android:text="TextView"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -431,6 +441,17 @@
                 android:layout_gravity="center"
                 android:background="@drawable/layer_stroke_bottom_corner_radius">
 
+                <TextView
+                    android:id="@+id/mealofDayText"
+                    android:layout_width="350dp"
+                    android:layout_height="60dp"
+                    android:text="TextView"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -459,6 +480,17 @@
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:background="@drawable/layer_stroke_bottom_corner_radius">
+
+                <TextView
+                    android:id="@+id/babyNameText"
+                    android:layout_width="350dp"
+                    android:layout_height="60dp"
+                    android:text="TextView"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

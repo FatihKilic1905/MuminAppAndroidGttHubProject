@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MuminAppAndroid">
         <activity
+            android:name=".DayInfo.DayInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".ZekatMatik.ZekatMatikActivity"
             android:exported="false" />
         <activity

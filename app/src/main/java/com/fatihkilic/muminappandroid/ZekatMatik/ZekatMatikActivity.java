@@ -4,11 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.icu.text.DecimalFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.fatihkilic.muminappandroid.Ayarlar.AyarlarActivity;
+import com.fatihkilic.muminappandroid.EzanVaktiCoplete.EzanVaktiActivity;
+import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.ActivityZekatMatikBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -107,6 +112,9 @@ public class ZekatMatikActivity extends AppCompatActivity {
         binding.nisabMiktariDeger.setVisibility(View.INVISIBLE);
         binding.zekatMiktariText.setVisibility(View.INVISIBLE);
         binding.zekatMiktariDeger.setVisibility(View.INVISIBLE);
+        binding.sifirlaButton.setVisibility(View.INVISIBLE);
+        binding.duzenleButton.setVisibility(View.INVISIBLE);
+        binding.kapatButton.setVisibility(View.INVISIBLE);
 
 
 
@@ -170,7 +178,7 @@ public class ZekatMatikActivity extends AppCompatActivity {
                 binding.ayar18TextView.setVisibility(View.INVISIBLE);
                 binding.ayar14TextView.setVisibility(View.INVISIBLE);
                 binding.gramAltinTextView.setVisibility(View.INVISIBLE);
-                binding.borclarButton.setVisibility(View.INVISIBLE);
+
 
 
             }
@@ -339,13 +347,18 @@ public class ZekatMatikActivity extends AppCompatActivity {
 
                 if (nisabMiktariDouble >= 80.18) {
 
+
+
+
+                    System.out.println("nisabs" +nisabMiktariDouble);
+                    nisabMiktariDouble = Math.floor(nisabMiktariDouble*100) / 100;
                     StringBuilder nisabMiktariStr = new StringBuilder();
-                    nisabMiktariStr.append(Math.round(nisabMiktariDouble));
-                    nisabMiktariStr.append("Altın");
+                    nisabMiktariStr.append(nisabMiktariDouble);
+                    nisabMiktariStr.append(" Altın");
 
                     StringBuilder zekatMiktariStr = new StringBuilder();
                     zekatMiktariStr.append(Math.round(zekat));
-                    zekatMiktariStr.append("TL");
+                    zekatMiktariStr.append(" TL");
 
 
                     binding.infoBack.setVisibility(View.VISIBLE);
@@ -353,14 +366,141 @@ public class ZekatMatikActivity extends AppCompatActivity {
                     binding.nisabMiktariDeger.setVisibility(View.VISIBLE);
                     binding.zekatMiktariText.setVisibility(View.VISIBLE);
                     binding.zekatMiktariDeger.setVisibility(View.VISIBLE);
+                    binding.borclarButton.setVisibility(View.INVISIBLE);
+                    binding.varliklarButton.setVisibility(View.INVISIBLE);
+                    binding.hesaplaButton.setVisibility(View.INVISIBLE);
                     binding.nisabMiktariDeger.setText(nisabMiktariStr);
                     binding.zekatMiktariDeger.setText(zekatMiktariStr);
+                    binding.sifirlaButton.setVisibility(View.VISIBLE);
+                    binding.duzenleButton.setVisibility(View.VISIBLE);
+                    binding.kapatButton.setVisibility(View.VISIBLE);
+
 
                 } else {
 
 
-                    System.out.println("get garnın doyur");
+                    System.out.println("nisabs" +nisabMiktariDouble);
+                    nisabMiktariDouble = Math.floor(nisabMiktariDouble*100) / 100;
+                    System.out.println("nisabs" +nisabMiktariDouble);
+                    StringBuilder nisabMiktariStr = new StringBuilder();
+                    nisabMiktariStr.append(nisabMiktariDouble);
+
+                    nisabMiktariStr.append(" Altın");
+
+                    binding.infoBack.setVisibility(View.VISIBLE);
+                    binding.nisabMiktariText.setVisibility(View.VISIBLE);
+                    binding.nisabMiktariDeger.setVisibility(View.VISIBLE);
+                    binding.zekatMiktariText.setVisibility(View.VISIBLE);
+                    binding.zekatMiktariDeger.setVisibility(View.VISIBLE);
+                    binding.borclarButton.setVisibility(View.INVISIBLE);
+                    binding.varliklarButton.setVisibility(View.INVISIBLE);
+                    binding.hesaplaButton.setVisibility(View.INVISIBLE);
+                    binding.nisabMiktariDeger.setText(nisabMiktariStr);
+                    binding.zekatMiktariDeger.setText("Varlıklarınız 80.18 Gr altın miktarı altında olduğu için zekat vermenize gerek yoktur.");
+                    binding.sifirlaButton.setVisibility(View.VISIBLE);
+                    binding.duzenleButton.setVisibility(View.VISIBLE);
+                    binding.kapatButton.setVisibility(View.VISIBLE);
+
                 }
+
+
+
+                Button sifirlaButton = binding.sifirlaButton;
+                sifirlaButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        binding.infoBack.setVisibility(View.INVISIBLE);
+                        binding.nisabMiktariText.setVisibility(View.INVISIBLE);
+                        binding.nisabMiktariDeger.setVisibility(View.INVISIBLE);
+                        binding.zekatMiktariText.setVisibility(View.INVISIBLE);
+                        binding.zekatMiktariDeger.setVisibility(View.INVISIBLE);
+                        binding.borclarButton.setVisibility(View.VISIBLE);
+                        binding.varliklarButton.setVisibility(View.VISIBLE);
+                        binding.hesaplaButton.setVisibility(View.VISIBLE);
+                        binding.sifirlaButton.setVisibility(View.INVISIBLE);
+                        binding.duzenleButton.setVisibility(View.INVISIBLE);
+                        binding.kapatButton.setVisibility(View.INVISIBLE);
+
+                        binding.tlTextView.setText("");
+                        binding.dolarTextView.setText("");
+                        binding.euroTextView.setText("");
+                        binding.tamAltinTexView.setText("");
+                        binding.yarimAltinTextView.setText("");
+                        binding.ceyrekAltinTextView.setText("");
+                        binding.ayar14TextView.setText("");
+                        binding.ayar18TextView.setText("");
+                        binding.ayar22TextView.setText("");
+                        binding.gramAltinTextView.setText("");
+
+                        binding.borctlTextView.setText("");
+                        binding.borcdolarTextView.setText("");
+                        binding.borceuroTextView.setText("");
+                        binding.borctamAltinTexView.setText("");
+                        binding.borcyarimAltinTextView.setText("");
+                        binding.borcceyrekAltinTextView.setText("");
+                        binding.borcayar14TextView.setText("");
+                        binding.borcayar18TextView.setText("");
+                        binding.borcayar22TextView.setText("");
+                        binding.borcgramAltinTextView.setText("");
+
+                        varlikTl = 0;
+                        varlikDolar = 0;
+                        varlikeuro = 0;
+                        varlikFullGold = 0;
+                        varlikHalfGold = 0;
+                        varlikQuarterGold = 0;
+                        varlikcarat14 = 0;
+                        varlikcarat18 = 0;
+                        varlikcarat22 = 0;
+                        varlikgram = 0;
+
+                        borcTl = 0;
+                        borcDolar = 0;
+                        borceuro = 0;
+                        borcFullGold = 0;
+                        borcHalfGold = 0;
+                        borcQuarterGold = 0;
+                        borccarat14 = 0;
+                        borccarat18 = 0;
+                        borccarat22 = 0;
+                        borcgram = 0;
+
+
+                    }
+                });
+
+                Button duzenleButton = binding.duzenleButton;
+                duzenleButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        binding.infoBack.setVisibility(View.INVISIBLE);
+                        binding.nisabMiktariText.setVisibility(View.INVISIBLE);
+                        binding.nisabMiktariDeger.setVisibility(View.INVISIBLE);
+                        binding.zekatMiktariText.setVisibility(View.INVISIBLE);
+                        binding.zekatMiktariDeger.setVisibility(View.INVISIBLE);
+                        binding.borclarButton.setVisibility(View.VISIBLE);
+                        binding.varliklarButton.setVisibility(View.VISIBLE);
+                        binding.hesaplaButton.setVisibility(View.VISIBLE);
+                        binding.sifirlaButton.setVisibility(View.INVISIBLE);
+                        binding.duzenleButton.setVisibility(View.INVISIBLE);
+                        binding.kapatButton.setVisibility(View.INVISIBLE);
+
+                    }
+                });
+
+                Button kapatButtonn = binding.kapatButton;
+
+                kapatButtonn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent closeZekatIntent = new Intent(ZekatMatikActivity.this, MainActivity.class);
+                        startActivity(closeZekatIntent);
+
+                    }
+                });
 
 
 
@@ -388,11 +528,15 @@ public class ZekatMatikActivity extends AppCompatActivity {
                 binding.borclarButton.setVisibility(View.VISIBLE);
                 binding.hesaplaButton.setVisibility(View.VISIBLE);
                 binding.varliklarButton.setVisibility(View.VISIBLE);
+                binding.infoBackCloseButton.setVisibility(View.INVISIBLE);
 
 
 
             }
         });
+
+
+
 
 
     }

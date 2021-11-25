@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/eatNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="Yemek Adı"
+        android:textColor="@color/muminAppGreen"
+        android:textSize="20dp"
+        android:textStyle="bold"></TextView>
+
+    <ImageView
+        android:layout_width="380dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:background="@drawable/layer_stroke_4_corner"></ImageView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/eatTimeTextView"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="Süre"
+            android:textColor="@color/muminAppGreen"
+            android:textSize="20dp"
+            android:background="@drawable/layer_stroke_4_corner"
+            app:layout_constraintEnd_toStartOf="@+id/eatpersonTextView"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="5dp"></TextView>
+
+        <TextView
+            android:id="@+id/eatpersonTextView"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="Kişi"
+            android:textColor="@color/muminAppGreen"
+            android:textSize="20dp"
+            android:background="@drawable/layer_stroke_4_corner"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="5dp"></TextView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/eatMaterialsTextView"
+        android:layout_width="380dp"
+        android:text="Malzemeler"
+        android:layout_marginTop="10dp"
+        android:textSize="15dp"
+        android:textColor="@color/muminAppGreen"
+        android:textAlignment="center"
+        android:background="@drawable/layer_stroke_4_corner"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"></TextView>
+
+    <TextView
+        android:id="@+id/eatRecipeTextView"
+        android:layout_width="380dp"
+        android:text="Malzemeler"
+        android:layout_marginTop="10dp"
+        android:textSize="15dp"
+        android:textColor="@color/muminAppGreen"
+        android:textAlignment="center"
+        android:background="@drawable/layer_stroke_4_corner"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"></TextView>
+
+</LinearLayout>

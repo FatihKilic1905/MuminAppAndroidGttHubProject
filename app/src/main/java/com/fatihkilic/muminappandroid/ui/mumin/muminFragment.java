@@ -32,6 +32,11 @@ import com.fatihkilic.muminappandroid.Ayarlar.Receiver.ImsakVaktiBildirimReceive
 import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.FragmentMuminBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -85,6 +90,10 @@ public class muminFragment extends Fragment {
     Integer vakitFarkDakika;
     Integer vakitFarkSaniye;
 
+    String babyName;
+    String mealOfTheDay;
+    String todayInHistory;
+
     String vaktinCikmasinaString;
 
     NotificationManager notificationManager;
@@ -95,6 +104,8 @@ public class muminFragment extends Fragment {
 
     String vaktinAyetiStr;
     String vaktinHadisiStr;
+
+    private FirebaseFirestore firebaseFirestore;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -109,9 +120,15 @@ public class muminFragment extends Fragment {
 
         vakitDatabase = requireActivity().openOrCreateDatabase("EZANVAKITLERIDATA", Context.MODE_PRIVATE,null);
 
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
         sistemTarihiVoid();
         sistemSaatiVoid();
         getBildirimSound();
+        DayInfoGet();
+
+        // sil bunu yayınlarken
+        binding.buttonnotification.setVisibility(View.INVISIBLE);
 
 
 
@@ -759,6 +776,51 @@ public class muminFragment extends Fragment {
         vOYatsiSesStr = sharedPreferences.getString("vOYatsiSesStr", "");
         vYatsiSesStr = sharedPreferences.getString("vYatsiSesStr", "");
 
+
+
+
+
+
+    }
+
+
+
+
+    private void DayInfoGet() {
+
+
+
+        DocumentReference usdRef = firebaseFirestore.collection("DayInfo").document("Info");
+        usdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                if (task.isSuccessful()) {
+
+                    DocumentSnapshot document = task.getResult();
+
+                    if (document.exists()) {
+
+                        babyName = (String) document.get("babyName");
+                        binding.babyNameText.setText(babyName);
+                        mealOfTheDay = (String) document.get("mealOfTheDay");
+                        binding.mealofDayText.setText(mealOfTheDay);
+                        todayInHistory = (String) document.get("todayInHistory");
+                        binding.todayHistoryText.setText(todayInHistory);
+
+
+
+                    } else {
+                        System.out.println("Olumsuz");
+                    }
+
+                } else {
+
+                    System.out.println("cekme başarısız");
+                }
+
+            }
+        });
 
 
 
