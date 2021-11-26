@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fatihkilic.muminappandroid.databinding.ActivityDayInfoBinding;
 import com.fatihkilic.muminappandroid.databinding.MealRowBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -32,9 +33,10 @@ public class mealOfDayAdapter extends RecyclerView.Adapter<mealOfDayAdapter.Meal
 
         holder.mealRowBinding.eatNameTextView.setText(MealArrayLists.get(position).eatName);
         holder.mealRowBinding.eatMaterialsTextView.setText(MealArrayLists.get(position).eatMaterials);
-        holder.mealRowBinding.eatpersonTextView.setText(MealArrayLists.get(position).eatPerson);
-        holder.mealRowBinding.eatTimeTextView.setText(MealArrayLists.get(position).eatTime);
+        holder.mealRowBinding.eatpersonTextView.setText(MealArrayLists.get(position).eatPerson + "Kişi");
+        holder.mealRowBinding.eatTimeTextView.setText(MealArrayLists.get(position).eatTime + "Dakika");
         holder.mealRowBinding.eatRecipeTextView.setText(MealArrayLists.get(position).eatRecipe);
+        Picasso.get().load(MealArrayLists.get(position).eatImage).into(holder.mealRowBinding.eatImageView);
 
     }
 

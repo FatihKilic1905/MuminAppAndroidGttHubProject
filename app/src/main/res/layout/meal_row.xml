@@ -3,83 +3,132 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:padding="10dp"
+    android:background="@drawable/layer_stroke_4_corner"
     android:orientation="vertical">
+
+
+
 
     <TextView
         android:id="@+id/eatNameTextView"
-        android:layout_width="match_parent"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="10dp"
         android:text="Yemek Adı"
+        android:textAlignment="center"
         android:textColor="@color/muminAppGreen"
         android:textSize="20dp"
+        android:layout_gravity="center_horizontal"
         android:textStyle="bold"></TextView>
 
-    <ImageView
-        android:layout_width="380dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="360dp"
         android:layout_height="250dp"
-        android:layout_gravity="center"
-        android:background="@drawable/layer_stroke_4_corner"></ImageView>
+        app:cardCornerRadius="20dp"
+        android:layout_margin="5dp"
+        android:layout_gravity="center_horizontal"
+        android:elevation="10dp">
+
+        <ImageView
+            android:id="@+id/eatImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="centerCrop"
+            ></ImageView>
+
+
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="380dp"
+        android:layout_width="357dp"
         android:layout_height="50dp"
+
         android:layout_gravity="center"
-        android:layout_marginTop="10dp">
+        >
 
         <TextView
             android:id="@+id/eatTimeTextView"
-            android:layout_width="160dp"
-            android:layout_height="40dp"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:background="@drawable/layer_stroke_4_corner"
             android:gravity="center"
             android:text="Süre"
             android:textColor="@color/muminAppGreen"
-            android:textSize="20dp"
-            android:background="@drawable/layer_stroke_4_corner"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/eatpersonTextView"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.102"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="5dp"></TextView>
+            app:layout_constraintTop_toTopOf="parent"></TextView>
 
         <TextView
             android:id="@+id/eatpersonTextView"
-            android:layout_width="160dp"
-            android:layout_height="40dp"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/layer_stroke_4_corner"
             android:gravity="center"
             android:text="Kişi"
             android:textColor="@color/muminAppGreen"
-            android:textSize="20dp"
-            android:background="@drawable/layer_stroke_4_corner"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:layout_editor_absoluteY="5dp"></TextView>
+            app:layout_constraintTop_toTopOf="parent"></TextView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/eatMaterialsTextView"
-        android:layout_width="380dp"
-        android:text="Malzemeler"
-        android:layout_marginTop="10dp"
-        android:textSize="15dp"
-        android:textColor="@color/muminAppGreen"
-        android:textAlignment="center"
-        android:background="@drawable/layer_stroke_4_corner"
+    <androidx.cardview.widget.CardView
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_height="wrap_content"></TextView>
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/layer_stroke_4_corner">
 
-    <TextView
-        android:id="@+id/eatRecipeTextView"
-        android:layout_width="380dp"
-        android:text="Malzemeler"
-        android:layout_marginTop="10dp"
-        android:textSize="15dp"
-        android:textColor="@color/muminAppGreen"
-        android:textAlignment="center"
-        android:background="@drawable/layer_stroke_4_corner"
+        <TextView
+            android:id="@+id/eatMaterialsTextView"
+            android:layout_width="360dp"
+            android:text="Malzemeler"
+            android:textSize="15dp"
+            android:padding="10dp"
+            android:textColor="@color/muminAppGreen"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"></TextView>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_height="wrap_content"></TextView>
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/layer_stroke_4_corner">
+
+        <TextView
+            android:id="@+id/eatRecipeTextView"
+            android:layout_width="360dp"
+            android:text="Tarf"
+            android:textSize="15dp"
+            android:padding="10dp"
+            android:textColor="@color/muminAppGreen"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"></TextView>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+
+
+
 
 </LinearLayout>

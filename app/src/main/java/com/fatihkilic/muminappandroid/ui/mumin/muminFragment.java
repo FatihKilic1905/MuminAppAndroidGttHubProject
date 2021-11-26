@@ -25,10 +25,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fatihkilic.muminappandroid.Ayarlar.Receiver.EzanVaktiBildirimReceiver;
 import com.fatihkilic.muminappandroid.Ayarlar.Receiver.ImsakVaktiBildirimReceiver;
+import com.fatihkilic.muminappandroid.DayInfo.DayInfoActivity;
 import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.FragmentMuminBinding;
@@ -144,6 +146,30 @@ public class muminFragment extends Fragment {
                 }
 
                 //imsakbildirimgonder("Sana","Olsun","",2, 0);
+
+            }
+        });
+
+        TextView mealTextButton = binding.mealofDayText;
+        mealTextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent toMealIntent = new Intent(getActivity(), DayInfoActivity.class);
+                toMealIntent.putExtra("DayInfoPageInfo", "Meal" );
+                startActivity(toMealIntent);
+
+            }
+        });
+
+        TextView tihTextButton = binding.todayHistoryText;
+        tihTextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent toMealIntent = new Intent(getActivity(), DayInfoActivity.class);
+                toMealIntent.putExtra("DayInfoPageInfo", "Tih" );
+                startActivity(toMealIntent);
 
             }
         });
