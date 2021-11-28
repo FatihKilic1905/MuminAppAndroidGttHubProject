@@ -130,7 +130,7 @@ public class muminFragment extends Fragment {
         DayInfoGet();
 
         // sil bunu yayınlarken
-        binding.buttonnotification.setVisibility(View.INVISIBLE);
+       // binding.buttonnotification.setVisibility(View.INVISIBLE);
 
 
 
