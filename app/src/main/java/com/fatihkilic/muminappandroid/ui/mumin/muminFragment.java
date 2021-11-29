@@ -124,6 +124,10 @@ public class muminFragment extends Fragment {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 
+
+
+
+
         sistemTarihiVoid();
         sistemSaatiVoid();
         getBildirimSound();
