@@ -67,6 +67,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        a
     }
 
     public void onResume() {
