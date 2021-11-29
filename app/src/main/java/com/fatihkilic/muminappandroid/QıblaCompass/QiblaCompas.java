@@ -39,10 +39,10 @@ public class QiblaCompas extends AppCompatActivity implements SensorEventListene
     protected void onResume() {
         super.onResume();
 
-        mSensorManager.registerListener(this.mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
+        mSensorManager.registerListener(this,mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
                 SensorManager.SENSOR_DELAY_GAME);
 
-        mSensorManager.registerListener(this.mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+        mSensorManager.registerListener(this,mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_GAME);
 
     }
@@ -76,7 +76,7 @@ public class QiblaCompas extends AppCompatActivity implements SensorEventListene
 
         float R[] = new float[9];
         float I[] = new float[9];
-        boolean success = SensorManager.getRotationMatrix((R,I,mGravity,mGeoMagnetic);
+        boolean success = SensorManager.getRotationMatrix(R,I,mGravity,mGeoMagnetic);
 
         if (success) {
 
