@@ -16,7 +16,6 @@
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_bildirim.xml" value="0.23385416666666667" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_ses_settings.xml" value="0.33" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_zekat_matik.xml" value="0.23385416666666667" />
-        <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/fragment_dashboard.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/alone/Creative Cloud Files/SOFTWARE/ANDROID/MuminAppAndroid/app/src/main/res/layout/activity_konum.xml" value="0.25" />
         <entry key="..\:/Users/alone/Creative Cloud Files/SOFTWARE/ANDROID/MuminAppAndroid/app/src/main/res/layout/activity_main.xml" value="0.12771739130434784" />
         <entry key="..\:/Users/alone/Creative Cloud Files/SOFTWARE/ANDROID/MuminAppAndroid/app/src/main/res/layout/fragment_mumin.xml" value="0.22" />
@@ -31,13 +30,19 @@
         <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.23072916666666668" />
         <entry key="app/src/main/res/drawable/layer_stroke_4_corner.xml" value="0.44583333333333336" />
         <entry key="app/src/main/res/drawable/layer_stroke_bottom_corner_radius.xml" value="0.44583333333333336" />
+        <entry key="app/src/main/res/layout/activity_ezan_duasi.xml" value="0.3759057971014493" />
         <entry key="app/src/main/res/layout/activity_ezan_vakti.xml" value="0.40677083333333336" />
+        <entry key="app/src/main/res/layout/activity_hatim_duasi.xml" value="0.3759057971014493" />
+        <entry key="app/src/main/res/layout/activity_htm_duasi.xml" value="0.37318840579710144" />
         <entry key="app/src/main/res/layout/activity_ilceler.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_konum.xml" value="0.49773550724637683" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_namaz_hocasi.xml" value="0.3759057971014493" />
         <entry key="app/src/main/res/layout/activity_qibla_compas.xml" value="0.3375" />
         <entry key="app/src/main/res/layout/activity_sehirler.xml" value="0.42083333333333334" />
         <entry key="app/src/main/res/layout/activity_sound_settings_detail.xml" value="0.38179347826086957" />
+        <entry key="app/src/main/res/layout/activity_tesbihat.xml" value="0.3759057971014493" />
+        <entry key="app/src/main/res/layout/activity_veda_hutbesi.xml" value="0.3759057971014493" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.75" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.5172101449275363" />
         <entry key="app/src/main/res/layout/fragment_mumin.xml" value="0.47685834502103785" />

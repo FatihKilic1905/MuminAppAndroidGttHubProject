@@ -11,11 +11,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MuminAppAndroid">
+        <activity
+            android:name=".Kutuphane.HtmDuasi"
+            android:exported="false" />
+        <activity
+            android:name=".Kutuphane.VedaHutbesiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Kutuphane.EzanDuasiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Kutuphane.TesbihatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Kutuphane.NamazHocasiActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9766355257187956~7088024702"/>
-
+            android:value="ca-app-pub-9766355257187956~7088024702" />
 
         <activity
             android:name=".QıblaCompass.QiblaCompas"

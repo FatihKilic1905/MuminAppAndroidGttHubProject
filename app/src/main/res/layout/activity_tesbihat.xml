@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Kutuphane.TesbihatActivity">
+
+    <Button
+        android:id="@+id/sabahButton"
+        android:layout_width="71dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:text="sabah"
+        android:textSize="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/ogleButton"
+        android:layout_width="71dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="16dp"
+        android:text="öğle"
+        android:textSize="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/aksamButton"
+        android:layout_width="71dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="252dp"
+        android:layout_marginTop="16dp"
+        android:text="akşam"
+        android:textSize="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/ikindiButton"
+        android:layout_width="71dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="16dp"
+        android:text="ikindi"
+        android:textSize="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/yatsiButton"
+        android:layout_width="71dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="336dp"
+        android:layout_marginTop="16dp"
+        android:text="yatsı"
+        android:textSize="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tesbihatTextview"
+        android:layout_width="393dp"
+        android:layout_height="467dp"
+        android:gravity="center"
+        android:scrollbars="vertical"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="63dp" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
