@@ -3,7 +3,9 @@ package com.fatihkilic.muminappandroid.Kutuphane;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.fatihkilic.muminappandroid.R;
@@ -15,10 +17,13 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
+import org.intellij.lang.annotations.Language;
+
 public class TesbihatActivity extends AppCompatActivity {
 
     private ActivityTesbihatBinding binding;
     private AdView mAdView;
+    String language = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +43,134 @@ public class TesbihatActivity extends AppCompatActivity {
             }
         });
 
+        sabahturkce();
+
         mAdView = binding.adView;
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        Button arapcaButton = binding.arapcaButton;
+        arapcaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                language = "ARAP";
+
+
+            }
+        });
+
+        Button turkceButton = binding.turkceButton;
+        turkceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                language = "TUR";
+
+
+            }
+        });
+
+        Button sabahButton = binding.sabahButton;
+        sabahButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (language.equals("TUR")) {
+
+                    sabahturkce();
+
+                } else if (language.equals("ARAP")) {
+
+                    sabahArapca();
+
+                }
+
+
+
+            }
+        });
+
+        Button ogleButton = binding.ogleButton;
+        ogleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (language.equals("TUR")) {
+
+                    ogleturkce();
+
+                } else if (language.equals("ARAP")) {
+
+                    ogleArapca();
+
+                }
+
+
+
+            }
+        });
+
+        Button ikindiButton = binding.ikindiButton;
+        ikindiButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (language.equals("TUR")) {
+
+                    ikinditurkce();
+
+                } else if (language.equals("ARAP")) {
+
+                    ikindiArapca();
+
+                }
+
+
+
+            }
+        });
+
+        Button aksamButton = binding.aksamButton;
+        aksamButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (language.equals("TUR")) {
+
+                    aksamturkce();
+
+                } else if (language.equals("ARAP")) {
+
+                    aksamArapca();
+
+                }
+
+
+
+            }
+        });
+
+        Button yatsiButton = binding.yatsiButton;
+        yatsiButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (language.equals("TUR")) {
+
+                    yatsiturkce();
+
+                } else if (language.equals("ARAP")) {
+
+                    yatsiArapca();
+
+                }
+
+
+
+            }
+        });
+
 
 
 
@@ -242,6 +372,7 @@ public class TesbihatActivity extends AppCompatActivity {
 
         TextView ttv = binding.tesbihatTextview;
         ttv.setText(tesbihatStr);
+        ttv.setMovementMethod(new ScrollingMovementMethod());
 
 
 
@@ -396,6 +527,7 @@ public class TesbihatActivity extends AppCompatActivity {
                 "“Bismillâhirraḥmânirraḥîm Lâ yestevî ašḥâbü’n-nâri ve ašḥâbü’l-Cenneh. Ašḥâbü’l-Cenneti hümü’l-fâizûn. . Lev enzelnâ hâẕe’l-Ḳur’âne ʿalâ cebelin leraeytehû ḫâşiʿan mütešaddian min-ḫaşyetillâh. Ve tilke’l-emsâlü naḍribühâ linnâsi leʿallehüm yetefekkerûn. . Hüvallahü’l-leẕî lâ ilâhe illâ hû. ʿÂlimü’l-ğaybi ve’ş-şehâdeti. Hüve’rRaḥmânü’r-Raḥîm. . Hüvallâhü’l-leẕî lâ ilâhe illâ hû. El-Melikü’l-Ḳuddûsü’s-Selâmü’l-Mü’\u00AD minü’l-Müheyminü’l-ʿAzîzü’l-Cebbârü’l-Mü\u00AD tekebbir. Sübḥânellâhi ʿammâ yüşrikûn. . Hüvallâhü’l-Ḫàliḳu’l-Bâriü’l-Müšavviru lehü’lEsmâü’l-\u00ADḤüsnâ. Yüsebbiḥu lehû mâ fi’ssemâvâti ve’l-arḍi. Ve hüve’l-ʿAzîzü’l-Ḥakîm.”";
         TextView ttv = binding.tesbihatTextview;
         ttv.setText(tesbihatStr);
+        ttv.setMovementMethod(new ScrollingMovementMethod());
 
 
 
@@ -482,6 +614,7 @@ public class TesbihatActivity extends AppCompatActivity {
 
         TextView ttv = binding.tesbihatTextview;
         ttv.setText(tesbihatStr);
+        ttv.setMovementMethod(new ScrollingMovementMethod());
 
 
 
@@ -593,6 +726,7 @@ public class TesbihatActivity extends AppCompatActivity {
 
         TextView ttv = binding.tesbihatTextview;
         ttv.setText(tesbihatStr);
+        ttv.setMovementMethod(new ScrollingMovementMethod());
 
 
 
@@ -827,6 +961,7 @@ public class TesbihatActivity extends AppCompatActivity {
 
         TextView ttv = binding.tesbihatTextview;
         ttv.setText(tesbihatStr);
+        ttv.setMovementMethod(new ScrollingMovementMethod());
 
 
 
@@ -899,6 +1034,7 @@ public class TesbihatActivity extends AppCompatActivity {
 
         TextView ttv = binding.tesbihatTextview;
         ttv.setText(tesbihatStr);
+        ttv.setMovementMethod(new ScrollingMovementMethod());
 
 
 
@@ -1013,6 +1149,7 @@ public class TesbihatActivity extends AppCompatActivity {
 
         TextView ttv = binding.tesbihatTextview;
         ttv.setText(tesbihatStr);
+        ttv.setMovementMethod(new ScrollingMovementMethod());
 
 
 
@@ -1111,6 +1248,7 @@ public class TesbihatActivity extends AppCompatActivity {
 
         TextView ttv = binding.tesbihatTextview;
         ttv.setText(tesbihatStr);
+        ttv.setMovementMethod(new ScrollingMovementMethod());
 
 
 
@@ -1195,6 +1333,7 @@ public class TesbihatActivity extends AppCompatActivity {
 
         TextView ttv = binding.tesbihatTextview;
         ttv.setText(tesbihatStr);
+        ttv.setMovementMethod(new ScrollingMovementMethod());
 
 
 
@@ -1275,6 +1414,7 @@ public class TesbihatActivity extends AppCompatActivity {
 
         TextView ttv = binding.tesbihatTextview;
         ttv.setText(tesbihatStr);
+        ttv.setMovementMethod(new ScrollingMovementMethod());
 
 
 
