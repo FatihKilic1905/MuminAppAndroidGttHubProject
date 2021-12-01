@@ -15,10 +15,13 @@ public class ImsakOncesiBildirimReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intentImsakOncesi) {
 
-        String title = intentImsakOncesi.getStringExtra("ImsakOncesiNotTitle");
-        String description = intentImsakOncesi.getStringExtra("ImsakOncesiNotDescription");
-        String sound = intentImsakOncesi.getStringExtra("ImsakOncesiNotSound");
-        int notifyNum = intentImsakOncesi.getIntExtra("ImsakOncesiNotNotifyNum",0);
+        String title = intentImsakOncesi.getStringExtra("vImsakTitle");
+        String description = intentImsakOncesi.getStringExtra("vImsakDescription");
+        String sound = intentImsakOncesi.getStringExtra("vImsakSound");
+        int notifyNum = intentImsakOncesi.getIntExtra("vImsakNotifyNum",0);
+        String vaktinAyetiStr = intentImsakOncesi.getStringExtra("vaktinAyeti");
+        String vaktinHadisiStr = intentImsakOncesi.getStringExtra("vaktinHadisi");
+
 
 
         NotificationCompat.Builder EzanNotifyBuilder = new NotificationCompat.Builder(context, "notifyEzan")

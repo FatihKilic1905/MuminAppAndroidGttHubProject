@@ -2,7 +2,9 @@ package com.fatihkilic.muminappandroid.EzanVaktiCoplete;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
@@ -36,7 +38,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class EzanVaktiActivity extends AppCompatActivity {
 
 
-
     ArrayList<EzanVakitleriModel> ezanVakitleriModels;
     ArrayList<EzanVaktiPost> ezanVaktiPostArrayList;
 
@@ -47,6 +48,8 @@ public class EzanVaktiActivity extends AppCompatActivity {
     private ActivityEzanVaktiBinding binding;
 
     SQLiteDatabase vakitDatabase;
+
+    SharedPreferences sharedPreferences;
 
 
     Date currentTime = Calendar.getInstance().getTime();
@@ -66,37 +69,137 @@ public class EzanVaktiActivity extends AppCompatActivity {
 
         retrofitIlce = new Retrofit.Builder().baseUrl(BaseUrl).addConverterFactory(GsonConverterFactory.create(gsonIlce)).build();
 
+        sharedPreferences = this.getSharedPreferences("com.fatihkilic.muminappandroid", Context.MODE_PRIVATE);
 
 
-        loadEzanVakti();
-        getEzanVakti();
+        setEzanVakti();
 
-        Button gecisyap = (Button)view.findViewById(R.id.konumOnaylaButton);
+        Button gecisyap = (Button) view.findViewById(R.id.konumOnaylaButton);
         gecisyap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
+                loadEzanVakti();
                 Intent konum = new Intent(EzanVaktiActivity.this, MainActivity.class);
                 startActivity(konum);
             }
         });
 
 
+    }
+
+    public void loadEzanVakti() {
+
+
+        vakitDatabase = openOrCreateDatabase("EZANVAKITLERIDATA", MODE_PRIVATE, null);
+        Intent ilceIDIntent = getIntent();
+        String ilceIDGet = ilceIDIntent.getStringExtra("ilceID");
+        String ilceNameGet = ilceIDIntent.getStringExtra("ilceName");
+        binding.konumTextView.setText(ilceNameGet);
+
+        sharedPreferences.edit().putString("storedKonum", ilceNameGet).apply();
+
+
+
+        EzanVaktiService ezanVaktiService = retrofitIlce.create(EzanVaktiService.class);
+        Call<List<EzanVakitleriModel>> call = ezanVaktiService.getEzanData(ilceIDGet);
+
+        call.enqueue(new Callback<List<EzanVakitleriModel>>() {
+            @Override
+            public void onResponse(Call<List<EzanVakitleriModel>> call, Response<List<EzanVakitleriModel>> response) {
+
+                if (response.isSuccessful()) {
+
+                    List<EzanVakitleriModel> responseList = response.body();
+                    ezanVakitleriModels = new ArrayList<>(responseList);
+
+                    for (EzanVakitleriModel vakitleriModel : ezanVakitleriModels) {
+
+                        try {
+
+
+                            vakitDatabase.execSQL("CREATE TABLE IF NOT EXISTS ezanvakitleridatabase(id INTEGER PRIMARY KEY, imsakVakti VARCHAR, gunesVakti VARCHAR, ogleVakti VARCHAR, ikindiVakti VARCHAR, aksamVakti VARCHAR, yatsiVakti VARCHAR, miladiKisa VARCHAR, miladiUzun VARCHAR, hicriUzun VARCHAR)");
+                            String EzanVakitleriDatabaseString = "INSERT INTO ezanvakitleridatabase(imsakVakti, gunesVakti, ogleVakti, ikindiVakti, aksamVakti, yatsiVakti, miladiKisa, miladiUzun, hicriUzun) VALUES(?,?,?,?,?,?,?,?,?)";
+                            SQLiteStatement sqLiteStatementEzanVakti = vakitDatabase.compileStatement(EzanVakitleriDatabaseString);
+                            sqLiteStatementEzanVakti.bindString(1, vakitleriModel.Imsak);
+                            sqLiteStatementEzanVakti.bindString(2, vakitleriModel.Gunes);
+                            sqLiteStatementEzanVakti.bindString(3, vakitleriModel.Ogle);
+                            sqLiteStatementEzanVakti.bindString(4, vakitleriModel.Ikindi);
+                            sqLiteStatementEzanVakti.bindString(5, vakitleriModel.Aksam);
+                            sqLiteStatementEzanVakti.bindString(6, vakitleriModel.Yatsi);
+                            sqLiteStatementEzanVakti.bindString(7, vakitleriModel.MiladiTarihKisa);
+                            sqLiteStatementEzanVakti.bindString(8, vakitleriModel.MiladiTarihUzun);
+                            sqLiteStatementEzanVakti.bindString(9, vakitleriModel.HicriTarihUzun);
+                            sqLiteStatementEzanVakti.execute();
 
 
 
 
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<EzanVakitleriModel>> call, Throwable t) {
+
+                t.printStackTrace();
+
+            }
+        });
+    }
 
 
+    public void getEzanVakti() {
+
+        SimpleDateFormat sistemtarih = new SimpleDateFormat("dd.M.yyyy");
+        Date sistemtarihi = new Date();
+        String sistemTarihiString = sistemtarih.format(sistemtarihi);
+        vakitDatabase = openOrCreateDatabase("EZANVAKITLERIDATA", MODE_PRIVATE, null);
+
+        try {
+
+            Cursor cursor = vakitDatabase.rawQuery("SELECT * FROM ezanvakitleridatabase WHERE miladiKisa = ?", new String[]{sistemTarihiString});
+            int imsakVaktiIx = cursor.getColumnIndex("imsakVakti");
+            int gunesVaktiIx = cursor.getColumnIndex("gunesVakti");
+            int ogleVaktiIx = cursor.getColumnIndex("ogleVakti");
+            int ikindiVaktiIx = cursor.getColumnIndex("ikindiVakti");
+            int aksamVaktiIx = cursor.getColumnIndex("aksamVakti");
+            int yatsiVaktiIx = cursor.getColumnIndex("yatsiVakti");
+
+
+            while (cursor.moveToNext()) {
+
+                binding.imsakTime.setText(cursor.getString(imsakVaktiIx));
+                binding.gunesTime.setText(cursor.getString(gunesVaktiIx));
+                binding.ogleTime.setText(cursor.getString(ogleVaktiIx));
+                binding.ikindiTime.setText(cursor.getString(ikindiVaktiIx));
+                binding.aksamTime.setText(cursor.getString(aksamVaktiIx));
+                binding.yatsiTime.setText(cursor.getString(yatsiVaktiIx));
+
+
+            }
+
+            cursor.close();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
 
 
     }
 
-    public void loadEzanVakti(){
+    public void setEzanVakti() {
 
 
-        vakitDatabase = openOrCreateDatabase("EZANVAKITLERIDATA", MODE_PRIVATE,null);
+        vakitDatabase = openOrCreateDatabase("EZANVAKITLERIDATA", MODE_PRIVATE, null);
         Intent ilceIDIntent = getIntent();
         String ilceIDGet = ilceIDIntent.getStringExtra("ilceID");
         String ilceNameGet = ilceIDIntent.getStringExtra("ilceName");
@@ -119,30 +222,21 @@ public class EzanVaktiActivity extends AppCompatActivity {
                         try {
 
 
-                            vakitDatabase.execSQL("CREATE TABLE IF NOT EXISTS ezanvakitleridatabase(id INTEGER PRIMARY KEY, imsakVakti VARCHAR, gunesVakti VARCHAR, ogleVakti VARCHAR, ikindiVakti VARCHAR, aksamVakti VARCHAR, yatsiVakti VARCHAR, miladiKisa VARCHAR, miladiUzun VARCHAR, hicriUzun VARCHAR)" );
-                            String EzanVakitleriDatabaseString = "INSERT INTO ezanvakitleridatabase(imsakVakti, gunesVakti, ogleVakti, ikindiVakti, aksamVakti, yatsiVakti, miladiKisa, miladiUzun, hicriUzun) VALUES(?,?,?,?,?,?,?,?,?)";
-                            SQLiteStatement sqLiteStatementEzanVakti = vakitDatabase.compileStatement(EzanVakitleriDatabaseString);
-                            sqLiteStatementEzanVakti.bindString(1, vakitleriModel.Imsak);
-                            sqLiteStatementEzanVakti.bindString(2, vakitleriModel.Gunes);
-                            sqLiteStatementEzanVakti.bindString(3, vakitleriModel.Ogle);
-                            sqLiteStatementEzanVakti.bindString(4, vakitleriModel.Ikindi);
-                            sqLiteStatementEzanVakti.bindString(5, vakitleriModel.Aksam);
-                            sqLiteStatementEzanVakti.bindString(6, vakitleriModel.Yatsi);
-                            sqLiteStatementEzanVakti.bindString(7, vakitleriModel.MiladiTarihKisa);
-                            sqLiteStatementEzanVakti.bindString(8, vakitleriModel.MiladiTarihUzun);
-                            sqLiteStatementEzanVakti.bindString(9, vakitleriModel.HicriTarihUzun);
-                            sqLiteStatementEzanVakti.execute();
+                            binding.imsakTime.setText(vakitleriModel.Imsak);
+                            binding.gunesTime.setText(vakitleriModel.Gunes);
+                            binding.ogleTime.setText(vakitleriModel.Ogle);
+                            binding.ikindiTime.setText(vakitleriModel.Ikindi);
+                            binding.aksamTime.setText(vakitleriModel.Aksam);
+                            binding.yatsiTime.setText(vakitleriModel.Yatsi);
 
 
-
-
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 
                     }
                 }
-                
+
             }
 
             @Override
@@ -152,55 +246,16 @@ public class EzanVaktiActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-
-    public void getEzanVakti() {
-
-        SimpleDateFormat sistemtarih = new SimpleDateFormat("dd.M.yyyy");
-        Date sistemtarihi = new Date();
-        String sistemTarihiString = sistemtarih.format(sistemtarihi);
-        vakitDatabase = openOrCreateDatabase("EZANVAKITLERIDATA", MODE_PRIVATE,null);
-
-        try {
-
-            Cursor cursor = vakitDatabase.rawQuery("SELECT * FROM ezanvakitleridatabase WHERE miladiKisa = ?", new String[] {sistemTarihiString});
-            int imsakVaktiIx = cursor.getColumnIndex("imsakVakti");
-            int gunesVaktiIx = cursor.getColumnIndex("gunesVakti");
-            int ogleVaktiIx = cursor.getColumnIndex("ogleVakti");
-            int ikindiVaktiIx = cursor.getColumnIndex("ikindiVakti");
-            int aksamVaktiIx = cursor.getColumnIndex("aksamVakti");
-            int yatsiVaktiIx = cursor.getColumnIndex("yatsiVakti");
-
-
-            while (cursor.moveToNext()){
-
-                binding.imsakTime.setText(cursor.getString(imsakVaktiIx));
-                binding.gunesTime.setText(cursor.getString(gunesVaktiIx));
-                binding.ogleTime.setText(cursor.getString(ogleVaktiIx));
-                binding.ikindiTime.setText(cursor.getString(ikindiVaktiIx));
-                binding.aksamTime.setText(cursor.getString(aksamVaktiIx));
-                binding.yatsiTime.setText(cursor.getString(yatsiVaktiIx));
-
-
-            }
-
-            cursor.close();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-        }
-
-
 
 
     }
-
-
-
-
 
 
 }
+
+
+
+
+
+
+

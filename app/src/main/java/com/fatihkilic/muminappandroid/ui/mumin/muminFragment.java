@@ -33,6 +33,7 @@ import com.fatihkilic.muminappandroid.Ayarlar.Receiver.ImsakVaktiBildirimReceive
 import com.fatihkilic.muminappandroid.DayInfo.DayInfoActivity;
 import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
+import com.fatihkilic.muminappandroid.Ulkeler.KonumActivity;
 import com.fatihkilic.muminappandroid.databinding.FragmentMuminBinding;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -134,13 +135,29 @@ public class muminFragment extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
 
 
+        binding.konumtitle.setText(sharedPreferences.getString("storedKonum","Konum"));
+
+
+        String konumControl = binding.konumtitle.getText().toString();
+
+        if (konumControl.equals("Konum")) {
+
+            Intent ilkGirisIntent = new Intent(getActivity(),KonumActivity.class);
+            startActivity(ilkGirisIntent);
+
+        }
+
+
+
 
 
 
         sistemTarihiVoid();
         sistemSaatiVoid();
         getBildirimSound();
+        getEzanVakti();
         DayInfoGet();
+        VaktinCikmasinaTimer();
 
         // sil bunu yayınlarken
        // binding.buttonnotification.setVisibility(View.INVISIBLE);
@@ -723,6 +740,7 @@ public class muminFragment extends Fragment {
 
 
         vaktinHAdisi();
+        vaktinAyeti();
 
         // Create Sounds Link
         StringBuilder SoundUrl = new StringBuilder();
@@ -770,6 +788,9 @@ public class muminFragment extends Fragment {
         intent.putExtra("vImsakDescription", vaktinHadisiStr);
         intent.putExtra("vImsakSound", sounds);
         intent.putExtra("vImsakNotifyNum", notifyNum);
+        intent.putExtra("vaktinAyeti", vaktinAyetiStr);
+        intent.putExtra("vaktinHadisi", vaktinHadisiStr);
+
 
         PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
 
