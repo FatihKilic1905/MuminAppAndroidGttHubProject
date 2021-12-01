@@ -10,9 +10,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
-        tools:layout_editor_absoluteX="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="6dp">
 
         <Button
@@ -21,7 +22,7 @@
             android:layout_height="36dp"
             android:layout_marginStart="4dp"
             android:text="sabah"
-            android:textSize="10dp"
+            android:textSize="9dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,43 +31,40 @@
             android:id="@+id/ogleButton"
             android:layout_width="71dp"
             android:layout_height="36dp"
-            android:layout_marginStart="84dp"
-
+            android:layout_marginLeft="5dp"
             android:text="öğle"
-            android:textSize="10dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="9dp"
+            app:layout_constraintStart_toEndOf="@+id/sabahButton"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/aksamButton"
             android:layout_width="71dp"
             android:layout_height="36dp"
-            android:layout_marginStart="252dp"
-
+            android:layout_marginLeft="5dp"
             android:text="akşam"
-            android:textSize="10dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="9dp"
+            app:layout_constraintStart_toEndOf="@+id/ikindiButton"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/ikindiButton"
             android:layout_width="71dp"
             android:layout_height="36dp"
-            android:layout_marginStart="168dp"
-
+            android:layout_marginLeft="5dp"
             android:text="ikindi"
-            android:textSize="10dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="9dp"
+            app:layout_constraintStart_toEndOf="@+id/ogleButton"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/yatsiButton"
             android:layout_width="71dp"
             android:layout_height="36dp"
-            android:layout_marginStart="332dp"
+            android:layout_marginLeft="5dp"
             android:text="yatsı"
-            android:textSize="10dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="9dp"
+            app:layout_constraintStart_toEndOf="@+id/aksamButton"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -75,17 +73,24 @@
 
     <TextView
         android:id="@+id/tesbihatTextview"
-        android:layout_width="365dp"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="90dp"
         android:background="@drawable/layer_stroke_4_corner"
         android:gravity="center"
         android:padding="15dp"
         android:scrollbars="vertical"
         android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -102,28 +107,28 @@
         app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
 
     <Button
-        android:id="@+id/arapcaButton"
-        android:layout_width="170dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="20dp"
-        android:text="arapça"
-        android:textSize="10dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
-        app:layout_constraintEnd_toStartOf="@+id/turkceButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/turkceButton"
         android:layout_width="170dp"
         android:layout_height="44dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="136dp"
         android:text="türkçe"
         android:textSize="10dp"
-        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/arapcaButton"
+        android:layout_width="170dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="136dp"
+        android:text="arapça"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintEnd_toStartOf="@+id/turkceButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

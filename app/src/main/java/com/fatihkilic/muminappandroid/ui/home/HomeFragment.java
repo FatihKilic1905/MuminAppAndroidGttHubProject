@@ -50,16 +50,7 @@ public class HomeFragment extends Fragment {
 
 
 
-        Button namazHocasiButton = binding.namazHocasiButton;
-        namazHocasiButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Intent namazHocasiIntent = new Intent(getActivity(), NamazHocasiActivity.class);
-                startActivity(namazHocasiIntent);
-
-            }
-        });
 
         Button tesbihatButton = binding.tesbihatButton;
         tesbihatButton.setOnClickListener(new View.OnClickListener() {

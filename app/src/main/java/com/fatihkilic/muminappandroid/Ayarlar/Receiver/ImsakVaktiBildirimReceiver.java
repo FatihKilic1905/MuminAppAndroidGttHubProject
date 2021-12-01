@@ -45,6 +45,8 @@ public class ImsakVaktiBildirimReceiver extends BroadcastReceiver {
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
 
         Intent intent = new Intent(context, BildirimActivity.class);
+        intent.putExtra("VakitInfoNot",title);
+        intent.putExtra("VakitDescription", description);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,notifyNum,intent,0);
         EzanNotifyBuilder.setContentIntent(pendingIntent);
 

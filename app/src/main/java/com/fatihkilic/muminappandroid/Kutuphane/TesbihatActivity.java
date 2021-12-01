@@ -43,11 +43,22 @@ public class TesbihatActivity extends AppCompatActivity {
             }
         });
 
-        sabahturkce();
-
         mAdView = binding.adView;
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+
+
+        binding.sabahButton.setVisibility(View.INVISIBLE);
+        binding.ogleButton.setVisibility(View.INVISIBLE);
+        binding.ikindiButton.setVisibility(View.INVISIBLE);
+        binding.aksamButton.setVisibility(View.INVISIBLE);
+        binding.yatsiButton.setVisibility(View.INVISIBLE);
+        binding.tesbihatTextview.setVisibility(View.INVISIBLE);
+
+
+
+
 
         Button arapcaButton = binding.arapcaButton;
         arapcaButton.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +66,15 @@ public class TesbihatActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 language = "ARAP";
+                binding.sabahButton.setVisibility(View.VISIBLE);
+                binding.ogleButton.setVisibility(View.VISIBLE);
+                binding.ikindiButton.setVisibility(View.VISIBLE);
+                binding.aksamButton.setVisibility(View.VISIBLE);
+                binding.yatsiButton.setVisibility(View.VISIBLE);
+                binding.arapcaButton.setVisibility(View.INVISIBLE);
+                binding.turkceButton.setVisibility(View.INVISIBLE);
+                binding.tesbihatTextview.setVisibility(View.VISIBLE);
+                sabahArapca();
 
 
             }
@@ -66,6 +86,16 @@ public class TesbihatActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 language = "TUR";
+
+                binding.sabahButton.setVisibility(View.VISIBLE);
+                binding.ogleButton.setVisibility(View.VISIBLE);
+                binding.ikindiButton.setVisibility(View.VISIBLE);
+                binding.aksamButton.setVisibility(View.VISIBLE);
+                binding.yatsiButton.setVisibility(View.VISIBLE);
+                binding.arapcaButton.setVisibility(View.INVISIBLE);
+                binding.turkceButton.setVisibility(View.INVISIBLE);
+                binding.tesbihatTextview.setVisibility(View.VISIBLE);
+                sabahturkce();
 
 
             }

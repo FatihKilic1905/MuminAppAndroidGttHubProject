@@ -7,12 +7,83 @@
     tools:context=".BildirimActivity">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="303dp"
-        android:layout_height="186dp"
-        android:text="Ben bildirim Ekranıyım"
-        android:textSize="50dp"
+        android:id="@+id/vaktinAHTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="200dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:inputType="number"
-        tools:layout_editor_absoluteX="54dp"
-        tools:layout_editor_absoluteY="208dp" />
+        android:text="Ben bildirim Ekranıyım"
+        android:textSize="18dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="218dp" />
+
+    <TextView
+        android:id="@+id/vekitTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/muminAppGreen"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/vaktinAHTitleTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.607" />
+
+    <TextView
+        android:id="@+id/vaktinAHTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:text="Vaktin Ayeti/Hadisi"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/vaktinAHTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="160dp"
+        android:layout_height="42dp"
+        android:text="ezan duası"
+        app:layout_constraintBottom_toTopOf="@+id/closeButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vaktinAHTextView" />
+
+
+    <Button
+        android:id="@+id/closeButton"
+        android:layout_width="160dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="16dp"
+        android:text="Kapat"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:adSize="BANNER"
+        android:layout_marginBottom="16dp"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
 </androidx.constraintlayout.widget.ConstraintLayout>
