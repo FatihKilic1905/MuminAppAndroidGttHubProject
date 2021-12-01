@@ -34,6 +34,11 @@ import com.fatihkilic.muminappandroid.DayInfo.DayInfoActivity;
 import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.FragmentMuminBinding;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -107,6 +112,10 @@ public class muminFragment extends Fragment {
     String vaktinAyetiStr;
     String vaktinHadisiStr;
 
+    private AdView mAdView;
+    private AdView mAdView2;
+    private AdView mAdView3;
+
     private FirebaseFirestore firebaseFirestore;
 
 
@@ -177,6 +186,21 @@ public class muminFragment extends Fragment {
 
             }
         });
+
+        MobileAds.initialize(getActivity(), new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        mAdView = binding.adView;
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
+        mAdView3 = binding.adView3;
+        AdRequest adRequest3 = new AdRequest.Builder().build();
+        mAdView3.loadAd(adRequest3);
 
 
         return root;
