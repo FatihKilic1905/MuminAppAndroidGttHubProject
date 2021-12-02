@@ -79,7 +79,6 @@ public class EzanVaktiActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 loadEzanVakti();
                 Intent konum = new Intent(EzanVaktiActivity.this, MainActivity.class);
                 startActivity(konum);

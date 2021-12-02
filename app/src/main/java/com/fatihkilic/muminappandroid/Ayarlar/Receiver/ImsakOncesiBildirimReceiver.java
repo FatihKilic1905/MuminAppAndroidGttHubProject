@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.fatihkilic.muminappandroid.BildirimActivity;
+import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
 
 public class ImsakOncesiBildirimReceiver extends BroadcastReceiver {
@@ -39,6 +40,10 @@ public class ImsakOncesiBildirimReceiver extends BroadcastReceiver {
                 .setContentText(description)
                 .setSound(customSoundUri)
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        Intent intent = new Intent(context, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,notifyNum,intent,0);
+        EzanNotifyBuilder.setContentIntent(pendingIntent);
 
         NotificationManagerCompat ezanNotificationManager = NotificationManagerCompat.from(context);
 

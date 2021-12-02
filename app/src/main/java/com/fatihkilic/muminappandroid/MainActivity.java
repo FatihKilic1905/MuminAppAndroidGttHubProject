@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
         // ca-app-pub-9766355257187956/5774943033
 
+
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

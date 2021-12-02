@@ -337,6 +337,7 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
                     android:text="Vaktin Ayeti"
+                    android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -386,6 +387,24 @@
                 android:layout_height="110dp"
                 android:layout_gravity="center"
                 android:background="@drawable/layer_stroke_bottom_corner_radius">
+
+                <TextView
+                    android:id="@+id/VaktinHadisiLabel"
+                    android:layout_width="337dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="Vaktin Hadisi"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

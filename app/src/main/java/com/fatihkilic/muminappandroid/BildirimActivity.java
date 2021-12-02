@@ -30,6 +30,7 @@ public class BildirimActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("");
 
+
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
@@ -41,8 +42,8 @@ public class BildirimActivity extends AppCompatActivity {
         mAdView.loadAd(adRequest);
 
         Intent getIntent = getIntent();
-        binding.vaktinAHTitleTextView.setText(getIntent.getStringExtra("VakitInfoNot"));
-        binding.vaktinAHTextView.setText(getIntent.getStringExtra("VakitDescription"));
+        binding.vaktinAHTitleTextView.setText(getIntent.getStringExtra("InfoNot"));
+        binding.vaktinAHTextView.setText(getIntent.getStringExtra("DescNot"));
 
 
     }
