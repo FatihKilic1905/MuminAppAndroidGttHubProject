@@ -1,6 +1,8 @@
 package com.fatihkilic.muminappandroid.Ayarlar.Receiver;
 
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,6 +10,7 @@ import android.net.Uri;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.fatihkilic.muminappandroid.BildirimActivity;
 import com.fatihkilic.muminappandroid.R;
 
 public class ImsakOncesiBildirimReceiver extends BroadcastReceiver {
@@ -15,12 +18,18 @@ public class ImsakOncesiBildirimReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intentImsakOncesi) {
 
-        String title = intentImsakOncesi.getStringExtra("vImsakTitle");
-        String description = intentImsakOncesi.getStringExtra("vImsakDescription");
-        String sound = intentImsakOncesi.getStringExtra("vImsakSound");
-        int notifyNum = intentImsakOncesi.getIntExtra("vImsakNotifyNum",0);
-        String vaktinAyetiStr = intentImsakOncesi.getStringExtra("vaktinAyeti");
-        String vaktinHadisiStr = intentImsakOncesi.getStringExtra("vaktinHadisi");
+        String title = intentImsakOncesi.getStringExtra("vOImsakTitle");
+        String description = intentImsakOncesi.getStringExtra("vOImsakDescription");
+        String sound = intentImsakOncesi.getStringExtra("vOImsakSound");
+        int notifyNum = intentImsakOncesi.getIntExtra("vOImsakNotifyNum",0);
+
+
+        StringBuilder SoundUrl = new StringBuilder();
+        SoundUrl.append("/raw/");
+        SoundUrl.append(sound);
+
+
+        Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + context.getPackageName() + SoundUrl);
 
 
 
@@ -28,8 +37,8 @@ public class ImsakOncesiBildirimReceiver extends BroadcastReceiver {
                 .setSmallIcon(R.drawable.ic_mumin_toolbar_logo)
                 .setContentTitle(title)
                 .setContentText(description)
-                .setSound(Uri.parse(sound))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setSound(customSoundUri)
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
 
         NotificationManagerCompat ezanNotificationManager = NotificationManagerCompat.from(context);
 

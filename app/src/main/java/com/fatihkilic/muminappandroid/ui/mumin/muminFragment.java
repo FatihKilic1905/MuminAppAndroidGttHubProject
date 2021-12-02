@@ -140,24 +140,25 @@ public class muminFragment extends Fragment {
 
         String konumControl = binding.konumtitle.getText().toString();
 
-        if (konumControl.equals("Konum")) {
-
-            Intent ilkGirisIntent = new Intent(getActivity(),KonumActivity.class);
-            startActivity(ilkGirisIntent);
-
-        }
-
-
-
-
-
-
         sistemTarihiVoid();
         sistemSaatiVoid();
         getBildirimSound();
-        getEzanVakti();
         DayInfoGet();
-        VaktinCikmasinaTimer();
+
+
+        if (konumControl.equals("Konum")) {
+
+            Intent ilkGirisIntent = new Intent(getActivity(),KonumActivity.class);
+            ilkGirisIntent.putExtra("ilkGiris","ilkGiris");
+            startActivity(ilkGirisIntent);
+
+        } else {
+
+            getEzanVakti();
+            VaktinCikmasinaTimer();
+
+        }
+
 
         // sil bunu yayınlarken
        // binding.buttonnotification.setVisibility(View.INVISIBLE);
@@ -303,6 +304,7 @@ public class muminFragment extends Fragment {
         }
 
         vakitGeldi();
+
 
 
     }
@@ -735,6 +737,103 @@ public class muminFragment extends Fragment {
 
     }
 
+    public void vaktinHAdisi () {
+
+        Random random = new Random();
+        int a = random.nextInt(10);
+
+        String[] vaktinHadisiArray = {"1","2","3","4","5","6","7","8","9","10"};
+
+        vaktinHadisiStr = vaktinHadisiArray[a];
+
+    }
+
+    public void vaktinAyeti () {
+
+        Random random = new Random();
+        int a = random.nextInt(10);
+
+        String[] vaktinAyetiArray = {"1","2","3","4","5","6","7","8","9","10"};
+
+        vaktinAyetiStr = vaktinAyetiArray[a];
+
+    }
+
+    public void getBildirimSound() {
+
+        vOImsakSureInt = sharedPreferences.getInt("vOImsakSureInt", 0);
+        vOImsakSesStr = sharedPreferences.getString("vOImsakSesStr", "");
+        vImsakSesStr = sharedPreferences.getString("vImsakSesStr", "");
+
+        vOGunesSureInt = sharedPreferences.getInt("vOGunesSureInt", 0);
+        vOGunesSesStr = sharedPreferences.getString("vOGunesSesStr", "");
+        vGunesSesStr = sharedPreferences.getString("vGunesSesStr", "");
+
+        vOOgleSureInt = sharedPreferences.getInt("vOOgleSureInt", 0);
+        vOOgleSesStr = sharedPreferences.getString("vOOgleSesStr", "");
+        vOgleSesStr = sharedPreferences.getString("vOgleSesStr", "");
+
+        vOIkindiSureInt = sharedPreferences.getInt("vOIkindiSureInt", 0);
+        vOIkindiSesStr = sharedPreferences.getString("vOIkindiSesStr", "");
+        vIkindiSesStr = sharedPreferences.getString("vIkindiSesStr", "");
+
+        vOAksamSureInt = sharedPreferences.getInt("vOAksamSureInt", 0);
+        vOAksamSesStr = sharedPreferences.getString("vOAksamSesStr", "");
+        vAksamSesStr = sharedPreferences.getString("vAksamSesStr", "");
+
+        vOYatsiSureInt = sharedPreferences.getInt("vOYatsiSureInt", 0);
+        vOYatsiSesStr = sharedPreferences.getString("vOYatsiSesStr", "");
+        vYatsiSesStr = sharedPreferences.getString("vYatsiSesStr", "");
+
+
+
+
+
+
+    }
+
+    private void DayInfoGet() {
+
+
+
+        DocumentReference usdRef = firebaseFirestore.collection("DayInfo").document("Info");
+        usdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                if (task.isSuccessful()) {
+
+                    DocumentSnapshot document = task.getResult();
+
+                    if (document.exists()) {
+
+                        babyName = (String) document.get("babyName");
+                        binding.babyNameText.setText(babyName);
+                        mealOfTheDay = (String) document.get("mealOfTheDay");
+                        binding.mealofDayText.setText(mealOfTheDay);
+                        todayInHistory = (String) document.get("todayInHistory");
+                        binding.todayHistoryText.setText(todayInHistory);
+
+
+
+                    } else {
+                        System.out.println("Olumsuz");
+                    }
+
+                } else {
+
+                    System.out.println("cekme başarısız");
+                }
+
+            }
+        });
+
+
+
+
+
+    }
+
     public void bildirimGonderImsak(String titles, String sounds ,int notifyNum, String time ) throws ParseException {
 
 
@@ -799,107 +898,70 @@ public class muminFragment extends Fragment {
         long along = System.currentTimeMillis();
         long timesss = 1000 * 5;
 
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, along + timesss,PendingEzan);
+        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate,PendingEzan);
 
     }
 
-    public void vaktinHAdisi () {
-
-        Random random = new Random();
-        int a = random.nextInt(10);
-
-        String[] vaktinHadisiArray = {"1","2","3","4","5","6","7","8","9","10"};
-
-        vaktinHadisiStr = vaktinHadisiArray[a];
-
-    }
-
-    public void vaktinAyeti () {
-
-        Random random = new Random();
-        int a = random.nextInt(10);
-
-        String[] vaktinAyetiArray = {"1","2","3","4","5","6","7","8","9","10"};
-
-        vaktinAyetiStr = vaktinAyetiArray[a];
-
-    }
-
-    public void getBildirimSound() {
-
-        vOImsakSureInt = sharedPreferences.getInt("vOImsakSureInt", 0);
-        vOImsakSesStr = sharedPreferences.getString("vOImsakSesStr", "");
-        vImsakSesStr = sharedPreferences.getString("vImsakSesStr", "");
-
-        vOGunesSureInt = sharedPreferences.getInt("vOGunesSureInt", 0);
-        vOGunesSesStr = sharedPreferences.getString("vOGunesSesStr", "");
-        vGunesSesStr = sharedPreferences.getString("vGunesSesStr", "");
-
-        vOOgleSureInt = sharedPreferences.getInt("vOOgleSureInt", 0);
-        vOOgleSesStr = sharedPreferences.getString("vOOgleSesStr", "");
-        vOgleSesStr = sharedPreferences.getString("vOgleSesStr", "");
-
-        vOIkindiSureInt = sharedPreferences.getInt("vOIkindiSureInt", 0);
-        vOIkindiSesStr = sharedPreferences.getString("vOIkindiSesStr", "");
-        vIkindiSesStr = sharedPreferences.getString("vIkindiSesStr", "");
-
-        vOAksamSureInt = sharedPreferences.getInt("vOAksamSureInt", 0);
-        vOAksamSesStr = sharedPreferences.getString("vOAksamSesStr", "");
-        vAksamSesStr = sharedPreferences.getString("vAksamSesStr", "");
-
-        vOYatsiSureInt = sharedPreferences.getInt("vOYatsiSureInt", 0);
-        vOYatsiSesStr = sharedPreferences.getString("vOYatsiSesStr", "");
-        vYatsiSesStr = sharedPreferences.getString("vYatsiSesStr", "");
+    public void bildirimGonderImsakOncesi(String titles, String sounds ,int notifyNum, String time, int beforeTime ) throws ParseException {
 
 
+        // Create Sounds Link
+        StringBuilder SoundUrl = new StringBuilder();
+        SoundUrl.append("/raw/");
+        SoundUrl.append(sounds);
 
 
+        // Convert LongTime
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = formatter.parse(time);
+        long  longdate = date.getTime();
+        System.out.println(date);
+        System.out.println(longdate);
 
 
-    }
+        Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + SoundUrl);
+
+
+        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .build();
+
+            CharSequence name = "Ezan Vakitleri Kanalı";
+            String description = "Ezan Vakitleri için hatırlatma";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+
+
+            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
+            ezanChannel.setDescription(description);
+            ezanChannel.setSound(customSoundUri, audioAttributes);
+
+
+            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
+
+        }
+
+        Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
+
+        intent.putExtra("vOImsakTitle", titles);
+        intent.putExtra("vOImsakDescription", "Güneşin doğması için son " + beforeTime + " dakika kaldı.");
+        intent.putExtra("vOImsakSound", sounds);
+        intent.putExtra("vOImsakNotifyNum", notifyNum);
 
 
 
+        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
 
-    private void DayInfoGet() {
+        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
 
+        long along = System.currentTimeMillis();
+        long beforeLong = 60000 * beforeTime;
 
-
-        DocumentReference usdRef = firebaseFirestore.collection("DayInfo").document("Info");
-        usdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                if (task.isSuccessful()) {
-
-                    DocumentSnapshot document = task.getResult();
-
-                    if (document.exists()) {
-
-                        babyName = (String) document.get("babyName");
-                        binding.babyNameText.setText(babyName);
-                        mealOfTheDay = (String) document.get("mealOfTheDay");
-                        binding.mealofDayText.setText(mealOfTheDay);
-                        todayInHistory = (String) document.get("todayInHistory");
-                        binding.todayHistoryText.setText(todayInHistory);
-
-
-
-                    } else {
-                        System.out.println("Olumsuz");
-                    }
-
-                } else {
-
-                    System.out.println("cekme başarısız");
-                }
-
-            }
-        });
-
-
-
-
+        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate - beforeLong,PendingEzan);
 
     }
 
