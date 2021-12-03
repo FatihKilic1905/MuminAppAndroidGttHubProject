@@ -327,8 +327,17 @@ public class muminFragment extends Fragment {
                 binding.aytitle.setText(miladiSplit[1]);
                 binding.gunlertitle.setText(miladiSplit[3]);
 
+
+                String miladiKisaStr = cursor.getString(miladiKisaIx);
+                String[] splitImsak = miladiKisaStr.split(".");
+
+
                 StringBuilder imsakTimeBuild = new StringBuilder();
-                imsakTimeBuild.append("02-12-2021");
+                imsakTimeBuild.append(splitImsak[3]);
+                imsakTimeBuild.append("-");
+                imsakTimeBuild.append(splitImsak[2]);
+                imsakTimeBuild.append("-");
+                imsakTimeBuild.append(splitImsak[1]);
                 imsakTimeBuild.append(" ");
                 imsakTimeBuild.append(cursor.getString(imsakVaktiIx));
                 String imsakTime = imsakTimeBuild.toString();
@@ -895,7 +904,7 @@ public class muminFragment extends Fragment {
 
 
         // Convert LongTime
-        DateFormat formatter = new SimpleDateFormat("dd-M-yyyy HH:mm:ss");
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = formatter.parse(time);
         long  longdate = date.getTime();
         System.out.println(date + "datemmm");
