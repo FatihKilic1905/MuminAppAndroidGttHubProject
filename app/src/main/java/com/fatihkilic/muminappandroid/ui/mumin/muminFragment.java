@@ -148,7 +148,7 @@ public class muminFragment extends Fragment {
         sistemTarihiVoid();
 
 
-
+        getEzanVakti();
 
 
         String konumControl = binding.konumtitle.getText().toString();
@@ -160,7 +160,7 @@ public class muminFragment extends Fragment {
 
         } else {
 
-            getEzanVakti();
+
 
             String control = binding.imsakTime.getText().toString();
 
@@ -311,7 +311,7 @@ public class muminFragment extends Fragment {
                 aksamVakti = cursor.getString(aksamVaktiIx);
                 yatsiVakti = cursor.getString(yatsiVaktiIx);
 
-                System.out.println(imsakVakti + gunesVakti + ogleVakti + ikindiVakti + aksamVakti + yatsiVakti);
+                System.out.println("Vakitler   " + imsakVakti + gunesVakti + ogleVakti + ikindiVakti + aksamVakti + yatsiVakti);
                 binding.imsakTime.setText(cursor.getString(imsakVaktiIx));
                 binding.gunesTime.setText(cursor.getString(gunesVaktiIx));
                 binding.ogleTime.setText(cursor.getString(ogleVaktiIx));
