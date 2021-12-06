@@ -117,6 +117,7 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
                 } else {
 
                     binding.vaktindenOnceSoundTitle.setText("Kapalı");
+                    VOSesString = "Kapalı";
                     binding.vaktindenOnceSoundSelectButton.setVisibility(View.INVISIBLE);
                     binding.minuteSelectButton.setVisibility(View.INVISIBLE);
                     binding.minuteTitle.setVisibility(View.INVISIBLE);
@@ -144,6 +145,8 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
                 } else {
 
                     binding.vaktindeSoundTitle.setText("Kapalı");
+                    VaktindeSesString = "Kapalı";
+
                     binding.vaktindeSoundSelectButton.setVisibility(View.INVISIBLE);
 
                 }

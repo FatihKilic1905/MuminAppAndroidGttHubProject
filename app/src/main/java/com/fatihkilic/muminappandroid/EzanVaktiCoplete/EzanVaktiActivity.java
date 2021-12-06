@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.fatihkilic.muminappandroid.Ayarlar.SesSettingsActivity;
 import com.fatihkilic.muminappandroid.EzanVaktiService;
 import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
@@ -38,6 +39,7 @@ import retrofit2.http.DELETE;
 
 public class EzanVaktiActivity extends AppCompatActivity {
 
+    String IlkGirisInfo = "ikinciGiris";
 
     ArrayList<EzanVakitleriModel> ezanVakitleriModels;
     ArrayList<EzanVaktiPost> ezanVaktiPostArrayList;
@@ -75,14 +77,32 @@ public class EzanVaktiActivity extends AppCompatActivity {
 
         setEzanVakti();
 
+        Intent getIlkGirisIntent = getIntent();
+        IlkGirisInfo = getIlkGirisIntent.getStringExtra("ilkGiris");
+
+
         Button gecisyap = (Button) view.findViewById(R.id.konumOnaylaButton);
         gecisyap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 loadEzanVakti();
-                Intent konum = new Intent(EzanVaktiActivity.this, MainActivity.class);
-                startActivity(konum);
+
+                if (IlkGirisInfo.equals("ilkGiris")) {
+
+                    Intent konum = new Intent(EzanVaktiActivity.this, SesSettingsActivity.class);
+                    konum.putExtra("ilkGiris2","ilkGiris2");
+                    startActivity(konum);
+
+
+                } else {
+
+                    Intent konum = new Intent(EzanVaktiActivity.this, MainActivity.class);
+                    startActivity(konum);
+                }
+
+
+
             }
         });
 

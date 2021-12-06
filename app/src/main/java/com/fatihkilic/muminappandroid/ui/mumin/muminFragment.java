@@ -328,36 +328,28 @@ public class muminFragment extends Fragment {
                 binding.gunlertitle.setText(miladiSplit[3]);
 
 
+                String miladiKisaStr = cursor.getString(miladiKisaIx);
+                String[] splitImsak = miladiKisaStr.split(".");
 
 
+                StringBuilder imsakTimeBuild = new StringBuilder();
+                imsakTimeBuild.append(splitImsak[3]);
+                imsakTimeBuild.append("-");
+                imsakTimeBuild.append(splitImsak[2]);
+                imsakTimeBuild.append("-");
+                imsakTimeBuild.append(splitImsak[1]);
+                imsakTimeBuild.append(" ");
+                imsakTimeBuild.append(cursor.getString(imsakVaktiIx));
+                String imsakTime = imsakTimeBuild.toString();
 
-
-
-
+                bildirimGonderImsak("İmsak Vakti", vImsakSesStr,1,imsakTime);
 
 
 
             }
 
-            String miladiKisaStr = cursor.getString(miladiKisaIx);
-            String[] splitImsak = miladiKisaStr.split(".");
-
-            StringBuilder imsakTimeBuild = new StringBuilder();
-            imsakTimeBuild.append(splitImsak[3]);
-            imsakTimeBuild.append("-");
-            imsakTimeBuild.append(splitImsak[2]);
-            imsakTimeBuild.append("-");
-            imsakTimeBuild.append(splitImsak[1]);
-            imsakTimeBuild.append(" ");
-            imsakTimeBuild.append(cursor.getString(imsakVaktiIx));
-            String imsakTime = imsakTimeBuild.toString();
-
-            System.out.println("time" + imsakTime);
-
             StringBuilder timeToday = new StringBuilder();
             timeToday.append(miladiKisaIx);
-
-            bildirimGonderImsak("İmsak Vakti", vImsakSesStr,1,imsakTime);
             
 
             cursor.close();

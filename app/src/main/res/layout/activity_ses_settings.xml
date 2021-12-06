@@ -602,6 +602,18 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="380dp"
+                android:layout_height="50dp"
+                android:text="KAYDET"
+                android:layout_marginBottom="15dp"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"></Button>
+
         </LinearLayout>
     </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

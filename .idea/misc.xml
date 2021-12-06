@@ -33,12 +33,14 @@
         <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.23072916666666668" />
         <entry key="app/src/main/res/drawable/layer_stroke_4_corner.xml" value="0.44583333333333336" />
         <entry key="app/src/main/res/drawable/layer_stroke_bottom_corner_radius.xml" value="0.44583333333333336" />
+        <entry key="app/src/main/res/layout/activity_bildirim.xml" value="0.38768115942028986" />
         <entry key="app/src/main/res/layout/activity_ezan_vakti.xml" value="0.40677083333333336" />
         <entry key="app/src/main/res/layout/activity_ilceler.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_konum.xml" value="0.49773550724637683" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_qibla_compas.xml" value="0.3375" />
         <entry key="app/src/main/res/layout/activity_sehirler.xml" value="0.42083333333333334" />
+        <entry key="app/src/main/res/layout/activity_ses_settings.xml" value="0.34375" />
         <entry key="app/src/main/res/layout/activity_sound_settings_detail.xml" value="0.38179347826086957" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.75" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.5172101449275363" />

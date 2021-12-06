@@ -1,11 +1,15 @@
 package com.fatihkilic.muminappandroid.Ayarlar.Receiver;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioAttributes;
 import android.net.Uri;
+import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -31,6 +35,30 @@ public class ImsakOncesiBildirimReceiver extends BroadcastReceiver {
 
 
         Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + context.getPackageName() + SoundUrl);
+
+
+        NotificationManager ezanVaktinotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .build();
+
+            CharSequence name = "Ezan Vakitleri Kanalı";
+            String descriptions = "Ezan Vakitleri için hatırlatma";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+
+
+            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
+            ezanChannel.setDescription(descriptions);
+            ezanChannel.setSound(customSoundUri, audioAttributes);
+
+
+            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
+
+        }
 
 
 

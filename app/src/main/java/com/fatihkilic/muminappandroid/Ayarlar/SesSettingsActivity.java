@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
+import com.fatihkilic.muminappandroid.EzanVaktiCoplete.EzanVaktiActivity;
+import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.ActivitySesSettingsBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivitySoundSettingsDetailBinding;
@@ -42,6 +45,8 @@ public class SesSettingsActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
 
+    String IlkGirisInfo = "ikinciGiris";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +60,32 @@ public class SesSettingsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Ses Ayarları");
 
         getBildirimSound();
+
+        Intent getIlkGirisIntent = getIntent();
+        IlkGirisInfo = getIlkGirisIntent.getStringExtra("ilkGiris");
+
+        System.out.println(IlkGirisInfo);
+
+        if (IlkGirisInfo.equals("")) {
+
+            binding.saveButton.setVisibility(View.INVISIBLE);
+
+
+        } else {
+
+            binding.saveButton.setVisibility(View.VISIBLE);
+
+        }
+
+        Button saveButton = binding.saveButton;
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+            }
+        });
 
 
     }
@@ -127,29 +158,29 @@ public class SesSettingsActivity extends AppCompatActivity {
 
     public void getBildirimSound() {
 
-        vOImsakSureInt = sharedPreferences.getInt("vOImsakSureInt", 0);
-        vOImsakSesStr = sharedPreferences.getString("vOImsakSesStr", "");
-        vImsakSesStr = sharedPreferences.getString("vImsakSesStr", "");
+        vOImsakSureInt = sharedPreferences.getInt("vOImsakSureInt", 45);
+        vOImsakSesStr = sharedPreferences.getString("vOImsakSesStr", "ahmadalnafes");
+        vImsakSesStr = sharedPreferences.getString("vImsakSesStr", "ahmadalnafes");
 
-        vOGunesSureInt = sharedPreferences.getInt("vOGunesSureInt", 0);
-        vOGunesSesStr = sharedPreferences.getString("vOGunesSesStr", "");
-        vGunesSesStr = sharedPreferences.getString("vGunesSesStr", "");
+        vOGunesSureInt = sharedPreferences.getInt("vOGunesSureInt", 45);
+        vOGunesSesStr = sharedPreferences.getString("vOGunesSesStr", "ahmadalnafes");
+        vGunesSesStr = sharedPreferences.getString("vGunesSesStr", "ahmadalnafes");
 
-        vOOgleSureInt = sharedPreferences.getInt("vOOgleSureInt", 0);
-        vOOgleSesStr = sharedPreferences.getString("vOOgleSesStr", "");
-        vOgleSesStr = sharedPreferences.getString("vOgleSesStr", "");
+        vOOgleSureInt = sharedPreferences.getInt("vOOgleSureInt", 45);
+        vOOgleSesStr = sharedPreferences.getString("vOOgleSesStr", "ahmadalnafes");
+        vOgleSesStr = sharedPreferences.getString("vOgleSesStr", "ahmadalnafes");
 
-        vOIkindiSureInt = sharedPreferences.getInt("vOIkindiSureInt", 0);
-        vOIkindiSesStr = sharedPreferences.getString("vOIkindiSesStr", "");
-        vIkindiSesStr = sharedPreferences.getString("vIkindiSesStr", "");
+        vOIkindiSureInt = sharedPreferences.getInt("vOIkindiSureInt", 45);
+        vOIkindiSesStr = sharedPreferences.getString("vOIkindiSesStr", "ahmadalnafes");
+        vIkindiSesStr = sharedPreferences.getString("vIkindiSesStr", "ahmadalnafes");
 
-        vOAksamSureInt = sharedPreferences.getInt("vOAksamSureInt", 0);
-        vOAksamSesStr = sharedPreferences.getString("vOAksamSesStr", "");
-        vAksamSesStr = sharedPreferences.getString("vAksamSesStr", "");
+        vOAksamSureInt = sharedPreferences.getInt("vOAksamSureInt", 45);
+        vOAksamSesStr = sharedPreferences.getString("vOAksamSesStr", "ahmadalnafes");
+        vAksamSesStr = sharedPreferences.getString("vAksamSesStr", "ahmadalnafes");
 
-        vOYatsiSureInt = sharedPreferences.getInt("vOYatsiSureInt", 0);
-        vOYatsiSesStr = sharedPreferences.getString("vOYatsiSesStr", "");
-        vYatsiSesStr = sharedPreferences.getString("vYatsiSesStr", "");
+        vOYatsiSureInt = sharedPreferences.getInt("vOYatsiSureInt", 45);
+        vOYatsiSesStr = sharedPreferences.getString("vOYatsiSesStr", "ahmadalnafes");
+        vYatsiSesStr = sharedPreferences.getString("vYatsiSesStr", "ahmadalnafes");
 
         String voTitle;
         String vtitle;
