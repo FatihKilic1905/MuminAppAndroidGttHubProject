@@ -138,10 +138,6 @@ public class muminFragment extends Fragment {
 
         binding.konumtitle.setText(sharedPreferences.getString("storedKonum","Konum"));
 
-
-
-
-
         sistemSaatiVoid();
         getBildirimSound();
         DayInfoGet();
@@ -195,11 +191,7 @@ public class muminFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                try {
-                    System.out.println("");
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+
 
             }
         });
@@ -258,7 +250,6 @@ public class muminFragment extends Fragment {
 
 
 
-
     }
 
     @Override
@@ -266,11 +257,7 @@ public class muminFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-
-
     }
-
-
 
     @Override
     public void onDestroyView() {
@@ -1130,6 +1117,9 @@ public class muminFragment extends Fragment {
 
 
 
+
+
+    /*
     public void bildirimGonderGunes(String titles, String sounds ,int notifyNum, String time ) throws ParseException {
 
         vaktinHAdisi();
@@ -1786,7 +1776,7 @@ public class muminFragment extends Fragment {
     }
 
 
-
+    */
 
 
 }

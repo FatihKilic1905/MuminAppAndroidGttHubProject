@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MuminAppAndroid">
         <activity
+            android:name=".LiveTvActivity"
+            android:exported="false" />
+        <activity
             android:name=".Kutuphane.HtmDuasi"
             android:exported="false" />
         <activity

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 
 import com.fatihkilic.muminappandroid.R;
@@ -15,6 +16,7 @@ public class AyarlarActivity extends AppCompatActivity {
 
 
     private ActivityAyarlarBinding binding;
+    WebView kabiLiveEwbView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,8 @@ public class AyarlarActivity extends AppCompatActivity {
         startActivity(konumSettingsIntent);
 
     }
+
+
 
 
 }

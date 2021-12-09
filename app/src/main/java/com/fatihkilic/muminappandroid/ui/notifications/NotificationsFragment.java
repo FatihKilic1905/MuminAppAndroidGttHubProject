@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.fatihkilic.muminappandroid.Ayarlar.AyarlarActivity;
+import com.fatihkilic.muminappandroid.LiveTvActivity;
 import com.fatihkilic.muminappandroid.Ulkeler.KonumActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.ZekatMatik.ZekatMatikActivity;
@@ -45,6 +46,17 @@ public class NotificationsFragment extends Fragment {
 
                 Intent zekatmatikIntent = new Intent(getActivity(), ZekatMatikActivity.class);
                 startActivity(zekatmatikIntent);
+
+            }
+        });
+
+        Button KabeLiveButton = (Button)root.findViewById(R.id.canliButton);
+        KabeLiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent liveIntent = new Intent(getActivity(), LiveTvActivity.class);
+                startActivity(liveIntent);
 
             }
         });
