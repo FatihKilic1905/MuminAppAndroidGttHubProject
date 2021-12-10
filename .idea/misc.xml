@@ -19,9 +19,6 @@
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_zekat_matik.xml" value="0.23385416666666667" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/fragment_dashboard.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/fragment_mumin.xml" value="0.340625" />
-        <entry key="..\:/Users/alone/AndroidStudioProjects/MuminAppAndroidGttHubProject/app/src/main/res/layout/activity_ayarlar.xml" value="0.1" />
-        <entry key="..\:/Users/alone/AndroidStudioProjects/MuminAppAndroidGttHubProject/app/src/main/res/layout/activity_live_tv.xml" value="0.1" />
-        <entry key="..\:/Users/alone/AndroidStudioProjects/MuminAppAndroidGttHubProject/app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
         <entry key="..\:/Users/alone/Creative Cloud Files/SOFTWARE/ANDROID/MuminAppAndroid/app/src/main/res/layout/activity_konum.xml" value="0.25" />
         <entry key="..\:/Users/alone/Creative Cloud Files/SOFTWARE/ANDROID/MuminAppAndroid/app/src/main/res/layout/activity_main.xml" value="0.12771739130434784" />
         <entry key="..\:/Users/alone/Creative Cloud Files/SOFTWARE/ANDROID/MuminAppAndroid/app/src/main/res/layout/fragment_mumin.xml" value="0.22" />
@@ -40,6 +37,7 @@
         <entry key="app/src/main/res/layout/activity_ezan_vakti.xml" value="0.40677083333333336" />
         <entry key="app/src/main/res/layout/activity_ilceler.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_konum.xml" value="0.49773550724637683" />
+        <entry key="app/src/main/res/layout/activity_live_tv.xml" value="0.32760416666666664" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_qibla_compas.xml" value="0.3375" />
         <entry key="app/src/main/res/layout/activity_sehirler.xml" value="0.42083333333333334" />

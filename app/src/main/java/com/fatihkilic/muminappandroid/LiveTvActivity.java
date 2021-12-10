@@ -8,6 +8,7 @@ import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.VideoView;
 
 import com.fatihkilic.muminappandroid.databinding.ActivityAyarlarBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivityLiveTvBinding;
@@ -15,7 +16,7 @@ import com.fatihkilic.muminappandroid.databinding.ActivityLiveTvBinding;
 public class LiveTvActivity extends AppCompatActivity {
 
     private ActivityLiveTvBinding binding;
-    WebView kabeLiveWebView;
+    VideoView kabeLiveWebView;
 
 
 
@@ -32,6 +33,11 @@ public class LiveTvActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Kabe Canlı");
 
         kabeLiveWebView = binding.liveKabeView;
+
+        kabeLiveWebView.setVideoPath("http://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4");
+        kabeLiveWebView.start();
+
+      /*  kabeLiveWebView = binding.liveKabeView;
         kabeLiveWebView.getSettings().setJavaScriptEnabled(true);
         kabeLiveWebView.setWebViewClient(new WebViewClient(){
 
@@ -49,5 +55,7 @@ public class LiveTvActivity extends AppCompatActivity {
         kabeLiveWebView.loadUrl("https://youtu.be/X6hmvvqXFfU");
 
 
+
+       */
     }
 }
