@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LiveTvActivity">
 
-    <VideoView
-        android:id="@+id/liveKabeView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
-    <ImageButton
-        android:layout_alignParentBottom="true"
-        android:id="@+id/btn_play_pause"
-        android:src="@drawable/ic_play"
-        android:background="@color/muminAppGreen"
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+       android:id="@+id/youtubeKabePlayer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
 
+   
 
 
 
 
 
-</RelativeLayout>
+
+</LinearLayout>
