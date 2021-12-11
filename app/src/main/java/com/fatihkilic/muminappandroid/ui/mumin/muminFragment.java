@@ -120,6 +120,8 @@ public class muminFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
 
 
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -131,6 +133,8 @@ public class muminFragment extends Fragment {
         notificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 
 
+        binding.VaktinAyetiLabel.setText(sharedPreferences.getString("VaktinAyeti","Sabrederek ve namaz kılarak (Allah’tan) yardım dileyin.  Şüphesiz namaz, Allah’a derinden saygı duyanlardan başkasına ağır gelir.(Bakara Sûresi 45)"));
+        binding.VaktinHadisiLabel.setText(sharedPreferences.getString("VaktinHadisi","Bir müslüman, farz namazın vakti geldiğinde güzelce abdest alır, huşû içinde ve rükûunu da tam yaparak namazını kılarsa, büyük günah işlemedikçe, bu namaz önceki günahlarına keffâret olur. Bu her zaman böyledir. (Müslim, Tahâret 7)"));
 
 
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -151,7 +155,7 @@ public class muminFragment extends Fragment {
         if (konumControl.equals("Konum")) {
 
             Intent ilkGirisIntent = new Intent(getActivity(),KonumActivity.class);
-            ilkGirisIntent.putExtra("ilkGiris","ilkGiris");
+            sharedPreferences.edit().putString("IlkGiris", "1").apply();
             startActivity(ilkGirisIntent);
 
         } else {
@@ -159,6 +163,7 @@ public class muminFragment extends Fragment {
 
 
             String control = binding.imsakTime.getText().toString();
+            sharedPreferences.edit().putString("IlkGiris", "2").apply();
 
             if (control.equals("00:00")){
 
@@ -173,16 +178,14 @@ public class muminFragment extends Fragment {
 
 
 
-        Intent getIntent = requireActivity().getIntent();
-        binding.VaktinAyetiLabel.setText(getIntent.getStringExtra("VANot"));
-        binding.VaktinHadisiLabel.setText(getIntent.getStringExtra("VHNot"));
+
 
 
 
 
 
         // sil bunu yayınlarken
-       // binding.buttonnotification.setVisibility(View.INVISIBLE);
+       binding.buttonnotification.setVisibility(View.INVISIBLE);
 
 
 
@@ -316,6 +319,8 @@ public class muminFragment extends Fragment {
 
 
                 String todayStr = cursor.getString(miladiKisaIx);
+
+                System.out.println("imsakkkk" + vImsakSesStr);
 
                 if (vImsakSesStr.equals("Kapalı")) {
 
@@ -891,9 +896,11 @@ public class muminFragment extends Fragment {
         Random random = new Random();
         int a = random.nextInt(10);
 
-        String[] vaktinHadisiArray = {"1","2","3","4","5","6","7","8","9","10"};
+        String[] vaktinHadisiArray = {"Bir müslüman, farz namazın vakti geldiğinde güzelce abdest alır, huşû içinde ve rükûunu da tam yaparak namazını kılarsa, büyük günah işlemedikçe, bu namaz önceki günahlarına keffâret olur. Bu her zaman böyledir. (Müslim, Tahâret 7)", "İki serinlik namazını, sabah ve ikindiyi kılan kimse cennete girer. (Buhârî, Mevâkît 26" ,  "Sabah namazını kılan kimse Allah’ın himayesindedir. Dikkat et, ey Ademoğlu! Allah, bizzat himayesinde olan bir konuda seni sorguya çekmesin. (Müslim, Mesâcid 261-262)" , "İkindi namazını terkeden kimsenin işlediği amelleri boşa gider. (Buhârî, Mevâkît 15)" , "Cemaatle kılınan namaz, tek başına kılınan namazdan yirmi yedi derece daha faziletlidir. (Buhârî, Ezân 30)" , "İnsanlar yatsı namazı ile sabah namazındaki fazilet ve sevabı bilselerdi, emekleyerek bile olsa mutlaka camiye, cemaate gelirlerdi. (Buhârî, Ezân 9)"};
 
         vaktinHadisiStr = vaktinHadisiArray[a];
+
+        sharedPreferences.edit().putString("VaktinHadisi", vaktinHadisiStr).apply();
 
     }
 
@@ -902,37 +909,39 @@ public class muminFragment extends Fragment {
         Random random = new Random();
         int a = random.nextInt(10);
 
-        String[] vaktinAyetiArray = {"1","2","3","4","5","6","7","8","9","10"};
+        String[] vaktinAyetiArray = {"Onlar gaybe  inanırlar, namazı dosdoğru kılarlar, kendilerine rızık olarak verdiğimizden de Allah yolunda harcarlar. (Bakara Sûresi 3)" , "Namazı kılın, zekâtı verin. Rükû edenlerle birlikte siz de rükû edin. (Bakara Sûresi 43)" , "Sabrederek ve namaz kılarak (Allah’tan) yardım dileyin.  Şüphesiz namaz, Allah’a derinden saygı duyanlardan başkasına ağır gelir.(Bakara Sûresi 45)" , " Sizin dostunuz ancak Allah’tır, Resûlüdür ve Allah’ın emirlerine boyun eğerek namazı kılan, zekâtı veren mü’minlerdir.(Mâide Sûresi 55)" , "Siz namaza çağırdığınız vakit onu alaya alıp eğlence yerine koyuyorlar. Bu, şüphesiz onların akılları ermeyen bir toplum olmalarındandır.(Mâide Sûresi 58)" , "Şeytan, içki ve kumarla, ancak aranıza düşmanlık ve kin sokmak; sizi Allah’ı anmaktan ve namazdan alıkoymak ister. Artık vazgeçiyor musunuz? (Mâide Sûresi 91)" , "Kur’an, namazı dosdoğru kılan, zekâtı veren ve ahirete de kesin olarak inanan mü’minler için bir hidayet rehberi ve bir müjdedir. (Neml Sûresi 2-3)"};
 
         vaktinAyetiStr = vaktinAyetiArray[a];
+
+        sharedPreferences.edit().putString("VaktinAyeti", vaktinAyetiStr).apply();
 
     }
 
     public void getBildirimSound() {
 
-        vOImsakSureInt = sharedPreferences.getInt("vOImsakSureInt", 0);
-        vOImsakSesStr = sharedPreferences.getString("vOImsakSesStr", "");
-        vImsakSesStr = sharedPreferences.getString("vImsakSesStr", "");
+        vOImsakSureInt = sharedPreferences.getInt("vOImsakSureInt", 45);
+        vOImsakSesStr = sharedPreferences.getString("vOImsakSesStr", "ahmadalnafes");
+        vImsakSesStr = sharedPreferences.getString("vImsakSesStr", "ahmadalnafes");
 
-        vOGunesSureInt = sharedPreferences.getInt("vOGunesSureInt", 0);
-        vOGunesSesStr = sharedPreferences.getString("vOGunesSesStr", "");
-        vGunesSesStr = sharedPreferences.getString("vGunesSesStr", "");
+        vOGunesSureInt = sharedPreferences.getInt("vOGunesSureInt", 45);
+        vOGunesSesStr = sharedPreferences.getString("vOGunesSesStr", "ahmadalnafes");
+        vGunesSesStr = sharedPreferences.getString("vGunesSesStr", "ahmadalnafes");
 
-        vOOgleSureInt = sharedPreferences.getInt("vOOgleSureInt", 0);
-        vOOgleSesStr = sharedPreferences.getString("vOOgleSesStr", "");
-        vOgleSesStr = sharedPreferences.getString("vOgleSesStr", "");
+        vOOgleSureInt = sharedPreferences.getInt("vOOgleSureInt", 45);
+        vOOgleSesStr = sharedPreferences.getString("vOOgleSesStr", "ahmadalnafes");
+        vOgleSesStr = sharedPreferences.getString("vOgleSesStr", "ahmadalnafes");
 
-        vOIkindiSureInt = sharedPreferences.getInt("vOIkindiSureInt", 0);
-        vOIkindiSesStr = sharedPreferences.getString("vOIkindiSesStr", "");
-        vIkindiSesStr = sharedPreferences.getString("vIkindiSesStr", "");
+        vOIkindiSureInt = sharedPreferences.getInt("vOIkindiSureInt", 45);
+        vOIkindiSesStr = sharedPreferences.getString("vOIkindiSesStr", "ahmadalnafes");
+        vIkindiSesStr = sharedPreferences.getString("vIkindiSesStr", "ahmadalnafes");
 
-        vOAksamSureInt = sharedPreferences.getInt("vOAksamSureInt", 0);
-        vOAksamSesStr = sharedPreferences.getString("vOAksamSesStr", "");
-        vAksamSesStr = sharedPreferences.getString("vAksamSesStr", "");
+        vOAksamSureInt = sharedPreferences.getInt("vOAksamSureInt", 45);
+        vOAksamSesStr = sharedPreferences.getString("vOAksamSesStr", "ahmadalnafes");
+        vAksamSesStr = sharedPreferences.getString("vAksamSesStr", "ahmadalnafes");
 
-        vOYatsiSureInt = sharedPreferences.getInt("vOYatsiSureInt", 0);
-        vOYatsiSesStr = sharedPreferences.getString("vOYatsiSesStr", "");
-        vYatsiSesStr = sharedPreferences.getString("vYatsiSesStr", "");
+        vOYatsiSureInt = sharedPreferences.getInt("vOYatsiSureInt", 45);
+        vOYatsiSesStr = sharedPreferences.getString("vOYatsiSesStr", "ahmadalnafes");
+        vYatsiSesStr = sharedPreferences.getString("vYatsiSesStr", "ahmadalnafes");
 
 
 
@@ -1025,8 +1034,7 @@ public class muminFragment extends Fragment {
         intent.putExtra("vImsakDescription", vaktinHadisiStr);
         intent.putExtra("vImsakSound", sounds);
         intent.putExtra("vImsakNotifyNum", notifyNum);
-        intent.putExtra("vaktinAyeti", vaktinAyetiStr);
-        intent.putExtra("vaktinHadisi", vaktinHadisiStr);
+
 
 
         PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum,intent, 0);

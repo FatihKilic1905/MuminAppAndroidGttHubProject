@@ -3,11 +3,13 @@ package com.fatihkilic.muminappandroid.Ulkeler;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.fatihkilic.muminappandroid.EzanVaktiCoplete.EzanVakitleriModel;
 import com.fatihkilic.muminappandroid.R;
+import com.fatihkilic.muminappandroid.Sehirler.SehirlerActivity;
 import com.fatihkilic.muminappandroid.databinding.ActivityKonumBinding;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -37,6 +39,8 @@ public class KonumActivity extends AppCompatActivity {
 
     private ActivityKonumBinding binding;
 
+    public String IlkGirisInfo = "ikinciGiris";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +65,27 @@ public class KonumActivity extends AppCompatActivity {
         ulkeAdapter = new UlkeAdapter(ulkelerPostArrayList);
         binding.ulkelerRecyclerView.setAdapter(ulkeAdapter);
 
+        Intent getIlkGirisIntent = getIntent();
+
+       /* IlkGirisInfo = getIlkGirisIntent.getStringExtra("ilkGiris");
+
+        if (IlkGirisInfo.equals("ilkGiris")) {
+
+            Intent ilkGirisIntent = new Intent(KonumActivity.this, SehirlerActivity.class);
+            ilkGirisIntent.putExtra("ilkGiris","ilkGiris");
+            startActivity(ilkGirisIntent);
+
+        } else {
+
+            Intent ilkGirisIntent = new Intent(KonumActivity.this, SehirlerActivity.class);
+            ilkGirisIntent.putExtra("ilkGiris","ikinciGiris");
+            startActivity(ilkGirisIntent);
+
+
+        }
+
+
+        */
 
 
 

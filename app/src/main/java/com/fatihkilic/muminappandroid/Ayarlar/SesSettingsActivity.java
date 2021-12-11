@@ -61,19 +61,19 @@ public class SesSettingsActivity extends AppCompatActivity {
 
         getBildirimSound();
 
-        Intent getIlkGirisIntent = getIntent();
-        IlkGirisInfo = getIlkGirisIntent.getStringExtra("ilkGiris");
+
+        IlkGirisInfo = sharedPreferences.getString("IlkGiris","0");
 
         System.out.println(IlkGirisInfo);
 
-        if (IlkGirisInfo.equals("")) {
+        if (IlkGirisInfo.equals("1")) {
 
-            binding.saveButton.setVisibility(View.INVISIBLE);
+            binding.saveButton.setVisibility(View.VISIBLE);
 
 
         } else {
 
-            binding.saveButton.setVisibility(View.VISIBLE);
+            binding.saveButton.setVisibility(View.INVISIBLE);
 
         }
 
@@ -81,6 +81,9 @@ public class SesSettingsActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Intent ilkGirisSave = new Intent(SesSettingsActivity.this, MainActivity.class);
+                startActivity(ilkGirisSave);
 
 
 
@@ -223,6 +226,10 @@ public class SesSettingsActivity extends AppCompatActivity {
         } else if (vOImsakSesStr.equals(notSesi55)) {
 
             binding.imsakVOSoundTitle.setText(notSesi5);
+        } else if (vOImsakSesStr.equals("Kapalı")) {
+
+            binding.imsakVOSoundTitle.setText("Kapalı");
+
         }
 
         if (vImsakSesStr.equals(notSesi11)) {

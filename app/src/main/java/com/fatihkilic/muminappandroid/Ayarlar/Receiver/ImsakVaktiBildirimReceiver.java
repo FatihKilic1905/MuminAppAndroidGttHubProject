@@ -32,8 +32,6 @@ public class ImsakVaktiBildirimReceiver extends BroadcastReceiver {
         String description = intentImsak.getStringExtra("vImsakDescription");
         String sound = intentImsak.getStringExtra("vImsakSound");
         int notifyNum = intentImsak.getIntExtra("vImsakNotifyNum",0);
-        String vaktinAyetiStr = intentImsak.getStringExtra("vaktinAyeti");
-        String vaktinHadisiStr = intentImsak.getStringExtra("vaktinHadisi");
 
         StringBuilder SoundUrl = new StringBuilder();
         SoundUrl.append("/raw/");
@@ -78,8 +76,6 @@ public class ImsakVaktiBildirimReceiver extends BroadcastReceiver {
         Intent intent = new Intent(context, BildirimActivity.class);
         intent.putExtra("InfoNot",title);
         intent.putExtra("DescNot", description);
-        intent.putExtra("VANot",vaktinAyetiStr);
-        intent.putExtra("VHNot",vaktinHadisiStr);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,notifyNum,intent,0);
 
         EzanNotifyBuilder.setContentIntent(pendingIntent);

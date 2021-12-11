@@ -2,7 +2,9 @@ package com.fatihkilic.muminappandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -19,10 +21,14 @@ public class BildirimActivity extends AppCompatActivity {
     private ActivityBildirimBinding binding;
     private AdView mAdView;
 
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bildirim);
+
+        sharedPreferences = this.getSharedPreferences("com.fatihkilic.muminappandroid", Context.MODE_PRIVATE);
 
         binding = ActivityBildirimBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();

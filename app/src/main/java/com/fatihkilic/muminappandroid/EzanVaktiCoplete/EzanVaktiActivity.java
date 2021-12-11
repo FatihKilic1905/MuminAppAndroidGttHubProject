@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.fatihkilic.muminappandroid.Ayarlar.SesSettingsActivity;
 import com.fatihkilic.muminappandroid.EzanVaktiService;
+import com.fatihkilic.muminappandroid.Ilceler.IlcelerActivity;
 import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.Ulkeler.KonumActivity;
@@ -77,8 +78,10 @@ public class EzanVaktiActivity extends AppCompatActivity {
 
         setEzanVakti();
 
-        Intent getIlkGirisIntent = getIntent();
-        IlkGirisInfo = getIlkGirisIntent.getStringExtra("ilkGiris");
+
+        IlkGirisInfo = sharedPreferences.getString("IlkGiris","0");
+
+
 
 
         Button gecisyap = (Button) view.findViewById(R.id.konumOnaylaButton);
@@ -88,7 +91,7 @@ public class EzanVaktiActivity extends AppCompatActivity {
 
                 loadEzanVakti();
 
-                if (IlkGirisInfo.equals("ilkGiris")) {
+                if (IlkGirisInfo.equals("1")) {
 
                     Intent konum = new Intent(EzanVaktiActivity.this, SesSettingsActivity.class);
                     konum.putExtra("ilkGiris2","ilkGiris2");

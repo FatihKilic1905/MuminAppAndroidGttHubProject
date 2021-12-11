@@ -675,8 +675,7 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
                 }
 
 
-                Intent sesKaydetIntent = new Intent(SoundSettingsDetailActivity.this, MainActivity.class);
-                startActivity(sesKaydetIntent);
+               finish();
 
             }
 
@@ -805,29 +804,29 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
     public void getBildirimSound() {
 
-        vOImsakSureInt = sharedPreferences.getInt("vOImsakSureInt", 0);
-        vOImsakSesStr = sharedPreferences.getString("vOImsakSesStr", "");
-        vImsakSesStr = sharedPreferences.getString("vImsakSesStr", "");
+        vOImsakSureInt = sharedPreferences.getInt("vOImsakSureInt", 45);
+        vOImsakSesStr = sharedPreferences.getString("vOImsakSesStr", "ahmadalnafes");
+        vImsakSesStr = sharedPreferences.getString("vImsakSesStr", "ahmadalnafes");
 
-        vOGunesSureInt = sharedPreferences.getInt("vOGunesSureInt", 0);
-        vOGunesSesStr = sharedPreferences.getString("vOGunesSesStr", "");
-        vGunesSesStr = sharedPreferences.getString("vGunesSesStr", "");
+        vOGunesSureInt = sharedPreferences.getInt("vOGunesSureInt", 45);
+        vOGunesSesStr = sharedPreferences.getString("vOGunesSesStr", "ahmadalnafes");
+        vGunesSesStr = sharedPreferences.getString("vGunesSesStr", "ahmadalnafes");
 
-        vOOgleSureInt = sharedPreferences.getInt("vOOgleSureInt", 0);
-        vOOgleSesStr = sharedPreferences.getString("vOOgleSesStr", "");
-        vOgleSesStr = sharedPreferences.getString("vOgleSesStr", "");
+        vOOgleSureInt = sharedPreferences.getInt("vOOgleSureInt", 45);
+        vOOgleSesStr = sharedPreferences.getString("vOOgleSesStr", "ahmadalnafes");
+        vOgleSesStr = sharedPreferences.getString("vOgleSesStr", "ahmadalnafes");
 
-        vOIkindiSureInt = sharedPreferences.getInt("vOIkindiSureInt", 0);
-        vOIkindiSesStr = sharedPreferences.getString("vOIkindiSesStr", "");
-        vIkindiSesStr = sharedPreferences.getString("vIkindiSesStr", "");
+        vOIkindiSureInt = sharedPreferences.getInt("vOIkindiSureInt", 45);
+        vOIkindiSesStr = sharedPreferences.getString("vOIkindiSesStr", "ahmadalnafes");
+        vIkindiSesStr = sharedPreferences.getString("vIkindiSesStr", "ahmadalnafes");
 
-        vOAksamSureInt = sharedPreferences.getInt("vOAksamSureInt", 0);
-        vOAksamSesStr = sharedPreferences.getString("vOAksamSesStr", "");
-        vAksamSesStr = sharedPreferences.getString("vAksamSesStr", "");
+        vOAksamSureInt = sharedPreferences.getInt("vOAksamSureInt", 45);
+        vOAksamSesStr = sharedPreferences.getString("vOAksamSesStr", "ahmadalnafes");
+        vAksamSesStr = sharedPreferences.getString("vAksamSesStr", "ahmadalnafes");
 
-        vOYatsiSureInt = sharedPreferences.getInt("vOYatsiSureInt", 0);
-        vOYatsiSesStr = sharedPreferences.getString("vOYatsiSesStr", "");
-        vYatsiSesStr = sharedPreferences.getString("vYatsiSesStr", "");
+        vOYatsiSureInt = sharedPreferences.getInt("vOYatsiSureInt", 45);
+        vOYatsiSesStr = sharedPreferences.getString("vOYatsiSesStr", "ahmadalnafes");
+        vYatsiSesStr = sharedPreferences.getString("vYatsiSesStr", "ahmadalnafes");
 
         String voTitle;
         String vtitle;

@@ -330,12 +330,9 @@
 
                 <TextView
                     android:id="@+id/VaktinAyetiLabel"
-                    android:layout_width="337dp"
-                    android:layout_height="65dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
                     android:text="Onlar gaybe  inanırlar, namazı dosdoğru kılarlar, kendilerine rızık olarak verdiğimizden de Allah yolunda harcarlar. (Bakara Sûresi 3)"
                     android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -390,13 +387,10 @@
 
                 <TextView
                     android:id="@+id/VaktinHadisiLabel"
-                    android:layout_width="337dp"
-                    android:layout_height="65dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:text="Cemaatle kılınan namaz, tek başına kılınan namazdan yirmi yedi derece daha faziletlidir. (Buhârî, Ezân 30)"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:text="text"
                     android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.fatihkilic.muminappandroid.EzanVaktiCoplete.EzanVaktiActivity;
 import com.fatihkilic.muminappandroid.R;
+import com.fatihkilic.muminappandroid.Sehirler.SehirlerActivity;
 import com.fatihkilic.muminappandroid.Sehirler.SehirlerAdapter;
 import com.fatihkilic.muminappandroid.Sehirler.SehirlerModel;
 import com.fatihkilic.muminappandroid.Sehirler.SehirlerPost;
@@ -40,6 +42,8 @@ public class IlcelerActivity extends AppCompatActivity {
 
     IlcelerAdapter ilcelerAdapter;
 
+    String IlkGirisInfo = "ikinciGiris";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,27 @@ public class IlcelerActivity extends AppCompatActivity {
         binding.ilcelerRecyclerView.setAdapter(ilcelerAdapter);
 
 
+       /* Intent getIlkGirisIntent = getIntent();
+        IlkGirisInfo = getIlkGirisIntent.getStringExtra("ilkGiris");
+
+
+        if (IlkGirisInfo.equals("ilkGiris")) {
+
+            Intent ilkGirisIntent = new Intent(IlcelerActivity.this, EzanVaktiActivity.class);
+            ilkGirisIntent.putExtra("ilkGiris","ilkGiris");
+            startActivity(ilkGirisIntent);
+
+        } else {
+
+            Intent ilkGirisIntent = new Intent(IlcelerActivity.this, EzanVaktiActivity.class);
+            ilkGirisIntent.putExtra("ilkGiris","ikinciGiris");
+            startActivity(ilkGirisIntent);
+
+
+        }
+
+
+        */
 
     }
 

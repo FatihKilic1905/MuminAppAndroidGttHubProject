@@ -18,9 +18,12 @@ public class UlkeAdapter extends RecyclerView.Adapter<UlkeAdapter.UlkePostHolder
     private ArrayList<UlkelerPost> ulkelerPostArrayList;
 
 
+
     public UlkeAdapter(ArrayList<UlkelerPost> ulkelerPostArrayList) {
 
         this.ulkelerPostArrayList = ulkelerPostArrayList;
+
+
     }
     @NonNull
     @Override
@@ -41,6 +44,7 @@ public class UlkeAdapter extends RecyclerView.Adapter<UlkeAdapter.UlkePostHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 Intent ulkeIntent = new Intent(holder.itemView.getContext(), SehirlerActivity.class);
                 ulkeIntent.putExtra("ulkeID",sehirIDString);
