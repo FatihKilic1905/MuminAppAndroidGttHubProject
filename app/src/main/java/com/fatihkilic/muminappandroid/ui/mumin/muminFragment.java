@@ -46,6 +46,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.SQLOutput;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -97,6 +98,8 @@ public class muminFragment extends Fragment {
     Integer vakitFarkSaat;
     Integer vakitFarkDakika;
     Integer vakitFarkSaniye;
+
+    String todayStr;
 
     String babyName;
     String mealOfTheDay;
@@ -185,7 +188,7 @@ public class muminFragment extends Fragment {
 
 
         // sil bunu yayınlarken
-       binding.buttonnotification.setVisibility(View.INVISIBLE);
+       binding.buttonnotification.setVisibility(View.VISIBLE);
 
 
 
@@ -193,6 +196,22 @@ public class muminFragment extends Fragment {
         notBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                try {
+                    bildirimGonderImsak("İmsak Vakti", vImsakSesStr,1,imsakVakti,"12.12.2021");
+
+                } catch (Exception e) {
+
+
+                }
+
+                try {
+
+                    bildirimGonderImsak("Güneş Doğdu", vGunesSesStr,2,gunesVakti,"12.12.2021");
+                } catch (Exception e) {
+
+
+                }
 
 
 
@@ -318,11 +337,13 @@ public class muminFragment extends Fragment {
                 binding.gunlertitle.setText(miladiSplit[3]);
 
 
-                String todayStr = cursor.getString(miladiKisaIx);
+                todayStr = cursor.getString(miladiKisaIx);
 
                 System.out.println("imsakkkk" + vImsakSesStr);
 
+
                 if (vImsakSesStr.equals("Kapalı")) {
+
 
                     System.out.println("Imsak bildirimleri kapalı");
 
@@ -344,11 +365,22 @@ public class muminFragment extends Fragment {
 
                 if (vOgleSesStr.equals("Kapalı")) {
 
-                    System.out.println("Ogle bildirimleri kapalı");
+
+                        System.out.println("Ogle bildirimleri kapalı");
+
+
 
                 } else {
 
-                    bildirimGonderImsak("Öğle Vakti", vOgleSesStr,3,ogleVakti,todayStr);
+                    try {
+
+                        bildirimGonderImsak("Öğle Vakti", vOgleSesStr,3,ogleVakti,todayStr);
+
+                    } catch (Exception eOgle) {
+
+
+                    }
+
 
                 }
 
@@ -358,7 +390,19 @@ public class muminFragment extends Fragment {
 
                 } else {
 
-                    bildirimGonderImsak("İkindi Vakti", vIkindiSesStr,4,ikindiVakti,todayStr);
+
+                    try {
+
+                        bildirimGonderImsak("İkindi Vakti", vIkindiSesStr,4,ikindiVakti,todayStr);
+
+                    } catch (Exception eImsak) {
+
+
+                    }
+
+
+
+
 
                 }
 
@@ -398,7 +442,8 @@ public class muminFragment extends Fragment {
 
                 } else {
 
-                    bildirimGonderImsakOncesi("Guneş",vOImsakSesStr,8,gunesVakti,todayStr,vOGunesSureInt);
+
+                    bildirimGonderImsakOncesi("Güneş",vOImsakSesStr,8,gunesVakti,todayStr,vOGunesSureInt);
 
                 }
 
@@ -448,7 +493,7 @@ public class muminFragment extends Fragment {
 
             StringBuilder timeToday = new StringBuilder();
             timeToday.append(miladiKisaIx);
-            
+
 
             cursor.close();
 
@@ -995,17 +1040,20 @@ public class muminFragment extends Fragment {
     public void bildirimGonderImsak(String titles, String sounds ,int notifyNum, String vakitStr, String miladiKisa ) throws ParseException {
 
 
-        String[] splitImsak = miladiKisa.split(".");
+
+
+        String[] splitImsak = miladiKisa.split("[.]");
 
 
         StringBuilder imsakTimeBuild = new StringBuilder();
-        imsakTimeBuild.append(splitImsak[3]);
-        imsakTimeBuild.append("-");
         imsakTimeBuild.append(splitImsak[2]);
         imsakTimeBuild.append("-");
         imsakTimeBuild.append(splitImsak[1]);
+        imsakTimeBuild.append("-");
+        imsakTimeBuild.append(splitImsak[0]);
         imsakTimeBuild.append(" ");
         imsakTimeBuild.append(vakitStr);
+        imsakTimeBuild.append(":00");
         String imsakTime = imsakTimeBuild.toString();
 
 
@@ -1022,11 +1070,6 @@ public class muminFragment extends Fragment {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = formatter.parse(imsakTime);
         long  longdate = date.getTime();
-        System.out.println(date + "datemmm");
-        System.out.println(longdate + "datemmmm");
-
-
-
 
         Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
 
@@ -1035,30 +1078,36 @@ public class muminFragment extends Fragment {
         intent.putExtra("vImsakSound", sounds);
         intent.putExtra("vImsakNotifyNum", notifyNum);
 
+        long currentLong = System.currentTimeMillis();
+
+        if (currentLong < longdate) {
 
 
-        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum,intent, 0);
+            PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum, intent, 0);
 
-        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+            AlarmManager ezanAlarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
 
-        long along = System.currentTimeMillis();
-        long timesss = 1000 * 5;
+            long along = System.currentTimeMillis();
+            long timesss = 1000 * 5;
 
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate,PendingEzan);
+            ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate, PendingEzan);
+
+            System.out.println(titles + "Ayarlandı");
+
+        }
 
     }
 
     public void bildirimGonderImsakOncesi(String titles, String sounds ,int notifyNum, String vakitStr, String miladiKisa, int beforeTime ) throws ParseException {
 
-        String[] splitImsak = miladiKisa.split(".");
-
+        String[] splitImsak = miladiKisa.split("[.]");
 
         StringBuilder imsakTimeBuild = new StringBuilder();
-        imsakTimeBuild.append(splitImsak[3]);
-        imsakTimeBuild.append("-");
         imsakTimeBuild.append(splitImsak[2]);
         imsakTimeBuild.append("-");
         imsakTimeBuild.append(splitImsak[1]);
+        imsakTimeBuild.append("-");
+        imsakTimeBuild.append(splitImsak[0]);
         imsakTimeBuild.append(" ");
         imsakTimeBuild.append(vakitStr);
         String imsakTime = imsakTimeBuild.toString();
@@ -1073,35 +1122,6 @@ public class muminFragment extends Fragment {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = formatter.parse(imsakTime);
         long  longdate = date.getTime();
-        System.out.println(date);
-        System.out.println(longdate);
-
-
-        Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + SoundUrl);
-
-
-        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build();
-
-            CharSequence name = "Ezan Vakitleri Kanalı";
-            String description = "Ezan Vakitleri için hatırlatma";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-
-
-            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
-            ezanChannel.setDescription(description);
-            ezanChannel.setSound(customSoundUri, audioAttributes);
-
-
-            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
-
-        }
 
         Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
 
@@ -1110,16 +1130,25 @@ public class muminFragment extends Fragment {
         intent.putExtra("vOImsakSound", sounds);
         intent.putExtra("vOImsakNotifyNum", notifyNum);
 
+        long currentLong = System.currentTimeMillis();
+
+        if (currentLong < longdate) {
+
+            PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum,intent, 0);
+
+            AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+
+            long beforeLong = 60000 * beforeTime;
+
+            ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate - beforeLong,PendingEzan);
+
+            System.out.println(titles + "Öncesi Ayarlandı");
+
+        }
 
 
-        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum,intent, 0);
 
-        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
 
-        long along = System.currentTimeMillis();
-        long beforeLong = 60000 * beforeTime;
-
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate - beforeLong,PendingEzan);
 
     }
 

@@ -66,34 +66,32 @@ public class DashboardFragment extends Fragment implements LocationListener, Sen
         mSensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
 
 
-        MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-
         locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
+
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return null;
+
+
+            return root;
+
         }
         Location location = locationManager.getLastKnownLocation(provider);
 
         if (location != null) {
 
+            System.out.println("oldu");
 
         } else {
 
+            System.out.println("olmadı");
         }
 
+        MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
         mAdView = binding.adView;
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
@@ -128,7 +126,7 @@ public class DashboardFragment extends Fragment implements LocationListener, Sen
 
             return;
         }
-        locationManager.requestLocationUpdates(provider, 100, 1, this);
+        locationManager.requestLocationUpdates(provider, 10, 1, this);
 
     }
 
@@ -208,6 +206,8 @@ public class DashboardFragment extends Fragment implements LocationListener, Sen
     @Override
     public void onLocationChanged(@NonNull List<Location> locations) {
 
+
+
     }
 
     @Override
@@ -218,10 +218,14 @@ public class DashboardFragment extends Fragment implements LocationListener, Sen
     @Override
     public void onProviderEnabled(@NonNull String provider) {
 
+        System.out.println("Enable GPS");
+
     }
 
     @Override
     public void onProviderDisabled(@NonNull String provider) {
+
+        System.out.println("Disable GPS");
 
     }
 }
