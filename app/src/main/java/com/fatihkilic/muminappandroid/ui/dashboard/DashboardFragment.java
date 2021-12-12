@@ -37,7 +37,7 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 
 import java.util.List;
 
-public class DashboardFragment extends Fragment implements LocationListener, SensorEventListener {
+public class DashboardFragment extends Fragment implements SensorEventListener {
 
     private DashboardViewModel dashboardViewModel;
     private FragmentDashboardBinding binding;
@@ -122,11 +122,6 @@ public class DashboardFragment extends Fragment implements LocationListener, Sen
         mSensorManager.registerListener(this,mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_GAME);
 
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            return;
-        }
-        locationManager.requestLocationUpdates(provider, 10, 1, this);
 
     }
 
@@ -134,7 +129,7 @@ public class DashboardFragment extends Fragment implements LocationListener, Sen
     public void onPause() {
         super.onPause();
 
-        locationManager.removeUpdates(this);
+
 
         mSensorManager.unregisterListener(this);
 
@@ -196,36 +191,5 @@ public class DashboardFragment extends Fragment implements LocationListener, Sen
 
 
 
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
 
-        System.out.println("latitude" + location.getLatitude());
-
-    }
-
-    @Override
-    public void onLocationChanged(@NonNull List<Location> locations) {
-
-
-
-    }
-
-    @Override
-    public void onFlushComplete(int requestCode) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(@NonNull String provider) {
-
-        System.out.println("Enable GPS");
-
-    }
-
-    @Override
-    public void onProviderDisabled(@NonNull String provider) {
-
-        System.out.println("Disable GPS");
-
-    }
 }
