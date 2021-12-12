@@ -234,7 +234,7 @@ public class EzanVaktiActivity extends AppCompatActivity {
                                     sqLiteStatementEzanVakti.bindString(9, vakitleriModel.HicriTarihUzun);
                                     sqLiteStatementEzanVakti.execute();
 
-                                    System.out.println("vakitler" + vakitleriModel.Yatsi);
+                                    System.out.println("sql yukleme başarılı");
 
 
 

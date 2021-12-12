@@ -19,10 +19,15 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -34,6 +39,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -50,7 +56,9 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     private SensorManager mSensorManager;
 
     LocationManager locationManager;
-    String provider;
+    LocationListener locationListener;
+    ActivityResultLauncher<String> permisionLauncher;
+    float bearingTo;
 
     private AdView mAdView;
 
@@ -62,30 +70,84 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        compassImage = binding.compass;
-        mSensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
 
+
+        registerLauncher();
 
         locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        provider = locationManager.getBestProvider(criteria, false);
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
 
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+               Location from = new Location(LocationManager.GPS_PROVIDER);
+                Location to = new Location(LocationManager.GPS_PROVIDER);
+                from.setLatitude(location.getLatitude());
+                from.setLongitude(location.getLongitude());
+                to.setLongitude(39.826206);
+                to.setLatitude(21.422487);
+
+                System.out.println("enlem" + location.getLatitude());
+                System.out.println("enlem" + location.getLongitude());
+
+                bearingTo = from.bearingTo(to);
+
+                System.out.println("bearing " + bearingTo);
 
 
-            return root;
 
-        }
-        Location location = locationManager.getLastKnownLocation(provider);
+                System.out.println("location" + location.toString());
+            }
 
-        if (location != null) {
+            @Override
+            public void onProviderDisabled(@NonNull String provider) {
 
-            System.out.println("oldu");
+                System.out.println("enabled");
+
+            }
+
+            @Override
+            public void onProviderEnabled(@NonNull String provider) {
+
+                System.out.println("disabled");
+
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+        };
+
+
+
+        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                Snackbar.make(binding.getRoot(), "Pusula konumunuzu kullanmak istiyor", Snackbar.LENGTH_INDEFINITE).setAction("İzin ver", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        permisionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+
+                    }
+                }).show();
+
+            } else {
+
+                permisionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+
+            }
 
         } else {
 
-            System.out.println("olmadı");
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
+
         }
+
+        compassImage = binding.compass;
+        mSensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
+
 
         MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
             @Override
@@ -99,6 +161,30 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         return root;
     }
 
+
+    private void registerLauncher () {
+
+        permisionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+            @Override
+            public void onActivityResult(Boolean result) {
+
+                if (result) {
+
+                    if (ContextCompat.checkSelfPermission(requireActivity(),Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
+                    }
+
+                } else {
+
+                    Toast.makeText(requireActivity(),"Pusula izin verilmeden çalışmaz",Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+        });
+
+    }
 
 
 
@@ -128,8 +214,6 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     @Override
     public void onPause() {
         super.onPause();
-
-
 
         mSensorManager.unregisterListener(this);
 

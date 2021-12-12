@@ -29,13 +29,10 @@ import com.fatihkilic.muminappandroid.databinding.ActivityMainBinding;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LocationListener {
+public class MainActivity extends AppCompatActivity{
 
     private ActivityMainBinding binding;
-    SharedPreferences sharedPreferences;
 
-    LocationManager locationManager;
-    String provider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,97 +55,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        sharedPreferences = this.getSharedPreferences("com.fatihkilic.muminappandroid", Context.MODE_PRIVATE);
-
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        provider = locationManager.getBestProvider(criteria, false);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            return;
-        }
-        Location location = locationManager.getLastKnownLocation(provider);
-        if (location != null) {
-
-
-        } else {
-
-            System.out.println("Konum Alınamadı");
-
-        }
-
-
         // MediaPlayer Sound1 = MediaPlayer.create(getActivity(), R.raw.rrh);
         //Sound1.start();
-
-
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            return;
-        }
-        locationManager.requestLocationUpdates(provider, 100, 1, this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        locationManager.removeUpdates(this);
-    }
-
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
-
-        Location from = new Location(LocationManager.GPS_PROVIDER);
-        Location to = new Location(LocationManager.GPS_PROVIDER);
-
-        from.setLatitude(0);
-        from.setLongitude(0);
-        to.setLongitude(10);
-        to.setLatitude(10);
-
-        float bearingTo = from.bearingTo(to);
-
-        System.out.println(bearingTo);
-
-        sharedPreferences.edit().putFloat("storedBearing",bearingTo).apply();
-
-
-    }
-
-    @Override
-    public void onLocationChanged(@NonNull List<Location> locations) {
-
-    }
-
-    @Override
-    public void onFlushComplete(int requestCode) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(@NonNull String provider) {
-
-        System.out.println("Enable Provider");
-
-    }
-
-    @Override
-    public void onProviderDisabled(@NonNull String provider) {
-
-        System.out.println("Disable Provider");
-
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
 }

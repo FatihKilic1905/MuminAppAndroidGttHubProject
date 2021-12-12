@@ -172,8 +172,7 @@ public class muminFragment extends Fragment {
 
             } else {
 
-                vakitGeldi();
-                VaktinCikmasinaTimer();
+
             }
 
 
@@ -197,21 +196,7 @@ public class muminFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                try {
-                    bildirimGonderImsak("İmsak Vakti", vImsakSesStr,1,imsakVakti,"12.12.2021");
 
-                } catch (Exception e) {
-
-
-                }
-
-                try {
-
-                    bildirimGonderImsak("Güneş Doğdu", vGunesSesStr,2,gunesVakti,"12.12.2021");
-                } catch (Exception e) {
-
-
-                }
 
 
 
@@ -342,6 +327,7 @@ public class muminFragment extends Fragment {
                 System.out.println("imsakkkk" + vImsakSesStr);
 
 
+                /*
                 if (vImsakSesStr.equals("Kapalı")) {
 
 
@@ -487,6 +473,8 @@ public class muminFragment extends Fragment {
 
                 }
 
+
+                 */
 
 
             }
