@@ -43,9 +43,10 @@
         <entry key="app/src/main/res/layout/activity_sehirler.xml" value="0.42083333333333334" />
         <entry key="app/src/main/res/layout/activity_ses_settings.xml" value="0.34375" />
         <entry key="app/src/main/res/layout/activity_sound_settings_detail.xml" value="0.38179347826086957" />
+        <entry key="app/src/main/res/layout/activity_zekat_matik.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.75" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.5172101449275363" />
-        <entry key="app/src/main/res/layout/fragment_mumin.xml" value="0.47685834502103785" />
+        <entry key="app/src/main/res/layout/fragment_mumin.xml" value="0.4606971975393028" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.25" />
         <entry key="app/src/main/res/layout/ilceler_row.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/sehirler_row.xml" value="0.42083333333333334" />

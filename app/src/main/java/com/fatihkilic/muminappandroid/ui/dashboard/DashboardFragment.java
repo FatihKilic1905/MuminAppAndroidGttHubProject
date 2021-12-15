@@ -141,7 +141,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
 
         } else {
 
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,1,locationListener);
 
         }
 
@@ -172,7 +172,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
 
                     if (ContextCompat.checkSelfPermission(requireActivity(),Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
 
-                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,1,locationListener);
                     }
 
                 } else {
@@ -251,7 +251,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
             float orientation[] = new float[3];
             SensorManager.getOrientation(R,orientation);
             azimuth = (float) Math.toDegrees(orientation[0]);
-            azimuth = (azimuth+183)%360;
+            azimuth = (azimuth+180)%360;
 
             Animation anim = new RotateAnimation(-currectAzimuth,-azimuth,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
             currectAzimuth = azimuth;

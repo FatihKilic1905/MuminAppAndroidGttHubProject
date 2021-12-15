@@ -61,7 +61,6 @@ public class ImsakOncesiBildirimReceiver extends BroadcastReceiver {
         }
 
 
-
         NotificationCompat.Builder EzanNotifyBuilder = new NotificationCompat.Builder(context, "notifyEzan")
                 .setSmallIcon(R.drawable.ic_mumin_toolbar_logo)
                 .setContentTitle(title)

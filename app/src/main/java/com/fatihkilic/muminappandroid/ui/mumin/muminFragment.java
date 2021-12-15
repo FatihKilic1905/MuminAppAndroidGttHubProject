@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fatihkilic.muminappandroid.Ayarlar.Receiver.EzanVaktiBildirimReceiver;
+import com.fatihkilic.muminappandroid.Ayarlar.Receiver.ImsakOncesiBildirimReceiver;
 import com.fatihkilic.muminappandroid.Ayarlar.Receiver.ImsakVaktiBildirimReceiver;
 import com.fatihkilic.muminappandroid.DayInfo.DayInfoActivity;
 import com.fatihkilic.muminappandroid.MainActivity;
@@ -101,6 +102,8 @@ public class muminFragment extends Fragment {
 
     String todayStr;
 
+
+
     String babyName;
     String mealOfTheDay;
     String todayInHistory;
@@ -121,6 +124,13 @@ public class muminFragment extends Fragment {
     private AdView mAdView3;
 
     private FirebaseFirestore firebaseFirestore;
+
+    long  longdateImsak;
+    long  longdateGunes;
+    long  longdateOgle;
+    long  longdateIkindi;
+    long  longDateAksam;
+    long  longDateYatsi;
 
 
 
@@ -151,7 +161,12 @@ public class muminFragment extends Fragment {
         sistemTarihiVoid();
 
 
-        getEzanVakti();
+        try {
+            getEzanVakti();
+        } catch (Exception e) {
+
+
+        }
 
 
         String konumControl = binding.konumtitle.getText().toString();
@@ -163,14 +178,23 @@ public class muminFragment extends Fragment {
 
         } else {
 
-
-
             String control = binding.imsakTime.getText().toString();
             sharedPreferences.edit().putString("IlkGiris", "2").apply();
+
 
             if (control.equals("00:00")){
 
             } else {
+
+
+                try {
+                    vakitGeldi();
+                    VaktinCikmasinaTimer();
+                } catch (Exception e) {
+
+                }
+
+
 
 
             }
@@ -197,7 +221,15 @@ public class muminFragment extends Fragment {
             public void onClick(View v) {
 
 
+                try {
 
+
+
+
+                } catch (Exception ed) {
+                    System.out.println("olmuyor");
+
+                }
 
 
             }
@@ -241,6 +273,9 @@ public class muminFragment extends Fragment {
         mAdView3 = binding.adView3;
         AdRequest adRequest3 = new AdRequest.Builder().build();
         mAdView3.loadAd(adRequest3);
+
+
+
 
 
         return root;
@@ -322,166 +357,14 @@ public class muminFragment extends Fragment {
                 binding.gunlertitle.setText(miladiSplit[3]);
 
 
-                todayStr = cursor.getString(miladiKisaIx);
+                StringBuilder timeToday = new StringBuilder();
+                timeToday.append(cursor.getString(miladiKisaIx));
+                todayStr = timeToday.toString();
 
-                System.out.println("imsakkkk" + vImsakSesStr);
 
-
-                /*
-                if (vImsakSesStr.equals("Kapalı")) {
-
-
-                    System.out.println("Imsak bildirimleri kapalı");
-
-                } else {
-
-                    bildirimGonderImsak("İmsak Vakti", vImsakSesStr,1,imsakVakti,todayStr);
-
-                }
-
-                if (vGunesSesStr.equals("Kapalı")) {
-
-                    System.out.println("Gunes bildirimleri kapalı");
-
-                } else {
-
-                    bildirimGonderImsak("Güneş Doğdu", vGunesSesStr,2,gunesVakti,todayStr);
-
-                }
-
-                if (vOgleSesStr.equals("Kapalı")) {
-
-
-                        System.out.println("Ogle bildirimleri kapalı");
-
-
-
-                } else {
-
-                    try {
-
-                        bildirimGonderImsak("Öğle Vakti", vOgleSesStr,3,ogleVakti,todayStr);
-
-                    } catch (Exception eOgle) {
-
-
-                    }
-
-
-                }
-
-                if (vIkindiSesStr.equals("Kapalı")) {
-
-                    System.out.println("İkindi bildirimleri kapalı");
-
-                } else {
-
-
-                    try {
-
-                        bildirimGonderImsak("İkindi Vakti", vIkindiSesStr,4,ikindiVakti,todayStr);
-
-                    } catch (Exception eImsak) {
-
-
-                    }
-
-
-
-
-
-                }
-
-                if (vAksamSesStr.equals("Kapalı")) {
-
-                    System.out.println("Aksam bildirimleri kapalı");
-
-                } else {
-
-                    bildirimGonderImsak("Akşam Vakti", vAksamSesStr,5,aksamVakti,todayStr);
-
-                }
-
-                if (vYatsiSesStr.equals("Kapalı")) {
-
-                    System.out.println("Yatsı bildirimleri kapalı");
-
-                } else {
-
-                    bildirimGonderImsak("Yatsı Vakti", vYatsiSesStr,6,yatsiVakti,todayStr);
-
-                }
-
-                if (vOImsakSesStr.equals("Kapalı")) {
-
-                    System.out.println("vO Imsak bildirimleri kapalı");
-
-                } else {
-
-                    bildirimGonderImsakOncesi("İmsak Vakti",vOImsakSesStr,7,imsakVakti,todayStr,vOImsakSureInt);
-
-                }
-
-                if (vOGunesSesStr.equals("Kapalı")) {
-
-                    System.out.println("vO Gunes bildirimleri kapalı");
-
-                } else {
-
-
-                    bildirimGonderImsakOncesi("Güneş",vOImsakSesStr,8,gunesVakti,todayStr,vOGunesSureInt);
-
-                }
-
-                if (vOOgleSesStr.equals("Kapalı")) {
-
-                    System.out.println("vO Ogle bildirimleri kapalı");
-
-                } else {
-
-                    bildirimGonderImsakOncesi("Öğle Vakti",vOOgleSesStr,9,ogleVakti,todayStr,vOOgleSureInt);
-
-                }
-
-                if (vOIkindiSesStr.equals("Kapalı")) {
-
-                    System.out.println("vO Ikindi bildirimleri kapalı");
-
-                } else {
-
-                    bildirimGonderImsakOncesi("İkindi Vakti",vOIkindiSesStr,10,ikindiVakti,todayStr,vOIkindiSureInt);
-
-                }
-
-                if (vOAksamSesStr.equals("Kapalı")) {
-
-                    System.out.println("vO Akşam bildirimleri kapalı");
-
-                } else {
-
-                    bildirimGonderImsakOncesi("Akşam Vakti",vOAksamSesStr,11,aksamVakti,todayStr,vOAksamSureInt);
-
-                }
-
-                if (vOYatsiSesStr.equals("Kapalı")) {
-
-                    System.out.println("Yatsı bildirimleri kapalı");
-
-                } else {
-
-                    bildirimGonderImsakOncesi("Yatsı Vakti",vOYatsiSesStr,12,yatsiVakti,todayStr,vOYatsiSureInt);
-
-                }
-
-
-                 */
 
 
             }
-
-            StringBuilder timeToday = new StringBuilder();
-            timeToday.append(miladiKisaIx);
-
 
             cursor.close();
 
@@ -491,7 +374,7 @@ public class muminFragment extends Fragment {
 
         }
 
-
+        bildirimGonder();
 
 
     }
@@ -778,7 +661,7 @@ public class muminFragment extends Fragment {
             vaktincikmasina.append(vakitFarkSaniye);
             vaktinCikmasinaString = vaktincikmasina.toString();
 
-            System.out.println("vaktin cıkmasına" + vaktinCikmasinaString);
+
 
 
 
@@ -807,7 +690,7 @@ public class muminFragment extends Fragment {
             vaktincikmasina.append(vakitFarkSaniye);
             vaktinCikmasinaString = vaktincikmasina.toString();
 
-            System.out.println("vaktin cıkmasına" + vaktinCikmasinaString);
+
 
 
         }
@@ -926,10 +809,17 @@ public class muminFragment extends Fragment {
 
     public void vaktinHAdisi () {
 
-        Random random = new Random();
-        int a = random.nextInt(10);
+        sharedPreferences.edit().remove("VaktinHadisi").apply();
 
-        String[] vaktinHadisiArray = {"Bir müslüman, farz namazın vakti geldiğinde güzelce abdest alır, huşû içinde ve rükûunu da tam yaparak namazını kılarsa, büyük günah işlemedikçe, bu namaz önceki günahlarına keffâret olur. Bu her zaman böyledir. (Müslim, Tahâret 7)", "İki serinlik namazını, sabah ve ikindiyi kılan kimse cennete girer. (Buhârî, Mevâkît 26" ,  "Sabah namazını kılan kimse Allah’ın himayesindedir. Dikkat et, ey Ademoğlu! Allah, bizzat himayesinde olan bir konuda seni sorguya çekmesin. (Müslim, Mesâcid 261-262)" , "İkindi namazını terkeden kimsenin işlediği amelleri boşa gider. (Buhârî, Mevâkît 15)" , "Cemaatle kılınan namaz, tek başına kılınan namazdan yirmi yedi derece daha faziletlidir. (Buhârî, Ezân 30)" , "İnsanlar yatsı namazı ile sabah namazındaki fazilet ve sevabı bilselerdi, emekleyerek bile olsa mutlaka camiye, cemaate gelirlerdi. (Buhârî, Ezân 9)"};
+        Random random = new Random();
+        int a = random.nextInt(5);
+
+        String[] vaktinHadisiArray = {"Bir müslüman, farz namazın vakti geldiğinde güzelce abdest alır, huşû içinde ve rükûunu da tam yaparak namazını kılarsa, büyük günah işlemedikçe, bu namaz önceki günahlarına keffâret olur. Bu her zaman böyledir. (Müslim, Tahâret 7)"
+                , "İki serinlik namazını, sabah ve ikindiyi kılan kimse cennete girer. (Buhârî, Mevâkît 26"
+                ,  "Sabah namazını kılan kimse Allah’ın himayesindedir. Dikkat et, ey Ademoğlu! Allah, bizzat himayesinde olan bir konuda seni sorguya çekmesin. (Müslim, Mesâcid 261-262)"
+                , "İkindi namazını terkeden kimsenin işlediği amelleri boşa gider. (Buhârî, Mevâkît 15)"
+                , "Cemaatle kılınan namaz, tek başına kılınan namazdan yirmi yedi derece daha faziletlidir. (Buhârî, Ezân 30)"
+                , "İnsanlar yatsı namazı ile sabah namazındaki fazilet ve sevabı bilselerdi, emekleyerek bile olsa mutlaka camiye, cemaate gelirlerdi. (Buhârî, Ezân 9)"};
 
         vaktinHadisiStr = vaktinHadisiArray[a];
 
@@ -939,10 +829,18 @@ public class muminFragment extends Fragment {
 
     public void vaktinAyeti () {
 
-        Random random = new Random();
-        int a = random.nextInt(10);
+        sharedPreferences.edit().remove("VaktinAyeti").apply();
 
-        String[] vaktinAyetiArray = {"Onlar gaybe  inanırlar, namazı dosdoğru kılarlar, kendilerine rızık olarak verdiğimizden de Allah yolunda harcarlar. (Bakara Sûresi 3)" , "Namazı kılın, zekâtı verin. Rükû edenlerle birlikte siz de rükû edin. (Bakara Sûresi 43)" , "Sabrederek ve namaz kılarak (Allah’tan) yardım dileyin.  Şüphesiz namaz, Allah’a derinden saygı duyanlardan başkasına ağır gelir.(Bakara Sûresi 45)" , " Sizin dostunuz ancak Allah’tır, Resûlüdür ve Allah’ın emirlerine boyun eğerek namazı kılan, zekâtı veren mü’minlerdir.(Mâide Sûresi 55)" , "Siz namaza çağırdığınız vakit onu alaya alıp eğlence yerine koyuyorlar. Bu, şüphesiz onların akılları ermeyen bir toplum olmalarındandır.(Mâide Sûresi 58)" , "Şeytan, içki ve kumarla, ancak aranıza düşmanlık ve kin sokmak; sizi Allah’ı anmaktan ve namazdan alıkoymak ister. Artık vazgeçiyor musunuz? (Mâide Sûresi 91)" , "Kur’an, namazı dosdoğru kılan, zekâtı veren ve ahirete de kesin olarak inanan mü’minler için bir hidayet rehberi ve bir müjdedir. (Neml Sûresi 2-3)"};
+        Random random = new Random();
+        int a = random.nextInt(6);
+
+        String[] vaktinAyetiArray = {"Onlar gaybe  inanırlar, namazı dosdoğru kılarlar, kendilerine rızık olarak verdiğimizden de Allah yolunda harcarlar. (Bakara Sûresi 3)"
+                , "Namazı kılın, zekâtı verin. Rükû edenlerle birlikte siz de rükû edin. (Bakara Sûresi 43)"
+                , "Sabrederek ve namaz kılarak (Allah’tan) yardım dileyin.  Şüphesiz namaz, Allah’a derinden saygı duyanlardan başkasına ağır gelir.(Bakara Sûresi 45)"
+                , " Sizin dostunuz ancak Allah’tır, Resûlüdür ve Allah’ın emirlerine boyun eğerek namazı kılan, zekâtı veren mü’minlerdir.(Mâide Sûresi 55)"
+                , "Siz namaza çağırdığınız vakit onu alaya alıp eğlence yerine koyuyorlar. Bu, şüphesiz onların akılları ermeyen bir toplum olmalarındandır.(Mâide Sûresi 58)"
+                , "Şeytan, içki ve kumarla, ancak aranıza düşmanlık ve kin sokmak; sizi Allah’ı anmaktan ve namazdan alıkoymak ister. Artık vazgeçiyor musunuz? (Mâide Sûresi 91)"
+                , "Kur’an, namazı dosdoğru kılan, zekâtı veren ve ahirete de kesin olarak inanan mü’minler için bir hidayet rehberi ve bir müjdedir. (Neml Sûresi 2-3)"};
 
         vaktinAyetiStr = vaktinAyetiArray[a];
 
@@ -1025,50 +923,28 @@ public class muminFragment extends Fragment {
 
     }
 
-    public void bildirimGonderImsak(String titles, String sounds ,int notifyNum, String vakitStr, String miladiKisa ) throws ParseException {
+    public void bildirimGonderVaktinde(String titles, String sounds ,int notifyNum, long longdate ){
 
-
-
-
-        String[] splitImsak = miladiKisa.split("[.]");
-
-
-        StringBuilder imsakTimeBuild = new StringBuilder();
-        imsakTimeBuild.append(splitImsak[2]);
-        imsakTimeBuild.append("-");
-        imsakTimeBuild.append(splitImsak[1]);
-        imsakTimeBuild.append("-");
-        imsakTimeBuild.append(splitImsak[0]);
-        imsakTimeBuild.append(" ");
-        imsakTimeBuild.append(vakitStr);
-        imsakTimeBuild.append(":00");
-        String imsakTime = imsakTimeBuild.toString();
-
-
-        vaktinHAdisi();
-        vaktinAyeti();
-
-        // Create Sounds Link
-        StringBuilder SoundUrl = new StringBuilder();
-        SoundUrl.append("/raw/");
-        SoundUrl.append(sounds);
-
-
-        // Convert LongTime
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = formatter.parse(imsakTime);
-        long  longdate = date.getTime();
-
-        Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
-
-        intent.putExtra("vImsakTitle", titles);
-        intent.putExtra("vImsakDescription", vaktinHadisiStr);
-        intent.putExtra("vImsakSound", sounds);
-        intent.putExtra("vImsakNotifyNum", notifyNum);
 
         long currentLong = System.currentTimeMillis();
 
-        if (currentLong < longdate) {
+        if (longdate > currentLong || sounds.equals("Kapalı")) {
+
+            vaktinHAdisi();
+            vaktinAyeti();
+
+            // Create Sounds Link
+            StringBuilder SoundUrl = new StringBuilder();
+            SoundUrl.append("/raw/");
+            SoundUrl.append(sounds);
+
+
+            Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
+
+            intent.putExtra("vImsakTitle", titles);
+            intent.putExtra("vImsakDescription", vaktinHadisiStr);
+            intent.putExtra("vImsakSound", sounds);
+            intent.putExtra("vImsakNotifyNum", notifyNum);
 
 
             PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum, intent, 0);
@@ -1080,15 +956,60 @@ public class muminFragment extends Fragment {
 
             ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate, PendingEzan);
 
+
             System.out.println(titles + "Ayarlandı");
 
         }
 
+
     }
 
-    public void bildirimGonderImsakOncesi(String titles, String sounds ,int notifyNum, String vakitStr, String miladiKisa, int beforeTime ) throws ParseException {
+    public void bildirimGonderVaktindenOnce(String titles, String sounds ,int notifyNum, long longdate, int beforeTime ) {
 
-        String[] splitImsak = miladiKisa.split("[.]");
+
+
+        long currentLong = System.currentTimeMillis();
+
+        if (longdate > currentLong || sounds.equals("Kapalı")) {
+
+            // Create Sounds Link
+            StringBuilder SoundUrl = new StringBuilder();
+            SoundUrl.append("/raw/");
+            SoundUrl.append(sounds);
+
+            Intent intent = new Intent(getActivity(), ImsakOncesiBildirimReceiver.class);
+
+            intent.putExtra("vOImsakTitle", titles);
+            intent.putExtra("vOImsakDescription", "Vaktin çıkmasına " + beforeTime + " dakika kaldı.");
+            intent.putExtra("vOImsakSound", sounds);
+            intent.putExtra("vOImsakNotifyNum", notifyNum);
+
+            PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum,intent, 0);
+
+            AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+
+            long beforeLong = 60000 * beforeTime;
+
+
+            long beforetimelong = longdate - beforeLong;
+
+            System.out.println("before" + beforetimelong);
+            ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, beforetimelong ,PendingEzan);
+
+            System.out.println(titles + "Öncesi Ayarlandı");
+
+        }
+
+
+
+    }
+
+
+    public void bildirimGonder () {
+
+        //ImakVaktiBildirim
+
+        String[] splitImsak = todayStr.split("[.]");
 
         StringBuilder imsakTimeBuild = new StringBuilder();
         imsakTimeBuild.append(splitImsak[2]);
@@ -1097,50 +1018,185 @@ public class muminFragment extends Fragment {
         imsakTimeBuild.append("-");
         imsakTimeBuild.append(splitImsak[0]);
         imsakTimeBuild.append(" ");
-        imsakTimeBuild.append(vakitStr);
+        imsakTimeBuild.append(imsakVakti);
+        imsakTimeBuild.append(":00");
         String imsakTime = imsakTimeBuild.toString();
 
-        // Create Sounds Link
-        StringBuilder SoundUrl = new StringBuilder();
-        SoundUrl.append("/raw/");
-        SoundUrl.append(sounds);
+
+        try {
+            DateFormat formatterImsak = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date dateImsak = formatterImsak.parse(imsakTime);
+            longdateImsak = dateImsak.getTime();
 
 
-        // Convert LongTime
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = formatter.parse(imsakTime);
-        long  longdate = date.getTime();
+        } catch (Exception e) {
 
-        Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
+            System.out.println("imsak long alınamadı");
 
-        intent.putExtra("vOImsakTitle", titles);
-        intent.putExtra("vOImsakDescription", "Vaktin çıkmasına " + beforeTime + " dakika kaldı.");
-        intent.putExtra("vOImsakSound", sounds);
-        intent.putExtra("vOImsakNotifyNum", notifyNum);
+        }
 
-        long currentLong = System.currentTimeMillis();
+        bildirimGonderVaktinde("İmsak Vakti", vImsakSesStr,1,longdateImsak);
+        bildirimGonderVaktindenOnce("İmsak Vakti",vOImsakSesStr,7,longdateImsak,vOImsakSureInt);
 
-        if (currentLong < longdate) {
 
-            PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum,intent, 0);
+        // Gunes Vakti
 
-            AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+        String[] splitGunes = todayStr.split("[.]");
 
-            long beforeLong = 60000 * beforeTime;
+        StringBuilder gunesTimeBuild = new StringBuilder();
+        gunesTimeBuild.append(splitGunes[2]);
+        gunesTimeBuild.append("-");
+        gunesTimeBuild.append(splitGunes[1]);
+        gunesTimeBuild.append("-");
+        gunesTimeBuild.append(splitGunes[0]);
+        gunesTimeBuild.append(" ");
+        gunesTimeBuild.append(gunesVakti);
+        gunesTimeBuild.append(":00");
+        String gunesTime = gunesTimeBuild.toString();
 
-            ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate - beforeLong,PendingEzan);
+        try {
 
-            System.out.println(titles + "Öncesi Ayarlandı");
+            DateFormat formattergunes = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date dategunes = formattergunes.parse(gunesTime);
+            longdateGunes = dategunes.getTime();
+
+        } catch (Exception e) {
+
+            System.out.println("gunes long alınamadı");
 
         }
 
 
+        bildirimGonderVaktinde("Güneş Doğdu", vGunesSesStr,2,longdateGunes);
+        bildirimGonderVaktindenOnce("Güneş",vOImsakSesStr,8,longdateGunes,vOGunesSureInt);
 
+
+        // Ogle Vakti Bildirim
+
+        String[] splitOgle = todayStr.split("[.]");
+
+        StringBuilder ogleTimeBuild = new StringBuilder();
+        ogleTimeBuild.append(splitOgle[2]);
+        ogleTimeBuild.append("-");
+        ogleTimeBuild.append(splitOgle[1]);
+        ogleTimeBuild.append("-");
+        ogleTimeBuild.append(splitOgle[0]);
+        ogleTimeBuild.append(" ");
+        ogleTimeBuild.append(ogleVakti);
+        ogleTimeBuild.append(":00");
+        String ogleTime = ogleTimeBuild.toString();
+
+        try {
+
+            DateFormat formatterogle = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date dateogle = formatterogle.parse(ogleTime);
+            longdateOgle = dateogle.getTime();
+
+        } catch (Exception e) {
+
+            System.out.println("ogle long alınamadı");
+
+        }
+
+
+        bildirimGonderVaktinde("Öğle Vakti", vOgleSesStr,3,longdateOgle);
+        bildirimGonderVaktindenOnce("Öğle Vakti",vOOgleSesStr,9,longdateOgle,vOOgleSureInt);
+
+        // IkindiVaktiBildirim
+
+        String[] splitIkindi = todayStr.split("[.]");
+
+        StringBuilder ikindiTimeBuild = new StringBuilder();
+        ikindiTimeBuild.append(splitIkindi[2]);
+        ikindiTimeBuild.append("-");
+        ikindiTimeBuild.append(splitIkindi[1]);
+        ikindiTimeBuild.append("-");
+        ikindiTimeBuild.append(splitIkindi[0]);
+        ikindiTimeBuild.append(" ");
+        ikindiTimeBuild.append(ikindiVakti);
+        ikindiTimeBuild.append(":00");
+        String ikindiTime = ikindiTimeBuild.toString();
+
+        try {
+
+            DateFormat formatterikindi = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date dateikindi= formatterikindi.parse(ikindiTime);
+            longdateIkindi = dateikindi.getTime();
+
+        } catch (Exception e) {
+
+            System.out.println("ogle long alınamadı");
+
+        }
+
+        bildirimGonderVaktinde("İkindi Vakti", vIkindiSesStr,4,longdateIkindi);
+        bildirimGonderVaktindenOnce("İkindi Vakti",vOIkindiSesStr,10,longdateIkindi,vOIkindiSureInt);
+
+        // Aksam Vakti Bildirim
+
+        String[] splitAksam = todayStr.split("[.]");
+
+        StringBuilder aksamTimeBuild = new StringBuilder();
+        aksamTimeBuild.append(splitAksam[2]);
+        aksamTimeBuild.append("-");
+        aksamTimeBuild.append(splitAksam[1]);
+        aksamTimeBuild.append("-");
+        aksamTimeBuild.append(splitAksam[0]);
+        aksamTimeBuild.append(" ");
+        aksamTimeBuild.append(aksamVakti);
+        aksamTimeBuild.append(":00");
+        String aksamTime = aksamTimeBuild.toString();
+
+
+        try {
+
+            DateFormat formatterAksam = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date dateAksam = formatterAksam.parse(aksamTime);
+            longDateAksam = dateAksam.getTime();
+
+        } catch (Exception e) {
+
+            System.out.println("ogle long alınamadı");
+
+        }
+
+        bildirimGonderVaktinde("Akşam Vakti", vAksamSesStr,5,longDateAksam);
+        bildirimGonderVaktindenOnce("Akşam Vakti",vOAksamSesStr,11,longDateAksam,vOAksamSureInt);
+
+
+        // yatsiBildirim
+
+        String[] splitYatsi = todayStr.split("[.]");
+
+        StringBuilder yatsiTimeBuild = new StringBuilder();
+        yatsiTimeBuild.append(splitYatsi[2]);
+        yatsiTimeBuild.append("-");
+        yatsiTimeBuild.append(splitYatsi[1]);
+        yatsiTimeBuild.append("-");
+        yatsiTimeBuild.append(splitYatsi[0]);
+        yatsiTimeBuild.append(" ");
+        yatsiTimeBuild.append(yatsiVakti);
+        yatsiTimeBuild.append(":00");
+        String yatsiTime = yatsiTimeBuild.toString();
+
+        try {
+
+            DateFormat formatterYatsi = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date dateYatsi = formatterYatsi.parse(yatsiTime);
+            longDateYatsi = dateYatsi.getTime();
+
+        } catch (Exception e) {
+
+            System.out.println("ogle long alınamadı");
+
+        }
+
+
+        bildirimGonderVaktinde("Yatsı Vakti", vYatsiSesStr,6,longDateYatsi);
+        bildirimGonderVaktindenOnce("Yatsı Vakti",vOYatsiSesStr,12,longDateYatsi,vOYatsiSureInt);
 
 
     }
-
-
 
 
 
