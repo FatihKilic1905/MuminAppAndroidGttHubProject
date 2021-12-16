@@ -1027,6 +1027,8 @@ public class muminFragment extends Fragment {
             DateFormat formatterImsak = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date dateImsak = formatterImsak.parse(imsakTime);
             longdateImsak = dateImsak.getTime();
+            System.out.println("Tarih" + dateImsak);
+            System.out.println("TarihLong" + longdateImsak);
 
 
         } catch (Exception e) {
@@ -1059,6 +1061,8 @@ public class muminFragment extends Fragment {
             DateFormat formattergunes = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date dategunes = formattergunes.parse(gunesTime);
             longdateGunes = dategunes.getTime();
+            System.out.println("Tarih" + dategunes);
+            System.out.println("TarihLong" + longdateGunes);
 
         } catch (Exception e) {
 
@@ -1091,6 +1095,8 @@ public class muminFragment extends Fragment {
             DateFormat formatterogle = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date dateogle = formatterogle.parse(ogleTime);
             longdateOgle = dateogle.getTime();
+            System.out.println("Tarih" + dateogle);
+            System.out.println("TarihLong" + longdateOgle);
 
         } catch (Exception e) {
 
@@ -1117,11 +1123,14 @@ public class muminFragment extends Fragment {
         ikindiTimeBuild.append(":00");
         String ikindiTime = ikindiTimeBuild.toString();
 
+
         try {
 
             DateFormat formatterikindi = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date dateikindi= formatterikindi.parse(ikindiTime);
             longdateIkindi = dateikindi.getTime();
+            System.out.println("Tarih" + dateikindi);
+            System.out.println("TarihLong" + longdateIkindi);
 
         } catch (Exception e) {
 
@@ -1153,6 +1162,8 @@ public class muminFragment extends Fragment {
             DateFormat formatterAksam = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date dateAksam = formatterAksam.parse(aksamTime);
             longDateAksam = dateAksam.getTime();
+            System.out.println("Tarih" + dateAksam);
+            System.out.println("TarihLong" + longDateAksam);
 
         } catch (Exception e) {
 
@@ -1184,6 +1195,8 @@ public class muminFragment extends Fragment {
             DateFormat formatterYatsi = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date dateYatsi = formatterYatsi.parse(yatsiTime);
             longDateYatsi = dateYatsi.getTime();
+            System.out.println("Tarih" + dateYatsi);
+            System.out.println("TarihLong" + longDateYatsi);
 
         } catch (Exception e) {
 

@@ -56,6 +56,7 @@ public class ImsakOncesiBildirimReceiver extends BroadcastReceiver {
             ezanChannel.setSound(customSoundUri, audioAttributes);
 
 
+
             ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
 
         }
