@@ -50,12 +50,9 @@ public class ImsakOncesiBildirimReceiver extends BroadcastReceiver {
             String descriptions = "Ezan Vakitleri için hatırlatma";
             int importance = NotificationManager.IMPORTANCE_HIGH;
 
-
             NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
             ezanChannel.setDescription(descriptions);
             ezanChannel.setSound(customSoundUri, audioAttributes);
-
-
 
             ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
 

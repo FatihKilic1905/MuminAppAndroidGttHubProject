@@ -1,33 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:orientation="vertical"
     tools:context=".BildirimActivity">
 
-    <TextView
-        android:id="@+id/vaktinAHTextView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="200dp"
-        android:layout_marginBottom="200dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:inputType="number"
-        android:text="Ben bildirim Ekranıyım"
-        android:textSize="18dp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="218dp" />
+
 
     <TextView
-        android:id="@+id/vekitTextView"
+        android:id="@+id/vakitTtitleTexView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="TextView"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:textColor="@color/muminAppGreen"
         android:textSize="25dp"
         android:textStyle="bold"
@@ -42,7 +32,8 @@
         android:id="@+id/vaktinAHTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Vaktin Ayeti/Hadisi"
         android:textSize="20dp"
@@ -50,11 +41,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/vaktinAHTextView"
+        android:layout_width="380dp"
+        android:layout_height="220dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:inputType="number"
+        android:text="Ben bildirim Ekranıyım"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="201dp" />
+
     <Button
-        android:id="@+id/button"
+        android:id="@+id/ezanDuası"
         android:layout_width="160dp"
         android:layout_height="42dp"
         android:text="ezan duası"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
         app:layout_constraintBottom_toTopOf="@+id/closeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -68,6 +78,8 @@
         android:layout_height="42dp"
         android:layout_marginBottom="16dp"
         android:text="Kapat"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dpdp"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -75,15 +87,17 @@
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        app:adSize="BANNER"
+        android:layout_gravity="center"
+        android:foregroundGravity="center"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="16dp"
+        app:adSize="BANNER"
         app:adUnitId="ca-app-pub-3940256099942544/6300978111"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

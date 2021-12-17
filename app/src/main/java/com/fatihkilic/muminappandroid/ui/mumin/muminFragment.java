@@ -319,7 +319,7 @@ public class muminFragment extends Fragment {
 
         try {
 
-            Cursor cursor = vakitDatabase.rawQuery("SELECT * FROM ezanvakitleridatabase WHERE miladiKisa = ?", new String[]{"17.12.2021"});
+            Cursor cursor = vakitDatabase.rawQuery("SELECT * FROM ezanvakitleridatabase WHERE miladiKisa = ?", new String[]{sistemTarihiStr});
             int imsakVaktiIx = cursor.getColumnIndex("imsakVakti");
             int gunesVaktiIx = cursor.getColumnIndex("gunesVakti");
             int ogleVaktiIx = cursor.getColumnIndex("ogleVakti");
@@ -359,7 +359,7 @@ public class muminFragment extends Fragment {
 
                 StringBuilder timeToday = new StringBuilder();
                 timeToday.append(cursor.getString(miladiKisaIx));
-                todayStr = "16.12.2021";
+                todayStr = timeToday.toString();
 
 
 
@@ -923,7 +923,7 @@ public class muminFragment extends Fragment {
 
     }
 
-    public void bildirimGonderVaktinde(String titles, String sounds ,int notifyNum, long longdate ){
+    public void bildirimGonderVaktinde(String titles, String sounds ,int notifyNum, long longdate, String aythds ){
 
 
         long currentLong = System.currentTimeMillis();
@@ -939,25 +939,53 @@ public class muminFragment extends Fragment {
             SoundUrl.append(sounds);
 
 
-            Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
+            if (aythds.equals("hadis")) {
 
-            intent.putExtra("vImsakTitle", titles);
-            intent.putExtra("vImsakDescription", vaktinHadisiStr);
-            intent.putExtra("vImsakSound", sounds);
-            intent.putExtra("vImsakNotifyNum", notifyNum);
+                Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
+
+                intent.putExtra("vImsakTitle", titles);
+                intent.putExtra("vImsakDescription", vaktinHadisiStr);
+                intent.putExtra("vImsakSound", sounds);
+                intent.putExtra("vImsakNotifyNum", notifyNum);
+                intent.putExtra("SourceAyetHadis", "Vaktin Hadisi");
+
+                PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+                AlarmManager ezanAlarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+
+                long along = System.currentTimeMillis();
+                long timesss = 1000 * 5;
+
+                ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate, PendingEzan);
+
+                System.out.println(titles + "Ayarlandı");
+
+            } else if (aythds.equals("ayet")) {
+
+                Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
+
+                intent.putExtra("vImsakTitle", titles);
+                intent.putExtra("vImsakDescription", vaktinAyetiStr);
+                intent.putExtra("vImsakSound", sounds);
+                intent.putExtra("vImsakNotifyNum", notifyNum);
+                intent.putExtra("SourceAyetHadis", "Vaktin Ayeti");
+
+                PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+                AlarmManager ezanAlarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+
+                long along = System.currentTimeMillis();
+                long timesss = 1000 * 5;
+
+                ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate, PendingEzan);
 
 
-            PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                System.out.println(titles + "Ayarlandı");
 
-            AlarmManager ezanAlarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-            long along = System.currentTimeMillis();
-            long timesss = 1000 * 5;
-
-            ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate, PendingEzan);
+            }
 
 
-            System.out.println(titles + "Ayarlandı");
+
 
         }
 
@@ -985,14 +1013,9 @@ public class muminFragment extends Fragment {
             intent.putExtra("vOImsakSound", sounds);
             intent.putExtra("vOImsakNotifyNum", notifyNum);
 
-
-
             PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum,intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
             AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-
-
 
             long beforetimelong = longdate - beforeLong;
 
@@ -1021,7 +1044,7 @@ public class muminFragment extends Fragment {
         imsakTimeBuild.append("-");
         imsakTimeBuild.append(splitImsak[0]);
         imsakTimeBuild.append(" ");
-        imsakTimeBuild.append("23:42");
+        imsakTimeBuild.append(imsakVakti);
         imsakTimeBuild.append(":00");
         String imsakTime = imsakTimeBuild.toString();
 
@@ -1040,7 +1063,7 @@ public class muminFragment extends Fragment {
 
         }
 
-        bildirimGonderVaktinde("İmsak Vakti", vImsakSesStr,1,longdateImsak);
+        bildirimGonderVaktinde("İmsak Vakti", vImsakSesStr,1,longdateImsak,"hadis");
         bildirimGonderVaktindenOnce("İmsak Vakti",vOImsakSesStr,7,longdateImsak,vOImsakSureInt);
 
 
@@ -1055,7 +1078,7 @@ public class muminFragment extends Fragment {
         gunesTimeBuild.append("-");
         gunesTimeBuild.append(splitGunes[0]);
         gunesTimeBuild.append(" ");
-        gunesTimeBuild.append("23:44");
+        gunesTimeBuild.append(gunesVakti);
         gunesTimeBuild.append(":00");
         String gunesTime = gunesTimeBuild.toString();
 
@@ -1074,7 +1097,7 @@ public class muminFragment extends Fragment {
         }
 
 
-        bildirimGonderVaktinde("Güneş Doğdu", vGunesSesStr,2,longdateGunes);
+        bildirimGonderVaktinde("Güneş Doğdu", vGunesSesStr,2,longdateGunes,"ayet");
         bildirimGonderVaktindenOnce("Güneş",vOImsakSesStr,8,longdateGunes,vOGunesSureInt);
 
 
@@ -1089,7 +1112,7 @@ public class muminFragment extends Fragment {
         ogleTimeBuild.append("-");
         ogleTimeBuild.append(splitOgle[0]);
         ogleTimeBuild.append(" ");
-        ogleTimeBuild.append("23:46");
+        ogleTimeBuild.append(ogleVakti);
         ogleTimeBuild.append(":00");
         String ogleTime = ogleTimeBuild.toString();
 
@@ -1108,7 +1131,7 @@ public class muminFragment extends Fragment {
         }
 
 
-        bildirimGonderVaktinde("Öğle Vakti", vOgleSesStr,3,longdateOgle);
+        bildirimGonderVaktinde("Öğle Vakti", vOgleSesStr,3,longdateOgle,"hadis");
         bildirimGonderVaktindenOnce("Öğle Vakti",vOOgleSesStr,9,longdateOgle,vOOgleSureInt);
 
         // IkindiVaktiBildirim
@@ -1141,7 +1164,7 @@ public class muminFragment extends Fragment {
 
         }
 
-        bildirimGonderVaktinde("İkindi Vakti", vIkindiSesStr,4,longdateIkindi);
+        bildirimGonderVaktinde("İkindi Vakti", vIkindiSesStr,4,longdateIkindi,"ayet");
         bildirimGonderVaktindenOnce("İkindi Vakti",vOIkindiSesStr,10,longdateIkindi,vOIkindiSureInt);
 
         // Aksam Vakti Bildirim
@@ -1174,7 +1197,7 @@ public class muminFragment extends Fragment {
 
         }
 
-        bildirimGonderVaktinde("Akşam Vakti", vAksamSesStr,5,longDateAksam);
+        bildirimGonderVaktinde("Akşam Vakti", vAksamSesStr,5,longDateAksam,"hadis");
         bildirimGonderVaktindenOnce("Akşam Vakti",vOAksamSesStr,11,longDateAksam,vOAksamSureInt);
 
 
@@ -1208,7 +1231,7 @@ public class muminFragment extends Fragment {
         }
 
 
-        bildirimGonderVaktinde("Yatsı Vakti", vYatsiSesStr,6,longDateYatsi);
+        bildirimGonderVaktinde("Yatsı Vakti", vYatsiSesStr,6,longDateYatsi,"ayet");
         bildirimGonderVaktindenOnce("Yatsı Vakti",vOYatsiSesStr,12,longDateYatsi,vOYatsiSureInt);
 
 
