@@ -319,7 +319,7 @@ public class muminFragment extends Fragment {
 
         try {
 
-            Cursor cursor = vakitDatabase.rawQuery("SELECT * FROM ezanvakitleridatabase WHERE miladiKisa = ?", new String[]{sistemTarihiStr});
+            Cursor cursor = vakitDatabase.rawQuery("SELECT * FROM ezanvakitleridatabase WHERE miladiKisa = ?", new String[]{"17.12.2021"});
             int imsakVaktiIx = cursor.getColumnIndex("imsakVakti");
             int gunesVaktiIx = cursor.getColumnIndex("gunesVakti");
             int ogleVaktiIx = cursor.getColumnIndex("ogleVakti");
@@ -359,7 +359,7 @@ public class muminFragment extends Fragment {
 
                 StringBuilder timeToday = new StringBuilder();
                 timeToday.append(cursor.getString(miladiKisaIx));
-                todayStr = timeToday.toString();
+                todayStr = "16.12.2021";
 
 
 
@@ -947,7 +947,7 @@ public class muminFragment extends Fragment {
             intent.putExtra("vImsakNotifyNum", notifyNum);
 
 
-            PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum, intent, 0);
+            PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
             AlarmManager ezanAlarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
 
@@ -969,8 +969,9 @@ public class muminFragment extends Fragment {
 
 
         long currentLong = System.currentTimeMillis();
+        long beforeLong = 60000 * beforeTime;
 
-        if (longdate > currentLong || sounds.equals("Kapalı")) {
+        if (longdate - beforeLong  > currentLong || sounds.equals("Kapalı")) {
 
             // Create Sounds Link
             StringBuilder SoundUrl = new StringBuilder();
@@ -984,11 +985,13 @@ public class muminFragment extends Fragment {
             intent.putExtra("vOImsakSound", sounds);
             intent.putExtra("vOImsakNotifyNum", notifyNum);
 
-            PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum,intent, 0);
+
+
+            PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum,intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
             AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
 
-            long beforeLong = 60000 * beforeTime;
+
 
 
             long beforetimelong = longdate - beforeLong;
@@ -1018,7 +1021,7 @@ public class muminFragment extends Fragment {
         imsakTimeBuild.append("-");
         imsakTimeBuild.append(splitImsak[0]);
         imsakTimeBuild.append(" ");
-        imsakTimeBuild.append(imsakVakti);
+        imsakTimeBuild.append("23:42");
         imsakTimeBuild.append(":00");
         String imsakTime = imsakTimeBuild.toString();
 
@@ -1052,7 +1055,7 @@ public class muminFragment extends Fragment {
         gunesTimeBuild.append("-");
         gunesTimeBuild.append(splitGunes[0]);
         gunesTimeBuild.append(" ");
-        gunesTimeBuild.append(gunesVakti);
+        gunesTimeBuild.append("23:44");
         gunesTimeBuild.append(":00");
         String gunesTime = gunesTimeBuild.toString();
 
@@ -1086,7 +1089,7 @@ public class muminFragment extends Fragment {
         ogleTimeBuild.append("-");
         ogleTimeBuild.append(splitOgle[0]);
         ogleTimeBuild.append(" ");
-        ogleTimeBuild.append(ogleVakti);
+        ogleTimeBuild.append("23:46");
         ogleTimeBuild.append(":00");
         String ogleTime = ogleTimeBuild.toString();
 
