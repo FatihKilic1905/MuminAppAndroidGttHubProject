@@ -895,6 +895,7 @@ public class muminFragment extends Fragment {
     public void bildirimGonderVaktinde(String titles, String sounds ,int notifyNum, long longdate, String aythds ){
 
 
+
         long currentLong = System.currentTimeMillis();
 
         if (longdate > currentLong || sounds.equals("Kapalı")) {
