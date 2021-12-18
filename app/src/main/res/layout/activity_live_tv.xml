@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LiveTvActivity">
+    tools:context=".LiveTvActivity"
+    android:orientation="vertical">
 
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -13,11 +14,19 @@
         android:layout_height="wrap_content"/>
 
 
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:adSize="BANNER"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="150dp"
+        app:adUnitId="ca-app-pub-9766355257187956/5774943033"></com.google.android.gms.ads.AdView>
+
+
    
-
-
-
-
-
 
 </LinearLayout>

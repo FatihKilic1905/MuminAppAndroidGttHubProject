@@ -540,11 +540,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
 
-            <Button
-                android:id="@+id/buttonnotification"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+
         </LinearLayout>
 
     </ScrollView>

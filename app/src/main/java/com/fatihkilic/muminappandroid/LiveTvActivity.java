@@ -18,6 +18,11 @@ import android.widget.VideoView;
 
 import com.fatihkilic.muminappandroid.databinding.ActivityAyarlarBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivityLiveTvBinding;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
@@ -26,6 +31,7 @@ public class LiveTvActivity extends AppCompatActivity {
 
     private ActivityLiveTvBinding binding;
     YouTubePlayerView youtubeKabePlayer;
+    private AdView mAdView;
 
     String videoUrl = "https://youtu.be/X6hmvvqXFfU";
 
@@ -47,6 +53,16 @@ public class LiveTvActivity extends AppCompatActivity {
 
         getLifecycle().addObserver(youtubeKabePlayer);
         youtubeKabePlayer.getPlayerUiController().enableLiveVideoUi(true);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        mAdView = binding.adView;
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 
         youtubeKabePlayer.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {

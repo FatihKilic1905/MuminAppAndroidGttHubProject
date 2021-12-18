@@ -204,37 +204,6 @@ public class muminFragment extends Fragment {
 
 
 
-
-
-
-
-
-
-        // sil bunu yayınlarken
-       binding.buttonnotification.setVisibility(View.VISIBLE);
-
-
-
-        Button notBut = binding.buttonnotification;
-        notBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                try {
-
-
-
-
-                } catch (Exception ed) {
-                    System.out.println("olmuyor");
-
-                }
-
-
-            }
-        });
-
         TextView mealTextButton = binding.mealofDayText;
         mealTextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1124,6 +1093,8 @@ public class muminFragment extends Fragment {
             System.out.println("Tarih" + dateogle);
             System.out.println("TarihLong" + longdateOgle);
 
+
+
         } catch (Exception e) {
 
             System.out.println("ogle long alınamadı");
@@ -1157,6 +1128,7 @@ public class muminFragment extends Fragment {
             longdateIkindi = dateikindi.getTime();
             System.out.println("Tarih" + dateikindi);
             System.out.println("TarihLong" + longdateIkindi);
+            System.out.println("dateogle" + dateikindi);
 
         } catch (Exception e) {
 

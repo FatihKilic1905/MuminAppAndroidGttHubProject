@@ -251,7 +251,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
             float orientation[] = new float[3];
             SensorManager.getOrientation(R,orientation);
             azimuth = (float) Math.toDegrees(orientation[0]);
-            azimuth = (azimuth+180)%360;
+            azimuth = (azimuth+bearingTo)%360;
 
             Animation anim = new RotateAnimation(-currectAzimuth,-azimuth,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
             currectAzimuth = azimuth;
