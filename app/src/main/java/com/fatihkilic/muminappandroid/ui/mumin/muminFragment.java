@@ -54,6 +54,7 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 
@@ -1002,6 +1003,10 @@ public class muminFragment extends Fragment {
 
     public void bildirimGonder () {
 
+
+
+
+
         //ImakVaktiBildirim
 
         String[] splitImsak = todayStr.split("[.]");
@@ -1018,12 +1023,18 @@ public class muminFragment extends Fragment {
         String imsakTime = imsakTimeBuild.toString();
 
 
+
+
         try {
-            DateFormat formatterImsak = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date dateImsak = formatterImsak.parse(imsakTime);
-            longdateImsak = dateImsak.getTime();
-            System.out.println("Tarih" + dateImsak);
-            System.out.println("TarihLong" + longdateImsak);
+
+            SimpleDateFormat formattercalImsak = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarImsak = Calendar.getInstance();
+            calendarImsak.setTime(formattercalImsak.parse(imsakTime));
+            //DateFormat formatterImsak = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //Date dateImsak = formatterImsak.parse(imsakTime);
+            longdateImsak = calendarImsak.getTimeInMillis();
+            System.out.println("Tarih " + calendarImsak);
+            System.out.println("TarihLong " + longdateImsak);
 
 
         } catch (Exception e) {
@@ -1053,11 +1064,14 @@ public class muminFragment extends Fragment {
 
         try {
 
-            DateFormat formattergunes = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date dategunes = formattergunes.parse(gunesTime);
-            longdateGunes = dategunes.getTime();
-            System.out.println("Tarih" + dategunes);
-            System.out.println("TarihLong" + longdateGunes);
+            SimpleDateFormat formattercalGunes = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarGunes = Calendar.getInstance();
+            calendarGunes.setTime(formattercalGunes.parse(gunesTime));
+            //DateFormat formattergunes = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //Date dategunes = formattergunes.parse(gunesTime);
+            longdateGunes = calendarGunes.getTimeInMillis();
+            System.out.println("Tarih " + calendarGunes);
+            System.out.println("TarihLong " + longdateGunes);
 
         } catch (Exception e) {
 
@@ -1085,13 +1099,18 @@ public class muminFragment extends Fragment {
         ogleTimeBuild.append(":00");
         String ogleTime = ogleTimeBuild.toString();
 
+
         try {
 
-            DateFormat formatterogle = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date dateogle = formatterogle.parse(ogleTime);
-            longdateOgle = dateogle.getTime();
-            System.out.println("Tarih" + dateogle);
-            System.out.println("TarihLong" + longdateOgle);
+
+            SimpleDateFormat formattercalOgle = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarOgle = Calendar.getInstance();
+            calendarOgle.setTime(formattercalOgle.parse(ogleTime));
+            //DateFormat formatterogle = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //Date dateogle = formatterogle.parse(ogleTime);
+            longdateOgle = calendarOgle.getTimeInMillis();
+            System.out.println("Tarih " + calendarOgle);
+            System.out.println("TarihLong " + longdateOgle);
 
 
 
@@ -1123,12 +1142,15 @@ public class muminFragment extends Fragment {
 
         try {
 
-            DateFormat formatterikindi = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date dateikindi= formatterikindi.parse(ikindiTime);
-            longdateIkindi = dateikindi.getTime();
-            System.out.println("Tarih" + dateikindi);
-            System.out.println("TarihLong" + longdateIkindi);
-            System.out.println("dateogle" + dateikindi);
+            SimpleDateFormat formattercalIkindi = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarIkindi = Calendar.getInstance();
+            calendarIkindi.setTime(formattercalIkindi.parse(ikindiTime));
+            //DateFormat formatterikindi = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //Date dateikindi= formatterikindi.parse(ikindiTime);
+            longdateIkindi = calendarIkindi.getTimeInMillis();
+            System.out.println("Tarih " + calendarIkindi);
+            System.out.println("TarihLong " + longdateIkindi);
+
 
         } catch (Exception e) {
 
@@ -1157,11 +1179,14 @@ public class muminFragment extends Fragment {
 
         try {
 
-            DateFormat formatterAksam = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date dateAksam = formatterAksam.parse(aksamTime);
-            longDateAksam = dateAksam.getTime();
-            System.out.println("Tarih" + dateAksam);
-            System.out.println("TarihLong" + longDateAksam);
+            SimpleDateFormat formattercalAksam = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarAksam = Calendar.getInstance();
+            calendarAksam.setTime(formattercalAksam.parse(aksamTime));
+            //DateFormat formatterAksam = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //Date dateAksam = formatterAksam.parse(aksamTime);
+            longDateAksam = calendarAksam.getTimeInMillis();
+            System.out.println("Tarih " + calendarAksam);
+            System.out.println("TarihLong " + longDateAksam);
 
         } catch (Exception e) {
 
@@ -1190,11 +1215,14 @@ public class muminFragment extends Fragment {
 
         try {
 
-            DateFormat formatterYatsi = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date dateYatsi = formatterYatsi.parse(yatsiTime);
-            longDateYatsi = dateYatsi.getTime();
-            System.out.println("Tarih" + dateYatsi);
-            System.out.println("TarihLong" + longDateYatsi);
+            SimpleDateFormat formattercalYatsi = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarYatsi = Calendar.getInstance();
+            calendarYatsi.setTime(formattercalYatsi.parse(yatsiTime));
+            //DateFormat formatterYatsi = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //Date dateYatsi = formatterYatsi.parse(yatsiTime);
+            longDateYatsi = calendarYatsi.getTimeInMillis();
+            System.out.println("Tarih " + calendarYatsi);
+            System.out.println("TarihLong " + longDateYatsi);
 
         } catch (Exception e) {
 
