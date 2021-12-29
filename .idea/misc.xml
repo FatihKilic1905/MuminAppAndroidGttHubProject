@@ -13,7 +13,8 @@
         <entry key="..\:/SOFTWARE/muminAppAndroid/app/src/main/res/layout/fragment_notifications.xml" value="0.25" />
         <entry key="..\:/SOFTWARE/muminAppAndroid/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Pc/Creative Cloud Files/SOFTWARE/ANDROID/MuminAppAndroid/app/src/main/res/layout/activity_main.xml" value="0.23233695652173914" />
-        <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_bildirim.xml" value="0.23385416666666667" />
+        <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_bildirim.xml" value="0.25" />
+        <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_htm_duasi.xml" value="0.32155797101449274" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_ses_settings.xml" value="0.33" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_tesbihat.xml" value="0.33" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_zekat_matik.xml" value="0.23385416666666667" />
@@ -40,7 +41,7 @@
         <entry key="app/src/main/res/layout/activity_ezan_duasi.xml" value="0.25407608695652173" />
         <entry key="app/src/main/res/layout/activity_ezan_vakti.xml" value="0.40677083333333336" />
         <entry key="app/src/main/res/layout/activity_hatim_duasi.xml" value="0.31567028985507245" />
-        <entry key="app/src/main/res/layout/activity_htm_duasi.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/activity_htm_duasi.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_ilceler.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_konum.xml" value="0.49773550724637683" />
         <entry key="app/src/main/res/layout/activity_live_tv.xml" value="0.32760416666666664" />

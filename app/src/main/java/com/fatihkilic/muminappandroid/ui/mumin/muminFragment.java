@@ -70,6 +70,46 @@ public class muminFragment extends Fragment {
     String aksamVakti;
     String yatsiVakti;
 
+    long  longdateImsak;
+    long  longdateGunes;
+    long  longdateOgle;
+    long  longdateIkindi;
+    long  longDateAksam;
+    long  longDateYatsi;
+
+    String imsakVaktiTomorrow;
+    String gunesVaktiTomorrow;
+    String ogleVaktiTomorrow;
+    String ikindiVaktiTomorrow;
+    String aksamVaktiTomorrow;
+    String yatsiVaktiTomorrow;
+
+    long  longdateImsakTomorrow;
+    long  longdateGunesTomorrow;
+    long  longdateOgleTomorrow;
+    long  longdateIkindiTomorrow;
+    long  longDateAksamTomorrow;
+    long  longDateYatsiTomorrow;
+
+    String imsakVaktiGunAsiri;
+    String gunesVaktiGunAsiri;
+    String ogleVaktiGunAsiri;
+    String ikindiVaktiGunAsiri;
+    String aksamVaktiGunAsiri;
+    String yatsiVaktiGunAsiri;
+
+    long  longdateImsakGunAsiri;
+    long  longdateGunesGunAsiri;
+    long  longdateOgleGunAsiri;
+    long  longdateIkindiGunAsiri;
+    long  longDateAksamGunAsiri;
+    long  longDateYatsiGunAsiri;
+
+    String todayStr;
+    String tomorrowStr;
+    String gunAsiriStr;
+
+
     Integer vOImsakSureInt;
     String vOImsakSesStr;
     String vImsakSesStr;
@@ -96,14 +136,12 @@ public class muminFragment extends Fragment {
 
     String sistemTarihiStr;
     String sistemSaatiStr;
+    String sistemTarihiTomorrowStr;
+    String sistemTarihiGunAsiriStr;
 
     Integer vakitFarkSaat;
     Integer vakitFarkDakika;
     Integer vakitFarkSaniye;
-
-    String todayStr;
-
-
 
     String babyName;
     String mealOfTheDay;
@@ -126,12 +164,7 @@ public class muminFragment extends Fragment {
 
     private FirebaseFirestore firebaseFirestore;
 
-    long  longdateImsak;
-    long  longdateGunes;
-    long  longdateOgle;
-    long  longdateIkindi;
-    long  longDateAksam;
-    long  longDateYatsi;
+
 
 
 
@@ -156,14 +189,17 @@ public class muminFragment extends Fragment {
 
         binding.konumtitle.setText(sharedPreferences.getString("storedKonum","Konum"));
 
+        sistemTarihiVoid();
         sistemSaatiVoid();
         getBildirimSound();
         DayInfoGet();
-        sistemTarihiVoid();
+
 
 
         try {
             getEzanVakti();
+            getTomorrowVakit();
+            getGunAsiriVakit();
         } catch (Exception e) {
 
 
@@ -187,16 +223,12 @@ public class muminFragment extends Fragment {
 
             } else {
 
-
                 try {
                     vakitGeldi();
                     VaktinCikmasinaTimer();
                 } catch (Exception e) {
 
                 }
-
-
-
 
             }
 
@@ -244,10 +276,6 @@ public class muminFragment extends Fragment {
         AdRequest adRequest3 = new AdRequest.Builder().build();
         mAdView3.loadAd(adRequest3);
 
-
-
-
-
         return root;
 
 
@@ -257,8 +285,30 @@ public class muminFragment extends Fragment {
 
 
     @Override
+    public void onPause() {
+        super.onPause();
+
+
+    }
+
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        System.out.println("onresumecalıstı");
+
+
+    }
+
+
+
+    @Override
     public void onStart() {
         super.onStart();
+
 
 
 
@@ -345,6 +395,94 @@ public class muminFragment extends Fragment {
         }
 
         bildirimGonder();
+
+
+    }
+
+    public void getTomorrowVakit () {
+
+        vakitDatabase = getActivity().openOrCreateDatabase("EZANVAKITLERIDATA", Context.MODE_PRIVATE,null);
+
+        try {
+
+            Cursor cursor = vakitDatabase.rawQuery("SELECT * FROM ezanvakitleridatabase WHERE miladiKisa = ?", new String[]{sistemTarihiTomorrowStr});
+            int imsakVaktiIx = cursor.getColumnIndex("imsakVakti");
+            int gunesVaktiIx = cursor.getColumnIndex("gunesVakti");
+            int ogleVaktiIx = cursor.getColumnIndex("ogleVakti");
+            int ikindiVaktiIx = cursor.getColumnIndex("ikindiVakti");
+            int aksamVaktiIx = cursor.getColumnIndex("aksamVakti");
+            int yatsiVaktiIx = cursor.getColumnIndex("yatsiVakti");
+            int hicriUzunIx = cursor.getColumnIndex("hicriUzun");
+            int miladiUzunIx = cursor.getColumnIndex("miladiUzun");
+            int miladiKisaIx = cursor.getColumnIndex("miladiKisa");
+
+
+            while (cursor.moveToNext()){
+
+                imsakVaktiTomorrow = cursor.getString(imsakVaktiIx);
+                gunesVaktiTomorrow = cursor.getString(gunesVaktiIx);
+                ogleVaktiTomorrow = cursor.getString(ogleVaktiIx);
+                ikindiVaktiTomorrow = cursor.getString(ikindiVaktiIx);
+                aksamVaktiTomorrow = cursor.getString(aksamVaktiIx);
+                yatsiVaktiTomorrow = cursor.getString(yatsiVaktiIx);
+
+                StringBuilder timeToday = new StringBuilder();
+                timeToday.append(cursor.getString(miladiKisaIx));
+                tomorrowStr = timeToday.toString();
+
+            }
+
+            cursor.close();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+
+    }
+
+    public void getGunAsiriVakit () {
+
+        vakitDatabase = getActivity().openOrCreateDatabase("EZANVAKITLERIDATA", Context.MODE_PRIVATE,null);
+
+        try {
+
+            Cursor cursor = vakitDatabase.rawQuery("SELECT * FROM ezanvakitleridatabase WHERE miladiKisa = ?", new String[]{sistemTarihiGunAsiriStr});
+            int imsakVaktiIx = cursor.getColumnIndex("imsakVakti");
+            int gunesVaktiIx = cursor.getColumnIndex("gunesVakti");
+            int ogleVaktiIx = cursor.getColumnIndex("ogleVakti");
+            int ikindiVaktiIx = cursor.getColumnIndex("ikindiVakti");
+            int aksamVaktiIx = cursor.getColumnIndex("aksamVakti");
+            int yatsiVaktiIx = cursor.getColumnIndex("yatsiVakti");
+            int hicriUzunIx = cursor.getColumnIndex("hicriUzun");
+            int miladiUzunIx = cursor.getColumnIndex("miladiUzun");
+            int miladiKisaIx = cursor.getColumnIndex("miladiKisa");
+
+
+            while (cursor.moveToNext()){
+
+                imsakVaktiGunAsiri = cursor.getString(imsakVaktiIx);
+                gunesVaktiGunAsiri = cursor.getString(gunesVaktiIx);
+                ogleVaktiGunAsiri = cursor.getString(ogleVaktiIx);
+                ikindiVaktiGunAsiri = cursor.getString(ikindiVaktiIx);
+                aksamVaktiGunAsiri= cursor.getString(aksamVaktiIx);
+                yatsiVaktiGunAsiri = cursor.getString(yatsiVaktiIx);
+
+                StringBuilder timeToday = new StringBuilder();
+                timeToday.append(cursor.getString(miladiKisaIx));
+                gunAsiriStr = timeToday.toString();
+
+            }
+
+            cursor.close();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
 
 
     }
@@ -447,9 +585,9 @@ public class muminFragment extends Fragment {
 
         String[] splitgeceYarisi = geceYarisi.split(":");
 
-        Integer GeceYarisiSaatInt = Integer.parseInt(splitYatsi[0]);
-        Integer GeceYarisiDakikaInt = Integer.parseInt(splitYatsi[1]);
-        Integer GeceYarisiSaniyeInt = Integer.parseInt(splitYatsi[2]);
+        Integer GeceYarisiSaatInt = Integer.parseInt(splitgeceYarisi[0]);
+        Integer GeceYarisiDakikaInt = Integer.parseInt(splitgeceYarisi[1]);
+        Integer GeceYarisiSaniyeInt = Integer.parseInt(splitgeceYarisi[2]);
 
 
         if (sistemSaatInt > imsakSaatInt && sistemSaatInt < gunesSaatInt || sistemSaatInt == imsakSaatInt && imsakDakikaInt < sistemDakikaInt || sistemSaatInt == gunesSaatInt && sistemDakikaInt < gunesDakikaInt) {
@@ -761,6 +899,18 @@ public class muminFragment extends Fragment {
         Date sistemtarihi = new Date();
         sistemTarihiStr = sistemtarih.format(sistemtarihi);
 
+        long bugunLong = sistemtarihi.getTime();
+
+        long yarinLong = bugunLong + 86400000;
+        SimpleDateFormat tomorrowFormat = new SimpleDateFormat("dd.M.yyyy");
+        Date tomorrowDate = new Date(yarinLong);
+        sistemTarihiTomorrowStr = tomorrowFormat.format(tomorrowDate);
+
+        long gunAssiriLong = bugunLong + 86400000 * 2;
+        SimpleDateFormat gunasiriFormat = new SimpleDateFormat("dd.M.yyyy");
+        Date gunasiriDate = new Date(gunAssiriLong);
+        sistemTarihiGunAsiriStr = gunasiriFormat.format(gunasiriDate);
+
     }
 
     public void sistemSaatiVoid() {
@@ -779,8 +929,6 @@ public class muminFragment extends Fragment {
 
     public void vaktinHAdisi () {
 
-        sharedPreferences.edit().remove("VaktinHadisi").apply();
-
         Random random = new Random();
         int a = random.nextInt(5);
 
@@ -793,13 +941,13 @@ public class muminFragment extends Fragment {
 
         vaktinHadisiStr = vaktinHadisiArray[a];
 
-        sharedPreferences.edit().putString("VaktinHadisi", vaktinHadisiStr).apply();
+
 
     }
 
     public void vaktinAyeti () {
 
-        sharedPreferences.edit().remove("VaktinAyeti").apply();
+
 
         Random random = new Random();
         int a = random.nextInt(6);
@@ -813,8 +961,6 @@ public class muminFragment extends Fragment {
                 , "Kur’an, namazı dosdoğru kılan, zekâtı veren ve ahirete de kesin olarak inanan mü’minler için bir hidayet rehberi ve bir müjdedir. (Neml Sûresi 2-3)"};
 
         vaktinAyetiStr = vaktinAyetiArray[a];
-
-        sharedPreferences.edit().putString("VaktinAyeti", vaktinAyetiStr).apply();
 
     }
 
@@ -855,7 +1001,7 @@ public class muminFragment extends Fragment {
 
 
 
-        DocumentReference usdRef = firebaseFirestore.collection("DayInfo").document("Info");
+        DocumentReference usdRef = firebaseFirestore.collection("DayInfo").document(sistemTarihiStr);
         usdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -885,6 +1031,8 @@ public class muminFragment extends Fragment {
                 }
 
             }
+
+
         });
 
 
@@ -894,6 +1042,7 @@ public class muminFragment extends Fragment {
     }
 
     public void bildirimGonderVaktinde(String titles, String sounds ,int notifyNum, long longdate, String aythds ){
+
 
 
         long currentLong = System.currentTimeMillis();
@@ -918,6 +1067,7 @@ public class muminFragment extends Fragment {
                 intent.putExtra("vImsakSound", sounds);
                 intent.putExtra("vImsakNotifyNum", notifyNum);
                 intent.putExtra("SourceAyetHadis", "Vaktin Hadisi");
+                intent.putExtra("vImsakDescription2",vaktinAyetiStr);
 
                 PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
@@ -939,6 +1089,7 @@ public class muminFragment extends Fragment {
                 intent.putExtra("vImsakSound", sounds);
                 intent.putExtra("vImsakNotifyNum", notifyNum);
                 intent.putExtra("SourceAyetHadis", "Vaktin Ayeti");
+                intent.putExtra("vImsakDescription2",vaktinHadisiStr);
 
                 PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), notifyNum, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
@@ -1004,9 +1155,6 @@ public class muminFragment extends Fragment {
     public void bildirimGonder () {
 
 
-
-
-
         //ImakVaktiBildirim
 
         String[] splitImsak = todayStr.split("[.]");
@@ -1022,16 +1170,11 @@ public class muminFragment extends Fragment {
         imsakTimeBuild.append(":00");
         String imsakTime = imsakTimeBuild.toString();
 
-
-
-
         try {
 
             SimpleDateFormat formattercalImsak = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Calendar calendarImsak = Calendar.getInstance();
             calendarImsak.setTime(formattercalImsak.parse(imsakTime));
-            //DateFormat formatterImsak = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            //Date dateImsak = formatterImsak.parse(imsakTime);
             longdateImsak = calendarImsak.getTimeInMillis();
             System.out.println("Tarih " + calendarImsak);
             System.out.println("TarihLong " + longdateImsak);
@@ -1067,8 +1210,6 @@ public class muminFragment extends Fragment {
             SimpleDateFormat formattercalGunes = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Calendar calendarGunes = Calendar.getInstance();
             calendarGunes.setTime(formattercalGunes.parse(gunesTime));
-            //DateFormat formattergunes = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            //Date dategunes = formattergunes.parse(gunesTime);
             longdateGunes = calendarGunes.getTimeInMillis();
             System.out.println("Tarih " + calendarGunes);
             System.out.println("TarihLong " + longdateGunes);
@@ -1081,7 +1222,7 @@ public class muminFragment extends Fragment {
 
 
         bildirimGonderVaktinde("Güneş Doğdu", vGunesSesStr,2,longdateGunes,"ayet");
-        bildirimGonderVaktindenOnce("Güneş",vOImsakSesStr,8,longdateGunes,vOGunesSureInt);
+        bildirimGonderVaktindenOnce("Güneş Vakti",vOImsakSesStr,8,longdateGunes,vOGunesSureInt);
 
 
         // Ogle Vakti Bildirim
@@ -1106,8 +1247,6 @@ public class muminFragment extends Fragment {
             SimpleDateFormat formattercalOgle = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Calendar calendarOgle = Calendar.getInstance();
             calendarOgle.setTime(formattercalOgle.parse(ogleTime));
-            //DateFormat formatterogle = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            //Date dateogle = formatterogle.parse(ogleTime);
             longdateOgle = calendarOgle.getTimeInMillis();
             System.out.println("Tarih " + calendarOgle);
             System.out.println("TarihLong " + longdateOgle);
@@ -1145,8 +1284,6 @@ public class muminFragment extends Fragment {
             SimpleDateFormat formattercalIkindi = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Calendar calendarIkindi = Calendar.getInstance();
             calendarIkindi.setTime(formattercalIkindi.parse(ikindiTime));
-            //DateFormat formatterikindi = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            //Date dateikindi= formatterikindi.parse(ikindiTime);
             longdateIkindi = calendarIkindi.getTimeInMillis();
             System.out.println("Tarih " + calendarIkindi);
             System.out.println("TarihLong " + longdateIkindi);
@@ -1182,8 +1319,6 @@ public class muminFragment extends Fragment {
             SimpleDateFormat formattercalAksam = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Calendar calendarAksam = Calendar.getInstance();
             calendarAksam.setTime(formattercalAksam.parse(aksamTime));
-            //DateFormat formatterAksam = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            //Date dateAksam = formatterAksam.parse(aksamTime);
             longDateAksam = calendarAksam.getTimeInMillis();
             System.out.println("Tarih " + calendarAksam);
             System.out.println("TarihLong " + longDateAksam);
@@ -1218,8 +1353,6 @@ public class muminFragment extends Fragment {
             SimpleDateFormat formattercalYatsi = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Calendar calendarYatsi = Calendar.getInstance();
             calendarYatsi.setTime(formattercalYatsi.parse(yatsiTime));
-            //DateFormat formatterYatsi = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            //Date dateYatsi = formatterYatsi.parse(yatsiTime);
             longDateYatsi = calendarYatsi.getTimeInMillis();
             System.out.println("Tarih " + calendarYatsi);
             System.out.println("TarihLong " + longDateYatsi);
@@ -1233,6 +1366,428 @@ public class muminFragment extends Fragment {
 
         bildirimGonderVaktinde("Yatsı Vakti", vYatsiSesStr,6,longDateYatsi,"ayet");
         bildirimGonderVaktindenOnce("Yatsı Vakti",vOYatsiSesStr,12,longDateYatsi,vOYatsiSureInt);
+
+
+        // tomorrowImsak
+
+        String[] tomorrowsplitImsak = tomorrowStr.split("[.]");
+
+        StringBuilder tomorrowimsakTimeBuild = new StringBuilder();
+        tomorrowimsakTimeBuild.append(tomorrowsplitImsak[2]);
+        tomorrowimsakTimeBuild.append("-");
+        tomorrowimsakTimeBuild.append(tomorrowsplitImsak[1]);
+        tomorrowimsakTimeBuild.append("-");
+        tomorrowimsakTimeBuild.append(tomorrowsplitImsak[0]);
+        tomorrowimsakTimeBuild.append(" ");
+        tomorrowimsakTimeBuild.append(imsakVaktiTomorrow);
+        tomorrowimsakTimeBuild.append(":00");
+        String tomorrowimsakTime = tomorrowimsakTimeBuild.toString();
+
+        try {
+
+            SimpleDateFormat formattercalImsaktomorrow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarImsakTomorrow = Calendar.getInstance();
+            calendarImsakTomorrow.setTime(formattercalImsaktomorrow.parse(tomorrowimsakTime));
+            longdateImsakTomorrow = calendarImsakTomorrow.getTimeInMillis();
+            System.out.println("Tarih " + calendarImsakTomorrow);
+            System.out.println("TarihLong " + longdateImsakTomorrow);
+
+
+        } catch (Exception e) {
+
+            System.out.println("imsak tomorrow long alınamadı");
+
+        }
+
+        bildirimGonderVaktinde("İmsak Vakti", vImsakSesStr,13,longdateImsakTomorrow,"hadis");
+        bildirimGonderVaktindenOnce("İmsak Vakti",vOImsakSesStr,14,longdateImsakTomorrow,vOImsakSureInt);
+
+
+        // tomorrowGunes
+
+        String[] tomorrowsplitGunes = tomorrowStr.split("[.]");
+
+        StringBuilder tomorrowGunesTimeBuild = new StringBuilder();
+        tomorrowGunesTimeBuild.append(tomorrowsplitGunes[2]);
+        tomorrowGunesTimeBuild.append("-");
+        tomorrowGunesTimeBuild.append(tomorrowsplitGunes[1]);
+        tomorrowGunesTimeBuild.append("-");
+        tomorrowGunesTimeBuild.append(tomorrowsplitGunes[0]);
+        tomorrowGunesTimeBuild.append(" ");
+        tomorrowGunesTimeBuild.append(gunesVaktiTomorrow);
+        tomorrowGunesTimeBuild.append(":00");
+        String tomorrowGunesTime = tomorrowGunesTimeBuild.toString();
+
+        try {
+
+            SimpleDateFormat formattercalGunestomorrow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarGunesTomorrow = Calendar.getInstance();
+            calendarGunesTomorrow.setTime(formattercalGunestomorrow.parse(tomorrowGunesTime));
+            longdateGunesTomorrow = calendarGunesTomorrow.getTimeInMillis();
+            System.out.println("Tarih " + calendarGunesTomorrow);
+            System.out.println("TarihLong " + longdateGunesTomorrow);
+
+
+        } catch (Exception e) {
+
+            System.out.println("gunes tomorrow long alınamadı");
+
+        }
+
+        bildirimGonderVaktinde("Güneş Doğdu", vGunesSesStr,15,longdateGunesTomorrow,"ayet");
+        bildirimGonderVaktindenOnce("Güneş Vakti",vOGunesSesStr,16,longdateGunesTomorrow,vOGunesSureInt);
+
+
+        // tomorrowOgle
+
+        String[] tomorrowsplitOgle = tomorrowStr.split("[.]");
+
+        StringBuilder tomorrowOgleTimeBuild = new StringBuilder();
+        tomorrowOgleTimeBuild.append(tomorrowsplitOgle[2]);
+        tomorrowOgleTimeBuild.append("-");
+        tomorrowOgleTimeBuild.append(tomorrowsplitOgle[1]);
+        tomorrowOgleTimeBuild.append("-");
+        tomorrowOgleTimeBuild.append(tomorrowsplitOgle[0]);
+        tomorrowOgleTimeBuild.append(" ");
+        tomorrowOgleTimeBuild.append(ogleVaktiTomorrow);
+        tomorrowOgleTimeBuild.append(":00");
+        String tomorroOgleTime = tomorrowOgleTimeBuild.toString();
+
+        try {
+
+            SimpleDateFormat formattercalOgletomorrow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarOgleTomorrow = Calendar.getInstance();
+            calendarOgleTomorrow.setTime(formattercalOgletomorrow.parse(tomorroOgleTime));
+            longdateOgleTomorrow = calendarOgleTomorrow.getTimeInMillis();
+            System.out.println("Tarih " + calendarOgleTomorrow);
+            System.out.println("TarihLong " + longdateOgleTomorrow);
+
+
+        } catch (Exception e) {
+
+            System.out.println("gunes tomorrow long alınamadı");
+
+        }
+
+        bildirimGonderVaktinde("Öğle Vakti", vOgleSesStr,17,longdateOgleTomorrow,"hadis");
+        bildirimGonderVaktindenOnce("Öğle Vakti",vOOgleSesStr,18,longdateOgleTomorrow,vOOgleSureInt);
+
+
+        // TomorrowIkindiVaktiBildirim
+
+        String[] tomorrowsplitIkindi = todayStr.split("[.]");
+
+        StringBuilder tomorrowikindiTimeBuild = new StringBuilder();
+        tomorrowikindiTimeBuild.append(tomorrowsplitIkindi[2]);
+        tomorrowikindiTimeBuild.append("-");
+        tomorrowikindiTimeBuild.append(tomorrowsplitIkindi[1]);
+        tomorrowikindiTimeBuild.append("-");
+        tomorrowikindiTimeBuild.append(tomorrowsplitIkindi[0]);
+        tomorrowikindiTimeBuild.append(" ");
+        tomorrowikindiTimeBuild.append(ikindiVaktiTomorrow);
+        tomorrowikindiTimeBuild.append(":00");
+        String tomorrowikindiTime = tomorrowikindiTimeBuild.toString();
+
+
+        try {
+
+            SimpleDateFormat formattercalIkindiTomorrow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarIkindiTomorrow = Calendar.getInstance();
+            calendarIkindiTomorrow.setTime(formattercalIkindiTomorrow.parse(tomorrowikindiTime));
+            longdateIkindiTomorrow = calendarIkindiTomorrow.getTimeInMillis();
+            System.out.println("Tarih " + calendarIkindiTomorrow);
+            System.out.println("TarihLong " + longdateIkindiTomorrow);
+
+
+        } catch (Exception e) {
+
+            System.out.println("tomorrow ogle long alınamadı");
+
+        }
+
+        bildirimGonderVaktinde("İkindi Vakti", vIkindiSesStr,19,longdateIkindiTomorrow,"ayet");
+        bildirimGonderVaktindenOnce("İkindi Vakti",vOIkindiSesStr,20,longdateIkindiTomorrow,vOIkindiSureInt);
+
+        // tomorrow Aksam Vakti Bildirim
+
+        String[] tomorrowsplitAksam = todayStr.split("[.]");
+
+        StringBuilder tomorrowaksamTimeBuild = new StringBuilder();
+        tomorrowaksamTimeBuild.append(tomorrowsplitAksam[2]);
+        tomorrowaksamTimeBuild.append("-");
+        tomorrowaksamTimeBuild.append(tomorrowsplitAksam[1]);
+        tomorrowaksamTimeBuild.append("-");
+        tomorrowaksamTimeBuild.append(tomorrowsplitAksam[0]);
+        tomorrowaksamTimeBuild.append(" ");
+        tomorrowaksamTimeBuild.append(aksamVaktiTomorrow);
+        tomorrowaksamTimeBuild.append(":00");
+        String tomorrowaksamTime = tomorrowaksamTimeBuild.toString();
+
+
+        try {
+
+            SimpleDateFormat formattercalAksamTomorrow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarAksamTomorrow = Calendar.getInstance();
+            calendarAksamTomorrow.setTime(formattercalAksamTomorrow.parse(tomorrowaksamTime));
+            longDateAksamTomorrow = calendarAksamTomorrow.getTimeInMillis();
+            System.out.println("Tarih " + calendarAksamTomorrow);
+            System.out.println("TarihLong " + longDateAksamTomorrow);
+
+        } catch (Exception e) {
+
+            System.out.println("tomorrow Aksam long alınamadı");
+
+        }
+
+        bildirimGonderVaktinde("Akşam Vakti", vAksamSesStr,21,longDateAksamTomorrow,"hadis");
+        bildirimGonderVaktindenOnce("Akşam Vakti",vOAksamSesStr,22,longDateAksamTomorrow,vOAksamSureInt);
+
+
+        // tomorrow yatsiBildirim
+
+        String[] tomorrowsplitYatsi = todayStr.split("[.]");
+
+        StringBuilder tomorrowyatsiTimeBuild = new StringBuilder();
+        tomorrowyatsiTimeBuild.append(tomorrowsplitYatsi[2]);
+        tomorrowyatsiTimeBuild.append("-");
+        tomorrowyatsiTimeBuild.append(tomorrowsplitYatsi[1]);
+        tomorrowyatsiTimeBuild.append("-");
+        tomorrowyatsiTimeBuild.append(tomorrowsplitYatsi[0]);
+        tomorrowyatsiTimeBuild.append(" ");
+        tomorrowyatsiTimeBuild.append(yatsiVaktiTomorrow);
+        tomorrowyatsiTimeBuild.append(":00");
+        String tomorrowyatsiTime = tomorrowyatsiTimeBuild.toString();
+
+        try {
+
+            SimpleDateFormat formattercalYatsiTomorrow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarYatsiTomorrow = Calendar.getInstance();
+            calendarYatsiTomorrow.setTime(formattercalYatsiTomorrow.parse(tomorrowyatsiTime));
+            longDateYatsiTomorrow = calendarYatsiTomorrow.getTimeInMillis();
+            System.out.println("Tarih " + calendarYatsiTomorrow);
+            System.out.println("TarihLong " + longDateYatsiTomorrow);
+
+        } catch (Exception e) {
+
+            System.out.println("ogle long alınamadı");
+
+        }
+
+
+        bildirimGonderVaktinde("Yatsı Vakti", vYatsiSesStr,23,longDateYatsiTomorrow,"ayet");
+        bildirimGonderVaktindenOnce("Yatsı Vakti",vOYatsiSesStr,24,longDateYatsiTomorrow,vOYatsiSureInt);
+
+
+
+        // tomorrowImsak
+
+        String[] gunasirisplitImsak = gunAsiriStr.split("[.]");
+
+        StringBuilder gunasiriimsakTimeBuild = new StringBuilder();
+        gunasiriimsakTimeBuild.append(gunasirisplitImsak[2]);
+        gunasiriimsakTimeBuild.append("-");
+        gunasiriimsakTimeBuild.append(gunasirisplitImsak[1]);
+        gunasiriimsakTimeBuild.append("-");
+        gunasiriimsakTimeBuild.append(gunasirisplitImsak[0]);
+        gunasiriimsakTimeBuild.append(" ");
+        gunasiriimsakTimeBuild.append(imsakVaktiGunAsiri);
+        gunasiriimsakTimeBuild.append(":00");
+        String gunasiriimsakTime = gunasiriimsakTimeBuild.toString();
+
+        try {
+
+            SimpleDateFormat formattercalImsakGunasiri = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarImsakGunasiri = Calendar.getInstance();
+            calendarImsakGunasiri.setTime(formattercalImsakGunasiri.parse(gunasiriimsakTime));
+            longdateImsakGunAsiri = calendarImsakGunasiri.getTimeInMillis();
+            System.out.println("Tarih " + calendarImsakGunasiri);
+            System.out.println("TarihLong " + longdateImsakGunAsiri);
+
+
+        } catch (Exception e) {
+
+            System.out.println("imsak gunasiri long alınamadı");
+
+        }
+
+        bildirimGonderVaktinde("İmsak Vakti", vImsakSesStr,25,longdateImsakGunAsiri,"hadis");
+        bildirimGonderVaktindenOnce("İmsak Vakti",vOImsakSesStr,26,longdateImsakGunAsiri,vOImsakSureInt);
+
+
+        // tomorrowGunes
+
+        String[] gunasirisplitGunes = tomorrowStr.split("[.]");
+
+        StringBuilder gunasiriGunesTimeBuild = new StringBuilder();
+        gunasiriGunesTimeBuild.append(gunasirisplitGunes[2]);
+        gunasiriGunesTimeBuild.append("-");
+        gunasiriGunesTimeBuild.append(gunasirisplitGunes[1]);
+        gunasiriGunesTimeBuild.append("-");
+        gunasiriGunesTimeBuild.append(gunasirisplitGunes[0]);
+        gunasiriGunesTimeBuild.append(" ");
+        gunasiriGunesTimeBuild.append(gunesVaktiTomorrow);
+        gunasiriGunesTimeBuild.append(":00");
+        String gunasiriGunesTime = gunasiriGunesTimeBuild.toString();
+
+        try {
+
+            SimpleDateFormat formattercalGunesgunasiri = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarGunesGunasiri = Calendar.getInstance();
+            calendarGunesGunasiri.setTime(formattercalGunesgunasiri.parse(gunasiriGunesTime));
+            longdateGunesGunAsiri = calendarGunesGunasiri.getTimeInMillis();
+            System.out.println("Tarih " + calendarGunesGunasiri);
+            System.out.println("TarihLong " + longdateGunesGunAsiri);
+
+
+        } catch (Exception e) {
+
+            System.out.println("gunes gunasirilong alınamadı");
+
+        }
+
+        bildirimGonderVaktinde("Güneş Doğdu", vGunesSesStr,27,longdateGunesGunAsiri,"ayet");
+        bildirimGonderVaktindenOnce("Güneş Vakti",vOGunesSesStr,28,longdateGunesGunAsiri,vOGunesSureInt);
+
+
+        // tomorrowOgle
+
+        String[] gunasirisplitOgle = tomorrowStr.split("[.]");
+
+        StringBuilder gunasiriOgleTimeBuild = new StringBuilder();
+        gunasiriOgleTimeBuild.append(gunasirisplitOgle[2]);
+        gunasiriOgleTimeBuild.append("-");
+        gunasiriOgleTimeBuild.append(gunasirisplitOgle[1]);
+        gunasiriOgleTimeBuild.append("-");
+        gunasiriOgleTimeBuild.append(gunasirisplitOgle[0]);
+        gunasiriOgleTimeBuild.append(" ");
+        gunasiriOgleTimeBuild.append(ogleVaktiTomorrow);
+        gunasiriOgleTimeBuild.append(":00");
+        String gunasiriOgleTime = gunasiriOgleTimeBuild.toString();
+
+        try {
+
+            SimpleDateFormat formattercalOglegunasiri = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarOgleGunasiri = Calendar.getInstance();
+            calendarOgleGunasiri.setTime(formattercalOglegunasiri.parse(gunasiriOgleTime));
+            longdateOgleGunAsiri = calendarOgleGunasiri.getTimeInMillis();
+            System.out.println("Tarih " + calendarOgleGunasiri);
+            System.out.println("TarihLong " + longdateOgleGunAsiri);
+
+
+        } catch (Exception e) {
+
+            System.out.println("gunes guneasiri long alınamadı");
+
+        }
+
+        bildirimGonderVaktinde("Öğle Vakti", vOgleSesStr,29,longdateOgleGunAsiri,"hadis");
+        bildirimGonderVaktindenOnce("Öğle Vakti",vOOgleSesStr,30,longdateOgleGunAsiri,vOOgleSureInt);
+
+
+        // TomorrowIkindiVaktiBildirim
+
+        String[] gunasirisplitIkindi = todayStr.split("[.]");
+
+        StringBuilder gunasiriikindiTimeBuild = new StringBuilder();
+        gunasiriikindiTimeBuild.append(gunasirisplitIkindi[2]);
+        gunasiriikindiTimeBuild.append("-");
+        gunasiriikindiTimeBuild.append(gunasirisplitIkindi[1]);
+        gunasiriikindiTimeBuild.append("-");
+        gunasiriikindiTimeBuild.append(gunasirisplitIkindi[0]);
+        gunasiriikindiTimeBuild.append(" ");
+        gunasiriikindiTimeBuild.append(ikindiVaktiTomorrow);
+        gunasiriikindiTimeBuild.append(":00");
+        String gunasiriikindiTime = gunasiriikindiTimeBuild.toString();
+
+
+        try {
+
+            SimpleDateFormat formattercalIkindiGunasiri = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarIkindiGunasiri = Calendar.getInstance();
+            calendarIkindiGunasiri.setTime(formattercalIkindiGunasiri.parse(gunasiriikindiTime));
+            longdateIkindiGunAsiri = calendarIkindiGunasiri.getTimeInMillis();
+            System.out.println("Tarih " + calendarIkindiGunasiri);
+            System.out.println("TarihLong " + longdateIkindiGunAsiri);
+
+
+        } catch (Exception e) {
+
+            System.out.println("gunasiri ogle long alınamadı");
+
+        }
+
+        bildirimGonderVaktinde("İkindi Vakti", vIkindiSesStr,31,longdateIkindiGunAsiri,"ayet");
+        bildirimGonderVaktindenOnce("İkindi Vakti",vOIkindiSesStr,32,longdateIkindiGunAsiri,vOIkindiSureInt);
+
+        // tomorrow Aksam Vakti Bildirim
+
+        String[] gunasirisplitAksam = todayStr.split("[.]");
+
+        StringBuilder gunasiriaksamTimeBuild = new StringBuilder();
+        gunasiriaksamTimeBuild.append(gunasirisplitAksam[2]);
+        gunasiriaksamTimeBuild.append("-");
+        gunasiriaksamTimeBuild.append(gunasirisplitAksam[1]);
+        gunasiriaksamTimeBuild.append("-");
+        gunasiriaksamTimeBuild.append(gunasirisplitAksam[0]);
+        gunasiriaksamTimeBuild.append(" ");
+        gunasiriaksamTimeBuild.append(aksamVaktiTomorrow);
+        gunasiriaksamTimeBuild.append(":00");
+        String gunasiriaksamTime = gunasiriaksamTimeBuild.toString();
+
+
+        try {
+
+            SimpleDateFormat formattercalAksamgunasiri = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarAksamGunasiri = Calendar.getInstance();
+            calendarAksamGunasiri.setTime(formattercalAksamgunasiri.parse(gunasiriaksamTime));
+            longDateAksamGunAsiri = calendarAksamGunasiri.getTimeInMillis();
+            System.out.println("Tarih " + calendarAksamGunasiri);
+            System.out.println("TarihLong " + longDateAksamGunAsiri);
+
+        } catch (Exception e) {
+
+            System.out.println("gunasiri Aksam long alınamadı");
+
+        }
+
+        bildirimGonderVaktinde("Akşam Vakti", vAksamSesStr,33,longDateAksamGunAsiri,"hadis");
+        bildirimGonderVaktindenOnce("Akşam Vakti",vOAksamSesStr,34,longDateAksamGunAsiri,vOAksamSureInt);
+
+
+        // tomorrow yatsiBildirim
+
+        String[] gunasirisplitYatsi = todayStr.split("[.]");
+
+        StringBuilder gunasiriyatsiTimeBuild = new StringBuilder();
+        gunasiriyatsiTimeBuild.append(gunasirisplitYatsi[2]);
+        gunasiriyatsiTimeBuild.append("-");
+        gunasiriyatsiTimeBuild.append(gunasirisplitYatsi[1]);
+        gunasiriyatsiTimeBuild.append("-");
+        gunasiriyatsiTimeBuild.append(gunasirisplitYatsi[0]);
+        gunasiriyatsiTimeBuild.append(" ");
+        gunasiriyatsiTimeBuild.append(yatsiVaktiTomorrow);
+        gunasiriyatsiTimeBuild.append(":00");
+        String gunasiriyatsiTime = gunasiriyatsiTimeBuild.toString();
+
+        try {
+
+            SimpleDateFormat formattercalYatsiGunasiri = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendarYatsiGunAsiri = Calendar.getInstance();
+            calendarYatsiGunAsiri.setTime(formattercalYatsiGunasiri.parse(gunasiriyatsiTime));
+            longDateYatsiGunAsiri = calendarYatsiGunAsiri.getTimeInMillis();
+            System.out.println("Tarih " + calendarYatsiGunAsiri);
+            System.out.println("TarihLong " + longDateYatsiGunAsiri);
+
+        } catch (Exception e) {
+
+            System.out.println("gunasiri yatsi long alınamadı");
+
+        }
+
+
+        bildirimGonderVaktinde("Yatsı Vakti", vYatsiSesStr,35,longDateYatsiGunAsiri,"ayet");
+        bildirimGonderVaktindenOnce("Yatsı Vakti",vOYatsiSesStr,36,longDateYatsiGunAsiri,vOYatsiSureInt);
+
 
 
     }

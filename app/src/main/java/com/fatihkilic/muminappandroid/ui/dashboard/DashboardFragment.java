@@ -39,9 +39,15 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+
+import kotlin.LateinitKt;
 
 public class DashboardFragment extends Fragment implements SensorEventListener {
 
@@ -58,6 +64,8 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     LocationManager locationManager;
     LocationListener locationListener;
     ActivityResultLauncher<String> permisionLauncher;
+
+    private FusedLocationProviderClient fusedLocationClient;
     float bearingTo;
 
     private AdView mAdView;
@@ -71,7 +79,6 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         View root = binding.getRoot();
 
 
-
         registerLauncher();
 
         locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -79,7 +86,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
             @Override
             public void onLocationChanged(@NonNull Location location) {
 
-               Location from = new Location(LocationManager.GPS_PROVIDER);
+                Location from = new Location(LocationManager.GPS_PROVIDER);
                 Location to = new Location(LocationManager.GPS_PROVIDER);
                 from.setLatitude(location.getLatitude());
                 from.setLongitude(location.getLongitude());
@@ -89,10 +96,9 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
                 System.out.println("enlem" + location.getLatitude());
                 System.out.println("enlem" + location.getLongitude());
 
-                bearingTo = from.bearingTo(to);
+               // bearingTo = from.bearingTo(to);
 
                 System.out.println("bearing " + bearingTo);
-
 
 
                 System.out.println("location" + location.toString());
@@ -101,14 +107,14 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
             @Override
             public void onProviderDisabled(@NonNull String provider) {
 
-                System.out.println("enabled");
+                Toast.makeText(requireActivity(), "Lütfen GPS servisini aktif hale getirin.", Toast.LENGTH_LONG).show();
 
             }
 
             @Override
             public void onProviderEnabled(@NonNull String provider) {
 
-                System.out.println("disabled");
+                Toast.makeText(requireActivity(), "GPS Aktif.", Toast.LENGTH_LONG).show();
 
             }
 
@@ -116,7 +122,30 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
             public void onStatusChanged(String provider, int status, Bundle extras) {
 
             }
+
+
+            @Override
+            public void onLocationChanged(@NonNull List<Location> locations) {
+
+                System.out.println("locationss" + locations.size());
+                Location from = new Location(LocationManager.GPS_PROVIDER);
+                Location to = new Location(LocationManager.GPS_PROVIDER);
+                from.setLatitude(locations.lastIndexOf(0));
+                from.setLongitude(locations.lastIndexOf(0));
+                to.setLongitude(39.826206);
+                to.setLatitude(21.422487);
+
+                System.out.println("sonkonum" + locations.lastIndexOf(0));
+
+
+                bearingTo = from.bearingTo(to);
+
+                System.out.println("bearing " + bearingTo);
+
+            }
+
         };
+        fusedLocationClient = (FusedLocationProviderClient) LocationServices.getFusedLocationProviderClient(getContext());
 
 
 
@@ -144,6 +173,34 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,1,locationListener);
 
         }
+
+        fusedLocationClient.getLastLocation().addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(@NonNull Location location) {
+
+                if (location != null) {
+
+                    Location from = new Location(LocationManager.GPS_PROVIDER);
+                    Location to = new Location(LocationManager.GPS_PROVIDER);
+                    from.setLatitude(location.getLatitude());
+                    from.setLongitude(location.getLongitude());
+                    to.setLongitude(39.826206);
+                    to.setLatitude(21.422487);
+
+                    System.out.println("enlem" + location.getLatitude());
+                    System.out.println("enlem" + location.getLongitude());
+
+                    bearingTo = from.bearingTo(to);
+
+                    System.out.println("bearing " + bearingTo);
+
+
+                    System.out.println("location" + location.toString());
+
+                }
+
+            }
+        });
 
         compassImage = binding.compass;
         mSensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);

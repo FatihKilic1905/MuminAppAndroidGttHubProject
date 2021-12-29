@@ -18,7 +18,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 public class DayInfoActivity extends AppCompatActivity {
@@ -28,6 +30,8 @@ public class DayInfoActivity extends AppCompatActivity {
     ArrayList<mealOfDayModel> mealOfDayModelArrayList;
     mealOfDayAdapter mealOfDayAdapter;
     String getDetailınfo;
+
+    String sistemTarihiStr;
 
 
     ArrayList<todayInHistoryModel> todayInHistoryArrayList;
@@ -40,6 +44,8 @@ public class DayInfoActivity extends AppCompatActivity {
         binding = ActivityDayInfoBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        sistemTarihiVoid();
 
         mealOfDayModelArrayList = new ArrayList<>();
         todayInHistoryArrayList = new ArrayList<>();
@@ -72,19 +78,12 @@ public class DayInfoActivity extends AppCompatActivity {
         binding.todayInHistoryRecylerView.setAdapter(todayInHistoryAdapter);
 
 
-
-
-
-
-
-
-
     }
 
 
     public void getMealOfTheDay () {
 
-        firebaseFirestore.collection("DayInfo").document("Info").collection("recipe").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firebaseFirestore.collection("DayInfo").document(sistemTarihiStr).collection("recipe").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
@@ -129,7 +128,7 @@ public class DayInfoActivity extends AppCompatActivity {
     public void getTodayInHistory () {
 
 
-        firebaseFirestore.collection("DayInfo").document("Info").collection("todayInHistory").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firebaseFirestore.collection("DayInfo").document(sistemTarihiStr).collection("todayInHistory").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
@@ -168,4 +167,15 @@ public class DayInfoActivity extends AppCompatActivity {
 
 
     }
+
+    void sistemTarihiVoid() {
+
+        SimpleDateFormat sistemtarih = new SimpleDateFormat("dd.M.yyyy");
+        Date sistemtarihi = new Date();
+        sistemTarihiStr = sistemtarih.format(sistemtarihi);
+
+
+
+    }
+
 }

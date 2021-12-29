@@ -8,6 +8,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.app.PendingIntent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.net.Uri;
@@ -25,21 +26,26 @@ import java.net.URI;
 public class ImsakVaktiBildirimReceiver extends BroadcastReceiver {
 
 
+    SharedPreferences sharedPreferences;
+
     @Override
     public void onReceive(Context context, Intent intentImsak) {
+
+        sharedPreferences = context.getSharedPreferences("com.fatihkilic.muminappandroid", Context.MODE_PRIVATE);
 
         String title = intentImsak.getStringExtra("vImsakTitle");
         String description = intentImsak.getStringExtra("vImsakDescription");
         String sound = intentImsak.getStringExtra("vImsakSound");
         String aythds = intentImsak.getStringExtra("SourceAyetHadis");
+        String descrition2 = intentImsak.getStringExtra("vImsakDescription2");
         int notifyNum = intentImsak.getIntExtra("vImsakNotifyNum",0);
 
         StringBuilder SoundUrl = new StringBuilder();
         SoundUrl.append("/raw/");
         SoundUrl.append(sound);
 
-
-
+        sharedPreferences.edit().putString("VaktinHadisi", description).apply();
+        sharedPreferences.edit().putString("VaktinAyeti", descrition2).apply();
 
         Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + context.getPackageName() + SoundUrl);
 
@@ -85,4 +91,6 @@ public class ImsakVaktiBildirimReceiver extends BroadcastReceiver {
         ezanVaktinotificationManager.notify(notifyNum, EzanNotifyBuilder.build());
 
     }
+
+
 }

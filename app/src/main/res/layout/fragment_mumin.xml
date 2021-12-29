@@ -34,7 +34,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="110dp"
-                android:layout_height="130dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/corner_4_radius" >
@@ -42,7 +42,7 @@
 
                 <LinearLayout
                     android:layout_width="108dp"
-                    android:layout_height="128dp"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     tools:layout_editor_absoluteX="1dp"
                     tools:layout_editor_absoluteY="1dp"
@@ -80,7 +80,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="2dp"
                         android:text="Aylar"
                         android:textAlignment="center"
                         android:textColor="@color/white"
@@ -108,7 +108,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="2dp"
                         android:text="Hicri Takvim"
                         android:textAlignment="center"
                         android:textColor="@color/white"

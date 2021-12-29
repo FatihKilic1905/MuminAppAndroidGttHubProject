@@ -59,6 +59,4 @@ public class MainActivity extends AppCompatActivity{
         //Sound1.start();
     }
 
-
-
 }
