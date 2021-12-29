@@ -193,17 +193,10 @@ public class muminFragment extends Fragment {
         sistemSaatiVoid();
         getBildirimSound();
         DayInfoGet();
+        getEzanVakti();
+        getTomorrowVakit();
+        getGunAsiriVakit();
 
-
-
-        try {
-            getEzanVakti();
-            getTomorrowVakit();
-            getGunAsiriVakit();
-        } catch (Exception e) {
-
-
-        }
 
 
         String konumControl = binding.konumtitle.getText().toString();
@@ -1042,7 +1035,6 @@ public class muminFragment extends Fragment {
     }
 
     public void bildirimGonderVaktinde(String titles, String sounds ,int notifyNum, long longdate, String aythds ){
-
 
 
         long currentLong = System.currentTimeMillis();
