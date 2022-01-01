@@ -189,15 +189,12 @@ public class muminFragment extends Fragment {
 
         binding.konumtitle.setText(sharedPreferences.getString("storedKonum","Konum"));
 
-        sistemTarihiVoid();
-        sistemSaatiVoid();
-        getBildirimSound();
-        DayInfoGet();
+
 
 
 
         try {
-            getEzanVakti();
+
             getTomorrowVakit();
             getGunAsiriVakit();
         } catch (Exception e) {
@@ -206,34 +203,7 @@ public class muminFragment extends Fragment {
         }
 
 
-        String konumControl = binding.konumtitle.getText().toString();
-        if (konumControl.equals("Konum")) {
 
-            Intent ilkGirisIntent = new Intent(getActivity(),KonumActivity.class);
-            sharedPreferences.edit().putString("IlkGiris", "1").apply();
-            startActivity(ilkGirisIntent);
-
-        } else {
-
-            String control = binding.imsakTime.getText().toString();
-            sharedPreferences.edit().putString("IlkGiris", "2").apply();
-
-
-            if (control.equals("00:00")){
-
-            } else {
-
-                try {
-                    vakitGeldi();
-                    VaktinCikmasinaTimer();
-                } catch (Exception e) {
-
-                }
-
-            }
-
-
-        }
 
 
 
@@ -298,7 +268,43 @@ public class muminFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+
         System.out.println("onresumecalıstı");
+        sistemTarihiVoid();
+        sistemSaatiVoid();
+        getBildirimSound();
+        DayInfoGet();
+        getEzanVakti();
+
+
+        String konumControl = binding.konumtitle.getText().toString();
+        if (konumControl.equals("Konum")) {
+
+            Intent ilkGirisIntent = new Intent(getActivity(),KonumActivity.class);
+            sharedPreferences.edit().putString("IlkGiris", "1").apply();
+            startActivity(ilkGirisIntent);
+
+        } else {
+
+            String control = binding.imsakTime.getText().toString();
+            sharedPreferences.edit().putString("IlkGiris", "2").apply();
+
+
+            if (control.equals("00:00")){
+
+            } else {
+
+                try {
+                    vakitGeldi();
+                    VaktinCikmasinaTimer();
+                } catch (Exception e) {
+
+                }
+
+            }
+
+
+        }
 
 
     }
@@ -335,11 +341,13 @@ public class muminFragment extends Fragment {
 
     public void getEzanVakti() {
 
+
+
         vakitDatabase = getActivity().openOrCreateDatabase("EZANVAKITLERIDATA", Context.MODE_PRIVATE,null);
 
         try {
 
-            Cursor cursor = vakitDatabase.rawQuery("SELECT * FROM ezanvakitleridatabase WHERE miladiKisa = ?", new String[]{sistemTarihiStr});
+            Cursor cursor = vakitDatabase.rawQuery("SELECT * FROM ezanvakitleridatabase WHERE miladiKisa = ?", new String[]{"01.01.2022"});
             int imsakVaktiIx = cursor.getColumnIndex("imsakVakti");
             int gunesVaktiIx = cursor.getColumnIndex("gunesVakti");
             int ogleVaktiIx = cursor.getColumnIndex("ogleVakti");
@@ -360,7 +368,7 @@ public class muminFragment extends Fragment {
                 aksamVakti = cursor.getString(aksamVaktiIx);
                 yatsiVakti = cursor.getString(yatsiVaktiIx);
 
-                System.out.println("Vakitler   " + imsakVakti + gunesVakti + ogleVakti + ikindiVakti + aksamVakti + yatsiVakti);
+
                 binding.imsakTime.setText(cursor.getString(imsakVaktiIx));
                 binding.gunesTime.setText(cursor.getString(gunesVaktiIx));
                 binding.ogleTime.setText(cursor.getString(ogleVaktiIx));
@@ -380,9 +388,6 @@ public class muminFragment extends Fragment {
                 StringBuilder timeToday = new StringBuilder();
                 timeToday.append(cursor.getString(miladiKisaIx));
                 todayStr = timeToday.toString();
-
-
-
 
             }
 
@@ -1368,6 +1373,15 @@ public class muminFragment extends Fragment {
         bildirimGonderVaktindenOnce("Yatsı Vakti",vOYatsiSesStr,12,longDateYatsi,vOYatsiSureInt);
 
 
+
+
+
+    }
+
+
+    public void bildirimGonderTomorrow() {
+
+
         // tomorrowImsak
 
         String[] tomorrowsplitImsak = tomorrowStr.split("[.]");
@@ -1787,7 +1801,6 @@ public class muminFragment extends Fragment {
 
         bildirimGonderVaktinde("Yatsı Vakti", vYatsiSesStr,35,longDateYatsiGunAsiri,"ayet");
         bildirimGonderVaktindenOnce("Yatsı Vakti",vOYatsiSesStr,36,longDateYatsiGunAsiri,vOYatsiSureInt);
-
 
 
     }
