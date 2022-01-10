@@ -57,7 +57,6 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 
 
-
                         Map<String, Object> data = snapshot.getData();
 
 
@@ -67,8 +66,6 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
                     }
 
                 }
-
-
 
             }
         });

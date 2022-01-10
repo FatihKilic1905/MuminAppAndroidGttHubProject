@@ -16,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MuminAppAndroid">
         <activity
+            android:name=".User.SignInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".User.CreateUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".ZikirMatik.ZikirMatikMainActivity"
             android:exported="false" />
         <activity

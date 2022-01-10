@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.fatihkilic.muminappandroid.R;
+
 public class CreateUserActivity extends AppCompatActivity {
 
     @Override

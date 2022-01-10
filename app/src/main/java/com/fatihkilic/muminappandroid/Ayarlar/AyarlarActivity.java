@@ -8,6 +8,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 
+import com.fatihkilic.muminappandroid.EzanVaktiCoplete.EzanVaktiActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.Ulkeler.KonumActivity;
 import com.fatihkilic.muminappandroid.databinding.ActivityAyarlarBinding;

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.fatihkilic.muminappandroid.Ayarlar.AyarlarActivity;
 import com.fatihkilic.muminappandroid.Ayarlar.SesSettingsActivity;
 import com.fatihkilic.muminappandroid.EzanVaktiService;
 import com.fatihkilic.muminappandroid.Ilceler.IlcelerActivity;
@@ -100,8 +101,11 @@ public class EzanVaktiActivity extends AppCompatActivity {
 
                 } else {
 
+
                     Intent konum = new Intent(EzanVaktiActivity.this, MainActivity.class);
                     startActivity(konum);
+                    finish();
+
                 }
 
 
