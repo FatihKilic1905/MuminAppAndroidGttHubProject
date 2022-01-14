@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 }
 
 apply plugin: 'com.google.gms.google-services'
@@ -67,4 +68,5 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.google.android.gms:play-services-ads:20.5.0'
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+    implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
 }

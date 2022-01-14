@@ -55,6 +55,7 @@ public class SignInActivity extends AppCompatActivity {
 
                            if (authResult.getUser().isEmailVerified() == true) {
 
+                               
 
                            }
 

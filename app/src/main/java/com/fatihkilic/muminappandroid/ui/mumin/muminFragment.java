@@ -46,6 +46,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.onesignal.OneSignal;
 
 import java.sql.SQLOutput;
 import java.text.DateFormat;
@@ -164,13 +165,19 @@ public class muminFragment extends Fragment {
 
     private FirebaseFirestore firebaseFirestore;
 
-
-
+    private static final String ONESIGNAL_APP_ID = "1966721c-a30c-4299-9d7a-38e084b98072";
 
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        // Enable verbose OneSignal logging to debug issues if needed.
+        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
+
+        // OneSignal Initialization
+        OneSignal.initWithContext(requireActivity());
+        OneSignal.setAppId(ONESIGNAL_APP_ID);
 
         binding = FragmentMuminBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -223,6 +230,7 @@ public class muminFragment extends Fragment {
                 try {
                     vakitGeldi();
                     VaktinCikmasinaTimer();
+
                 } catch (Exception e) {
 
                 }
@@ -296,6 +304,7 @@ public class muminFragment extends Fragment {
         super.onResume();
 
         System.out.println("onresumecalıstı");
+
 
 
     }
