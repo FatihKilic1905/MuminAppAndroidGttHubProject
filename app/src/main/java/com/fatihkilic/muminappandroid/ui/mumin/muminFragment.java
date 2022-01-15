@@ -202,6 +202,11 @@ public class muminFragment extends Fragment {
 
         try {
 
+            sistemTarihiVoid();
+            sistemSaatiVoid();
+            getEzanVakti();
+            getBildirimSound();
+            DayInfoGet();
             getTomorrowVakit();
             getGunAsiriVakit();
         } catch (Exception e) {
@@ -303,7 +308,50 @@ public class muminFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        System.out.println("onresumecalıstı");
+        try {
+            sistemTarihiVoid();
+            sistemSaatiVoid();
+            getEzanVakti();
+            getBildirimSound();
+            DayInfoGet();
+            getTomorrowVakit();
+            getGunAsiriVakit();
+        } catch (Exception e) {
+
+
+        }
+
+
+        String konumControl = binding.konumtitle.getText().toString();
+        if (konumControl.equals("Konum")) {
+
+            Intent ilkGirisIntent = new Intent(getActivity(),KonumActivity.class);
+            sharedPreferences.edit().putString("IlkGiris", "1").apply();
+            startActivity(ilkGirisIntent);
+
+        } else {
+
+            String control = binding.imsakTime.getText().toString();
+            sharedPreferences.edit().putString("IlkGiris", "2").apply();
+
+
+            if (control.equals("00:00")){
+
+            } else {
+
+                try {
+                    vakitGeldi();
+                    VaktinCikmasinaTimer();
+
+                } catch (Exception e) {
+
+                }
+
+            }
+
+
+        }
+
 
 
 
@@ -1157,7 +1205,6 @@ public class muminFragment extends Fragment {
 
     }
 
-
     public void bildirimGonder () {
 
 
@@ -1799,665 +1846,6 @@ public class muminFragment extends Fragment {
     }
 
 
-
-    /*
-    public void bildirimGonderGunes(String titles, String sounds ,int notifyNum, String time ) throws ParseException {
-
-        vaktinHAdisi();
-        vaktinAyeti();
-
-        // Create Sounds Link
-        StringBuilder SoundUrl = new StringBuilder();
-        SoundUrl.append("/raw/");
-        SoundUrl.append(sounds);
-
-
-        // Convert LongTime
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = formatter.parse(time);
-        long  longdate = date.getTime();
-        System.out.println(date);
-        System.out.println(longdate);
-
-
-        Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + SoundUrl);
-
-
-        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build();
-
-            CharSequence name = "Ezan Vakitleri Kanalı";
-            String description = "Ezan Vakitleri için hatırlatma";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-
-
-            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
-            ezanChannel.setDescription(description);
-            ezanChannel.setSound(customSoundUri, audioAttributes);
-
-
-            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
-
-        }
-
-        Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
-
-        intent.putExtra("vGunesTitle", titles);
-        intent.putExtra("vGunesDescription", vaktinHadisiStr);
-        intent.putExtra("vGunesSound", sounds);
-        intent.putExtra("vGunesNotifyNum", notifyNum);
-        intent.putExtra("vaktinAyeti", vaktinAyetiStr);
-        intent.putExtra("vaktinHadisi", vaktinHadisiStr);
-
-
-        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
-
-        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        long along = System.currentTimeMillis();
-        long timesss = 1000 * 5;
-
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate,PendingEzan);
-
-    }
-
-    public void bildirimGonderOgle(String titles, String sounds ,int notifyNum, String time ) throws ParseException {
-
-
-
-        vaktinHAdisi();
-        vaktinAyeti();
-
-        // Create Sounds Link
-        StringBuilder SoundUrl = new StringBuilder();
-        SoundUrl.append("/raw/");
-        SoundUrl.append(sounds);
-
-
-        // Convert LongTime
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = formatter.parse(time);
-        long  longdate = date.getTime();
-        System.out.println(date);
-        System.out.println(longdate);
-
-
-        Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + SoundUrl);
-
-
-        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build();
-
-            CharSequence name = "Ezan Vakitleri Kanalı";
-            String description = "Ezan Vakitleri için hatırlatma";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-
-
-            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
-            ezanChannel.setDescription(description);
-            ezanChannel.setSound(customSoundUri, audioAttributes);
-
-
-            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
-
-        }
-
-        Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
-
-        intent.putExtra("vOgleTitle", titles);
-        intent.putExtra("vOgleDescription", vaktinHadisiStr);
-        intent.putExtra("vOgleSound", sounds);
-        intent.putExtra("vOgleNotifyNum", notifyNum);
-        intent.putExtra("vaktinAyeti", vaktinAyetiStr);
-        intent.putExtra("vaktinHadisi", vaktinHadisiStr);
-
-
-        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
-
-        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        long along = System.currentTimeMillis();
-        long timesss = 1000 * 5;
-
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate,PendingEzan);
-
-    }
-
-    public void bildirimGonderIkindi(String titles, String sounds ,int notifyNum, String time ) throws ParseException {
-
-
-
-        vaktinHAdisi();
-        vaktinAyeti();
-
-        // Create Sounds Link
-        StringBuilder SoundUrl = new StringBuilder();
-        SoundUrl.append("/raw/");
-        SoundUrl.append(sounds);
-
-
-        // Convert LongTime
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = formatter.parse(time);
-        long  longdate = date.getTime();
-        System.out.println(date);
-        System.out.println(longdate);
-
-
-        Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + SoundUrl);
-
-
-        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build();
-
-            CharSequence name = "Ezan Vakitleri Kanalı";
-            String description = "Ezan Vakitleri için hatırlatma";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-
-
-            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
-            ezanChannel.setDescription(description);
-            ezanChannel.setSound(customSoundUri, audioAttributes);
-
-
-            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
-
-        }
-
-        Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
-
-        intent.putExtra("vIkindiTitle", titles);
-        intent.putExtra("vIkindiDescription", vaktinHadisiStr);
-        intent.putExtra("vIkindiSound", sounds);
-        intent.putExtra("vIkindiNotifyNum", notifyNum);
-        intent.putExtra("vaktinAyeti", vaktinAyetiStr);
-        intent.putExtra("vaktinHadisi", vaktinHadisiStr);
-
-
-        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
-
-        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        long along = System.currentTimeMillis();
-        long timesss = 1000 * 5;
-
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate,PendingEzan);
-
-    }
-
-    public void bildirimGonderAksam(String titles, String sounds ,int notifyNum, String time ) throws ParseException {
-
-
-
-        vaktinHAdisi();
-        vaktinAyeti();
-
-        // Create Sounds Link
-        StringBuilder SoundUrl = new StringBuilder();
-        SoundUrl.append("/raw/");
-        SoundUrl.append(sounds);
-
-
-        // Convert LongTime
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = formatter.parse(time);
-        long  longdate = date.getTime();
-        System.out.println(date);
-        System.out.println(longdate);
-
-
-        Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + SoundUrl);
-
-
-        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build();
-
-            CharSequence name = "Ezan Vakitleri Kanalı";
-            String description = "Ezan Vakitleri için hatırlatma";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-
-
-            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
-            ezanChannel.setDescription(description);
-            ezanChannel.setSound(customSoundUri, audioAttributes);
-
-
-            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
-
-        }
-
-        Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
-
-        intent.putExtra("vAksamTitle", titles);
-        intent.putExtra("vAksamDescription", vaktinHadisiStr);
-        intent.putExtra("vAksamSound", sounds);
-        intent.putExtra("vAksamNotifyNum", notifyNum);
-        intent.putExtra("vaktinAyeti", vaktinAyetiStr);
-        intent.putExtra("vaktinHadisi", vaktinHadisiStr);
-
-
-        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
-
-        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        long along = System.currentTimeMillis();
-        long timesss = 1000 * 5;
-
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate,PendingEzan);
-
-    }
-
-    public void bildirimGonderYatsi(String titles, String sounds ,int notifyNum, String time ) throws ParseException {
-
-
-
-        vaktinHAdisi();
-        vaktinAyeti();
-
-        // Create Sounds Link
-        StringBuilder SoundUrl = new StringBuilder();
-        SoundUrl.append("/raw/");
-        SoundUrl.append(sounds);
-
-
-        // Convert LongTime
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = formatter.parse(time);
-        long  longdate = date.getTime();
-        System.out.println(date);
-        System.out.println(longdate);
-
-
-        Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + SoundUrl);
-
-
-        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build();
-
-            CharSequence name = "Ezan Vakitleri Kanalı";
-            String description = "Ezan Vakitleri için hatırlatma";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-
-
-            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
-            ezanChannel.setDescription(description);
-            ezanChannel.setSound(customSoundUri, audioAttributes);
-
-
-            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
-
-        }
-
-        Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
-
-        intent.putExtra("vYatsiTitle", titles);
-        intent.putExtra("vYatsiDescription", vaktinHadisiStr);
-        intent.putExtra("vYatsiSound", sounds);
-        intent.putExtra("vYatsiNotifyNum", notifyNum);
-        intent.putExtra("vaktinAyeti", vaktinAyetiStr);
-        intent.putExtra("vaktinHadisi", vaktinHadisiStr);
-
-
-        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
-
-        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        long along = System.currentTimeMillis();
-        long timesss = 1000 * 5;
-
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate,PendingEzan);
-
-    }
-
-
-
-    public void bildirimGonderGunesOncesi(String titles, String sounds ,int notifyNum, String time, int beforeTime ) throws ParseException {
-
-
-        // Create Sounds Link
-        StringBuilder SoundUrl = new StringBuilder();
-        SoundUrl.append("/raw/");
-        SoundUrl.append(sounds);
-
-
-        // Convert LongTime
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = formatter.parse(time);
-        long  longdate = date.getTime();
-        System.out.println(date);
-        System.out.println(longdate);
-
-
-        Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + SoundUrl);
-
-
-        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build();
-
-            CharSequence name = "Ezan Vakitleri Kanalı";
-            String description = "Ezan Vakitleri için hatırlatma";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-
-
-            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
-            ezanChannel.setDescription(description);
-            ezanChannel.setSound(customSoundUri, audioAttributes);
-
-
-            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
-
-        }
-
-        Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
-
-        intent.putExtra("vOGunesTitle", titles);
-        intent.putExtra("vOGunesDescription", "Vaktin çıkmasına " + beforeTime + " dakika kaldı.");
-        intent.putExtra("vOGunesSound", sounds);
-        intent.putExtra("vOGunesNotifyNum", notifyNum);
-
-
-
-        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
-
-        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        long along = System.currentTimeMillis();
-        long beforeLong = 60000 * beforeTime;
-
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate - beforeLong,PendingEzan);
-
-    }
-
-    public void bildirimGonderOgleOncesi(String titles, String sounds ,int notifyNum, String time, int beforeTime ) throws ParseException {
-
-
-        // Create Sounds Link
-        StringBuilder SoundUrl = new StringBuilder();
-        SoundUrl.append("/raw/");
-        SoundUrl.append(sounds);
-
-
-        // Convert LongTime
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = formatter.parse(time);
-        long  longdate = date.getTime();
-        System.out.println(date);
-        System.out.println(longdate);
-
-
-        Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + SoundUrl);
-
-
-        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build();
-
-            CharSequence name = "Ezan Vakitleri Kanalı";
-            String description = "Ezan Vakitleri için hatırlatma";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-
-
-            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
-            ezanChannel.setDescription(description);
-            ezanChannel.setSound(customSoundUri, audioAttributes);
-
-
-            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
-
-        }
-
-        Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
-
-        intent.putExtra("vOOgleTitle", titles);
-        intent.putExtra("vOOgleDescription", "Vaktin çıkmasına " + beforeTime + " dakika kaldı.");
-        intent.putExtra("vOOgleSound", sounds);
-        intent.putExtra("vOOgleNotifyNum", notifyNum);
-
-
-
-        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
-
-        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        long along = System.currentTimeMillis();
-        long beforeLong = 60000 * beforeTime;
-
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate - beforeLong,PendingEzan);
-
-    }
-
-    public void bildirimGonderIkindiOncesi(String titles, String sounds ,int notifyNum, String time, int beforeTime ) throws ParseException {
-
-
-        // Create Sounds Link
-        StringBuilder SoundUrl = new StringBuilder();
-        SoundUrl.append("/raw/");
-        SoundUrl.append(sounds);
-
-
-        // Convert LongTime
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = formatter.parse(time);
-        long  longdate = date.getTime();
-        System.out.println(date);
-        System.out.println(longdate);
-
-
-        Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + SoundUrl);
-
-
-        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build();
-
-            CharSequence name = "Ezan Vakitleri Kanalı";
-            String description = "Ezan Vakitleri için hatırlatma";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-
-
-            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
-            ezanChannel.setDescription(description);
-            ezanChannel.setSound(customSoundUri, audioAttributes);
-
-
-            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
-
-        }
-
-        Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
-
-        intent.putExtra("vOIkindiTitle", titles);
-        intent.putExtra("vOIkindiDescription", "Vaktin çıkmasına " + beforeTime + " dakika kaldı.");
-        intent.putExtra("vOIkindiSound", sounds);
-        intent.putExtra("vOIkindiNotifyNum", notifyNum);
-
-
-
-        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
-
-        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        long along = System.currentTimeMillis();
-        long beforeLong = 60000 * beforeTime;
-
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate - beforeLong,PendingEzan);
-
-    }
-
-    public void bildirimGonderAksamOncesi(String titles, String sounds ,int notifyNum, String time, int beforeTime ) throws ParseException {
-
-
-        // Create Sounds Link
-        StringBuilder SoundUrl = new StringBuilder();
-        SoundUrl.append("/raw/");
-        SoundUrl.append(sounds);
-
-
-        // Convert LongTime
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = formatter.parse(time);
-        long  longdate = date.getTime();
-        System.out.println(date);
-        System.out.println(longdate);
-
-
-        Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + SoundUrl);
-
-
-        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build();
-
-            CharSequence name = "Ezan Vakitleri Kanalı";
-            String description = "Ezan Vakitleri için hatırlatma";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-
-
-            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
-            ezanChannel.setDescription(description);
-            ezanChannel.setSound(customSoundUri, audioAttributes);
-
-
-            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
-
-        }
-
-        Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
-
-        intent.putExtra("vOAksamTitle", titles);
-        intent.putExtra("vOAksamDescription", "Vaktin çıkmasına " + beforeTime + " dakika kaldı.");
-        intent.putExtra("vOAksamSound", sounds);
-        intent.putExtra("vOAksamNotifyNum", notifyNum);
-
-
-
-        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
-
-        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        long along = System.currentTimeMillis();
-        long beforeLong = 60000 * beforeTime;
-
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate - beforeLong,PendingEzan);
-
-    }
-
-    public void bildirimGonderYatsiOncesi(String titles, String sounds ,int notifyNum, String time, int beforeTime ) throws ParseException {
-
-
-        // Create Sounds Link
-        StringBuilder SoundUrl = new StringBuilder();
-        SoundUrl.append("/raw/");
-        SoundUrl.append(sounds);
-
-
-        // Convert LongTime
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = formatter.parse(time);
-        long  longdate = date.getTime();
-        System.out.println(date);
-        System.out.println(longdate);
-
-
-        Uri customSoundUri = Uri.parse(ContentResolver. SCHEME_ANDROID_RESOURCE + "://" + requireActivity().getPackageName() + SoundUrl);
-
-
-        NotificationManager ezanVaktinotificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build();
-
-            CharSequence name = "Ezan Vakitleri Kanalı";
-            String description = "Ezan Vakitleri için hatırlatma";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-
-
-            NotificationChannel ezanChannel = new NotificationChannel("notifyEzan", name, importance);
-            ezanChannel.setDescription(description);
-            ezanChannel.setSound(customSoundUri, audioAttributes);
-
-
-            ezanVaktinotificationManager.createNotificationChannel(ezanChannel);
-
-        }
-
-        Intent intent = new Intent(getActivity(), ImsakVaktiBildirimReceiver.class);
-
-        intent.putExtra("vOYatsiTitle", titles);
-        intent.putExtra("vOYatsiDescription", "Vaktin çıkmasına " + beforeTime + " dakika kaldı.");
-        intent.putExtra("vOYatsiSound", sounds);
-        intent.putExtra("vOYatsiNotifyNum", notifyNum);
-
-
-
-        PendingIntent PendingEzan = PendingIntent.getBroadcast(getActivity(), 0,intent, 0);
-
-        AlarmManager ezanAlarmManager =  (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        long along = System.currentTimeMillis();
-        long beforeLong = 60000 * beforeTime;
-
-        ezanAlarmManager.set(AlarmManager.RTC_WAKEUP, longdate - beforeLong,PendingEzan);
-
-    }
-
-
-    */
 
 
 }
