@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MuminAppAndroid">
         <activity
+            android:name=".User.UsersActivity"
+            android:exported="false" />
+        <activity
             android:name=".User.SignInActivity"
             android:exported="false" />
         <activity

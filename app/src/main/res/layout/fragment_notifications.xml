@@ -8,38 +8,54 @@
 
     <Button
         android:id="@+id/ayarlarButton"
-        android:layout_width="320dp"
+        android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="50dp"
         android:onClick="gecisyap"
         android:text="Ayarlar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/canliButton"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="TouchTargetSizeCheck" />
+
+        tools:ignore="TouchTargetSizeCheck"
+        tools:layout_editor_absoluteX="245dp"
+        tools:layout_editor_absoluteY="392dp" />
 
     <Button
         android:id="@+id/ZekatmatikButton"
-        android:layout_width="320dp"
+        android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="50dp"
         android:text="Zekatmatik"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="62dp"
+        tools:layout_editor_absoluteY="232dp" />
 
     <Button
         android:id="@+id/canliButton"
-        android:layout_width="320dp"
+        android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="50dp"
         android:text="Kabe Canlı"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ZekatmatikButton" />
+        tools:layout_editor_absoluteX="245dp"
+        tools:layout_editor_absoluteY="232dp" />
+
+    <Button
+        android:id="@+id/zikirMatikButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:text="Online Zikirmatik"
+        tools:layout_editor_absoluteX="245dp"
+        tools:layout_editor_absoluteY="56dp" />
+
+    <Button
+        android:id="@+id/hatimTakipButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:text="Hatim Takip"
+        tools:layout_editor_absoluteX="62dp"
+        tools:layout_editor_absoluteY="56dp" />
+
+    <Button
+        android:id="@+id/usersButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:text="Kullanıcı"
+        tools:layout_editor_absoluteX="62dp"
+        tools:layout_editor_absoluteY="392dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

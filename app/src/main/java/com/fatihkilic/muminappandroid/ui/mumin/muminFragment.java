@@ -35,6 +35,8 @@ import com.fatihkilic.muminappandroid.DayInfo.DayInfoActivity;
 import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.Ulkeler.KonumActivity;
+import com.fatihkilic.muminappandroid.User.SignInActivity;
+import com.fatihkilic.muminappandroid.ZikirMatik.ZikirMatikMainActivity;
 import com.fatihkilic.muminappandroid.databinding.FragmentMuminBinding;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -43,6 +45,7 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -164,6 +167,7 @@ public class muminFragment extends Fragment {
     private AdView mAdView3;
 
     private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth auth;
 
     private static final String ONESIGNAL_APP_ID = "1966721c-a30c-4299-9d7a-38e084b98072";
 
@@ -192,12 +196,10 @@ public class muminFragment extends Fragment {
 
 
         firebaseFirestore = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
 
 
         binding.konumtitle.setText(sharedPreferences.getString("storedKonum","Konum"));
-
-
-
 
 
         try {
@@ -286,6 +288,26 @@ public class muminFragment extends Fragment {
         AdRequest adRequest3 = new AdRequest.Builder().build();
         mAdView3.loadAd(adRequest3);
 
+        Button zikirMatikButton = binding.zikirMatikButton;
+        zikirMatikButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            if (auth.getCurrentUser() != null) {
+
+                Intent zikirmatikIntent = new Intent(getActivity(), ZikirMatikMainActivity.class);
+                startActivity(zikirmatikIntent);
+
+            } else {
+
+                Intent zikirmatikIntent = new Intent(getActivity(), SignInActivity.class);
+                startActivity(zikirmatikIntent);
+
+            }
+
+            }
+        });
+
         return root;
 
 
@@ -308,7 +330,10 @@ public class muminFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+
+
         try {
+
             sistemTarihiVoid();
             sistemSaatiVoid();
             getEzanVakti();
@@ -316,6 +341,7 @@ public class muminFragment extends Fragment {
             DayInfoGet();
             getTomorrowVakit();
             getGunAsiriVakit();
+
         } catch (Exception e) {
 
 
@@ -448,7 +474,7 @@ public class muminFragment extends Fragment {
 
         }
 
-        bildirimGonder();
+       bildirimGonder();
 
 
     }
@@ -949,19 +975,19 @@ public class muminFragment extends Fragment {
 
     public void sistemTarihiVoid() {
 
-        SimpleDateFormat sistemtarih = new SimpleDateFormat("dd.M.yyyy");
+        SimpleDateFormat sistemtarih = new SimpleDateFormat("dd.MM.yyyy");
         Date sistemtarihi = new Date();
         sistemTarihiStr = sistemtarih.format(sistemtarihi);
 
         long bugunLong = sistemtarihi.getTime();
 
         long yarinLong = bugunLong + 86400000;
-        SimpleDateFormat tomorrowFormat = new SimpleDateFormat("dd.M.yyyy");
+        SimpleDateFormat tomorrowFormat = new SimpleDateFormat("dd.MM.yyyy");
         Date tomorrowDate = new Date(yarinLong);
         sistemTarihiTomorrowStr = tomorrowFormat.format(tomorrowDate);
 
         long gunAssiriLong = bugunLong + 86400000 * 2;
-        SimpleDateFormat gunasiriFormat = new SimpleDateFormat("dd.M.yyyy");
+        SimpleDateFormat gunasiriFormat = new SimpleDateFormat("dd.MM.yyyy");
         Date gunasiriDate = new Date(gunAssiriLong);
         sistemTarihiGunAsiriStr = gunasiriFormat.format(gunasiriDate);
 

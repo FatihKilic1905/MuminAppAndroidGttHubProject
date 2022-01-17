@@ -14,6 +14,7 @@ import com.fatihkilic.muminappandroid.Ayarlar.AyarlarActivity;
 import com.fatihkilic.muminappandroid.LiveTvActivity;
 import com.fatihkilic.muminappandroid.Ulkeler.KonumActivity;
 import com.fatihkilic.muminappandroid.R;
+import com.fatihkilic.muminappandroid.User.UsersActivity;
 import com.fatihkilic.muminappandroid.ZekatMatik.ZekatMatikActivity;
 import com.fatihkilic.muminappandroid.databinding.FragmentNotificationsBinding;
 
@@ -61,6 +62,16 @@ public class NotificationsFragment extends Fragment {
             }
         });
 
+        Button usersButton = binding.usersButton;
+        usersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent usersIntent = new Intent(getActivity(), UsersActivity.class);
+                startActivity(usersIntent);
+
+            }
+        });
 
 
 
