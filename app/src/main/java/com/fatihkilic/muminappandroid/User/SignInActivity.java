@@ -1,6 +1,7 @@
 package com.fatihkilic.muminappandroid.User;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -21,12 +22,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.onesignal.OSDeviceState;
 import com.onesignal.OneSignal;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -80,42 +84,62 @@ public class SignInActivity extends AppCompatActivity {
 
                                OSDeviceState device = OneSignal.getDeviceState();
                                String OsPlayerId = device.getUserId();
+                               String PlayerIdFirebase;
 
                                String email = auth.getCurrentUser().getEmail();
 
-                               firebaseFirestore.collection("OneSignal").whereEqualTo("email", email).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                               firebaseFirestore.collection("OneSignal").whereEqualTo("email", email).addSnapshotListener(new EventListener<QuerySnapshot>() {
                                    @Override
-                                   public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                       System.out.println("One signal id daha once kaydedilmiş");
-                                   }
-                               }).addOnFailureListener(new OnFailureListener() {
-                                   @Override
-                                   public void onFailure(@NonNull Exception e) {
+                                   public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                       HashMap<String, Object> OnesignalData = new HashMap<>();
-                                       OnesignalData.put("email", email);
-                                       OnesignalData.put("player_id", OsPlayerId);
+                                       if (error != null) {
 
-                                       firebaseFirestore.collection("OneSignal").add(OnesignalData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                           @Override
-                                           public void onSuccess(@NonNull DocumentReference documentReference) {
+                                           Toast.makeText(SignInActivity.this,error.getLocalizedMessage(),Toast.LENGTH_LONG).show();
 
-                                               Intent girisYapIntent = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
+                                       }
 
-                                               startActivity(girisYapIntent);
+                                       if (value != null) {
+
+                                           for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+                                               Map<String,Object> data = snapshot.getData();
+
+                                              PlayerIdFirebase = (String) data.get("player_id");
+                                           }
+
+                                           if (OsPlayerId != PlayerIdFirebase) {
+
+                                               HashMap<String, Object> OnesignalData = new HashMap<>();
+                                               OnesignalData.put("email", email);
+                                               OnesignalData.put("player_id", OsPlayerId);
+
+                                               firebaseFirestore.collection("OneSignal").add(OnesignalData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                   @Override
+                                                   public void onSuccess(@NonNull DocumentReference documentReference) {
+
+                                                       Intent girisYapIntent = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
+
+                                                       startActivity(girisYapIntent);
+
+                                                   }
+                                               });
+
+                                           } else {
+
+                                               System.out.println("One signal id daha once kaydedilmiş");
 
                                            }
-                                       }).addOnFailureListener(new OnFailureListener() {
-                                           @Override
-                                           public void onFailure(@NonNull Exception e) {
+
+                                       } else {
 
 
 
-                                           }
-                                       });
 
+                                       }
                                    }
+
                                });
+
 
                            } else {
 
