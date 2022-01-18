@@ -41,6 +41,8 @@ public class SignInActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private static final String ONESIGNAL_APP_ID = "1966721c-a30c-4299-9d7a-38e084b98072";
 
+    String PlayerIdFirebase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +86,7 @@ public class SignInActivity extends AppCompatActivity {
 
                                OSDeviceState device = OneSignal.getDeviceState();
                                String OsPlayerId = device.getUserId();
-                               String PlayerIdFirebase;
+
 
                                String email = auth.getCurrentUser().getEmail();
 
@@ -100,6 +102,8 @@ public class SignInActivity extends AppCompatActivity {
 
                                        if (value != null) {
 
+
+
                                            for (DocumentSnapshot snapshot : value.getDocuments()) {
 
                                                Map<String,Object> data = snapshot.getData();
@@ -113,16 +117,14 @@ public class SignInActivity extends AppCompatActivity {
                                                OnesignalData.put("email", email);
                                                OnesignalData.put("player_id", OsPlayerId);
 
-                                               firebaseFirestore.collection("OneSignal").add(OnesignalData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                   @Override
-                                                   public void onSuccess(@NonNull DocumentReference documentReference) {
 
-                                                       Intent girisYapIntent = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
+                                               firebaseFirestore.collection("OneSignal").document(email).update(OnesignalData);
 
-                                                       startActivity(girisYapIntent);
+                                               Intent girisYapIntent = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
+                                               startActivity(girisYapIntent);
 
-                                                   }
-                                               });
+
+
 
                                            } else {
 
@@ -132,7 +134,18 @@ public class SignInActivity extends AppCompatActivity {
 
                                        } else {
 
+                                           HashMap<String, Object> OnesignalData = new HashMap<>();
+                                           OnesignalData.put("email", email);
+                                           OnesignalData.put("player_id", OsPlayerId);
 
+                                           firebaseFirestore.collection("OneSignal").add(OnesignalData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                               @Override
+                                               public void onSuccess(@NonNull DocumentReference documentReference) {
+
+                                                   Intent girisYapIntent = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
+                                                   startActivity(girisYapIntent);
+                                               }
+                                           });
 
 
                                        }
