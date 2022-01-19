@@ -16,6 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MuminAppAndroid">
         <activity
+            android:name=".User.FriendsDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".User.FriendsOperationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".User.MyAccountEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".User.MyAccountActivity"
+            android:exported="false" />
+        <activity
             android:name=".User.UsersActivity"
             android:exported="false" />
         <activity

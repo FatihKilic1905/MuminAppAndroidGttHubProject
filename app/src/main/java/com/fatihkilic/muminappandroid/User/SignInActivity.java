@@ -41,7 +41,9 @@ public class SignInActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private static final String ONESIGNAL_APP_ID = "1966721c-a30c-4299-9d7a-38e084b98072";
 
-    String PlayerIdFirebase;
+
+
+
 
 
     @Override
@@ -88,6 +90,7 @@ public class SignInActivity extends AppCompatActivity {
                                String OsPlayerId = device.getUserId();
 
 
+
                                String email = auth.getCurrentUser().getEmail();
 
                                firebaseFirestore.collection("OneSignal").whereEqualTo("email", email).addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -102,35 +105,37 @@ public class SignInActivity extends AppCompatActivity {
 
                                        if (value != null) {
 
-
-
                                            for (DocumentSnapshot snapshot : value.getDocuments()) {
 
                                                Map<String,Object> data = snapshot.getData();
 
-                                              PlayerIdFirebase = (String) data.get("player_id");
+                                               String playeridDocumentId = snapshot.getId();
+                                               String PlayerIdFirebase = (String) data.get("player_id");
+
+                                               if (OsPlayerId != PlayerIdFirebase) {
+
+                                                   HashMap<String, Object> OnesignalData = new HashMap<>();
+                                                   OnesignalData.put("email", email);
+                                                   OnesignalData.put("player_id", OsPlayerId);
+                                                   System.out.println("playerid" + OsPlayerId);
+
+
+                                                   firebaseFirestore.collection("OneSignal").document(playeridDocumentId).update(OnesignalData);
+
+                                                   Intent girisYapIntent = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
+                                                   finish();
+                                                   startActivity(girisYapIntent);
+
+
+
+                                               } else {
+
+                                                   System.out.println("One signal id daha once kaydedilmiş");
+
+                                               }
                                            }
 
-                                           if (OsPlayerId != PlayerIdFirebase) {
 
-                                               HashMap<String, Object> OnesignalData = new HashMap<>();
-                                               OnesignalData.put("email", email);
-                                               OnesignalData.put("player_id", OsPlayerId);
-
-
-                                               firebaseFirestore.collection("OneSignal").document(email).update(OnesignalData);
-
-                                               Intent girisYapIntent = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
-                                               startActivity(girisYapIntent);
-
-
-
-
-                                           } else {
-
-                                               System.out.println("One signal id daha once kaydedilmiş");
-
-                                           }
 
                                        } else {
 
@@ -143,7 +148,9 @@ public class SignInActivity extends AppCompatActivity {
                                                public void onSuccess(@NonNull DocumentReference documentReference) {
 
                                                    Intent girisYapIntent = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
+                                                   finish();
                                                    startActivity(girisYapIntent);
+
                                                }
                                            });
 
@@ -191,7 +198,8 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+                Intent kaydolButton = new Intent(SignInActivity.this, CreateUserActivity.class);
+                startActivity(kaydolButton);
 
             }
         });
