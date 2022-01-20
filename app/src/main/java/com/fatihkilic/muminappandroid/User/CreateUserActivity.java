@@ -137,12 +137,17 @@ public class CreateUserActivity extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(@NonNull Void unused) {
 
+                                            auth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(@NonNull Void unused) {
 
-                                            Toast.makeText(CreateUserActivity.this, "Kaydınız başarı ile tamamlandı. Giriş yaparak MuminApp'i kullanmaya başlayabilrsiniz.", Toast.LENGTH_LONG).show();
-                                            Intent saveIntent = new Intent(CreateUserActivity.this, SignInActivity.class);
-                                            finish();
-                                            startActivity(saveIntent);
+                                                    Toast.makeText(CreateUserActivity.this, "Tebrikler. Kaydınız başarı ile oluşturuldu. Email adresinize gelen mesajı onayladıktan sonra giriş yababilirsiniz.", Toast.LENGTH_LONG).show();
+                                                    Intent saveIntent = new Intent(CreateUserActivity.this, SignInActivity.class);
+                                                    finish();
+                                                    startActivity(saveIntent);
 
+                                                }
+                                            });
 
                                         }
                                     });
