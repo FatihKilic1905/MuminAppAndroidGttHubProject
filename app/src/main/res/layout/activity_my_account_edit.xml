@@ -114,7 +114,7 @@
                 android:hint="Şehir"/>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/saveButton"
                 android:layout_width="360dp"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
@@ -124,34 +124,20 @@
 
         </LinearLayout>
 
-
-
     </ScrollView>
-
-
-
-
-
-
-
-
-        </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </ScrollView>
-
 
 </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

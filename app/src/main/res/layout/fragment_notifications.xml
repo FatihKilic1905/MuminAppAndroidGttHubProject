@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.notifications.NotificationsFragment">
+    tools:context=".ui.notifications.NotificationsFragment"
+    tools:layout_editor_absoluteX="13dp"
+    tools:layout_editor_absoluteY="0dp">
 
     <Button
         android:id="@+id/ayarlarButton"
@@ -14,7 +16,7 @@
         android:text="Ayarlar"
 
         tools:ignore="TouchTargetSizeCheck"
-        tools:layout_editor_absoluteX="245dp"
+        tools:layout_editor_absoluteX="243dp"
         tools:layout_editor_absoluteY="392dp" />
 
     <Button
@@ -22,7 +24,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:text="Zekatmatik"
-        tools:layout_editor_absoluteX="62dp"
+        tools:layout_editor_absoluteX="60dp"
         tools:layout_editor_absoluteY="232dp" />
 
     <Button
@@ -30,7 +32,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:text="Kabe Canlı"
-        tools:layout_editor_absoluteX="245dp"
+        tools:layout_editor_absoluteX="243dp"
         tools:layout_editor_absoluteY="232dp" />
 
     <Button
@@ -38,7 +40,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:text="Online Zikirmatik"
-        tools:layout_editor_absoluteX="245dp"
+        tools:layout_editor_absoluteX="243dp"
         tools:layout_editor_absoluteY="56dp" />
 
     <Button
@@ -46,7 +48,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:text="Hatim Takip"
-        tools:layout_editor_absoluteX="62dp"
+        tools:layout_editor_absoluteX="60dp"
         tools:layout_editor_absoluteY="56dp" />
 
     <Button
@@ -54,7 +56,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:text="Kullanıcı"
-        tools:layout_editor_absoluteX="62dp"
+        tools:layout_editor_absoluteX="60dp"
         tools:layout_editor_absoluteY="392dp" />
 
 

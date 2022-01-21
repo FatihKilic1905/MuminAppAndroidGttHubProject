@@ -41,7 +41,7 @@
 
         <Button
             android:id="@+id/friendAddButton"
-            android:layout_width="325"
+            android:layout_width="325dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
@@ -51,7 +51,7 @@
 
         <Button
             android:id="@+id/seceneklerButton"
-            android:layout_width="45"
+            android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
