@@ -42,15 +42,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/getFriendsRecylerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="65dp"
             tools:layout_editor_absoluteY="49dp" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/getFriendsRequestRecylerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="88dp"

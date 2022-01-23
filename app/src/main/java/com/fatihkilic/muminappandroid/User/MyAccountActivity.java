@@ -3,9 +3,12 @@ package com.fatihkilic.muminappandroid.User;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
+import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.ActivityMyAccountBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivitySignInBinding;
@@ -26,6 +29,7 @@ public class MyAccountActivity extends AppCompatActivity {
     String userName;
     String name;
     String surname;
+    String image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,44 @@ public class MyAccountActivity extends AppCompatActivity {
 
         getProfil();
 
+
+        Button friendsButton = binding.friendsButton;
+        friendsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent friendsIntent = new Intent(MyAccountActivity.this, FriendsOperationActivity.class);
+                startActivity(friendsIntent);
+
+            }
+        });
+
+        Button editProfileButton = binding.editProfilButton;
+        editProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent editProfileIntent = new Intent(MyAccountActivity.this, FriendsOperationActivity.class);
+                startActivity(editProfileIntent);
+
+            }
+        });
+
+
+        Button logOutButton = binding.LogOutButton;
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                auth.signOut();
+                Intent logoutIntent = new Intent(MyAccountActivity.this, MainActivity.class);
+                startActivity(logoutIntent);
+                finish();
+
+
+            }
+        });
 
 
 
@@ -72,6 +114,7 @@ public class MyAccountActivity extends AppCompatActivity {
 
                         StringBuilder nameSurname = new StringBuilder();
                         nameSurname.append(name);
+                        nameSurname.append("");
                         nameSurname.append(surname);
 
                         binding.nameTextView.setText(nameSurname.toString());

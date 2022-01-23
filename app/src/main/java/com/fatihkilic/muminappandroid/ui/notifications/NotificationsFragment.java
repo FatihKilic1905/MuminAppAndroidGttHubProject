@@ -14,15 +14,19 @@ import com.fatihkilic.muminappandroid.Ayarlar.AyarlarActivity;
 import com.fatihkilic.muminappandroid.LiveTvActivity;
 import com.fatihkilic.muminappandroid.Ulkeler.KonumActivity;
 import com.fatihkilic.muminappandroid.R;
+import com.fatihkilic.muminappandroid.User.MyAccountActivity;
+import com.fatihkilic.muminappandroid.User.SignInActivity;
 import com.fatihkilic.muminappandroid.User.UsersActivity;
 import com.fatihkilic.muminappandroid.ZekatMatik.ZekatMatikActivity;
+import com.fatihkilic.muminappandroid.ZikirMatik.ZikirMatikMainActivity;
 import com.fatihkilic.muminappandroid.databinding.FragmentNotificationsBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
     private FragmentNotificationsBinding binding;
-
+    private FirebaseAuth auth;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -30,6 +34,8 @@ public class NotificationsFragment extends Fragment {
 
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        auth = FirebaseAuth.getInstance();
 
         Button gecisyap = (Button)root.findViewById(R.id.ayarlarButton);
         gecisyap.setOnClickListener(new View.OnClickListener() {
@@ -67,8 +73,23 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Intent usersIntent = new Intent(getActivity(), UsersActivity.class);
-                startActivity(usersIntent);
+
+
+                if (auth.getCurrentUser() != null) {
+
+                    Intent usersIntent = new Intent(getActivity(), MyAccountActivity.class);
+                    startActivity(usersIntent);
+
+                } else {
+
+                    Intent usersIntent = new Intent(getActivity(), SignInActivity.class);
+                    usersIntent.putExtra("ComePage", "UsersPage");
+                    startActivity(usersIntent);
+
+
+                }
+
+
 
             }
         });

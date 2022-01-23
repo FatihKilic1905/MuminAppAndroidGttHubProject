@@ -41,6 +41,8 @@ public class SignInActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private static final String ONESIGNAL_APP_ID = "1966721c-a30c-4299-9d7a-38e084b98072";
 
+    String comePage;
+
 
 
 
@@ -57,6 +59,10 @@ public class SignInActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+
+        Intent comePageIntent = getIntent();
+        comePage = comePageIntent.getStringExtra("ComePage");
+        System.out.println("come page " + comePage);
 
         // Enable verbose OneSignal logging to debug issues if needed.
         OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
@@ -122,9 +128,21 @@ public class SignInActivity extends AppCompatActivity {
 
                                                    firebaseFirestore.collection("OneSignal").document(playeridDocumentId).update(OnesignalData);
 
-                                                   Intent girisYapIntent = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
-                                                   finish();
-                                                   startActivity(girisYapIntent);
+
+                                                   if (comePage.equals("MainPage")) {
+
+                                                       Intent girisYapIntentMain = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
+                                                       finish();
+                                                       startActivity(girisYapIntentMain);
+
+                                                   } else if (comePage.equals("UsersPage")) {
+
+                                                       Intent girisYapIntent = new Intent(SignInActivity.this, MyAccountActivity.class);
+                                                       finish();
+                                                       startActivity(girisYapIntent);
+
+
+                                                   }
 
 
 
@@ -147,9 +165,22 @@ public class SignInActivity extends AppCompatActivity {
                                                @Override
                                                public void onSuccess(@NonNull DocumentReference documentReference) {
 
-                                                   Intent girisYapIntent = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
-                                                   finish();
-                                                   startActivity(girisYapIntent);
+                                                   if (comePage.equals("MainPage")) {
+
+                                                       Intent girisYapIntentMain = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
+                                                       finish();
+                                                       startActivity(girisYapIntentMain);
+
+                                                   } else if (comePage.equals("UsersPage")) {
+
+                                                       Intent girisYapIntent = new Intent(SignInActivity.this, MyAccountActivity.class);
+                                                       finish();
+                                                       startActivity(girisYapIntent);
+
+
+                                                   }
+
+
 
                                                }
                                            });

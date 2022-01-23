@@ -301,6 +301,7 @@ public class muminFragment extends Fragment {
             } else {
 
                 Intent zikirmatikIntent = new Intent(getActivity(), SignInActivity.class);
+                zikirmatikIntent.putExtra("ComePage", "MainPage");
                 startActivity(zikirmatikIntent);
 
             }

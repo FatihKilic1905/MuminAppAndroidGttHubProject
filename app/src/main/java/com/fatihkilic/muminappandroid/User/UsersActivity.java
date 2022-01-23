@@ -38,10 +38,7 @@ public class UsersActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                auth.signOut();
-                Intent logoutIntent = new Intent(UsersActivity.this, MainActivity.class);
-                startActivity(logoutIntent);
-                finish();
+
 
             }
         });
