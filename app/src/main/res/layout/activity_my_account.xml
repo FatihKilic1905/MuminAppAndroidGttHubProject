@@ -65,7 +65,7 @@
         tools:layout_editor_absoluteY="273dp" />
 
     <Button
-        android:id="@+id/editProfilButton"
+        android:id="@+id/editProfilButtons"
         android:layout_width="350dp"
         android:layout_height="70dp"
         android:layout_marginTop="20dp"

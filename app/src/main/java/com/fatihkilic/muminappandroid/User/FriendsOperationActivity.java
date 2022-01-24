@@ -5,8 +5,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.fatihkilic.muminappandroid.R;
@@ -41,7 +47,13 @@ public class FriendsOperationActivity extends AppCompatActivity {
     String image;
 
     ArrayList<ModelGetFriends> modelGetFriendsArrayList;
+    ArrayList<ModelGetFriendsRequest> modelGetFriendsRequestArrayList;
     AdapterGetFriends getFriendsPostAdapter;
+    AdapterGetFriendsRequest getFriendsRequestadapter;
+
+
+    ArrayList<String> searchUserNameArrayList;
+    ArrayAdapter<String> searchAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +68,167 @@ public class FriendsOperationActivity extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         modelGetFriendsArrayList = new ArrayList<>();
+        modelGetFriendsRequestArrayList = new ArrayList<>();
 
         currentEmail = auth.getCurrentUser().getEmail();
 
         getfriends();
+        getfriendsRequest();
+        getAddFriends();
+
+        binding.getFriendsRecylerView.setVisibility(View.VISIBLE);
+        binding.getFriendsRequestRecylerView.setVisibility(View.INVISIBLE);
+        binding.friendsSearchView.setVisibility(View.INVISIBLE);
+        binding.friendsSearchListview.setVisibility(View.INVISIBLE);
+
+        searchUserNameArrayList = new ArrayList<String>();
+        searchAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,searchUserNameArrayList);
+        binding.friendsSearchListview.setAdapter(searchAdapter);
+
+        binding.friendsSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+
+                binding.friendsSearchListview.setVisibility(View.INVISIBLE);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+
+                if (s.toString().equals("")){
+
+                    binding.friendsSearchListview.setVisibility(View.INVISIBLE);
+
+                } else {
+
+
+                    binding.friendsSearchListview.setVisibility(View.VISIBLE);
+                    searchAdapter.getFilter().filter(s);
+
+                }
+
+                return false;
+            }
+
+        });
+
+
+        ListView friendsSearcListView = binding.friendsSearchListview;
+        friendsSearcListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                String usename =  adapterView.getItemAtPosition(i).toString();
+
+                System.out.println("email" + usename);
+
+                firebaseFirestore.collection("User").whereEqualTo("userName", usename).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                        if (error != null) {
+
+                            Toast.makeText(FriendsOperationActivity.this,error.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+
+                        }
+
+                        if (value != null) {
+
+                            for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+                                Map<String, Object> data = snapshot.getData();
+
+                                String playeridDocumentId = snapshot.getId();
+                                String userEmail = (String) data.get("email");
+
+                                System.out.println("email" + userEmail);
+
+                                Intent friendsDetailIntent = new Intent(FriendsOperationActivity.this, FriendsDetailActivity.class);
+                                friendsDetailIntent.putExtra("FriendsInfo", "FriendsSearch");
+                                friendsDetailIntent.putExtra("FriendsEmail", userEmail);
+                                startActivity(friendsDetailIntent);
+
+
+                            }
+
+                        }
+
+
+
+                    }
+                });
+
+
+
+
+
+            }
+        });
+
+
+
+
+
 
         binding.getFriendsRecylerView.setLayoutManager(new LinearLayoutManager(this));
         getFriendsPostAdapter = new AdapterGetFriends(modelGetFriendsArrayList);
         binding.getFriendsRecylerView.setAdapter(getFriendsPostAdapter);
+
+        binding.getFriendsRequestRecylerView.setLayoutManager(new LinearLayoutManager(this));
+        getFriendsRequestadapter = new AdapterGetFriendsRequest(modelGetFriendsRequestArrayList);
+        binding.getFriendsRequestRecylerView.setAdapter(getFriendsRequestadapter);
+
+
+        Button friendsButton = binding.friendsButton;
+        friendsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                binding.getFriendsRecylerView.setVisibility(View.VISIBLE);
+                binding.getFriendsRequestRecylerView.setVisibility(View.INVISIBLE);
+                binding.friendsSearchView.setVisibility(View.INVISIBLE);
+                binding.friendsSearchListview.setVisibility(View.INVISIBLE);
+
+
+
+            }
+        });
+
+        Button friendsRequestButton = binding.isteklerButton;
+        friendsRequestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                binding.getFriendsRecylerView.setVisibility(View.INVISIBLE);
+                binding.getFriendsRequestRecylerView.setVisibility(View.VISIBLE);
+                binding.friendsSearchView.setVisibility(View.INVISIBLE);
+                binding.friendsSearchListview.setVisibility(View.INVISIBLE);
+
+
+
+
+            }
+        });
+
+        Button SearchButton = binding.searchButton;
+        SearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                binding.getFriendsRecylerView.setVisibility(View.INVISIBLE);
+                binding.getFriendsRequestRecylerView.setVisibility(View.INVISIBLE);
+                binding.friendsSearchView.setVisibility(View.VISIBLE);
+                binding.friendsSearchListview.setVisibility(View.INVISIBLE);
+
+
+            }
+        });
+
+
+
 
 
     }
@@ -111,8 +276,8 @@ public class FriendsOperationActivity extends AppCompatActivity {
     }
 
 
+    public void getfriendsRequest() {
 
-    public void getFriendsRequest () {
 
         firebaseFirestore.collection("User").document(currentEmail).collection("FriendsRequest").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -130,23 +295,31 @@ public class FriendsOperationActivity extends AppCompatActivity {
 
                         Map<String, Object> data = snapshot.getData();
 
-                        String friendRequestuserName = (String) data.get("userName");
-                        String frinedsRequestName = (String) data.get("name");
-                        String friendsRequestSurName = (String) data.get("surName");
-                        String friendsRequestImage = (String) data.get("image");
-                        String friendsRequestEmail = (String) data.get("email");
+                        String frienduserName = (String) data.get("userName");
+                        String frinedsName = (String) data.get("name");
+                        String friendsSurName = (String) data.get("surName");
+                        String friendsImage = (String) data.get("image");
+                        String friendsEmail = (String) data.get("email");
+
+                        ModelGetFriendsRequest modelGetFriendsRequest = new ModelGetFriendsRequest(frienduserName, frinedsName,friendsSurName,friendsImage,friendsEmail);
+                        modelGetFriendsRequestArrayList.add(modelGetFriendsRequest);
 
 
                     }
+
+
+                    getFriendsRequestadapter.notifyDataSetChanged();
 
                 }
 
             }
         });
 
-
-
     }
+
+
+
+
 
 
     public void getAddFriends () {
@@ -168,10 +341,10 @@ public class FriendsOperationActivity extends AppCompatActivity {
                         Map<String, Object> data = snapshot.getData();
 
                         String userUserName = (String) data.get("userName");
-                        String userName = (String) data.get("name");
-                        String userSurName = (String) data.get("surName");
-                        String userImageImage = (String) data.get("image");
-                        String userEmail = (String) data.get("email");
+
+                        searchUserNameArrayList.add(userUserName);
+
+                        System.out.println("usename" + searchUserNameArrayList);
 
 
                     }

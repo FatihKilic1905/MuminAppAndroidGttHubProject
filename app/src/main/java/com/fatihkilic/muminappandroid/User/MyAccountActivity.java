@@ -58,12 +58,12 @@ public class MyAccountActivity extends AppCompatActivity {
             }
         });
 
-        Button editProfileButton = binding.editProfilButton;
+        Button editProfileButton = binding.editProfilButtons;
         editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent editProfileIntent = new Intent(MyAccountActivity.this, FriendsOperationActivity.class);
+                Intent editProfileIntent = new Intent(MyAccountActivity.this, MyAccountEditActivity.class);
                 startActivity(editProfileIntent);
 
             }

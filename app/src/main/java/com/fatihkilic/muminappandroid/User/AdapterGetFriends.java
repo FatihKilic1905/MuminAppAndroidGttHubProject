@@ -1,5 +1,6 @@
 package com.fatihkilic.muminappandroid.User;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,7 +8,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.GetFriendsRecyclerRowBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -34,6 +37,7 @@ public class  AdapterGetFriends extends RecyclerView.Adapter<AdapterGetFriends.M
         String name = modelGetFriendsArrayList.get(position).frinedsName;
         String surName = modelGetFriendsArrayList.get(position).friendsSurName;
 
+
         StringBuilder ns = new StringBuilder();
         ns.append(name);
         ns.append(" ");
@@ -41,20 +45,33 @@ public class  AdapterGetFriends extends RecyclerView.Adapter<AdapterGetFriends.M
 
         holder.getFriendsRecyclerRowBinding.nameSurnameTextView.setText(ns.toString());
 
+        String imageFile = modelGetFriendsArrayList.get(position).friendsImage;
+
+        if (imageFile.equals("")){
+
+            holder.getFriendsRecyclerRowBinding.ppImageView.setImageResource(R.drawable.ic_menu_toolbar);
+
+        } else {
+
+            Picasso.get().load(modelGetFriendsArrayList.get(position).friendsImage).into(holder.getFriendsRecyclerRowBinding.ppImageView);
+
+        }
+
+
+
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
-                System.out.println(modelGetFriendsArrayList.get(position).friendsEmail);
+                Intent friendsDetailIntent = new Intent(holder.itemView.getContext(), FriendsDetailActivity.class);
+                friendsDetailIntent.putExtra("FriendsInfo", "Friends");
+                friendsDetailIntent.putExtra("FriendsEmail", modelGetFriendsArrayList.get(position).friendsEmail);
+                holder.itemView.getContext().startActivity(friendsDetailIntent);
 
             }
         });
-
-
-
-
-
 
 
     }
