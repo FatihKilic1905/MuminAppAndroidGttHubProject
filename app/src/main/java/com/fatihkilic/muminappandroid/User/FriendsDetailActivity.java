@@ -31,6 +31,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,8 +43,8 @@ public class FriendsDetailActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private static final String ONESIGNAL_APP_ID = "1966721c-a30c-4299-9d7a-38e084b98072";
 
-    String friendsInfo;
-    String friendsemail;
+    String friendsInfoIntent;
+    String friendsemailIntent;
 
     String userName;
     String name;
@@ -69,6 +70,10 @@ public class FriendsDetailActivity extends AppCompatActivity {
     String friendsSearchEmail;
     String friendsSearchImage;
 
+    ArrayList<String> oldFriendsListArray;
+    ArrayList<String> oldFriendsRequestListArray;
+    ArrayList<String> oldFriendsMyRequestListArray;
+
 
 
 
@@ -92,11 +97,14 @@ public class FriendsDetailActivity extends AppCompatActivity {
         OneSignal.setAppId(ONESIGNAL_APP_ID);
 
         currentEmail = auth.getCurrentUser().getEmail();
+        oldFriendsListArray = new ArrayList<String>();
+        oldFriendsRequestListArray = new ArrayList<String>();
+        oldFriendsMyRequestListArray = new ArrayList<String>();
 
 
-        Intent friendsInfoIntent = getIntent();
-        friendsInfo = friendsInfoIntent.getStringExtra("FriendsInfo");
-        friendsemail = friendsInfoIntent.getStringExtra("FriendsEmail");
+        Intent friendsInfoIntentCome = getIntent();
+        friendsInfoIntent = friendsInfoIntentCome.getStringExtra("FriendsInfo");
+        friendsemailIntent = friendsInfoIntentCome.getStringExtra("FriendsEmail");
 
         getProfil();
         getFriends();
@@ -107,13 +115,13 @@ public class FriendsDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (friendsInfo.equals("Friends")) {
+                if (friendsInfoIntent.equals("Friends")) {
 
 
 
 
 
-                } else if (friendsInfo.equals("FriendsRequest")) {
+                } else if (friendsInfoIntent.equals("FriendsRequest")) {
 
                     AlertDialog.Builder friendsAlert = new AlertDialog.Builder(FriendsDetailActivity.this);
                     friendsAlert.setTitle("Arkadaşlık isteği onayla");
@@ -129,7 +137,7 @@ public class FriendsDetailActivity extends AppCompatActivity {
                             friendsData.put("image", friendsRequesImage);
 
 
-                            firebaseFirestore.collection("User").document(currentEmail).collection("Friends").document(friendsemail).set(friendsData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            firebaseFirestore.collection("User").document(currentEmail).collection("Friends").document(friendsemailIntent).set(friendsData).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
 
@@ -229,65 +237,90 @@ public class FriendsDetailActivity extends AppCompatActivity {
 
 
 
-                } else if (friendsInfo.equals("FriendsSearch")) {
+                } else if (friendsInfoIntent.equals("FriendsSearch")) {
+
+                    String buttonAddLabel = binding.friendAddButton.getText().toString();
 
 
-                    HashMap<String, Object> searchData = new HashMap<>();
-                    searchData.put("email", friendsSearchEmail);
-                    searchData.put("userName", friendsSearchUserName);
-                    searchData.put("name", friendsSearchName);
-                    searchData.put("surName", friendsSearchSurname);
-                    searchData.put("image", friendsSearchImage);
-
-                    firebaseFirestore.collection("User").document(friendsSearchEmail).collection("FriendsRequest").document(currentEmail).set(searchData).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-
-                            firebaseFirestore.collection("OneSignal").whereEqualTo("email",friendsSearchEmail).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                                @Override
-                                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                                    if (error != null) {
-
-                                        Toast.makeText(FriendsDetailActivity.this,error.getLocalizedMessage(),Toast.LENGTH_LONG).show();
-
-                                    }
-
-                                    if (value != null) {
-
-                                        for (DocumentSnapshot snapshot : value.getDocuments()) {
-
-                                            Map<String, Object> data = snapshot.getData();
-
-                                            String playeridDocumentId = snapshot.getId();
-                                            String PlayerIdFirebase = (String) data.get("player_id");
-
-                                            StringBuilder mesaj = new StringBuilder();
-                                            mesaj.append(userName);
-                                            mesaj.append(" ");
-                                            mesaj.append("adlı kullanıcı seninle arkadaş olmak istiyor.");
+                    if (buttonAddLabel.equals("Arkadaşsınız")) {
 
 
-                                            try {
-                                                OneSignal.postNotification(new JSONObject("{'contents': {'en':'" + mesaj.toString() + "'}, 'include_player_ids': ['" + PlayerIdFirebase + "']}"), null);
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
+
+
+                    } else if (buttonAddLabel.equals("Arkadaşlık İsteği Gönderildi")) {
+
+
+
+                    } else if (buttonAddLabel.equals("Cevapla")) {
+
+
+
+
+                    } else if (buttonAddLabel.equals("İstek Gönder")) {
+
+
+                        HashMap<String, Object> searchData = new HashMap<>();
+                        searchData.put("email", friendsSearchEmail);
+                        searchData.put("userName", friendsSearchUserName);
+                        searchData.put("name", friendsSearchName);
+                        searchData.put("surName", friendsSearchSurname);
+                        searchData.put("image", friendsSearchImage);
+
+                        firebaseFirestore.collection("User").document(friendsSearchEmail).collection("FriendsRequest").document(currentEmail).set(searchData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                firebaseFirestore.collection("OneSignal").whereEqualTo("email",friendsSearchEmail).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                                        if (error != null) {
+
+                                            Toast.makeText(FriendsDetailActivity.this,error.getLocalizedMessage(),Toast.LENGTH_LONG).show();
 
                                         }
 
-                                        friendsButton.setText("İstek Gönderildi");
+                                        if (value != null) {
 
-                                        Toast.makeText(FriendsDetailActivity.this,"Arkadaşlık isteği gönderildi.",Toast.LENGTH_LONG).show();
+                                            for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+                                                Map<String, Object> data = snapshot.getData();
+
+                                                String playeridDocumentId = snapshot.getId();
+                                                String PlayerIdFirebase = (String) data.get("player_id");
+
+                                                StringBuilder mesaj = new StringBuilder();
+                                                mesaj.append(userName);
+                                                mesaj.append(" ");
+                                                mesaj.append("adlı kullanıcı seninle arkadaş olmak istiyor.");
+
+
+                                                try {
+                                                    OneSignal.postNotification(new JSONObject("{'contents': {'en':'" + mesaj.toString() + "'}, 'include_player_ids': ['" + PlayerIdFirebase + "']}"), null);
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+
+                                            }
+
+                                            friendsButton.setText("Arkadaşlık İsteği Gönderildi");
+
+                                            Toast.makeText(FriendsDetailActivity.this,"Arkadaşlık isteği gönderildi.",Toast.LENGTH_LONG).show();
 
 
 
+                                        }
                                     }
-                                }
-                            });
+                                });
 
-                        }
-                    });
+                            }
+                        });
+
+
+                    }
+
+
+
 
 
                 }
@@ -313,13 +346,13 @@ public class FriendsDetailActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
-                            firebaseFirestore.collection("User").document(currentEmail).collection("Friends").document(friendsemail).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            firebaseFirestore.collection("User").document(currentEmail).collection("Friends").document(friendsemailIntent).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
 
 
 
-                                    firebaseFirestore.collection("User").document(friendsemail).collection("Friends").document(currentEmail).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    firebaseFirestore.collection("User").document(friendsemailIntent).collection("Friends").document(currentEmail).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
 
@@ -357,7 +390,7 @@ public class FriendsDetailActivity extends AppCompatActivity {
 
 
 
-                } else if (buttonLabel.equals("İstek Gönderildi")) {
+                } else if (buttonLabel.equals("Arkadaşlık İsteği Gönderildi")) {
 
 
                     AlertDialog.Builder friendsAlert = new AlertDialog.Builder(FriendsDetailActivity.this);
@@ -366,7 +399,7 @@ public class FriendsDetailActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
-                            firebaseFirestore.collection("User").document(currentEmail).collection("FriendsRequest").document(friendsemail).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            firebaseFirestore.collection("User").document(currentEmail).collection("FriendsRequest").document(friendsemailIntent).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
 
@@ -412,11 +445,11 @@ public class FriendsDetailActivity extends AppCompatActivity {
     public void getFriends () {
 
 
-        if (friendsInfo.equals("Friends")) {
+        if (friendsInfoIntent.equals("Friends")) {
 
             binding.friendAddButton.setText("Arkadaşsınız");
 
-            firebaseFirestore.collection("User").document(friendsemail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            firebaseFirestore.collection("User").document(friendsemailIntent).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
@@ -463,11 +496,11 @@ public class FriendsDetailActivity extends AppCompatActivity {
             });
 
 
-        } else if (friendsInfo.equals("FriendsRequest")) {
+        } else if (friendsInfoIntent.equals("FriendsRequest")) {
 
             binding.friendAddButton.setText("Cevapla");
 
-            firebaseFirestore.collection("User").document(friendsemail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            firebaseFirestore.collection("User").document(friendsemailIntent).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
@@ -514,65 +547,450 @@ public class FriendsDetailActivity extends AppCompatActivity {
             });
 
 
+        } else if (friendsInfoIntent.equals("FriendsSearch")) {
 
 
+            firebaseFirestore.collection("User").document(currentEmail).collection("Friends").addSnapshotListener(new EventListener<QuerySnapshot>() {
 
-        } else if (friendsInfo.equals("FriendsSearch")) {
-
-
-            binding.friendAddButton.setText("İstek Gönder");
-
-            firebaseFirestore.collection("User").document(friendsemail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                    if (error != null) {
+
+                        Toast.makeText(FriendsDetailActivity.this, "İnternet bağlantısında bir problem var", Toast.LENGTH_LONG).show();
+
+                    }
+
+                    if (value != null) {
+
+                        for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+                            Map<String, Object> data = snapshot.getData();
+
+                            String emailList = (String) data.get("email");
 
 
-                    if (task.isSuccessful()) {
+                            oldFriendsListArray.add(emailList);
 
-                        DocumentSnapshot document = task.getResult();
+                            System.out.println("email friends" + oldFriendsListArray);
 
-                        if (document.exists()) {
+                        }
 
-                            friendsUserName = (String) document.get("userName");
-                            binding.usernameTexView.setText(friendsUserName);
-                            friendsName = (String) document.get("name");
-                            friendsSurname = (String) document.get("surName");
+                            if (oldFriendsListArray.contains(friendsemailIntent)) {
 
-                            StringBuilder ns = new StringBuilder();
-                            ns.append(friendsName);
-                            ns.append(" ");
-                            ns.append(friendsSurname);
+                                binding.friendAddButton.setText("Arkadaşsınız");
 
-                            binding.nameSurnameTextView.setText(ns.toString());
+                                firebaseFirestore.collection("User").document(friendsemailIntent).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-                            friendsSearchImage = (String) document.get("image");
 
-                            if (friendsSearchImage.equals("")) {
+                                        if (task.isSuccessful()) {
 
-                                binding.ppImageView.setImageResource(R.drawable.ic_menu_toolbar);
+                                            DocumentSnapshot document = task.getResult();
+
+                                            if (document.exists()) {
+
+                                                friendsUserName = (String) document.get("userName");
+                                                binding.usernameTexView.setText(friendsUserName);
+                                                friendsName = (String) document.get("name");
+                                                friendsSurname = (String) document.get("surName");
+
+                                                StringBuilder ns = new StringBuilder();
+                                                ns.append(friendsName);
+                                                ns.append(" ");
+                                                ns.append(friendsSurname);
+
+                                                binding.nameSurnameTextView.setText(ns.toString());
+
+                                                friendsSearchImage = (String) document.get("image");
+
+                                                if (friendsSearchImage.equals("")) {
+
+                                                    binding.ppImageView.setImageResource(R.drawable.ic_menu_toolbar);
+
+                                                } else {
+
+                                                    Picasso.get().load(friendsSearchImage).into(binding.ppImageView);
+
+                                                }
+
+                                            } else {
+                                                System.out.println("Olumsuz");
+                                            }
+
+                                        } else {
+
+                                            System.out.println("cekme başarısız");
+                                        }
+                                    }
+                                });
 
                             } else {
 
-                                Picasso.get().load(friendsSearchImage).into(binding.ppImageView);
+
+                                System.out.println("email burası devrede");
+
+                                firebaseFirestore.collection("User").document(currentEmail).collection("FriendsRequest").addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+                                    @Override
+                                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                                        if (error != null) {
+
+                                            Toast.makeText(FriendsDetailActivity.this, "İnternet bağlantısında bir problem var", Toast.LENGTH_LONG).show();
+
+                                        }
+
+                                        if (value != null) {
+
+                                            for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+                                                Map<String, Object> data = snapshot.getData();
+
+                                                String emailList = (String) data.get("email");
+
+
+                                                oldFriendsMyRequestListArray.add(emailList);
+
+                                                System.out.println("email friends" + oldFriendsMyRequestListArray);
+
+                                            }
+
+                                                if (oldFriendsMyRequestListArray.contains(friendsemailIntent)) {
+
+                                                    binding.friendAddButton.setText("Cevapla");
+
+                                                    firebaseFirestore.collection("User").document(friendsemailIntent).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+
+                                                            if (task.isSuccessful()) {
+
+                                                                DocumentSnapshot document = task.getResult();
+
+                                                                if (document.exists()) {
+
+                                                                    friendsUserName = (String) document.get("userName");
+                                                                    binding.usernameTexView.setText(friendsUserName);
+                                                                    friendsName = (String) document.get("name");
+                                                                    friendsSurname = (String) document.get("surName");
+
+                                                                    StringBuilder ns = new StringBuilder();
+                                                                    ns.append(friendsName);
+                                                                    ns.append(" ");
+                                                                    ns.append(friendsSurname);
+
+                                                                    binding.nameSurnameTextView.setText(ns.toString());
+
+                                                                    friendsSearchImage = (String) document.get("image");
+
+                                                                    if (friendsSearchImage.equals("")) {
+
+                                                                        binding.ppImageView.setImageResource(R.drawable.ic_menu_toolbar);
+
+                                                                    } else {
+
+                                                                        Picasso.get().load(friendsSearchImage).into(binding.ppImageView);
+
+                                                                    }
+
+                                                                } else {
+                                                                    System.out.println("Olumsuz");
+                                                                }
+
+                                                            } else {
+
+                                                                System.out.println("cekme başarısız");
+                                                            }
+                                                        }
+                                                    });
+
+                                                } else {
+
+                                                    System.out.println("email arkadas olarak eklenmemis");
+
+
+                                                    System.out.println("email burası devrede");
+
+                                                    firebaseFirestore.collection("User").document(friendsemailIntent).collection("FriendsRequest").addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+                                                        @Override
+                                                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                                                            if (error != null) {
+
+                                                                Toast.makeText(FriendsDetailActivity.this, "İnternet bağlantısında bir problem var", Toast.LENGTH_LONG).show();
+
+                                                            }
+
+                                                            if (value != null) {
+
+                                                                for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+                                                                    Map<String, Object> data = snapshot.getData();
+
+                                                                    String emailList = (String) data.get("email");
+
+
+                                                                    oldFriendsRequestListArray.add(emailList);
+                                                                }
+
+                                                                    System.out.println("email friends" + oldFriendsRequestListArray);
+
+                                                                    if (oldFriendsRequestListArray.contains(friendsemailIntent)) {
+
+                                                                        binding.friendAddButton.setText("Arkadaşlık İsteği Gönderildi");
+
+                                                                        firebaseFirestore.collection("User").document(friendsemailIntent).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                                            @Override
+                                                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+
+                                                                                if (task.isSuccessful()) {
+
+                                                                                    DocumentSnapshot document = task.getResult();
+
+                                                                                    if (document.exists()) {
+
+                                                                                        friendsUserName = (String) document.get("userName");
+                                                                                        binding.usernameTexView.setText(friendsUserName);
+                                                                                        friendsName = (String) document.get("name");
+                                                                                        friendsSurname = (String) document.get("surName");
+
+                                                                                        StringBuilder ns = new StringBuilder();
+                                                                                        ns.append(friendsName);
+                                                                                        ns.append(" ");
+                                                                                        ns.append(friendsSurname);
+
+                                                                                        binding.nameSurnameTextView.setText(ns.toString());
+
+                                                                                        friendsSearchImage = (String) document.get("image");
+
+                                                                                        if (friendsSearchImage.equals("")) {
+
+                                                                                            binding.ppImageView.setImageResource(R.drawable.ic_menu_toolbar);
+
+                                                                                        } else {
+
+                                                                                            Picasso.get().load(friendsSearchImage).into(binding.ppImageView);
+
+                                                                                        }
+
+                                                                                    } else {
+                                                                                        System.out.println("Olumsuz");
+                                                                                    }
+
+                                                                                } else {
+
+                                                                                    System.out.println("cekme başarısız");
+                                                                                }
+                                                                            }
+                                                                        });
+
+                                                                    } else {
+
+                                                                        System.out.println("email arkadas olarak eklenmemis");
+
+                                                                        System.out.println("karşı tarafın istek listesi bos");
+
+                                                                        binding.friendAddButton.setText("İstek Gönder");
+
+                                                                        firebaseFirestore.collection("User").document(friendsemailIntent).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                                            @Override
+                                                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+
+                                                                                if (task.isSuccessful()) {
+
+                                                                                    DocumentSnapshot document = task.getResult();
+
+                                                                                    if (document.exists()) {
+
+                                                                                        friendsUserName = (String) document.get("userName");
+                                                                                        binding.usernameTexView.setText(friendsUserName);
+                                                                                        friendsName = (String) document.get("name");
+                                                                                        friendsSurname = (String) document.get("surName");
+
+                                                                                        StringBuilder ns = new StringBuilder();
+                                                                                        ns.append(friendsName);
+                                                                                        ns.append(" ");
+                                                                                        ns.append(friendsSurname);
+
+                                                                                        binding.nameSurnameTextView.setText(ns.toString());
+
+                                                                                        friendsSearchImage = (String) document.get("image");
+
+                                                                                        if (friendsSearchImage.equals("")) {
+
+                                                                                            binding.ppImageView.setImageResource(R.drawable.ic_menu_toolbar);
+
+                                                                                        } else {
+
+                                                                                            Picasso.get().load(friendsSearchImage).into(binding.ppImageView);
+
+                                                                                        }
+
+                                                                                    } else {
+                                                                                        System.out.println("Olumsuz");
+                                                                                    }
+
+                                                                                } else {
+
+                                                                                    System.out.println("cekme başarısız");
+                                                                                }
+                                                                            }
+                                                                        });
+
+                                                                    }
+
+
+
+                                                            }
+
+
+                                                            if (value.isEmpty()) {
+
+
+                                                                System.out.println("karşı tarafın istek listesi bos");
+
+                                                                binding.friendAddButton.setText("İstek Gönder");
+
+                                                                firebaseFirestore.collection("User").document(friendsemailIntent).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+
+                                                                        if (task.isSuccessful()) {
+
+                                                                            DocumentSnapshot document = task.getResult();
+
+                                                                            if (document.exists()) {
+
+                                                                                friendsUserName = (String) document.get("userName");
+                                                                                binding.usernameTexView.setText(friendsUserName);
+                                                                                friendsName = (String) document.get("name");
+                                                                                friendsSurname = (String) document.get("surName");
+
+                                                                                StringBuilder ns = new StringBuilder();
+                                                                                ns.append(friendsName);
+                                                                                ns.append(" ");
+                                                                                ns.append(friendsSurname);
+
+                                                                                binding.nameSurnameTextView.setText(ns.toString());
+
+                                                                                friendsSearchImage = (String) document.get("image");
+
+                                                                                if (friendsSearchImage.equals("")) {
+
+                                                                                    binding.ppImageView.setImageResource(R.drawable.ic_menu_toolbar);
+
+                                                                                } else {
+
+                                                                                    Picasso.get().load(friendsSearchImage).into(binding.ppImageView);
+
+                                                                                }
+
+                                                                            } else {
+                                                                                System.out.println("Olumsuz");
+                                                                            }
+
+                                                                        } else {
+
+                                                                            System.out.println("cekme başarısız");
+                                                                        }
+                                                                    }
+                                                                });
+
+
+
+                                                            }
+
+                                                        }
+
+                                                    });
+
+
+                                                }
+
+
+
+                                        }
+
+
+                                        if (value.isEmpty()) {
+
+
+                                            System.out.println("karşı tarafın istek listesi bos");
+
+                                            binding.friendAddButton.setText("İstek Gönder");
+
+                                            firebaseFirestore.collection("User").document(friendsemailIntent).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+
+                                                    if (task.isSuccessful()) {
+
+                                                        DocumentSnapshot document = task.getResult();
+
+                                                        if (document.exists()) {
+
+                                                            friendsUserName = (String) document.get("userName");
+                                                            binding.usernameTexView.setText(friendsUserName);
+                                                            friendsName = (String) document.get("name");
+                                                            friendsSurname = (String) document.get("surName");
+
+                                                            StringBuilder ns = new StringBuilder();
+                                                            ns.append(friendsName);
+                                                            ns.append(" ");
+                                                            ns.append(friendsSurname);
+
+                                                            binding.nameSurnameTextView.setText(ns.toString());
+
+                                                            friendsSearchImage = (String) document.get("image");
+
+                                                            if (friendsSearchImage.equals("")) {
+
+                                                                binding.ppImageView.setImageResource(R.drawable.ic_menu_toolbar);
+
+                                                            } else {
+
+                                                                Picasso.get().load(friendsSearchImage).into(binding.ppImageView);
+
+                                                            }
+
+                                                        } else {
+                                                            System.out.println("Olumsuz");
+                                                        }
+
+                                                    } else {
+
+                                                        System.out.println("cekme başarısız");
+                                                    }
+                                                }
+                                            });
+
+
+
+                                        }
+
+                                    }
+
+                                });
 
                             }
 
-                        } else {
-                            System.out.println("Olumsuz");
-                        }
 
-                    } else {
-
-                        System.out.println("cekme başarısız");
                     }
                 }
             });
 
-
-
-
         }
     }
+
+
 
 
     public void getProfil () {

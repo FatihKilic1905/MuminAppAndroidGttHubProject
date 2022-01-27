@@ -143,7 +143,7 @@ public class FriendsOperationActivity extends AppCompatActivity {
                                 String playeridDocumentId = snapshot.getId();
                                 String userEmail = (String) data.get("email");
 
-                                System.out.println("email" + userEmail);
+                                System.out.println("email ADDD" + userEmail);
 
                                 Intent friendsDetailIntent = new Intent(FriendsOperationActivity.this, FriendsDetailActivity.class);
                                 friendsDetailIntent.putExtra("FriendsInfo", "FriendsSearch");
@@ -160,11 +160,8 @@ public class FriendsOperationActivity extends AppCompatActivity {
                     }
                 });
 
-
-
-
-
             }
+
         });
 
 
@@ -304,9 +301,7 @@ public class FriendsOperationActivity extends AppCompatActivity {
                         ModelGetFriendsRequest modelGetFriendsRequest = new ModelGetFriendsRequest(frienduserName, frinedsName,friendsSurName,friendsImage,friendsEmail);
                         modelGetFriendsRequestArrayList.add(modelGetFriendsRequest);
 
-
                     }
-
 
                     getFriendsRequestadapter.notifyDataSetChanged();
 

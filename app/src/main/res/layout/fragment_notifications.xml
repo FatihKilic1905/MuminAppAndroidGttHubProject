@@ -12,64 +12,65 @@
         android:id="@+id/ayarlarButton"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="48dp"
         android:onClick="gecisyap"
-
         android:text="Ayarlar"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/canliButton"
-        app:layout_constraintVertical_bias="0.496"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/canliButton" />
+
+    <Button
+        android:id="@+id/usersButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="60dp"
+        android:text="Kullanıcı"
+        app:layout_constraintEnd_toStartOf="@+id/ayarlarButton"
+        app:layout_constraintHorizontal_bias="0.308"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ZekatmatikButton" />
 
     <Button
         android:id="@+id/ZekatmatikButton"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="60dp"
         android:text="Zekatmatik"
-        app:layout_constraintEnd_toStartOf="@+id/canliButton"
-        tools:layout_editor_absoluteY="232dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hatimTakipButton" />
 
     <Button
         android:id="@+id/canliButton"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="60dp"
         android:text="Kabe Canlı"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="232dp" />
+        app:layout_constraintStart_toEndOf="@+id/ZekatmatikButton"
+        app:layout_constraintTop_toBottomOf="@+id/zikirMatikButton" />
 
     <Button
         android:id="@+id/zikirMatikButton"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="60dp"
         android:text="Online Zikirmatik"
-        app:layout_constraintBottom_toTopOf="@+id/canliButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hatimTakipButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/hatimTakipButton"
         android:layout_width="120dp"
         android:layout_height="120dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="60dp"
         android:text="Hatim Takip"
-        app:layout_constraintBottom_toTopOf="@+id/ZekatmatikButton"
-        app:layout_constraintEnd_toStartOf="@+id/zikirMatikButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/usersButton"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginEnd="52dp"
-        android:text="Kullanıcı"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ayarlarButton"
-        app:layout_constraintTop_toBottomOf="@+id/ZekatmatikButton"
-        app:layout_constraintVertical_bias="0.496" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
