@@ -1,9 +1,14 @@
 package com.fatihkilic.muminappandroid.User;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.NumberPicker;
 
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.ActivityMyAccountBinding;
@@ -36,6 +41,8 @@ public class MyAccountEditActivity extends AppCompatActivity {
 
     Date bithday;
 
+    String pickerStatus;
+
     ArrayList<String> genderArray;
     ArrayList<String> countryArray;
     ArrayList<String> stateArray;
@@ -43,9 +50,7 @@ public class MyAccountEditActivity extends AppCompatActivity {
 
 
 
-
-
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,92 +70,162 @@ public class MyAccountEditActivity extends AppCompatActivity {
         OneSignal.setAppId(ONESIGNAL_APP_ID);
 
 
+        DatePicker bdDAteBicker = binding.birthdayDatePicker;
 
-        genderArray = new ArrayList<String>();
-        genderArray.add("Kadın");
-        genderArray.add("Erkek");
+        bdDAteBicker.init();
 
-        countryArray = new ArrayList<String>();
-        countryArray.add("Türkiye");
+        bdDAteBicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
-        stateArray = new ArrayList<String>();
-        stateArray.add("Adana");
-        stateArray.add("Adıyaman");
-        stateArray.add("Afyonkarahisar");
-        stateArray.add("Ağrı");
-        stateArray.add("Ağrı");
-        stateArray.add("Amasya");
-        stateArray.add("Ankara");
-        stateArray.add("Antalya");
-        stateArray.add("Aydın");
-        stateArray.add("Balıkesir");
-        stateArray.add("Bilecik");
-        stateArray.add("Bingöl");
-        stateArray.add("Bitlis");
-        stateArray.add("Bolu");
-        stateArray.add("Burdur");
-        stateArray.add("Bursa");
-        stateArray.add("Çanakkale");
-        stateArray.add("Çankırı");
-        stateArray.add("Çorum");
-        stateArray.add("Denizli");
-        stateArray.add("Diyarbakır");
-        stateArray.add("Erzincan");
-        stateArray.add("Erzurum");
-        stateArray.add("Eskişehir");
-        stateArray.add("Gaziantep");
-        stateArray.add("Giresun");
-        stateArray.add("Gümüşhane");
-        stateArray.add("Hakkari");
-        stateArray.add("Hatay");
-        stateArray.add("Isparta");
-        stateArray.add("Mersin");
-        stateArray.add("İstanbul");
-        stateArray.add("İzmir");
-        stateArray.add("Kars");
-        stateArray.add("Kayseri");
-        stateArray.add("Kırklareli");
-        stateArray.add("Kırşehir");
-        stateArray.add("Kocaeli");
-        stateArray.add("Konya");
-        stateArray.add("Kütahya");
-        stateArray.add("Malatya");
-        stateArray.add("Manisa");
-        stateArray.add("Kahramanmaraş");
-        stateArray.add("Mardin");
-        stateArray.add("Muğla");
-        stateArray.add("Muş");
-        stateArray.add("Nevşehir");
-        stateArray.add("Niğde");
-        stateArray.add("Rize");
-        stateArray.add("Sakarya");
-        stateArray.add("Sakarya");
-        stateArray.add("Samsun");
-        stateArray.add("Siirt");
-        stateArray.add("Sinop");
-        stateArray.add("Sivas");
-        stateArray.add("Tekirdağ");
-        stateArray.add("Tokat");
-        stateArray.add("Trabzon");
-        stateArray.add("Tunceli");
-        stateArray.add("Uşak");
-        stateArray.add("Van");
-        stateArray.add("Yozgat");
-        stateArray.add("Zonguldak");
-        stateArray.add("Aksaray");
-        stateArray.add("Bayburt");
-        stateArray.add("Karaman");
-        stateArray.add("Kırıkkale");
-        stateArray.add("Batman");
-        stateArray.add("Şırnak");
-        stateArray.add("Bartın");
-        stateArray.add("Ardahan");
-        stateArray.add("Iğdır");
-        stateArray.add("Yalova");
-        stateArray.add("Karabük");
-        stateArray.add("Kilis");
-        stateArray.add("Osmaniye");
-        stateArray.add("Düzce");
+                binding.birthdayTextView.setText(dayOfMonth + monthOfYear + year);
+                binding.birthdayDatePicker.setVisibility(View.INVISIBLE);
+
+
+
+            }
+        });
+
+
+
+        binding.genderpickerList.setVisibility(View.INVISIBLE);
+        binding.countrypickerList.setVisibility(View.INVISIBLE);
+        binding.statepickerList.setVisibility(View.INVISIBLE);
+        binding.pickerBackground.setVisibility(View.INVISIBLE);
+        binding.pickerSaveButton.setVisibility(View.INVISIBLE);
+
+        PickerListGender.initgenderList();
+
+        binding.genderpickerList.setMaxValue(PickerListGender.getPickerListGenderArrayList().size()-1);
+        binding.genderpickerList.setMinValue(0);
+        binding.genderpickerList.setDisplayedValues(PickerListGender.genderNames());
+
+        binding.genderpickerList.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+                binding.genderTextView.setText(PickerListGender.getPickerListGenderArrayList().get(newVal).getGender());
+
+            }
+        });
+
+
+        PickerListCountry.initCountryList();
+
+        binding.countrypickerList.setMaxValue(PickerListCountry.getPickerListCountryArrayList().size()-1);
+        binding.countrypickerList.setMinValue(0);
+        binding.countrypickerList.setDisplayedValues(PickerListCountry.countryNames());
+
+        binding.countrypickerList.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+                binding.countryTextView.setText(PickerListCountry.getPickerListCountryArrayList().get(newVal).getCountry());
+
+            }
+        });
+
+
+
+        PickerListState.initStateList();
+
+        binding.statepickerList.setMaxValue(PickerListState.getPickerListStateArrayList().size()-1);
+        binding.statepickerList.setMinValue(0);
+        binding.statepickerList.setDisplayedValues(PickerListState.stateNames());
+
+
+
+        binding.statepickerList.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+                binding.provinceTextView.setText(PickerListState.getPickerListStateArrayList().get(newVal).getState());
+
+            }
+        });
+
+
+        Button pickerSaveButton = binding.pickerSaveButton;
+        pickerSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (pickerStatus.equals("Gender")) {
+
+                    binding.pickerBackground.setVisibility(View.INVISIBLE);
+                    binding.genderpickerList.setVisibility(View.INVISIBLE);
+                    binding.pickerSaveButton.setVisibility(View.INVISIBLE);
+
+
+                } else if (pickerStatus.equals("Country")){
+
+                    binding.pickerBackground.setVisibility(View.INVISIBLE);
+                    binding.countrypickerList.setVisibility(View.INVISIBLE);
+                    binding.pickerSaveButton.setVisibility(View.INVISIBLE);
+
+                    binding.countryTextView.setText("Türkiye");
+
+
+                } else if (pickerStatus.equals("State")) {
+
+                    binding.pickerBackground.setVisibility(View.INVISIBLE);
+                    binding.statepickerList.setVisibility(View.INVISIBLE);
+                    binding.pickerSaveButton.setVisibility(View.INVISIBLE);
+
+
+
+
+                }
+
+
+
+            }
+        });
+
+
+
+        binding.genderTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                binding.genderpickerList.setVisibility(View.VISIBLE);
+                binding.pickerBackground.setVisibility(View.VISIBLE);
+                binding.pickerSaveButton.setVisibility(View.VISIBLE);
+                pickerStatus = "Gender";
+
+            }
+        });
+
+        binding.countryTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                binding.countrypickerList.setVisibility(View.VISIBLE);
+                binding.pickerBackground.setVisibility(View.VISIBLE);
+                binding.pickerSaveButton.setVisibility(View.VISIBLE);
+                pickerStatus = "Country";
+
+            }
+        });
+
+        binding.provinceTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                binding.statepickerList.setVisibility(View.VISIBLE);
+                binding.pickerBackground.setVisibility(View.VISIBLE);
+                binding.pickerSaveButton.setVisibility(View.VISIBLE);
+                pickerStatus = "State";
+
+            }
+        });
+
+
+
 
     }
 }
