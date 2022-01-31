@@ -1,24 +1,46 @@
 package com.fatihkilic.muminappandroid.User;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.ActivityMyAccountBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivityMyAccountEditBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivitySignInBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.onesignal.OneSignal;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MyAccountEditActivity extends AppCompatActivity {
@@ -27,6 +49,9 @@ public class MyAccountEditActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private FirebaseFirestore firebaseFirestore;
+    private FirebaseStorage firebaseStorage;
+    private StorageReference storageReference;
+
     private static final String ONESIGNAL_APP_ID = "1966721c-a30c-4299-9d7a-38e084b98072";
 
     String userName;
@@ -39,13 +64,18 @@ public class MyAccountEditActivity extends AppCompatActivity {
     String province;
     String image;
 
-    Date bithday;
+    Calendar bithday;
 
     String pickerStatus;
 
     ArrayList<String> genderArray;
     ArrayList<String> countryArray;
     ArrayList<String> stateArray;
+
+    ActivityResultLauncher<Intent> activityResultLauncher;
+    ActivityResultLauncher<String> permisionLauncher;
+    Uri ppImageData;
+    Bitmap selectedBitmap;
 
 
 
@@ -62,6 +92,8 @@ public class MyAccountEditActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
         // Enable verbose OneSignal logging to debug issues if needed.
         OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
 
@@ -69,19 +101,38 @@ public class MyAccountEditActivity extends AppCompatActivity {
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
 
-
         DatePicker bdDAteBicker = binding.birthdayDatePicker;
+        bdDAteBicker.setVisibility(View.INVISIBLE);
 
-        bdDAteBicker.init();
+        registerLauncher();
 
-        bdDAteBicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+
+        Button saveButton = binding.saveButton;
+
+        String currentEmail = auth.getCurrentUser().getEmail();
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-                binding.birthdayTextView.setText(dayOfMonth + monthOfYear + year);
-                binding.birthdayDatePicker.setVisibility(View.INVISIBLE);
+            public void onClick(View view) {
 
 
+                if (ppImageData != null ) {
+
+                    storageReference.child(currentEmail).child("profilPhoto").putFile(ppImageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                            Toast.makeText(MyAccountEditActivity.this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+
+                }
 
             }
         });
@@ -176,9 +227,50 @@ public class MyAccountEditActivity extends AppCompatActivity {
 
 
 
+                } else if (pickerStatus.equals("Birthday")) {
+
+                    binding.pickerBackground.setVisibility(View.INVISIBLE);
+                    bdDAteBicker.setVisibility(View.INVISIBLE);
+                    binding.pickerSaveButton.setVisibility(View.INVISIBLE);
+
                 }
 
 
+
+            }
+        });
+
+        binding.birthdayTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Calendar nowTime = Calendar.getInstance();
+                int nowYear = nowTime.get(Calendar.YEAR);
+                int nowMonth = nowTime.get(Calendar.MONTH);
+                int nowDay = nowTime.get(Calendar.DAY_OF_MONTH);
+
+
+
+                bdDAteBicker.setVisibility(View.VISIBLE);
+                binding.pickerBackground.setVisibility(View.VISIBLE);
+                binding.pickerSaveButton.setVisibility(View.VISIBLE);
+                pickerStatus = "Birthday";
+
+                bdDAteBicker.init(nowYear,nowMonth,nowDay,null);
+
+                bdDAteBicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+                    @Override
+                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                        StringBuilder birtdayString = new StringBuilder();
+
+                        birtdayString.append(dayOfMonth).append(".").append(monthOfYear).append(".").append(year);
+
+                        binding.birthdayTextView.setText(birtdayString);
+
+
+                    }
+                });
 
             }
         });
@@ -225,7 +317,90 @@ public class MyAccountEditActivity extends AppCompatActivity {
         });
 
 
+        binding.ppImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                if(ContextCompat.checkSelfPermission(MyAccountEditActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(MyAccountEditActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                        Snackbar.make(view,"Resim galerisine erişim izni gerekiyor.", Snackbar.LENGTH_INDEFINITE).setAction("İzin ver", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                permisionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
+
+                            }
+                        }).show();
+
+                    } else {
+
+                        permisionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
+                    }
+
+                } else {
+
+                    Intent intentToGalery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    activityResultLauncher.launch(intentToGalery);
+
+                }
+            }
+        });
 
     }
+    
+    
+    private void registerLauncher() {
+        
+        
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+
+                if (result.getResultCode() == RESULT_OK) {
+
+                    Intent intentFromResult = result.getData();
+
+                    if (intentFromResult != null) {
+
+                       ppImageData = intentFromResult.getData();
+
+                       binding.ppImageView.setImageURI(ppImageData);
+
+                  
+
+
+                    }
+
+
+                }
+
+            }
+        });
+        
+        permisionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+            @Override
+            public void onActivityResult(Boolean result) {
+
+                if (result) {
+
+                    Intent intentToGalery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    activityResultLauncher.launch(intentToGalery);
+
+
+                } else {
+
+
+                    Toast.makeText(MyAccountEditActivity.this,"Fotoğraf galerisine erişmek için izin gerekli!",Toast.LENGTH_LONG).show();
+
+                }
+
+
+
+            }
+        });
+        
+    }
+    
 }
