@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -42,6 +43,7 @@ import com.onesignal.OneSignal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 public class MyAccountEditActivity extends AppCompatActivity {
 
@@ -121,6 +123,54 @@ public class MyAccountEditActivity extends AppCompatActivity {
                     storageReference.child(currentEmail).child("profilPhoto").putFile(ppImageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+
+
+                            StorageReference newreference = firebaseStorage.getReference("imagdata yazılacak");
+                            newreference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(@NonNull Uri uri) {
+
+                                    String downloadPPImageData = uri.toString();
+
+                                    HashMap<String, Object>profileEditData = new HashMap<>();
+                                    profileEditData.put("image", downloadPPImageData);
+                                    profileEditData.put("userName", binding.usernameTextView.getText().toString());
+                                    profileEditData.put("name",binding.NameTextView.getText().toString());
+                                    profileEditData.put("surName",binding.surNameTextView.getText().toString());
+                                    profileEditData.put("birthday",binding.birthdayTextView.getText().toString());
+                                    profileEditData.put("gender",binding.genderTextView.getText().toString());
+                                    profileEditData.put("description",binding.descriptionTextView.getText().toString());
+                                    profileEditData.put("country",binding.countryTextView.getText().toString());
+                                    profileEditData.put("state",binding.provinceTextView.getText().toString());
+                                    profileEditData.put("userNameDate", FieldValue.serverTimestamp());
+
+                                    firebaseFirestore.collection("User").document(currentEmail).set(profileEditData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(@NonNull Void unused) {
+
+                                            Toast.makeText(MyAccountEditActivity.this, "Tebrikler. profiliniz güncellendi.", Toast.LENGTH_LONG).show();
+
+
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+
+                                            Toast.makeText(MyAccountEditActivity.this, "Güncelleme başarısız! İnternet bağlantısında bir problem var.", Toast.LENGTH_LONG).show();
+
+
+                                        }
+                                    });
+
+
+                                }
+                            });
+
+
+
+
+
+
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -207,6 +257,7 @@ public class MyAccountEditActivity extends AppCompatActivity {
                     binding.pickerBackground.setVisibility(View.INVISIBLE);
                     binding.genderpickerList.setVisibility(View.INVISIBLE);
                     binding.pickerSaveButton.setVisibility(View.INVISIBLE);
+                    binding.saveButton.setEnabled(true);
 
 
                 } else if (pickerStatus.equals("Country")){
@@ -214,6 +265,7 @@ public class MyAccountEditActivity extends AppCompatActivity {
                     binding.pickerBackground.setVisibility(View.INVISIBLE);
                     binding.countrypickerList.setVisibility(View.INVISIBLE);
                     binding.pickerSaveButton.setVisibility(View.INVISIBLE);
+                    binding.saveButton.setEnabled(true);
 
                     binding.countryTextView.setText("Türkiye");
 
@@ -223,6 +275,7 @@ public class MyAccountEditActivity extends AppCompatActivity {
                     binding.pickerBackground.setVisibility(View.INVISIBLE);
                     binding.statepickerList.setVisibility(View.INVISIBLE);
                     binding.pickerSaveButton.setVisibility(View.INVISIBLE);
+                    binding.saveButton.setEnabled(true);
 
 
 
@@ -232,6 +285,7 @@ public class MyAccountEditActivity extends AppCompatActivity {
                     binding.pickerBackground.setVisibility(View.INVISIBLE);
                     bdDAteBicker.setVisibility(View.INVISIBLE);
                     binding.pickerSaveButton.setVisibility(View.INVISIBLE);
+                    binding.saveButton.setEnabled(true);
 
                 }
 
@@ -254,6 +308,7 @@ public class MyAccountEditActivity extends AppCompatActivity {
                 bdDAteBicker.setVisibility(View.VISIBLE);
                 binding.pickerBackground.setVisibility(View.VISIBLE);
                 binding.pickerSaveButton.setVisibility(View.VISIBLE);
+                binding.saveButton.setEnabled(false);
                 pickerStatus = "Birthday";
 
                 bdDAteBicker.init(nowYear,nowMonth,nowDay,null);
@@ -285,6 +340,7 @@ public class MyAccountEditActivity extends AppCompatActivity {
                 binding.genderpickerList.setVisibility(View.VISIBLE);
                 binding.pickerBackground.setVisibility(View.VISIBLE);
                 binding.pickerSaveButton.setVisibility(View.VISIBLE);
+                binding.saveButton.setEnabled(false);
                 pickerStatus = "Gender";
 
             }
@@ -298,6 +354,7 @@ public class MyAccountEditActivity extends AppCompatActivity {
                 binding.countrypickerList.setVisibility(View.VISIBLE);
                 binding.pickerBackground.setVisibility(View.VISIBLE);
                 binding.pickerSaveButton.setVisibility(View.VISIBLE);
+                binding.saveButton.setEnabled(false);
                 pickerStatus = "Country";
 
             }
@@ -311,6 +368,7 @@ public class MyAccountEditActivity extends AppCompatActivity {
                 binding.statepickerList.setVisibility(View.VISIBLE);
                 binding.pickerBackground.setVisibility(View.VISIBLE);
                 binding.pickerSaveButton.setVisibility(View.VISIBLE);
+                binding.saveButton.setEnabled(false);
                 pickerStatus = "State";
 
             }
