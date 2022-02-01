@@ -17,6 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MuminAppAndroid">
         <activity
+            android:name=".ZikirMatik.IstirakActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ZikirMatik.MyZikirActivity"
+            android:exported="false" />
+        <activity
             android:name=".User.FriendsDetailActivity"
             android:exported="false" />
         <activity

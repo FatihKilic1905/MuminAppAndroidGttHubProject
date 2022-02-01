@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -29,21 +30,32 @@ import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.ActivityMyAccountBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivityMyAccountEditBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivitySignInBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.onesignal.OneSignal;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MyAccountEditActivity extends AppCompatActivity {
 
@@ -60,11 +72,14 @@ public class MyAccountEditActivity extends AppCompatActivity {
     String name;
     String surName;
     String birthdayString;
+    String gender;
     String email;
     String userDescription;
     String country;
     String province;
     String image;
+    Date dateOfRegistration;
+    Date userNameDate;
 
     Calendar bithday;
 
@@ -78,7 +93,9 @@ public class MyAccountEditActivity extends AppCompatActivity {
     ActivityResultLauncher<String> permisionLauncher;
     Uri ppImageData;
     Bitmap selectedBitmap;
+    String currentEmail;
 
+    DatePicker  bdDAteBicker;
 
 
 
@@ -103,7 +120,7 @@ public class MyAccountEditActivity extends AppCompatActivity {
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
 
-        DatePicker bdDAteBicker = binding.birthdayDatePicker;
+        bdDAteBicker = binding.birthdayDatePicker;
         bdDAteBicker.setVisibility(View.INVISIBLE);
 
         registerLauncher();
@@ -111,7 +128,10 @@ public class MyAccountEditActivity extends AppCompatActivity {
 
         Button saveButton = binding.saveButton;
 
-        String currentEmail = auth.getCurrentUser().getEmail();
+
+        currentEmail = auth.getCurrentUser().getEmail();
+
+        getProfile();
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,20 +215,7 @@ public class MyAccountEditActivity extends AppCompatActivity {
         binding.pickerBackground.setVisibility(View.INVISIBLE);
         binding.pickerSaveButton.setVisibility(View.INVISIBLE);
 
-        PickerListGender.initgenderList();
 
-        binding.genderpickerList.setMaxValue(PickerListGender.getPickerListGenderArrayList().size()-1);
-        binding.genderpickerList.setMinValue(0);
-        binding.genderpickerList.setDisplayedValues(PickerListGender.genderNames());
-
-        binding.genderpickerList.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
-                binding.genderTextView.setText(PickerListGender.getPickerListGenderArrayList().get(newVal).getGender());
-
-            }
-        });
 
 
         PickerListCountry.initCountryList();
@@ -294,41 +301,6 @@ public class MyAccountEditActivity extends AppCompatActivity {
             }
         });
 
-        binding.birthdayTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Calendar nowTime = Calendar.getInstance();
-                int nowYear = nowTime.get(Calendar.YEAR);
-                int nowMonth = nowTime.get(Calendar.MONTH);
-                int nowDay = nowTime.get(Calendar.DAY_OF_MONTH);
-
-
-
-                bdDAteBicker.setVisibility(View.VISIBLE);
-                binding.pickerBackground.setVisibility(View.VISIBLE);
-                binding.pickerSaveButton.setVisibility(View.VISIBLE);
-                binding.saveButton.setEnabled(false);
-                pickerStatus = "Birthday";
-
-                bdDAteBicker.init(nowYear,nowMonth,nowDay,null);
-
-                bdDAteBicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-                    @Override
-                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-                        StringBuilder birtdayString = new StringBuilder();
-
-                        birtdayString.append(dayOfMonth).append(".").append(monthOfYear).append(".").append(year);
-
-                        binding.birthdayTextView.setText(birtdayString);
-
-
-                    }
-                });
-
-            }
-        });
 
 
 
@@ -460,5 +432,163 @@ public class MyAccountEditActivity extends AppCompatActivity {
         });
         
     }
+
+
+    public void getProfile () {
+
+        DocumentReference usdRef = firebaseFirestore.collection("User").document(currentEmail);
+        usdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                if (task.isSuccessful()) {
+
+                    DocumentSnapshot document = task.getResult();
+
+                    if (document.exists()) {
+
+                        userName = (String) document.get("userName");
+                        name = (String) document.get("name");
+                        surName = (String) document.get("surName");
+                        birthdayString = (String) document.get("birthday");
+                        gender = (String) document.get("gender");
+                        userDescription = (String) document.get("description");
+                        country = (String) document.get("country");
+                        province = (String) document.get("state");
+                        email = (String) document.get("email");
+                        image = (String) document.get("image");
+
+
+
+                        Picasso.get().load(image).into(binding.ppImageView);
+                        binding.usernameTextView.setText(userName);
+                        binding.NameTextView.setText(name);
+                        binding.surNameTextView.setText(surName);
+                        binding.birthdayTextView.setText(birthdayString);
+                        binding.genderTextView.setText(gender);
+                        binding.descriptionTextView.setText(userDescription);
+                        binding.countryTextView.setText(country);
+                        binding.provinceTextView.setText(province);
+
+                        if (userName.equals("")) {
+
+                            binding.usernameTextView.setEnabled(false);
+
+                        }
+
+                        if (birthdayString.equals("")) {
+
+                            binding.birthdayTextView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                    Calendar nowTime = Calendar.getInstance();
+                                    int nowYear = nowTime.get(Calendar.YEAR);
+                                    int nowMonth = nowTime.get(Calendar.MONTH);
+                                    int nowDay = nowTime.get(Calendar.DAY_OF_MONTH);
+
+
+
+                                    bdDAteBicker.setVisibility(View.VISIBLE);
+                                    binding.pickerBackground.setVisibility(View.VISIBLE);
+                                    binding.pickerSaveButton.setVisibility(View.VISIBLE);
+                                    binding.saveButton.setEnabled(false);
+                                    pickerStatus = "Birthday";
+
+                                    bdDAteBicker.init(nowYear,nowMonth,nowDay,null);
+
+                                    bdDAteBicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+                                        @Override
+                                        public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                                            StringBuilder birtdayString = new StringBuilder();
+
+                                            birtdayString.append(dayOfMonth).append(".").append(monthOfYear).append(".").append(year);
+
+                                            binding.birthdayTextView.setText(birtdayString);
+
+
+                                        }
+                                    });
+
+                                }
+                            });
+
+
+
+
+                        } else {
+
+
+                            binding.birthdayTextView.setEnabled(false);
+
+
+                        }
+
+                        if (gender.equals("")) {
+
+                            PickerListGender.initgenderList();
+
+                            binding.genderpickerList.setMaxValue(PickerListGender.getPickerListGenderArrayList().size()-1);
+                            binding.genderpickerList.setMinValue(0);
+                            binding.genderpickerList.setDisplayedValues(PickerListGender.genderNames());
+
+                            binding.genderpickerList.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                                @Override
+                                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+                                    binding.genderTextView.setText(PickerListGender.getPickerListGenderArrayList().get(newVal).getGender());
+
+                                }
+                            });
+
+
+
+                        } else {
+
+                            binding.genderTextView.setEnabled(false);
+
+
+                        }
+
+                        if (name.equals("")) {
+
+
+
+                        } else {
+
+                            binding.NameTextView.setEnabled(false);
+
+                        }
+
+                        if (surName.equals("")) {
+
+
+
+                        } else {
+
+                            binding.surNameTextView.setEnabled(false);
+
+                        }
+
+
+
+                    } else {
+                        System.out.println("Olumsuz");
+                    }
+
+                } else {
+
+                    System.out.println("cekme başarısız");
+                }
+
+            }
+
+
+        });
+
+
+    }
+
     
 }

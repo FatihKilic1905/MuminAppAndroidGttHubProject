@@ -95,6 +95,27 @@ public class NotificationsFragment extends Fragment {
         });
 
 
+        binding.zikirMatikButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (auth.getCurrentUser() != null) {
+
+                    Intent zikirmatikIntent = new Intent(getActivity(), ZikirMatikMainActivity.class);
+                    startActivity(zikirmatikIntent);
+
+                } else {
+
+                    Intent zikirmatikIntent = new Intent(getActivity(), SignInActivity.class);
+                    zikirmatikIntent.putExtra("ComePage", "MenuPage");
+                    startActivity(zikirmatikIntent);
+
+                }
+
+            }
+        });
+
+
 
 
 
