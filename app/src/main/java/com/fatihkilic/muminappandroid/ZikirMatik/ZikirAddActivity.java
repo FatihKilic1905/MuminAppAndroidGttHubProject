@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
@@ -17,6 +18,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.onesignal.OneSignal;
 
+import java.util.Calendar;
+
 public class ZikirAddActivity extends AppCompatActivity {
 
 
@@ -26,6 +29,8 @@ public class ZikirAddActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
+
+    DatePicker endDatePicker;
 
     private static final String ONESIGNAL_APP_ID = "1966721c-a30c-4299-9d7a-38e084b98072";
 
@@ -58,6 +63,11 @@ public class ZikirAddActivity extends AppCompatActivity {
         binding.zikirlerpickerList.setVisibility(View.INVISIBLE);
 
         binding.numberPickerBackground.setVisibility(View.INVISIBLE);
+        binding.numberPickerOkButton.setVisibility(View.INVISIBLE);
+
+
+        endDatePicker = binding.endDateDatePicker;
+        endDatePicker.setVisibility(View.INVISIBLE);
 
         binding.zikirNameEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +80,8 @@ public class ZikirAddActivity extends AppCompatActivity {
                 binding.manurlzikirButton.setVisibility(View.INVISIBLE);
                 binding.zikirlerpickerList.setVisibility(View.VISIBLE);
                 binding.numberPickerBackground.setVisibility(View.VISIBLE);
+                binding.numberPickerOkButton.setVisibility(View.VISIBLE);
+                binding.zikirNameEditText.setEnabled(false);
 
             }
         });
@@ -87,7 +99,10 @@ public class ZikirAddActivity extends AppCompatActivity {
 
                     binding.zikirDuasiEditText.setText("Subhanallahi velhamdülillahi ve la ilaheillallahu vallahu ekber");
 
+                    binding.zikirNameEditText.setEnabled(true);
                     binding.numberPickerBackground.setVisibility(View.INVISIBLE);
+                    binding.numberPickerOkButton.setVisibility(View.INVISIBLE);
+                    binding.emptyBackground.setVisibility(View.INVISIBLE);
 
                 } else if (zikirNames.equals("İstiğfar")) {
 
@@ -95,7 +110,10 @@ public class ZikirAddActivity extends AppCompatActivity {
 
                     binding.zikirDuasiEditText.setText("Estağfirullah. Estağfirullahe'l-azîm el-kerîm, ellezî lâ ilâhe illâ hüve'l-hayyü'l-kayyûmü ve etûbü ileyhi, tevbete abdin zâlimin li-nefsihî, lâ yemlikü li-nefsihî mevten velâ hayâten velâ nüşûrâ. Ve es-elühü't-tevbete ve'l-mağfirete ve'l-hidâyete lenâ, innehû, hüve't-tevvâbü'r-rahîm.” “Ya rabbi!");
 
+                    binding.zikirNameEditText.setEnabled(true);
                     binding.numberPickerBackground.setVisibility(View.INVISIBLE);
+                    binding.numberPickerOkButton.setVisibility(View.INVISIBLE);
+                    binding.emptyBackground.setVisibility(View.INVISIBLE);
 
                 } else if (zikirNames.equals("Salatı Tefriciye")) {
 
@@ -103,7 +121,10 @@ public class ZikirAddActivity extends AppCompatActivity {
 
                     binding.zikirDuasiEditText.setText("Allahumme salli salâten kâmileten ve sellim selâmen tâmmen alâ-seyyidina Muhammedin ellezi tenhallü bihi'l 'ukadu ve tenfericu bihi'l-kürabu ve tukdâ bihi'l-havâicu ve tünâlü bihi'r-rağâibu ve husnu'l-havâtimi ve yusteska'l-ğamâmu bi-vechihi'l-kerîmi ve 'alâ âlihi ve sahbihi fî-külli lemhatin ve nefesin bi-'adedi külli ma'lûmin lek.");
 
+                    binding.zikirNameEditText.setEnabled(true);
                     binding.numberPickerBackground.setVisibility(View.INVISIBLE);
+                    binding.numberPickerOkButton.setVisibility(View.INVISIBLE);
+                    binding.emptyBackground.setVisibility(View.INVISIBLE);
 
                 } else if (zikirNames.equals("Salavatı Şerif")) {
 
@@ -111,7 +132,10 @@ public class ZikirAddActivity extends AppCompatActivity {
 
                     binding.zikirDuasiEditText.setText("Allahümme salli alâ Muhammed'in ve alâ âli Muhammedin, kemâ salleyte alâ İbrahime ve alâ âli İbrahim, inneke hamîdun mecîd.");
 
+                    binding.zikirNameEditText.setEnabled(true);
                     binding.numberPickerBackground.setVisibility(View.INVISIBLE);
+                    binding.numberPickerOkButton.setVisibility(View.INVISIBLE);
+                    binding.emptyBackground.setVisibility(View.INVISIBLE);
 
                 } else if (zikirNames.equals("Hasbunallah")) {
 
@@ -119,7 +143,10 @@ public class ZikirAddActivity extends AppCompatActivity {
 
                     binding.zikirDuasiEditText.setText("Hasbünallahü Ve Nimel Vekil");
 
+                    binding.zikirNameEditText.setEnabled(true);
                     binding.numberPickerBackground.setVisibility(View.INVISIBLE);
+                    binding.numberPickerOkButton.setVisibility(View.INVISIBLE);
+                    binding.emptyBackground.setVisibility(View.INVISIBLE);
 
                 } else if (zikirNames.equals("Kelime-i Tevhid")) {
 
@@ -127,9 +154,12 @@ public class ZikirAddActivity extends AppCompatActivity {
 
                     binding.zikirDuasiEditText.setText("Lâ iâhe illallah Muhammedür-resûlüllah");
 
+                    binding.zikirNameEditText.setEnabled(true);
                     binding.numberPickerBackground.setVisibility(View.INVISIBLE);
+                    binding.emptyBackground.setVisibility(View.INVISIBLE);
 
                 } else if (zikirNames.equals("Ben Ekleyeceğim")) {
+
 
                     binding.numberPickerBackground.setVisibility(View.INVISIBLE);
                     binding.emptyBackground.setVisibility(View.VISIBLE);
@@ -137,8 +167,10 @@ public class ZikirAddActivity extends AppCompatActivity {
                     binding.manuelzikirEditText.setVisibility(View.VISIBLE);
                     binding.manurlzikirButton.setVisibility(View.VISIBLE);
                     binding.zikirlerpickerList.setVisibility(View.INVISIBLE);
-                    binding.numberPickerBackground.setVisibility(View.VISIBLE);
+                    binding.numberPickerBackground.setVisibility(View.INVISIBLE);
+                    binding.numberPickerOkButton.setVisibility(View.INVISIBLE);
                     binding.zikirDuasiEditText.setEnabled(true);
+                    binding.zikirNameEditText.setEnabled(true);
 
                 }
 
@@ -155,8 +187,6 @@ public class ZikirAddActivity extends AppCompatActivity {
         binding.manurlzikirButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
 
 
                 String zikirName = binding.manuelzikirEditText.getText().toString();
@@ -203,6 +233,51 @@ public class ZikirAddActivity extends AppCompatActivity {
             }
         });
 
+
+        binding.zikirBitisTarihiEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                System.out.println("datepickerr");
+
+                Calendar nowTime = Calendar.getInstance();
+                int nowYear = nowTime.get(Calendar.YEAR);
+                int nowMonth = nowTime.get(Calendar.MONTH);
+                int nowDay = nowTime.get(Calendar.DAY_OF_MONTH);
+
+
+                binding.zikirBitisTarihiEditText.setEnabled(false);
+                binding.emptyBackground.setVisibility(View.VISIBLE);
+                endDatePicker.setVisibility(View.VISIBLE);
+
+
+
+                endDatePicker.init(nowYear,nowMonth,nowDay,null);
+
+                endDatePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+                    @Override
+                    public void onDateChanged(DatePicker view, int i, int i1, int i2) {
+
+                    }
+                });
+
+
+            }
+        });
+
+
+        binding.zikriBaslatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String zikirName = binding.zikirNameEditText.getText().toString();
+
+
+
+
+
+            }
+        });
 
 
 
