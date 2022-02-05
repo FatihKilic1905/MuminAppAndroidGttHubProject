@@ -27,7 +27,7 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.fatihkilic.muminappandroid.R;
-import com.fatihkilic.muminappandroid.databinding.ActivityMyAccountBinding;
+
 import com.fatihkilic.muminappandroid.databinding.ActivityMyAccountEditBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivitySignInBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
