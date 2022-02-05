@@ -3,7 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="../../../../layout/custom_preview.xml" value="0.5506430868167203" />
         <entry key="..\:/SOFTWARE/muminAppAndroid/app/src/main/res/drawable-v24/corner_layer_top_2_radius_red.xml" value="0.2140625" />
         <entry key="..\:/SOFTWARE/muminAppAndroid/app/src/main/res/layout/activity_ayarlar.xml" value="0.20520833333333333" />
         <entry key="..\:/SOFTWARE/muminAppAndroid/app/src/main/res/layout/activity_ezan_vakti.xml" value="0.19791666666666666" />
@@ -14,6 +13,8 @@
         <entry key="..\:/SOFTWARE/muminAppAndroid/app/src/main/res/layout/fragment_notifications.xml" value="0.25" />
         <entry key="..\:/SOFTWARE/muminAppAndroid/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Pc/Creative Cloud Files/SOFTWARE/ANDROID/MuminAppAndroid/app/src/main/res/layout/activity_main.xml" value="0.23233695652173914" />
+        <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/drawable/corner_4_radius_red.xml" value="0.334" />
+        <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/drawable/corner_4_radius_white.xml" value="0.334" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/drawable/layer_stroke_4_corner.xml" value="0.36302083333333335" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_bildirim.xml" value="0.25" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_create_user.xml" value="0.36666666666666664" />
@@ -31,6 +32,7 @@
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_tesbihat.xml" value="0.33" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_users.xml" value="0.1953125" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_zekat_matik.xml" value="0.23385416666666667" />
+        <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_zikir_add.xml" value="0.3596014492753623" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_zikir_matik_main.xml" value="0.25" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/fragment_dashboard.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/fragment_home.xml" value="0.1921875" />
@@ -65,7 +67,6 @@
         <entry key="app/src/main/res/layout/activity_konum.xml" value="0.49773550724637683" />
         <entry key="app/src/main/res/layout/activity_live_tv.xml" value="0.32760416666666664" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_my_account_edit.xml" value="0.401268115942029" />
         <entry key="app/src/main/res/layout/activity_namaz_duasi.xml" value="0.31567028985507245" />
         <entry key="app/src/main/res/layout/activity_namaz_hocasi.xml" value="0.31567028985507245" />
         <entry key="app/src/main/res/layout/activity_qibla_compas.xml" value="0.3375" />
@@ -75,7 +76,6 @@
         <entry key="app/src/main/res/layout/activity_tesbihat.xml" value="0.25407608695652173" />
         <entry key="app/src/main/res/layout/activity_veda_hutbesi.xml" value="0.25407608695652173" />
         <entry key="app/src/main/res/layout/activity_zekat_matik.xml" value="0.35104166666666664" />
-        <entry key="app/src/main/res/layout/activity_zikir_add.xml" value="0.38903985507246375" />
         <entry key="app/src/main/res/layout/activity_zikir_matik_main.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.75" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.5172101449275363" />

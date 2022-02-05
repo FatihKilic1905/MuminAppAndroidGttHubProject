@@ -26,22 +26,22 @@ public class PickerListZikirler {
         pickerListZikirlerArrayList.add(z1);
 
         PickerListZikirler z2 = new PickerListZikirler(1,"İstiğfar");
-        pickerListZikirlerArrayList.add(z1);
+        pickerListZikirlerArrayList.add(z2);
 
         PickerListZikirler z3 = new PickerListZikirler(2,"Salatı Tefriciye");
-        pickerListZikirlerArrayList.add(z1);
+        pickerListZikirlerArrayList.add(z3);
 
         PickerListZikirler z4 = new PickerListZikirler(3,"Salavatı Şerif");
-        pickerListZikirlerArrayList.add(z1);
+        pickerListZikirlerArrayList.add(z4);
 
         PickerListZikirler z5 = new PickerListZikirler(4,"Hasbunallah");
-        pickerListZikirlerArrayList.add(z1);
+        pickerListZikirlerArrayList.add(z5);
 
         PickerListZikirler z6 = new PickerListZikirler(5,"Kelime-i Tevhid");
-        pickerListZikirlerArrayList.add(z1);
+        pickerListZikirlerArrayList.add(z6);
 
         PickerListZikirler z7 = new PickerListZikirler(6,"Ben Ekleyeceğim");
-        pickerListZikirlerArrayList.add(z1);
+        pickerListZikirlerArrayList.add(z7);
 
     }
 
