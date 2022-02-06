@@ -17,17 +17,22 @@
 
         <EditText
             android:id="@+id/zikirNameEditText"
-            android:layout_width="359dp"
-            android:layout_height="wrap_content"
+            android:layout_width="360dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
+            android:background="@drawable/layer_stroke_4_corner"
+            android:padding="10dp"
             android:hint="Zikir Adı"></EditText>
 
         <EditText
             android:id="@+id/zikirNiyetiEditText"
             android:layout_width="359dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_gravity="center"
+            android:background="@drawable/layer_stroke_4_corner"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
             android:hint="Zikir Niyeti"></EditText>
 
         <EditText
@@ -36,6 +41,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:hint="Zikir Sayısı"
+            android:background="@drawable/layer_stroke_4_corner"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
             android:inputType="number"></EditText>
 
         <TextView
@@ -44,6 +52,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:hint="Bitiş Tarihi"
+            android:background="@drawable/layer_stroke_4_corner"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
             ></TextView>
 
         <EditText
@@ -51,6 +62,9 @@
             android:layout_width="359dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/layer_stroke_4_corner"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
             android:hint="Zikir Duası"></EditText>
 
 
@@ -176,7 +190,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></DatePicker>
+        app:layout_constraintTop_toTopOf="parent"
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false"></DatePicker>
 
 
 

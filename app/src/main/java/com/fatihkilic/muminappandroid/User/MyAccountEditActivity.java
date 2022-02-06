@@ -479,6 +479,7 @@ public class MyAccountEditActivity extends AppCompatActivity {
                         if (birthdayString.equals("")) {
 
                             binding.birthdayTextView.setOnClickListener(new View.OnClickListener() {
+                                @RequiresApi(api = Build.VERSION_CODES.O)
                                 @Override
                                 public void onClick(View view) {
 

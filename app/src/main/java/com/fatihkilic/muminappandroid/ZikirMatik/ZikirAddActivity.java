@@ -1,7 +1,10 @@
 package com.fatihkilic.muminappandroid.ZikirMatik;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -75,9 +78,6 @@ public class ZikirAddActivity extends AppCompatActivity {
 
 
                 binding.emptyBackground.setVisibility(View.VISIBLE);
-                binding.manuelZikirBackground.setVisibility(View.INVISIBLE);
-                binding.manuelzikirEditText.setVisibility(View.INVISIBLE);
-                binding.manurlzikirButton.setVisibility(View.INVISIBLE);
                 binding.zikirlerpickerList.setVisibility(View.VISIBLE);
                 binding.numberPickerBackground.setVisibility(View.VISIBLE);
                 binding.numberPickerOkButton.setVisibility(View.VISIBLE);
@@ -85,6 +85,72 @@ public class ZikirAddActivity extends AppCompatActivity {
 
             }
         });
+
+        binding.zikirBitisTarihiEditText.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+
+
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+
+
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(ZikirAddActivity.this,
+                            new DatePickerDialog.OnDateSetListener() {
+                                @Override
+                                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+                                }
+                            }, 0, 0, 0);
+
+
+
+
+
+                    datePickerDialog.show();
+
+
+
+                } else {
+
+
+                    System.out.println("datepickerr");
+
+
+                    binding.emptyBackground.setVisibility(View.VISIBLE);
+                    endDatePicker.setVisibility(View.VISIBLE);
+                    binding.zikirBitisTarihiEditText.setEnabled(false);
+
+                    Calendar nowTime = Calendar.getInstance();
+                    int nowYear = nowTime.get(Calendar.YEAR);
+                    int nowMonth = nowTime.get(Calendar.MONTH);
+                    int nowDay = nowTime.get(Calendar.DAY_OF_MONTH);
+
+
+                    endDatePicker.init(nowYear, nowMonth, nowDay, null);
+
+                    endDatePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+                        @Override
+                        public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                            StringBuilder birtdayString = new StringBuilder();
+
+                            birtdayString.append(dayOfMonth).append(".").append(monthOfYear).append(".").append(year);
+
+                            binding.zikirBitisTarihiEditText.setText(birtdayString);
+
+
+                        }
+                    });
+
+
+                }
+
+            }
+        });
+
+
 
         binding.numberPickerOkButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,36 +300,7 @@ public class ZikirAddActivity extends AppCompatActivity {
         });
 
 
-        binding.zikirBitisTarihiEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                System.out.println("datepickerr");
-
-                Calendar nowTime = Calendar.getInstance();
-                int nowYear = nowTime.get(Calendar.YEAR);
-                int nowMonth = nowTime.get(Calendar.MONTH);
-                int nowDay = nowTime.get(Calendar.DAY_OF_MONTH);
-
-
-                binding.zikirBitisTarihiEditText.setEnabled(false);
-                binding.emptyBackground.setVisibility(View.VISIBLE);
-                endDatePicker.setVisibility(View.VISIBLE);
-
-
-
-                endDatePicker.init(nowYear,nowMonth,nowDay,null);
-
-                endDatePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-                    @Override
-                    public void onDateChanged(DatePicker view, int i, int i1, int i2) {
-
-                    }
-                });
-
-
-            }
-        });
 
 
         binding.zikriBaslatButton.setOnClickListener(new View.OnClickListener() {
