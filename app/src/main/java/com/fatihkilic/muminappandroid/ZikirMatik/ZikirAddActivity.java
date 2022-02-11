@@ -1,5 +1,6 @@
 package com.fatihkilic.muminappandroid.ZikirMatik;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,16 +13,28 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.fatihkilic.muminappandroid.R;
+import com.fatihkilic.muminappandroid.User.MyAccountEditActivity;
 import com.fatihkilic.muminappandroid.User.PickerListCountry;
+import com.fatihkilic.muminappandroid.User.PickerListGender;
 import com.fatihkilic.muminappandroid.databinding.ActivityMyAccountEditBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivityZikirAddBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.onesignal.OneSignal;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class ZikirAddActivity extends AppCompatActivity {
 
@@ -34,6 +47,11 @@ public class ZikirAddActivity extends AppCompatActivity {
     private StorageReference storageReference;
 
     DatePicker endDatePicker;
+
+    String currentUser;
+    String myUserName;
+
+
 
     private static final String ONESIGNAL_APP_ID = "1966721c-a30c-4299-9d7a-38e084b98072";
 
@@ -68,9 +86,15 @@ public class ZikirAddActivity extends AppCompatActivity {
         binding.numberPickerBackground.setVisibility(View.INVISIBLE);
         binding.numberPickerOkButton.setVisibility(View.INVISIBLE);
 
+        binding.datePickerBackground.setVisibility(View.INVISIBLE);
+        binding.datePickerHiddenButton.setVisibility(View.INVISIBLE);
+
 
         endDatePicker = binding.endDateDatePicker;
         endDatePicker.setVisibility(View.INVISIBLE);
+
+        currentUser = auth.getCurrentUser().getEmail();
+        getProfile();
 
         binding.zikirNameEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +117,14 @@ public class ZikirAddActivity extends AppCompatActivity {
 
 
 
+
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+
+
+                    Calendar nowTime = Calendar.getInstance();
+                    int nowYear = nowTime.get(Calendar.YEAR);
+                    int nowMonth = nowTime.get(Calendar.MONTH);
+                    int nowDay = nowTime.get(Calendar.DAY_OF_MONTH);
 
 
                     DatePickerDialog datePickerDialog = new DatePickerDialog(ZikirAddActivity.this,
@@ -101,8 +132,11 @@ public class ZikirAddActivity extends AppCompatActivity {
                                 @Override
                                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
+                                    binding.zikirBitisTarihiEditText.setText(day + "." + month + "." + year) ;
+
+
                                 }
-                            }, 0, 0, 0);
+                            },  nowYear, nowMonth, nowDay);
 
 
 
@@ -121,6 +155,8 @@ public class ZikirAddActivity extends AppCompatActivity {
                     binding.emptyBackground.setVisibility(View.VISIBLE);
                     endDatePicker.setVisibility(View.VISIBLE);
                     binding.zikirBitisTarihiEditText.setEnabled(false);
+                    binding.datePickerBackground.setVisibility(View.VISIBLE);
+                    binding.datePickerHiddenButton.setVisibility(View.VISIBLE);
 
                     Calendar nowTime = Calendar.getInstance();
                     int nowYear = nowTime.get(Calendar.YEAR);
@@ -141,11 +177,29 @@ public class ZikirAddActivity extends AppCompatActivity {
                             binding.zikirBitisTarihiEditText.setText(birtdayString);
 
 
+
+
                         }
                     });
 
 
                 }
+
+            }
+        });
+
+
+        binding.datePickerHiddenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                binding.emptyBackground.setVisibility(View.INVISIBLE);
+                endDatePicker.setVisibility(View.INVISIBLE);
+                binding.datePickerBackground.setVisibility(View.INVISIBLE);
+                binding.datePickerHiddenButton.setVisibility(View.INVISIBLE);
+                binding.zikirBitisTarihiEditText.setEnabled(true);
+
 
             }
         });
@@ -308,6 +362,63 @@ public class ZikirAddActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 String zikirName = binding.zikirNameEditText.getText().toString();
+                String zikirNiyeti = binding.zikirNiyetiEditText.getText().toString();
+                String zikirSayisi = binding.zikirSayisiEditText.getText().toString();
+                String zikirBitisTarihi = binding.zikirBitisTarihiEditText.getText().toString();
+                String zikirDuasi = binding.zikirDuasiEditText.getText().toString();
+
+                String UID = UUID.randomUUID().toString();
+
+
+
+                if (zikirName.equals("") || zikirNiyeti.equals("") || zikirSayisi.equals("") || zikirBitisTarihi.equals("") || zikirDuasi.equals("")) {
+
+                    Toast.makeText(ZikirAddActivity.this, "Lütfen bütün alanları doldurunuz",Toast.LENGTH_LONG).show();
+
+
+
+                } else {
+
+                  HashMap<String, Object> newZikirData = new HashMap<>();
+
+                  newZikirData.put("beginDate", FieldValue.serverTimestamp());
+
+                  newZikirData.put("endDate", zikirBitisTarihi);
+                  newZikirData.put("zikirDescription",zikirNiyeti);
+                  newZikirData.put("zikirCount", Integer.parseInt(zikirSayisi));
+                  newZikirData.put("zikirName", zikirName);
+                  newZikirData.put("ZikirCompleteCount", 0);
+                  newZikirData.put("zikirPray",zikirDuasi);
+                  newZikirData.put("nickname",myUserName);
+                  newZikirData.put("zikirStatus","1");
+
+
+
+                    firebaseFirestore.collection("ZikirMatik").document(currentUser).collection("myZikir").document(UID).set(newZikirData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(@NonNull Void unused) {
+
+                            Toast.makeText(ZikirAddActivity.this, "Tebrikler. profiliniz güncellendi.", Toast.LENGTH_LONG).show();
+
+                        }
+
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                            Toast.makeText(ZikirAddActivity.this, "Güncelleme başarısız! İnternet bağlantısında bir problem var.", Toast.LENGTH_LONG).show();
+
+                        }
+
+                    });
+
+                }
+
+
+                // Zikirdavetiye Katılımcılar
+
+
+                // Zikir kendi kullanıcı adını ekle
 
 
 
@@ -316,6 +427,41 @@ public class ZikirAddActivity extends AppCompatActivity {
             }
         });
 
+
+
+    }
+
+
+    public void getProfile () {
+
+        DocumentReference usdRef = firebaseFirestore.collection("User").document(currentUser);
+        usdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                if (task.isSuccessful()) {
+
+                    DocumentSnapshot document = task.getResult();
+
+                    if (document.exists()) {
+
+                        myUserName = (String) document.get("userName");
+
+
+
+                    } else {
+                        System.out.println("Olumsuz");
+                    }
+
+                } else {
+
+                    System.out.println("cekme başarısız");
+                }
+
+            }
+
+
+        });
 
 
     }

@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 
 import com.fatihkilic.muminappandroid.R;
 
+import com.fatihkilic.muminappandroid.ZikirMatik.ZikirAddActivity;
 import com.fatihkilic.muminappandroid.databinding.ActivityMyAccountEditBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivitySignInBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -479,38 +481,77 @@ public class MyAccountEditActivity extends AppCompatActivity {
                         if (birthdayString.equals("")) {
 
                             binding.birthdayTextView.setOnClickListener(new View.OnClickListener() {
-                                @RequiresApi(api = Build.VERSION_CODES.O)
+
                                 @Override
                                 public void onClick(View view) {
 
-                                    Calendar nowTime = Calendar.getInstance();
-                                    int nowYear = nowTime.get(Calendar.YEAR);
-                                    int nowMonth = nowTime.get(Calendar.MONTH);
-                                    int nowDay = nowTime.get(Calendar.DAY_OF_MONTH);
+
+
+                                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+
+
+                                        Calendar nowTime = Calendar.getInstance();
+                                        int nowYear = nowTime.get(Calendar.YEAR);
+                                        int nowMonth = nowTime.get(Calendar.MONTH);
+                                        int nowDay = nowTime.get(Calendar.DAY_OF_MONTH);
+
+
+                                        DatePickerDialog datePickerDialog = new DatePickerDialog(MyAccountEditActivity.this,
+                                                new DatePickerDialog.OnDateSetListener() {
+                                                    @Override
+                                                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+                                                        binding.birthdayTextView.setText(day + "." + month + "." + year) ;
+
+
+                                                    }
+                                                },  nowYear, nowMonth, nowDay);
 
 
 
-                                    bdDAteBicker.setVisibility(View.VISIBLE);
-                                    binding.pickerBackground.setVisibility(View.VISIBLE);
-                                    binding.pickerSaveButton.setVisibility(View.VISIBLE);
-                                    binding.saveButton.setEnabled(false);
-                                    pickerStatus = "Birthday";
-
-                                    bdDAteBicker.init(nowYear,nowMonth,nowDay,null);
-
-                                    bdDAteBicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-                                        @Override
-                                        public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-                                            StringBuilder birtdayString = new StringBuilder();
-
-                                            birtdayString.append(dayOfMonth).append(".").append(monthOfYear).append(".").append(year);
-
-                                            binding.birthdayTextView.setText(birtdayString);
 
 
-                                        }
-                                    });
+                                        datePickerDialog.show();
+
+
+
+                                    } else {
+
+                                        Calendar nowTime = Calendar.getInstance();
+                                        int nowYear = nowTime.get(Calendar.YEAR);
+                                        int nowMonth = nowTime.get(Calendar.MONTH);
+                                        int nowDay = nowTime.get(Calendar.DAY_OF_MONTH);
+
+
+
+                                        bdDAteBicker.setVisibility(View.VISIBLE);
+                                        binding.pickerBackground.setVisibility(View.VISIBLE);
+                                        binding.pickerSaveButton.setVisibility(View.VISIBLE);
+                                        binding.saveButton.setEnabled(false);
+                                        pickerStatus = "Birthday";
+
+                                        bdDAteBicker.init(nowYear,nowMonth,nowDay,null);
+
+                                        bdDAteBicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+                                            @Override
+                                            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                                                StringBuilder birtdayString = new StringBuilder();
+
+                                                birtdayString.append(dayOfMonth).append(".").append(monthOfYear).append(".").append(year);
+
+                                                binding.birthdayTextView.setText(birtdayString);
+
+
+                                            }
+                                        });
+
+
+                                    }
+
+
+
+
 
                                 }
                             });

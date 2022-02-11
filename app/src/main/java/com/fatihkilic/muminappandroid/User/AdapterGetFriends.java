@@ -1,5 +1,7 @@
 package com.fatihkilic.muminappandroid.User;
 
+import static com.fatihkilic.muminappandroid.User.FriendsDetailActivity.toVc;
+
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +58,9 @@ public class  AdapterGetFriends extends RecyclerView.Adapter<AdapterGetFriends.M
             Picasso.get().load(modelGetFriendsArrayList.get(position).friendsImage).into(holder.getFriendsRecyclerRowBinding.ppImageView);
 
         }
+
+
+
 
 
 
