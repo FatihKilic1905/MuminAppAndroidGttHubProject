@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -106,6 +107,19 @@ public class ZikirAddActivity extends AppCompatActivity {
                 binding.numberPickerBackground.setVisibility(View.VISIBLE);
                 binding.numberPickerOkButton.setVisibility(View.VISIBLE);
                 binding.zikirNameEditText.setEnabled(false);
+
+            }
+        });
+
+
+
+        binding.KisiEkleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent kisiEkleIntent = new Intent(ZikirAddActivity.this, KisilerActivity.class);
+                startActivity(kisiEkleIntent);
 
             }
         });

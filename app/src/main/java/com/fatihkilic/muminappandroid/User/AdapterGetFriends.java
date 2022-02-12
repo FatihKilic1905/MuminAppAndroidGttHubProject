@@ -1,6 +1,6 @@
 package com.fatihkilic.muminappandroid.User;
 
-import static com.fatihkilic.muminappandroid.User.FriendsDetailActivity.toVc;
+
 
 import android.content.Intent;
 import android.view.LayoutInflater;

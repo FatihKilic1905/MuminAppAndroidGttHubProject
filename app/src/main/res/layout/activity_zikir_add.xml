@@ -73,6 +73,13 @@
             android:hint="Zikir Duası"></EditText>
 
 
+        <Button
+            android:id="@+id/KisiEkleButton"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Kişi Ekle" />
 
 
 
