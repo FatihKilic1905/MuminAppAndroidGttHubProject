@@ -16,7 +16,7 @@
         />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/secimiTamamlaButton"
         android:layout_width="263dp"
         android:layout_height="49dp"
         android:text="Seçimi Tamamla"
@@ -35,7 +35,7 @@
          />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/arkadasEkleButton"
         android:layout_width="199dp"
         android:layout_height="46dp"
         android:text="Arkadaş Ekle"

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.ClipData;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -84,6 +85,27 @@ public class KisilerActivity extends AppCompatActivity {
         binding.kisilerRecyclerview.setAdapter(adapterKisiler);
 
 
+        binding.secimiTamamlaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent secimiTamamlaIntent = new Intent(KisilerActivity.this, ZikirAddActivity.class);
+                startActivity(secimiTamamlaIntent);
+
+
+            }
+        });
+
+
+        binding.arkadasEkleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+
+            }
+        });
 
 
 

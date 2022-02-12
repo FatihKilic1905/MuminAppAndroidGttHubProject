@@ -74,7 +74,7 @@
 
 
         <Button
-            android:id="@+id/KisiEkleButton"
+            android:id="@+id/kisiEkleButton"
             android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -1,5 +1,7 @@
 package com.fatihkilic.muminappandroid.ZikirMatik;
 
+import static com.fatihkilic.muminappandroid.ZikirMatik.KisilerActivity.kisiEkleArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +35,7 @@ import com.google.firebase.storage.StorageReference;
 import com.onesignal.OneSignal;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.UUID;
@@ -52,9 +55,13 @@ public class ZikirAddActivity extends AppCompatActivity {
     String currentUser;
     String myUserName;
 
+    ArrayList<String> kisiekleArray;
+
 
 
     private static final String ONESIGNAL_APP_ID = "1966721c-a30c-4299-9d7a-38e084b98072";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +101,40 @@ public class ZikirAddActivity extends AppCompatActivity {
         endDatePicker = binding.endDateDatePicker;
         endDatePicker.setVisibility(View.INVISIBLE);
 
+
+        kisiekleArray = new ArrayList<>();
+        kisiekleArray = kisiEkleArrayList;
+        System.out.println(kisiEkleArrayList);
+
+      //  System.out.println("KisiEkle" + kisiekleArray.size());
+
+
+      /*  if (kisiekleArray.size() == 0) {
+
+            StringBuilder buttonName = new StringBuilder();
+            buttonName.append("Kişi Ekle ");
+            buttonName.append("(");
+            buttonName.append("0");
+            buttonName.append(")");
+            binding.kisiEkleButton.setText(buttonName.toString());
+
+
+
+        } else {
+
+            StringBuilder buttonName = new StringBuilder();
+            buttonName.append("Kişi Ekle ");
+            buttonName.append("(");
+            buttonName.append("0");
+            buttonName.append(")");
+            binding.kisiEkleButton.setText(buttonName.toString());
+
+        }
+
+
+            */
+
+
         currentUser = auth.getCurrentUser().getEmail();
         getProfile();
 
@@ -113,7 +154,7 @@ public class ZikirAddActivity extends AppCompatActivity {
 
 
 
-        binding.KisiEkleButton.setOnClickListener(new View.OnClickListener() {
+        binding.kisiEkleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
