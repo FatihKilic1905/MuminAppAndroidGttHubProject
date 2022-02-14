@@ -1,6 +1,9 @@
 package com.fatihkilic.muminappandroid.ZikirMatik;
 
-import static com.fatihkilic.muminappandroid.ZikirMatik.KisilerActivity.kisiEkleArrayList;
+
+import static com.fatihkilic.muminappandroid.ZikirMatik.ZikirAddActivity.kiekleEmailArrayList;
+import static com.fatihkilic.muminappandroid.ZikirMatik.ZikirAddActivity.kisiEkleArrayList;
+
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -42,11 +45,13 @@ public class AdapterKisiler extends RecyclerView.Adapter<AdapterKisiler.KisilerH
 
             holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(100,43,45));
 
+
         } else {
 
             holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(255,255,255));
 
         }
+
 
 
 
@@ -62,6 +67,7 @@ public class AdapterKisiler extends RecyclerView.Adapter<AdapterKisiler.KisilerH
                     holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(255,255,255));
 
                     kisiEkleArrayList.remove(modelKisilerArrayList.get(position).frienduserName);
+                    kiekleEmailArrayList.remove(modelKisilerArrayList.get(position).friendsEmail);
 
                     System.out.println(kisiEkleArrayList);
 
@@ -71,6 +77,7 @@ public class AdapterKisiler extends RecyclerView.Adapter<AdapterKisiler.KisilerH
                     holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(100,43,45));
 
                     kisiEkleArrayList.add(modelKisilerArrayList.get(position).frienduserName);
+                    kiekleEmailArrayList.add(modelKisilerArrayList.get(position).friendsEmail);
 
                     System.out.println(kisiEkleArrayList);
 

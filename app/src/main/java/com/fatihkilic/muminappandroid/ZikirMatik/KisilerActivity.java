@@ -1,5 +1,7 @@
 package com.fatihkilic.muminappandroid.ZikirMatik;
 
+import static com.fatihkilic.muminappandroid.ZikirMatik.ZikirAddActivity.kisiekleArray;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,7 +48,7 @@ public class KisilerActivity extends AppCompatActivity {
     ArrayList<ModelKisiler> modelKisilerArrayList;
     AdapterKisiler adapterKisiler;
 
-    static ArrayList<String> kisiEkleArrayList;
+
 
 
 
@@ -77,7 +79,9 @@ public class KisilerActivity extends AppCompatActivity {
         getFriends();
 
         modelKisilerArrayList = new ArrayList<>();
-        kisiEkleArrayList = new ArrayList<>();
+
+
+
 
 
         binding.kisilerRecyclerview.setLayoutManager(new LinearLayoutManager(this));
@@ -91,6 +95,7 @@ public class KisilerActivity extends AppCompatActivity {
 
                 Intent secimiTamamlaIntent = new Intent(KisilerActivity.this, ZikirAddActivity.class);
                 startActivity(secimiTamamlaIntent);
+                finish();
 
 
             }
@@ -144,9 +149,10 @@ public class KisilerActivity extends AppCompatActivity {
                         String friendsName = (String) data.get("name");
                         String friendsSurName = (String) data.get("surName");
                         String friendsImage = (String) data.get("image");
+                        String friendEmail = (String) data.get("email");
 
 
-                        ModelKisiler modelKisiler = new ModelKisiler(friendsUserName,friendsName,friendsSurName,friendsImage);
+                        ModelKisiler modelKisiler = new ModelKisiler(friendsUserName,friendsName,friendsSurName,friendsImage,friendEmail);
                         modelKisilerArrayList.add(modelKisiler);
 
 

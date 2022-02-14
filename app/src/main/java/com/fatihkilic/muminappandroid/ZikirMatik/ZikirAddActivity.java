@@ -1,8 +1,9 @@
 package com.fatihkilic.muminappandroid.ZikirMatik;
 
-import static com.fatihkilic.muminappandroid.ZikirMatik.KisilerActivity.kisiEkleArrayList;
+
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +17,7 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.fatihkilic.muminappandroid.R;
+import com.fatihkilic.muminappandroid.User.FriendsDetailActivity;
 import com.fatihkilic.muminappandroid.User.MyAccountEditActivity;
 import com.fatihkilic.muminappandroid.User.PickerListCountry;
 import com.fatihkilic.muminappandroid.User.PickerListGender;
@@ -28,16 +30,23 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.onesignal.OneSignal;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class ZikirAddActivity extends AppCompatActivity {
@@ -55,12 +64,18 @@ public class ZikirAddActivity extends AppCompatActivity {
     String currentUser;
     String myUserName;
 
-    ArrayList<String> kisiekleArray;
+    static ArrayList<String> kisiekleArray;
+    static ArrayList<String> kisiEkleArrayList;
+    static ArrayList<String> kiekleEmailArrayList;
 
+    static String reZikirName;
+    static String reZikirNiyeti;
+    static String reZikirSayısı;
+    static String reZikirBitisTarihi;
+    static String reZikirDuasi;
 
 
     private static final String ONESIGNAL_APP_ID = "1966721c-a30c-4299-9d7a-38e084b98072";
-
 
 
     @Override
@@ -102,26 +117,32 @@ public class ZikirAddActivity extends AppCompatActivity {
         endDatePicker.setVisibility(View.INVISIBLE);
 
 
-        kisiekleArray = new ArrayList<>();
-        kisiekleArray = kisiEkleArrayList;
-        System.out.println(kisiEkleArrayList);
+        if (reZikirName == null) {
 
-      //  System.out.println("KisiEkle" + kisiekleArray.size());
-
-
-      /*  if (kisiekleArray.size() == 0) {
-
-            StringBuilder buttonName = new StringBuilder();
-            buttonName.append("Kişi Ekle ");
-            buttonName.append("(");
-            buttonName.append("0");
-            buttonName.append(")");
-            binding.kisiEkleButton.setText(buttonName.toString());
-
+            binding.zikirNameEditText.setText("");
+            binding.zikirNiyetiEditText.setText("");
+            binding.zikirSayisiEditText.setText("");
+            binding.zikirBitisTarihiEditText.setText("");
+            binding.zikirDuasiEditText.setText("");
 
 
         } else {
 
+            binding.zikirNameEditText.setText(reZikirName);
+            binding.zikirNiyetiEditText.setText(reZikirNiyeti);
+            binding.zikirSayisiEditText.setText(reZikirSayısı);
+            binding.zikirBitisTarihiEditText.setText(reZikirBitisTarihi);
+            binding.zikirDuasiEditText.setText(reZikirDuasi);
+            binding.zikirDuasiEditText.setEnabled(false);
+
+        }
+
+
+        if (kisiEkleArrayList == null) {
+
+
+            kisiEkleArrayList = new ArrayList<>();
+            kiekleEmailArrayList = new ArrayList<>();
             StringBuilder buttonName = new StringBuilder();
             buttonName.append("Kişi Ekle ");
             buttonName.append("(");
@@ -129,10 +150,37 @@ public class ZikirAddActivity extends AppCompatActivity {
             buttonName.append(")");
             binding.kisiEkleButton.setText(buttonName.toString());
 
+        } else {
+
+            kisiekleArray = new ArrayList<>();
+            kisiekleArray = kisiEkleArrayList;
+            System.out.println("kisiekle " + kisiekleArray);
+            System.out.println("kisiekle " + kiekleEmailArrayList);
+
+
+            if (kisiekleArray == null) {
+
+                StringBuilder buttonName = new StringBuilder();
+                buttonName.append("Kişi Ekle ");
+                buttonName.append("(");
+                buttonName.append("0");
+                buttonName.append(")");
+                binding.kisiEkleButton.setText(buttonName.toString());
+
+
+            } else {
+
+                StringBuilder buttonName = new StringBuilder();
+                buttonName.append("Kişi Ekle ");
+                buttonName.append("(");
+                buttonName.append(kisiekleArray.size());
+                buttonName.append(")");
+                binding.kisiEkleButton.setText(buttonName.toString());
+
+            }
+
+
         }
-
-
-            */
 
 
         currentUser = auth.getCurrentUser().getEmail();
@@ -153,12 +201,16 @@ public class ZikirAddActivity extends AppCompatActivity {
         });
 
 
-
         binding.kisiEkleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
+                reZikirName = binding.zikirNameEditText.getText().toString();
+                reZikirNiyeti = binding.zikirNiyetiEditText.getText().toString();
+                reZikirSayısı = binding.zikirSayisiEditText.getText().toString();
+                reZikirBitisTarihi = binding.zikirBitisTarihiEditText.getText().toString();
+                reZikirDuasi = binding.zikirDuasiEditText.getText().toString();
                 Intent kisiEkleIntent = new Intent(ZikirAddActivity.this, KisilerActivity.class);
                 startActivity(kisiEkleIntent);
 
@@ -169,8 +221,6 @@ public class ZikirAddActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-
-
 
 
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
@@ -187,18 +237,14 @@ public class ZikirAddActivity extends AppCompatActivity {
                                 @Override
                                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
-                                    binding.zikirBitisTarihiEditText.setText(day + "." + month + "." + year) ;
+                                    binding.zikirBitisTarihiEditText.setText(day + "." + month + "." + year);
 
 
                                 }
-                            },  nowYear, nowMonth, nowDay);
-
-
-
+                            }, nowYear, nowMonth, nowDay);
 
 
                     datePickerDialog.show();
-
 
 
                 } else {
@@ -232,8 +278,6 @@ public class ZikirAddActivity extends AppCompatActivity {
                             binding.zikirBitisTarihiEditText.setText(birtdayString);
 
 
-
-
                         }
                     });
 
@@ -258,7 +302,6 @@ public class ZikirAddActivity extends AppCompatActivity {
 
             }
         });
-
 
 
         binding.numberPickerOkButton.setOnClickListener(new View.OnClickListener() {
@@ -350,11 +393,6 @@ public class ZikirAddActivity extends AppCompatActivity {
                 }
 
 
-
-
-
-
-
             }
         });
 
@@ -368,7 +406,7 @@ public class ZikirAddActivity extends AppCompatActivity {
 
                 if (zikirName.equals("")) {
 
-                    Toast.makeText(ZikirAddActivity.this, "Lütfen zikir adı giriniz.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(ZikirAddActivity.this, "Lütfen zikir adı giriniz.", Toast.LENGTH_LONG).show();
 
 
                 } else {
@@ -393,7 +431,7 @@ public class ZikirAddActivity extends AppCompatActivity {
 
         PickerListZikirler.initCountryList();
 
-        binding.zikirlerpickerList.setMaxValue(PickerListZikirler.getPickerListZikirlerArrayList().size()-1);
+        binding.zikirlerpickerList.setMaxValue(PickerListZikirler.getPickerListZikirlerArrayList().size() - 1);
         binding.zikirlerpickerList.setMinValue(0);
         binding.zikirlerpickerList.setDisplayedValues(PickerListZikirler.zikirNames());
 
@@ -404,12 +442,8 @@ public class ZikirAddActivity extends AppCompatActivity {
                 binding.zikirNameEditText.setText(PickerListZikirler.getPickerListZikirlerArrayList().get(newVal).getZikirler());
 
 
-
             }
         });
-
-
-
 
 
         binding.zikriBaslatButton.setOnClickListener(new View.OnClickListener() {
@@ -425,35 +459,42 @@ public class ZikirAddActivity extends AppCompatActivity {
                 String UID = UUID.randomUUID().toString();
 
 
-
                 if (zikirName.equals("") || zikirNiyeti.equals("") || zikirSayisi.equals("") || zikirBitisTarihi.equals("") || zikirDuasi.equals("")) {
 
-                    Toast.makeText(ZikirAddActivity.this, "Lütfen bütün alanları doldurunuz",Toast.LENGTH_LONG).show();
+                    Toast.makeText(ZikirAddActivity.this, "Lütfen bütün alanları doldurunuz", Toast.LENGTH_LONG).show();
 
 
+                } else if (kisiekleArray == null) {
+
+                    Toast.makeText(ZikirAddActivity.this, "En az 1 Kişi eklemelisiniz", Toast.LENGTH_LONG).show();
 
                 } else {
 
-                  HashMap<String, Object> newZikirData = new HashMap<>();
+                    HashMap<String, Object> newZikirData = new HashMap<>();
 
-                  newZikirData.put("beginDate", FieldValue.serverTimestamp());
+                    newZikirData.put("beginDate", FieldValue.serverTimestamp());
 
-                  newZikirData.put("endDate", zikirBitisTarihi);
-                  newZikirData.put("zikirDescription",zikirNiyeti);
-                  newZikirData.put("zikirCount", Integer.parseInt(zikirSayisi));
-                  newZikirData.put("zikirName", zikirName);
-                  newZikirData.put("ZikirCompleteCount", 0);
-                  newZikirData.put("zikirPray",zikirDuasi);
-                  newZikirData.put("nickname",myUserName);
-                  newZikirData.put("zikirStatus","1");
-
+                    newZikirData.put("endDate", zikirBitisTarihi);
+                    newZikirData.put("zikirDescription", zikirNiyeti);
+                    newZikirData.put("zikirCount", Integer.parseInt(zikirSayisi));
+                    newZikirData.put("zikirName", zikirName);
+                    newZikirData.put("ZikirCompleteCount", 0);
+                    newZikirData.put("zikirPray", zikirDuasi);
+                    newZikirData.put("nickname", myUserName);
+                    newZikirData.put("zikirStatus", "1");
 
 
                     firebaseFirestore.collection("ZikirMatik").document(currentUser).collection("myZikir").document(UID).set(newZikirData).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(@NonNull Void unused) {
 
-                            Toast.makeText(ZikirAddActivity.this, "Tebrikler. profiliniz güncellendi.", Toast.LENGTH_LONG).show();
+                            StringBuilder tebrikMesaji = new StringBuilder();
+                            tebrikMesaji.append("Tebrikler");
+                            tebrikMesaji.append(binding.zikirNameEditText.getText().toString());
+                            tebrikMesaji.append("zikriniz başlatıldı. Zikirlerim kısmından zikrinizi takip edebilirsiniz.");
+
+
+                            Toast.makeText(ZikirAddActivity.this, tebrikMesaji.toString(), Toast.LENGTH_LONG).show();
 
                         }
 
@@ -461,7 +502,7 @@ public class ZikirAddActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
 
-                            Toast.makeText(ZikirAddActivity.this, "Güncelleme başarısız! İnternet bağlantısında bir problem var.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ZikirAddActivity.this, "Zikir başlatılamadı!! Lütfen tekrar deneyin.", Toast.LENGTH_LONG).show();
 
                         }
 
@@ -473,11 +514,105 @@ public class ZikirAddActivity extends AppCompatActivity {
                 // Zikirdavetiye Katılımcılar
 
 
-                // Zikir kendi kullanıcı adını ekle
+                for (String usersUserName : kisiekleArray) {
+
+                    for (String usersEmail : kiekleEmailArrayList) {
 
 
+                        HashMap<String, Object> usersData = new HashMap<>();
+
+                        usersData.put("email", usersEmail);
+                        usersData.put("inviteAnsver", "0");
+                        usersData.put("zikirCompleteCount", 0);
+                        usersData.put("nickName", usersUserName);
+                        usersData.put("zikirCount", 0);
+                        usersData.put("zikirStatus", "1");
+
+                        firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("myZikir").document(UID).collection("Users").document(usersEmail).set(usersData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(@NonNull Void unused) {
 
 
+                                HashMap<String, Object> inviteData = new HashMap<>();
+
+                                inviteData.put("email", auth.getCurrentUser().getEmail());
+                                inviteData.put("zikirName", reZikirName);
+                                inviteData.put("zikirCount", reZikirSayısı);
+                                inviteData.put("endDate", reZikirBitisTarihi);
+                                inviteData.put("nickname", myUserName);
+                                inviteData.put("inviteStatus", "0");
+                                inviteData.put("zikirStatus", "1");
+                                inviteData.put("zikirDescription", reZikirNiyeti);
+                                inviteData.put("zikirCompleteCount", 0);
+                                inviteData.put("zikirMyCompleteCount", 0);
+                                inviteData.put("zikirMyCount", 0);
+
+                                firebaseFirestore.collection("ZikirMatik").document(usersEmail).collection("invitedZikir").document(UID).set(inviteData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(@NonNull Void unused) {
+
+                                        firebaseFirestore.collection("OneSignal").whereEqualTo("email", usersEmail).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                                                if (error != null) {
+
+                                                    Toast.makeText(ZikirAddActivity.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+
+                                                }
+
+                                                if (value != null) {
+
+                                                    for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+                                                        Map<String, Object> data = snapshot.getData();
+
+                                                        String playeridDocumentId = snapshot.getId();
+                                                        String PlayerIdFirebase = (String) data.get("player_id");
+
+                                                        StringBuilder mesaj = new StringBuilder();
+                                                        mesaj.append(myUserName);
+                                                        mesaj.append(" ");
+                                                        mesaj.append(reZikirName);
+                                                        mesaj.append(" ");
+                                                        mesaj.append("zikretmeye davet etti.");
+
+
+                                                        try {
+                                                            OneSignal.postNotification(new JSONObject("{'contents': {'en':'" + mesaj.toString() + "'}, 'include_player_ids': ['" + PlayerIdFirebase + "']}"), null);
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+
+                                                    }
+
+                                                }
+                                            }
+
+                                        });
+
+                                    }
+                                });
+
+
+                            }
+
+                        });
+
+                    }
+
+                }
+
+                HashMap<String, Object> usersData = new HashMap<>();
+
+                usersData.put("email", auth.getCurrentUser().getEmail());
+                usersData.put("inviteAnsver", "0");
+                usersData.put("zikirCompleteCount", 0);
+                usersData.put("nickName", myUserName);
+                usersData.put("zikirCount", 0);
+                usersData.put("zikirStatus", "1");
+
+                firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("myZikir").document(UID).collection("Users").document(auth.getCurrentUser().getEmail()).set(usersData);
 
             }
         });
@@ -485,6 +620,7 @@ public class ZikirAddActivity extends AppCompatActivity {
 
 
     }
+
 
 
     public void getProfile () {
@@ -501,7 +637,6 @@ public class ZikirAddActivity extends AppCompatActivity {
                     if (document.exists()) {
 
                         myUserName = (String) document.get("userName");
-
 
 
                     } else {

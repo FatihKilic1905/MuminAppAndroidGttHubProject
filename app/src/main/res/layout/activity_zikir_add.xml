@@ -232,6 +232,52 @@
 
 
 
+    <LinearLayout
+        android:id="@+id/myzikirCountbackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/corner_4_radius_white">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lütfen sizin çekeceğiniz zikir sayısını giriniz"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"></TextView>
+
+
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/layer_stroke_4_corner"></EditText>
+
+        <Button
+            android:id="@+id/myZikirCountButton"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:text="Tamam"
+            ></Button>
+
+
+
+
+
+    </LinearLayout>
+
+
+
 
 
 
