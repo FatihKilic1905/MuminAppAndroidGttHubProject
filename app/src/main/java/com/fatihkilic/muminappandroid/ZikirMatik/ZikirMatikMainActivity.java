@@ -110,6 +110,8 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
 
                         Map<String, Object> data = snapshot.getData();
 
+                        String zikirName = (String) data.get("zikirName");
+                        long zikirCompleteCount = (long) data.get("zikirCompleteCount");
 
 
 

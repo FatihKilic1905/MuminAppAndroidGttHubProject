@@ -112,6 +112,7 @@ public class ZikirAddActivity extends AppCompatActivity {
         binding.datePickerBackground.setVisibility(View.INVISIBLE);
         binding.datePickerHiddenButton.setVisibility(View.INVISIBLE);
 
+        binding.myzikirCountbackground.setVisibility(View.INVISIBLE);
 
         endDatePicker = binding.endDateDatePicker;
         endDatePicker.setVisibility(View.INVISIBLE);
@@ -450,13 +451,12 @@ public class ZikirAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                 String zikirName = binding.zikirNameEditText.getText().toString();
                 String zikirNiyeti = binding.zikirNiyetiEditText.getText().toString();
                 String zikirSayisi = binding.zikirSayisiEditText.getText().toString();
                 String zikirBitisTarihi = binding.zikirBitisTarihiEditText.getText().toString();
                 String zikirDuasi = binding.zikirDuasiEditText.getText().toString();
-
-                String UID = UUID.randomUUID().toString();
 
 
                 if (zikirName.equals("") || zikirNiyeti.equals("") || zikirSayisi.equals("") || zikirBitisTarihi.equals("") || zikirDuasi.equals("")) {
@@ -469,6 +469,39 @@ public class ZikirAddActivity extends AppCompatActivity {
                     Toast.makeText(ZikirAddActivity.this, "En az 1 Kişi eklemelisiniz", Toast.LENGTH_LONG).show();
 
                 } else {
+
+
+                    binding.myzikirCountbackground.setVisibility(View.VISIBLE);
+                    binding.emptyBackground.setVisibility(View.VISIBLE);
+
+
+                }
+
+            }
+        });
+
+
+        binding.myZikirCountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String myCount = binding.myZikirEditText.getText().toString();
+
+                if (myCount.equals("")) {
+
+                    Toast.makeText(ZikirAddActivity.this, "Lütfen Kendi çekeceğiniz zikir sayısını giriniz!", Toast.LENGTH_LONG).show();
+
+                } else {
+
+                    String zikirName = binding.zikirNameEditText.getText().toString();
+                    String zikirNiyeti = binding.zikirNiyetiEditText.getText().toString();
+                    String zikirSayisi = binding.zikirSayisiEditText.getText().toString();
+                    String zikirBitisTarihi = binding.zikirBitisTarihiEditText.getText().toString();
+                    String zikirDuasi = binding.zikirDuasiEditText.getText().toString();
+
+
+                    String UID = UUID.randomUUID().toString();
+
 
                     HashMap<String, Object> newZikirData = new HashMap<>();
 
@@ -508,113 +541,116 @@ public class ZikirAddActivity extends AppCompatActivity {
 
                     });
 
-                }
+
+                    // Zikirdavetiye Katılımcılar
 
 
-                // Zikirdavetiye Katılımcılar
+                    for (String usersUserName : kisiekleArray) {
+
+                        for (String usersEmail : kiekleEmailArrayList) {
 
 
-                for (String usersUserName : kisiekleArray) {
+                            HashMap<String, Object> usersData = new HashMap<>();
 
-                    for (String usersEmail : kiekleEmailArrayList) {
+                            usersData.put("email", usersEmail);
+                            usersData.put("inviteAnsver", "0");
+                            usersData.put("zikirCompleteCount", 0);
+                            usersData.put("nickName", usersUserName);
+                            usersData.put("zikirCount", 0);
+                            usersData.put("zikirStatus", "1");
 
-
-                        HashMap<String, Object> usersData = new HashMap<>();
-
-                        usersData.put("email", usersEmail);
-                        usersData.put("inviteAnsver", "0");
-                        usersData.put("zikirCompleteCount", 0);
-                        usersData.put("nickName", usersUserName);
-                        usersData.put("zikirCount", 0);
-                        usersData.put("zikirStatus", "1");
-
-                        firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("myZikir").document(UID).collection("Users").document(usersEmail).set(usersData).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(@NonNull Void unused) {
+                            firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("myZikir").document(UID).collection("Users").document(usersEmail).set(usersData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(@NonNull Void unused) {
 
 
-                                HashMap<String, Object> inviteData = new HashMap<>();
+                                    HashMap<String, Object> inviteData = new HashMap<>();
 
-                                inviteData.put("email", auth.getCurrentUser().getEmail());
-                                inviteData.put("zikirName", reZikirName);
-                                inviteData.put("zikirCount", reZikirSayısı);
-                                inviteData.put("endDate", reZikirBitisTarihi);
-                                inviteData.put("nickname", myUserName);
-                                inviteData.put("inviteStatus", "0");
-                                inviteData.put("zikirStatus", "1");
-                                inviteData.put("zikirDescription", reZikirNiyeti);
-                                inviteData.put("zikirCompleteCount", 0);
-                                inviteData.put("zikirMyCompleteCount", 0);
-                                inviteData.put("zikirMyCount", 0);
+                                    inviteData.put("email", auth.getCurrentUser().getEmail());
+                                    inviteData.put("zikirName", reZikirName);
+                                    inviteData.put("zikirCount", reZikirSayısı);
+                                    inviteData.put("endDate", reZikirBitisTarihi);
+                                    inviteData.put("nickname", myUserName);
+                                    inviteData.put("inviteStatus", "0");
+                                    inviteData.put("zikirStatus", "1");
+                                    inviteData.put("zikirDescription", reZikirNiyeti);
+                                    inviteData.put("zikirCompleteCount", 0);
+                                    inviteData.put("zikirMyCompleteCount", 0);
+                                    inviteData.put("zikirMyCount", 0);
 
-                                firebaseFirestore.collection("ZikirMatik").document(usersEmail).collection("invitedZikir").document(UID).set(inviteData).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(@NonNull Void unused) {
+                                    firebaseFirestore.collection("ZikirMatik").document(usersEmail).collection("invitedZikir").document(UID).set(inviteData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(@NonNull Void unused) {
 
-                                        firebaseFirestore.collection("OneSignal").whereEqualTo("email", usersEmail).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                                            firebaseFirestore.collection("OneSignal").whereEqualTo("email", usersEmail).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                                if (error != null) {
+                                                    if (error != null) {
 
-                                                    Toast.makeText(ZikirAddActivity.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-
-                                                }
-
-                                                if (value != null) {
-
-                                                    for (DocumentSnapshot snapshot : value.getDocuments()) {
-
-                                                        Map<String, Object> data = snapshot.getData();
-
-                                                        String playeridDocumentId = snapshot.getId();
-                                                        String PlayerIdFirebase = (String) data.get("player_id");
-
-                                                        StringBuilder mesaj = new StringBuilder();
-                                                        mesaj.append(myUserName);
-                                                        mesaj.append(" ");
-                                                        mesaj.append(reZikirName);
-                                                        mesaj.append(" ");
-                                                        mesaj.append("zikretmeye davet etti.");
-
-
-                                                        try {
-                                                            OneSignal.postNotification(new JSONObject("{'contents': {'en':'" + mesaj.toString() + "'}, 'include_player_ids': ['" + PlayerIdFirebase + "']}"), null);
-                                                        } catch (JSONException e) {
-                                                            e.printStackTrace();
-                                                        }
+                                                        Toast.makeText(ZikirAddActivity.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
                                                     }
 
+                                                    if (value != null) {
+
+                                                        for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+                                                            Map<String, Object> data = snapshot.getData();
+
+                                                            String playeridDocumentId = snapshot.getId();
+                                                            String PlayerIdFirebase = (String) data.get("player_id");
+
+                                                            StringBuilder mesaj = new StringBuilder();
+                                                            mesaj.append(myUserName);
+                                                            mesaj.append(" ");
+                                                            mesaj.append(reZikirName);
+                                                            mesaj.append(" ");
+                                                            mesaj.append("zikretmeye davet etti.");
+
+
+                                                            try {
+                                                                OneSignal.postNotification(new JSONObject("{'contents': {'en':'" + mesaj.toString() + "'}, 'include_player_ids': ['" + PlayerIdFirebase + "']}"), null);
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+
+                                                        }
+
+                                                    }
                                                 }
-                                            }
 
-                                        });
+                                            });
 
-                                    }
-                                });
+                                        }
+                                    });
 
+                                }
 
-                            }
+                            });
 
-                        });
+                        }
 
                     }
 
+
+                    HashMap<String, Object> usersData = new HashMap<>();
+
+                    usersData.put("email", auth.getCurrentUser().getEmail());
+                    usersData.put("inviteAnsver", "1");
+                    usersData.put("zikirCompleteCount", 0);
+                    usersData.put("nickName", myUserName);
+                    usersData.put("zikirCount", Integer.parseInt(binding.myZikirEditText.getText().toString()));
+                    usersData.put("zikirStatus", "1");
+                    usersData.put("zikirMyCount",0);
+
+                    firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("myZikir").document(UID).collection("Users").document(auth.getCurrentUser().getEmail()).set(usersData);
+
+
                 }
 
-                HashMap<String, Object> usersData = new HashMap<>();
-
-                usersData.put("email", auth.getCurrentUser().getEmail());
-                usersData.put("inviteAnsver", "0");
-                usersData.put("zikirCompleteCount", 0);
-                usersData.put("nickName", myUserName);
-                usersData.put("zikirCount", 0);
-                usersData.put("zikirStatus", "1");
-
-                firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("myZikir").document(UID).collection("Users").document(auth.getCurrentUser().getEmail()).set(usersData);
-
             }
+
         });
 
 

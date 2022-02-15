@@ -245,6 +245,7 @@
 
 
         <TextView
+            android:id="@+id/myzikirTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Lütfen sizin çekeceğiniz zikir sayısını giriniz"
@@ -254,6 +255,8 @@
 
 
         <EditText
+
+            android:id="@+id/myZikirEditText"
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
