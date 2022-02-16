@@ -2,6 +2,7 @@ package com.fatihkilic.muminappandroid.ZikirMatik;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.onesignal.OneSignal;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class ZikirMatikMainActivity extends AppCompatActivity {
@@ -34,6 +36,10 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
     private StorageReference storageReference;
 
     private static final String ONESIGNAL_APP_ID = "1966721c-a30c-4299-9d7a-38e084b98072";
+
+    ArrayList<ModelZikirlerim> modelZikirlerimArrayList;
+
+    AdapterZikirlerim adapterZikirlerim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,16 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
         // OneSignal Initialization
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
+
+
+        modelZikirlerimArrayList = new ArrayList<>();
+        getZikirlerim();
+        binding.myZikirRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapterZikirlerim = new AdapterZikirlerim(modelZikirlerimArrayList);
+        binding.myZikirRecyclerView.setAdapter(adapterZikirlerim);
+
+
+
 
 
 
@@ -91,8 +107,11 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
 
     private void getZikirlerim() {
 
-        DocumentReference zikirlerimDocument = firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail());
-        zikirlerimDocument.collection("myZikir").whereEqualTo("ZikirStatus", "1").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        String email = auth.getCurrentUser().getEmail();
+
+        System.out.println("nerede " + email);
+
+         firebaseFirestore.collection("ZikirMatik").document(email).collection("myZikir").whereEqualTo("zikirStatus", "1").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
@@ -111,12 +130,24 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
                         Map<String, Object> data = snapshot.getData();
 
                         String zikirName = (String) data.get("zikirName");
-                        long zikirCompleteCount = (long) data.get("zikirCompleteCount");
+                        Long zcc = (Long) data.get("ZikirCompleteCount");
+                        Long zc = (Long) data.get("zikirCount");
+                        String endDate = (String) data.get("endDate");
+
+                        Integer zikirCompleteCount = zcc.intValue();
+                        Integer zikirCount = zc.intValue();
 
 
+
+                        ModelZikirlerim modelZikirlerim = new ModelZikirlerim(zikirName,zikirCompleteCount,zikirCount,endDate);
+                        modelZikirlerimArrayList.add(modelZikirlerim);
+                        System.out.println("nerede " + modelZikirlerimArrayList);
 
 
                     }
+
+
+                    adapterZikirlerim.notifyDataSetChanged();
 
                 }
 

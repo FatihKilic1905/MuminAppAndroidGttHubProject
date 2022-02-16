@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    >
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@drawable/layer_stroke_4_corner"
+        android:layout_margin="10dp"
+        >
+
+
+      <LinearLayout
+          android:layout_width="300dp"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+
+          <TextView
+              android:id="@+id/myZikirZikirName"
+              android:layout_width="wrap_content"
+              android:layout_height="30dp"
+              android:layout_margin="3dp"></TextView>
+
+          <TextView
+              android:id="@+id/myZikirzikirCount"
+              android:layout_width="wrap_content"
+              android:layout_height="30dp"
+              android:layout_margin="3dp"></TextView>
+
+          <TextView
+              android:id="@+id/myZikirEndDate"
+              android:layout_width="wrap_content"
+              android:layout_height="30dp"
+              android:layout_margin="3dp">
+
+          </TextView>
+
+
+      </LinearLayout>
+
+
+
+
+    <ProgressBar
+        android:id="@+id/zikirlerimProgresBar"
+        style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon.CenterStacked"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="331dp"
+        android:layout_marginLeft="10dp"></ProgressBar>
+
+
+
+
+
+
+
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
