@@ -32,12 +32,14 @@ public class AdapterZikirlerim extends RecyclerView.Adapter<AdapterZikirlerim.Zi
     @Override
     public void onBindViewHolder(@NonNull ZikirlerimHolder holder, int position) {
 
-        String zikirCompCount = String.valueOf(modelZikirlerimArrayList.get(position).zikirCompleteCount);
+        String zikirCompCount = String.valueOf(modelZikirlerimArrayList.get(position).zikirCount);
 
         holder.zikirlerimRowBinding.myZikirZikirName.setText(modelZikirlerimArrayList.get(position).zikirName);
         holder.zikirlerimRowBinding.myZikirzikirCount.setText(zikirCompCount);
         holder.zikirlerimRowBinding.myZikirEndDate.setText(modelZikirlerimArrayList.get(position).endDateMyzikir);
         holder.zikirlerimRowBinding.zikirlerimProgresBar.setMax(modelZikirlerimArrayList.get(position).zikirCount);
+        holder.zikirlerimRowBinding.zikirlerimProgresBar.setProgress(modelZikirlerimArrayList.get(position).zikirCompleteCount);
+        holder.zikirlerimRowBinding.zikirlerimProgresBarText.setText(String.valueOf(modelZikirlerimArrayList.get(position).zikirCompleteCount));
 
     }
 
