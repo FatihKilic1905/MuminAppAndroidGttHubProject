@@ -38,8 +38,15 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
     private static final String ONESIGNAL_APP_ID = "1966721c-a30c-4299-9d7a-38e084b98072";
 
     ArrayList<ModelZikirlerim> modelZikirlerimArrayList;
-
     AdapterZikirlerim adapterZikirlerim;
+
+    ArrayList<ModelZikirIstirak> modelZikirIstirakArrayList;
+    AdapterIstirak adapterIstirak;
+
+    ArrayList<ModelZikirDAvet> modelZikirDAvetArrayList;
+    AdapterZikirDavet adapterZikirDavet;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +70,28 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
         OneSignal.setAppId(ONESIGNAL_APP_ID);
 
 
+        binding.myZikirRecyclerView.setVisibility(View.VISIBLE);
+        binding.istirakRecyclerView.setVisibility(View.INVISIBLE);
+        binding.davetRecyclerView.setVisibility(View.INVISIBLE);
+
         modelZikirlerimArrayList = new ArrayList<>();
         getZikirlerim();
         binding.myZikirRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapterZikirlerim = new AdapterZikirlerim(modelZikirlerimArrayList);
         binding.myZikirRecyclerView.setAdapter(adapterZikirlerim);
+
+        modelZikirIstirakArrayList = new ArrayList<>();
+        getIstirak();
+        binding.istirakRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapterIstirak = new AdapterIstirak(modelZikirIstirakArrayList);
+        binding.istirakRecyclerView.setAdapter(adapterIstirak);
+
+        modelZikirDAvetArrayList = new ArrayList<>();
+        getDavet();
+        binding.davetRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapterZikirDavet = new AdapterZikirDavet(modelZikirDAvetArrayList);
+        binding.davetRecyclerView.setAdapter(adapterZikirDavet);
+
 
 
 
@@ -90,6 +114,39 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
             }
         });
 
+        binding.zikirlerimButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                binding.myZikirRecyclerView.setVisibility(View.VISIBLE);
+                binding.istirakRecyclerView.setVisibility(View.INVISIBLE);
+                binding.davetRecyclerView.setVisibility(View.INVISIBLE);
+
+            }
+        });
+
+
+        binding.istirakButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                binding.myZikirRecyclerView.setVisibility(View.INVISIBLE);
+                binding.istirakRecyclerView.setVisibility(View.VISIBLE);
+                binding.davetRecyclerView.setVisibility(View.INVISIBLE);
+
+            }
+        });
+
+        binding.davetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                binding.myZikirRecyclerView.setVisibility(View.INVISIBLE);
+                binding.istirakRecyclerView.setVisibility(View.INVISIBLE);
+                binding.davetRecyclerView.setVisibility(View.VISIBLE);
+
+            }
+        });
 
 
 
@@ -133,13 +190,16 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
                         Long zcc = (Long) data.get("ZikirCompleteCount");
                         Long zc = (Long) data.get("zikirCount");
                         String endDate = (String) data.get("endDate");
+                        String documentId = snapshot.getId();
+
+                        System.out.println("documentId" + documentId);
 
                         Integer zikirCompleteCount = zcc.intValue();
                         Integer zikirCount = zc.intValue();
 
 
 
-                        ModelZikirlerim modelZikirlerim = new ModelZikirlerim(zikirName,zikirCompleteCount,zikirCount,endDate);
+                        ModelZikirlerim modelZikirlerim = new ModelZikirlerim(zikirName,zikirCompleteCount,zikirCount,endDate,documentId);
                         modelZikirlerimArrayList.add(modelZikirlerim);
                         System.out.println("nerede " + modelZikirlerimArrayList);
 
@@ -148,6 +208,127 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
 
 
                     adapterZikirlerim.notifyDataSetChanged();
+
+                }
+
+            }
+        });
+
+
+
+
+    }
+
+
+    private void getIstirak () {
+
+        String email = auth.getCurrentUser().getEmail();
+
+        System.out.println("nerede " + email);
+
+        firebaseFirestore.collection("ZikirMatik").document(email).collection("invitedZikir").whereEqualTo("inviteStatus", "1").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                if (error != null) {
+
+                    System.out.println("istirak cekilemedi");
+
+                }
+
+                if (value != null) {
+
+
+                    for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+
+                        Map<String, Object> data = snapshot.getData();
+
+                        String documentId = snapshot.getId();
+                        String nickName = (String) data.get("nickname");
+                        String zikirName = (String) data.get("zikirName");
+                        String zikirCount = (String) data.get("zikirCount");
+                        String endDate = (String) data.get("endDate");
+                        String email = (String) data.get("email");
+
+
+                        Long zcc = (Long) data.get("zikirCompleteCount");
+                        Long zmcc = (Long) data.get("zikirMyCompleteCount");
+                        Long zmc = (Long) data.get("zikirMyCount");
+
+
+                        System.out.println("documentId" + documentId);
+
+                        Integer zikirCompleteCount = zcc.intValue();
+                        Integer zikirMyCompleteCount = zmcc.intValue();
+                        Integer zikirMyCount = zmc.intValue();
+
+
+
+                        ModelZikirIstirak modelZikirIstirak = new ModelZikirIstirak(nickName,zikirName,zikirCount,endDate,email,documentId,zikirCompleteCount,zikirMyCompleteCount,zikirMyCount);
+                        modelZikirIstirakArrayList.add(modelZikirIstirak);
+
+
+
+                    }
+
+
+                    adapterIstirak.notifyDataSetChanged();
+
+                }
+
+            }
+        });
+
+
+
+
+    }
+
+
+    private void getDavet() {
+
+        String email = auth.getCurrentUser().getEmail();
+
+        System.out.println("nerede " + email);
+
+        firebaseFirestore.collection("ZikirMatik").document(email).collection("invitedZikir").whereEqualTo("inviteStatus", "0").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                if (error != null) {
+
+                    System.out.println("davet cekilemedi");
+
+                }
+
+                if (value != null) {
+
+
+                    for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+
+                        Map<String, Object> data = snapshot.getData();
+
+                        String documentId = snapshot.getId();
+                        String nickName = (String) data.get("nickname");
+                        String zikirName = (String) data.get("zikirName");
+
+
+
+
+
+
+
+                        ModelZikirDAvet modelZikirDAvet = new ModelZikirDAvet(nickName,zikirName,documentId);
+                        modelZikirDAvetArrayList.add(modelZikirDAvet);
+
+
+
+                    }
+
+
+                    adapterZikirDavet.notifyDataSetChanged();
 
                 }
 

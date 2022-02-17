@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    >
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@drawable/layer_stroke_4_corner"
+        android:layout_margin="10dp"
+        >
+
+
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:id="@+id/userZikirNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:text="Zikir Adı"
+                android:textColor="@color/muminAppGreen"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:gravity="center"></TextView>
+
+            <TextView
+                android:id="@+id/userZikirCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_margin="3dp"
+                android:text="Zikir Sayısı"
+                android:gravity="center" ></TextView>
+
+            <TextView
+                android:id="@+id/userZikirOwner"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_margin="3dp"
+                android:gravity="center"
+                android:text="Zikir Sahibi">
+
+            </TextView>
+
+
+            <TextView
+                android:id="@+id/userZikirEndDate"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_margin="3dp"
+                android:gravity="center"
+                android:text="Bitiş Tarihi
+">
+
+            </TextView>
+
+
+        </LinearLayout>
+
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="15dp">
+
+            <ProgressBar
+                android:id="@+id/istirakProgresBar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:indeterminateOnly="false"
+                android:progress="10"
+                android:progressDrawable="@drawable/circleprogresbar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></ProgressBar>
+
+
+            <TextView
+                android:id="@+id/istirakProgresBarText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500"
+                android:textColor="@color/muminAppGreen"
+                app:layout_constraintBottom_toBottomOf="@+id/istirakProgresBar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/istirakProgresBar"
+                app:layout_constraintTop_toTopOf="@+id/istirakProgresBar">
+
+            </TextView>
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
