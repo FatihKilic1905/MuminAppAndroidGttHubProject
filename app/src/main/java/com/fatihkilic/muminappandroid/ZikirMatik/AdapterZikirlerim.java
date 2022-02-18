@@ -1,5 +1,6 @@
 package com.fatihkilic.muminappandroid.ZikirMatik;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,21 @@ public class AdapterZikirlerim extends RecyclerView.Adapter<AdapterZikirlerim.Zi
         holder.zikirlerimRowBinding.zikirlerimProgresBar.setMax(modelZikirlerimArrayList.get(position).zikirCount);
         holder.zikirlerimRowBinding.zikirlerimProgresBar.setProgress(modelZikirlerimArrayList.get(position).zikirCompleteCount);
         holder.zikirlerimRowBinding.zikirlerimProgresBarText.setText(String.valueOf(modelZikirlerimArrayList.get(position).zikirCompleteCount));
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent myzikirInten = new Intent(holder.itemView.getContext(), MyZikirDetailActivity.class);
+                holder.itemView.getContext().startActivity(myzikirInten);
+
+
+
+            }
+        });
+
+
 
     }
 
