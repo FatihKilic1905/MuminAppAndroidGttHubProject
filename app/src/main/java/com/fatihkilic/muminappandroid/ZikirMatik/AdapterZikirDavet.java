@@ -1,5 +1,6 @@
 package com.fatihkilic.muminappandroid.ZikirMatik;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,17 @@ public class AdapterZikirDavet extends RecyclerView.Adapter<AdapterZikirDavet.Zi
         davet.append("zikretmeye davet ediyor");
 
         holder.zikirDavetRowBinding.davetTextView.setText(davet.toString());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent davetzikirInten = new Intent(holder.itemView.getContext(), ZikirDavetDetailActivity.class);
+                davetzikirInten.putExtra("ZikirDavetDocumentId", modelZikirDAvetArrayList.get(position).documentIdDavet);
+                holder.itemView.getContext().startActivity(davetzikirInten);
+
+            }
+        });
 
 
 

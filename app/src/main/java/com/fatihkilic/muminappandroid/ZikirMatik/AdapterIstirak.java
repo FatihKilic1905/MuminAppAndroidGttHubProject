@@ -1,5 +1,6 @@
 package com.fatihkilic.muminappandroid.ZikirMatik;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,23 @@ public class AdapterIstirak extends RecyclerView.Adapter<AdapterIstirak.IstirakH
         holder.istirakRowBinding.istirakProgresBar.setMax(modelZikirIstirakArrayList.get(position).zikirMyCount);
         holder.istirakRowBinding.istirakProgresBar.setProgress(modelZikirIstirakArrayList.get(position).zikirMyCompleteCount);
         holder.istirakRowBinding.istirakProgresBarText.setText(String.valueOf(modelZikirIstirakArrayList.get(position).zikirMyCompleteCount));
+
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent myzikirInten = new Intent(holder.itemView.getContext(), MyZikirDetailActivity.class);
+                myzikirInten.putExtra("istirakZikirDocumentId", modelZikirIstirakArrayList.get(position).documentIdIstirak);
+                myzikirInten.putExtra("zikirOwnerEmail", modelZikirIstirakArrayList.get(position).emailIstirak);
+                myzikirInten.putExtra("goVcZikir","IstirakZikir");
+                holder.itemView.getContext().startActivity(myzikirInten);
+
+
+
+            }
+        });
 
 
 

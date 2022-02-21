@@ -48,6 +48,8 @@ public class AdapterZikirlerim extends RecyclerView.Adapter<AdapterZikirlerim.Zi
             public void onClick(View view) {
 
                 Intent myzikirInten = new Intent(holder.itemView.getContext(), MyZikirDetailActivity.class);
+                myzikirInten.putExtra("myZikirDocumentId", modelZikirlerimArrayList.get(position).documentId);
+                myzikirInten.putExtra("goVcZikir","MyZikir");
                 holder.itemView.getContext().startActivity(myzikirInten);
 
 

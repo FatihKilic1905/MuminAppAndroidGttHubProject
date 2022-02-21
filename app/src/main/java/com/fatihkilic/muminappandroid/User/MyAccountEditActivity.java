@@ -549,11 +549,8 @@ public class MyAccountEditActivity extends AppCompatActivity {
 
                                     }
 
-
-
-
-
                                 }
+
                             });
 
 
