@@ -451,9 +451,24 @@ public class MyZikirDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                Intent usersIntent = new Intent(MyZikirDetailActivity.this, ZikirUsersActivity.class);
-                usersIntent.putExtra("myZikirDocumentId", myzikirDocumentId);
-                startActivity(usersIntent);
+                if (toVcZikir.equals("MyZikir")) {
+
+                    Intent usersIntent = new Intent(MyZikirDetailActivity.this, ZikirUsersActivity.class);
+                    usersIntent.putExtra("myZikirDocumentId", myzikirDocumentId);
+                    usersIntent.putExtra("goVcUsers","MyZikir");
+                    startActivity(usersIntent);
+
+                } else if (toVcZikir.equals("IstirakZikir")) {
+
+                    Intent usersIntent = new Intent(MyZikirDetailActivity.this, ZikirUsersActivity.class);
+                    usersIntent.putExtra("myZikirDocumentId", istirakZikirDocumentId);
+                    usersIntent.putExtra("zikirOwnerEmail",zikirOwnerEmail);
+                    usersIntent.putExtra("goVcUsers","IstirakZikir");
+                    startActivity(usersIntent);
+                }
+
+
+
 
 
             }

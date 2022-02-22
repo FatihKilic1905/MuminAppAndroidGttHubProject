@@ -43,6 +43,8 @@ public class AdapterZikirlerim extends RecyclerView.Adapter<AdapterZikirlerim.Zi
         holder.zikirlerimRowBinding.zikirlerimProgresBarText.setText(String.valueOf(modelZikirlerimArrayList.get(position).zikirCompleteCount));
 
 
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,6 +52,8 @@ public class AdapterZikirlerim extends RecyclerView.Adapter<AdapterZikirlerim.Zi
                 Intent myzikirInten = new Intent(holder.itemView.getContext(), MyZikirDetailActivity.class);
                 myzikirInten.putExtra("myZikirDocumentId", modelZikirlerimArrayList.get(position).documentId);
                 myzikirInten.putExtra("goVcZikir","MyZikir");
+
+
                 holder.itemView.getContext().startActivity(myzikirInten);
 
 

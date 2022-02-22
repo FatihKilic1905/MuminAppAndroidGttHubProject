@@ -1,5 +1,8 @@
 package com.fatihkilic.muminappandroid.ZikirMatik;
 
+import static com.fatihkilic.muminappandroid.ZikirMatik.ZikirUsersActivity.toVcUsersStatic;
+
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +38,39 @@ class AdapterZikirUsers extends RecyclerView.Adapter<AdapterZikirUsers.ZikirUser
         holder.zikirUsersRowBinding.usersCountProgresBar.setMax(modelZikirUsersArrayList.get(position).totalCount);
         holder.zikirUsersRowBinding.usersCountProgresBar.setProgress(modelZikirUsersArrayList.get(position).zikirCount);
         holder.zikirUsersRowBinding.zikirUserProgresBarText.setText(String.valueOf(modelZikirUsersArrayList.get(position).zikirCount));
+
+
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (toVcUsersStatic.equals("MyZikir")) {
+
+                    System.out.println("BurasıMyezikir");
+
+                    Intent usersdetailEdit = new Intent(holder.itemView.getContext(), ZikirUserDetailEditActivity.class );
+                    usersdetailEdit.putExtra("inviteAnsver", modelZikirUsersArrayList.get(position).inviteAnsver);
+                    usersdetailEdit.putExtra("inviteUserName",modelZikirUsersArrayList.get(position).userName);
+                    usersdetailEdit.putExtra("zikirCountIntent" , modelZikirUsersArrayList.get(position).zikirCount);
+                    usersdetailEdit.putExtra("zikirCompleteCountIntent" , modelZikirUsersArrayList.get(position).totalCount);
+                    holder.itemView.getContext().startActivity(usersdetailEdit);
+
+
+                } else if (toVcUsersStatic.equals("IstirakZikir")) {
+
+
+                    System.out.println("BurasıIstirkZikir");
+
+                }
+
+
+
+
+            }
+        });
 
 
 
