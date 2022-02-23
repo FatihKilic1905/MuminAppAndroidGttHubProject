@@ -53,6 +53,7 @@ public class ZikirDavetDetailActivity extends AppCompatActivity {
     String userName;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -361,7 +362,12 @@ public class ZikirDavetDetailActivity extends AppCompatActivity {
     }
 
 
-    public void getProfil() {
+
+
+
+
+
+        public void getProfil() {
 
         String email = auth.getCurrentUser().getEmail();
 

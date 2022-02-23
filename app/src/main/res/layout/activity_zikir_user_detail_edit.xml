@@ -28,6 +28,17 @@
 
 
     <Button
+        android:id="@+id/davetIptalButton"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="12dp"
+        android:text="Daveti İptal Et"
+        app:layout_constraintBottom_toTopOf="@+id/geriDonButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
         android:id="@+id/zikirdeCikarButton"
         android:layout_width="380dp"
         android:layout_height="50dp"
@@ -90,6 +101,125 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/emptyBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/muminAppGreen"
+        android:alpha="0.5"></androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/zikirSayisiBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/corner_4_radius_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="5dp">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:text="Lütfen zikir adedi giriniz."
+                android:layout_marginTop="10dp"
+                android:textSize="15dp"
+
+
+                ></TextView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/kucukTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:text="100"></TextView>
+
+                <ImageView
+                    android:layout_width="39dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_buyuk_foreground"
+
+                    android:tint="@color/muminAppGreen"></ImageView>
+
+
+                <EditText
+                    android:id="@+id/manuelzikirEditText"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:inputType="number"
+                    android:textAlignment="center"></EditText>
+
+                <ImageView
+                    android:layout_width="39dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_kucuk_foreground"
+                    android:tint="@color/muminAppGreen"></ImageView>
+
+                <TextView
+                    android:id="@+id/buyukTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:text="100"></TextView>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="320dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center">
+
+                <Button
+                    android:id="@+id/vazgecButton"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+
+
+                    android:text="Vazgeç" ></Button>
+
+                <Button
+                    android:id="@+id/KabulEtOnayButton"
+                    android:layout_margin="5dp"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Tamam" ></Button>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

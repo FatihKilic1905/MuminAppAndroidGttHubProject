@@ -49,13 +49,15 @@ class AdapterZikirUsers extends RecyclerView.Adapter<AdapterZikirUsers.ZikirUser
 
                 if (toVcUsersStatic.equals("MyZikir")) {
 
-                    System.out.println("BurasıMyezikir");
+
 
                     Intent usersdetailEdit = new Intent(holder.itemView.getContext(), ZikirUserDetailEditActivity.class );
                     usersdetailEdit.putExtra("inviteAnsver", modelZikirUsersArrayList.get(position).inviteAnsver);
                     usersdetailEdit.putExtra("inviteUserName",modelZikirUsersArrayList.get(position).userName);
                     usersdetailEdit.putExtra("zikirCountIntent" , modelZikirUsersArrayList.get(position).zikirCount);
                     usersdetailEdit.putExtra("zikirCompleteCountIntent" , modelZikirUsersArrayList.get(position).totalCount);
+                    usersdetailEdit.putExtra("usersEmail" , modelZikirUsersArrayList.get(position).emailUsers);
+
                     holder.itemView.getContext().startActivity(usersdetailEdit);
 
 

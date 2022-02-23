@@ -108,6 +108,29 @@ public class ZikirUsersActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (toVcUsersStatic.equals("MyZikir")) {
+
+            modelZikirUsersArrayList.clear();
+            getUsersMyzikir();
+
+        } else if (toVcUsersStatic.equals("IstirakZikir")) {
+
+            System.out.println("tovcstatic " + toVcUsersStatic);
+            modelZikirUsersArrayList.clear();
+            System.out.println("tovcstatic " + zikirOwnerEmailUsers);
+            getUsersIstirakZikir();
+            binding.KisiEklebutton.setVisibility(View.INVISIBLE);
+
+
+        }
+
+
+
+    }
 
     public void getUsersMyzikir () {
 
@@ -134,6 +157,7 @@ public class ZikirUsersActivity extends AppCompatActivity {
                         Long zcc = (Long) data.get("zikirCompleteCount");
                         Long zc = (Long) data.get("zikirCount");
                         String inviteAnsver = (String) data.get("inviteAnsver");
+                        String emailUsers = (String) data.get("email");
 
 
 
@@ -144,7 +168,7 @@ public class ZikirUsersActivity extends AppCompatActivity {
 
 
 
-                        ModelZikirUsers modelZikirUsers = new ModelZikirUsers(userName,zikirCompleteCount,zikirCount,inviteAnsver);
+                        ModelZikirUsers modelZikirUsers = new ModelZikirUsers(userName,zikirCompleteCount,zikirCount,inviteAnsver,emailUsers);
                         modelZikirUsersArrayList.add(modelZikirUsers);
 
 
@@ -193,6 +217,7 @@ public class ZikirUsersActivity extends AppCompatActivity {
                         Long zcc = (Long) data.get("zikirCompleteCount");
                         Long zc = (Long) data.get("zikirCount");
                         String inviteAnsver = (String) data.get("inviteAnsver");
+                        String emailUsers = (String) data.get("email");
 
 
                         Integer zikirCompleteCount = zcc.intValue();
@@ -200,7 +225,7 @@ public class ZikirUsersActivity extends AppCompatActivity {
 
 
 
-                        ModelZikirUsers modelZikirUsers = new ModelZikirUsers(userName,zikirCompleteCount,zikirCount,inviteAnsver);
+                        ModelZikirUsers modelZikirUsers = new ModelZikirUsers(userName,zikirCompleteCount,zikirCount,inviteAnsver,emailUsers);
                         modelZikirUsersArrayList.add(modelZikirUsers);
 
 

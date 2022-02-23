@@ -75,6 +75,7 @@
         <entry key="app/src/main/res/layout/activity_konum.xml" value="0.49773550724637683" />
         <entry key="app/src/main/res/layout/activity_live_tv.xml" value="0.32760416666666664" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_my_zikir.xml" value="0.5806159420289855" />
         <entry key="app/src/main/res/layout/activity_my_zikir_detail.xml" value="0.29846014492753625" />
         <entry key="app/src/main/res/layout/activity_namaz_duasi.xml" value="0.31567028985507245" />
         <entry key="app/src/main/res/layout/activity_namaz_hocasi.xml" value="0.31567028985507245" />
@@ -83,6 +84,7 @@
         <entry key="app/src/main/res/layout/activity_ses_settings.xml" value="0.34375" />
         <entry key="app/src/main/res/layout/activity_sound_settings_detail.xml" value="0.38179347826086957" />
         <entry key="app/src/main/res/layout/activity_tesbihat.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/activity_users.xml" value="0.5806159420289855" />
         <entry key="app/src/main/res/layout/activity_veda_hutbesi.xml" value="0.25407608695652173" />
         <entry key="app/src/main/res/layout/activity_zekat_matik.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/activity_zikir_add.xml" value="0.33" />
