@@ -123,6 +123,9 @@ public class ZikirUsersActivity extends AppCompatActivity {
 
                 Intent kisiEkleIntent = new Intent(ZikirUsersActivity.this, KisilerActivity.class);
                 kisiEkleIntent.putExtra("goVcKisiler","ZikirUsersPage");
+                kisiEkleIntent.putExtra("UsersUID",zikirDocumentIDUsers);
+
+
                 startActivity(kisiEkleIntent);
 
 
@@ -190,6 +193,7 @@ public class ZikirUsersActivity extends AppCompatActivity {
                         Long zc = (Long) data.get("zikirCount");
                         String inviteAnsver = (String) data.get("inviteAnsver");
                         String emailUsers = (String) data.get("email");
+
 
 
 

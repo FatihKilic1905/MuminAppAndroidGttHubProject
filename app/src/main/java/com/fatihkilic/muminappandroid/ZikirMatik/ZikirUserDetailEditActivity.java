@@ -268,7 +268,7 @@ public class ZikirUserDetailEditActivity extends AppCompatActivity {
                             zikirTotalCompleteCount = zikirTotalCountInteger;
 
 
-                            binding.kucukTextView.setText("0");
+                            binding.kucukTextView.setText(String.valueOf(zikirtotalCount));
                             binding.buyukTextView.setText(String.valueOf(zikirGenelCountInteger - zikirTotalcount + zikirCountInt ));
 
                             System.out.println("count " + zikirGenelCountInteger);

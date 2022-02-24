@@ -3,6 +3,7 @@ package com.fatihkilic.muminappandroid.ZikirMatik;
 
 
 import static com.fatihkilic.muminappandroid.ZikirMatik.KisilerActivity.toVcKisilerStaticNew;
+import static com.fatihkilic.muminappandroid.ZikirMatik.KisilerActivity.zikirNewEmailArrayList;
 import static com.fatihkilic.muminappandroid.ZikirMatik.KisilerActivity.zikirNewUserArraylist;
 import static com.fatihkilic.muminappandroid.ZikirMatik.ZikirAddActivity.kiekleEmailArrayList;
 import static com.fatihkilic.muminappandroid.ZikirMatik.ZikirAddActivity.kisiEkleArrayList;
@@ -112,6 +113,14 @@ public class AdapterKisiler extends RecyclerView.Adapter<AdapterKisiler.KisilerH
             }
 
 
+            if (kisiEkleUserArrayList.contains(modelKisilerArrayList.get(position).frienduserName)) {
+
+
+                holder.itemView.setEnabled(false);
+
+
+            }
+
 
 
 
@@ -121,25 +130,23 @@ public class AdapterKisiler extends RecyclerView.Adapter<AdapterKisiler.KisilerH
 
 
 
-                    if (kisiEkleUserArrayList.contains(modelKisilerArrayList.get(position).frienduserName)) {
 
 
-                        holder.itemView.setEnabled(false);
-
-
-                    }
 
 
                     if (zikirNewUserArraylist.contains(modelKisilerArrayList.get(position).frienduserName)) {
 
 
 
+
                         holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(255,255,255));
 
                         zikirNewUserArraylist.remove(modelKisilerArrayList.get(position).frienduserName);
+                        zikirNewEmailArrayList.remove(modelKisilerArrayList.get(position).friendsEmail);
 
 
-                        System.out.println(kisiEkleArrayList);
+                        System.out.println(zikirNewUserArraylist);
+                        System.out.println(zikirNewEmailArrayList);
 
 
 
@@ -147,11 +154,14 @@ public class AdapterKisiler extends RecyclerView.Adapter<AdapterKisiler.KisilerH
                     } else {
 
 
+
                         zikirNewUserArraylist.add(modelKisilerArrayList.get(position).frienduserName);
+                        zikirNewEmailArrayList.add(modelKisilerArrayList.get(position).friendsEmail);
                         holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(0,0,255));
 
 
-                        System.out.println(kisiEkleArrayList);
+                        System.out.println(zikirNewUserArraylist);
+                        System.out.println(zikirNewEmailArrayList);
 
 
 
