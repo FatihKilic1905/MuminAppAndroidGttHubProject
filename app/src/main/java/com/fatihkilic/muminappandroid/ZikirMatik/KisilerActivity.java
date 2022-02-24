@@ -32,6 +32,10 @@ import java.util.Map;
 public class KisilerActivity extends AppCompatActivity {
 
 
+    static String toVcKisilerStaticNew;
+    static ArrayList<String> zikirNewUserArraylist;
+
+
     private ActivityKisilerBinding binding;
 
     private FirebaseAuth auth;
@@ -61,6 +65,10 @@ public class KisilerActivity extends AppCompatActivity {
         binding = ActivityKisilerBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        Intent govcIntent = getIntent();
+        toVcKisilerStaticNew = govcIntent.getStringExtra("goVcKisiler");
+        zikirNewUserArraylist = new ArrayList<>();
 
 
         auth = FirebaseAuth.getInstance();
@@ -93,9 +101,24 @@ public class KisilerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent secimiTamamlaIntent = new Intent(KisilerActivity.this, ZikirAddActivity.class);
-                startActivity(secimiTamamlaIntent);
-                finish();
+
+                if (toVcKisilerStaticNew.equals("ZikirAddPage")) {
+
+                    Intent secimiTamamlaIntent = new Intent(KisilerActivity.this, ZikirAddActivity.class);
+                    startActivity(secimiTamamlaIntent);
+                    finish();
+
+
+                } else if (toVcKisilerStaticNew.equals("ZikirUsersPage")) {
+
+                    Intent secimiTamamlaIntent = new Intent(KisilerActivity.this, ZikirAddActivity.class);
+                    startActivity(secimiTamamlaIntent);
+                    finish();
+
+
+                }
+
+
 
 
             }
@@ -139,6 +162,7 @@ public class KisilerActivity extends AppCompatActivity {
                 if (value != null) {
 
 
+                    modelKisilerArrayList.removeAll(modelKisilerArrayList);
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 
 

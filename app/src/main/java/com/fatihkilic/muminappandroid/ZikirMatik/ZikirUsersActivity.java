@@ -1,5 +1,7 @@
 package com.fatihkilic.muminappandroid.ZikirMatik;
 
+
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,10 +24,13 @@ import com.google.firebase.storage.StorageReference;
 import com.onesignal.OneSignal;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 
 public class ZikirUsersActivity extends AppCompatActivity {
 
+
+    static String toVcKisilerStatic;
 
     private ActivityZikirUsersBinding binding;
 
@@ -44,6 +49,9 @@ public class ZikirUsersActivity extends AppCompatActivity {
 
     static String toVcUsersStatic;
 
+    static ArrayList<String> kisiekleUserArray;
+    static ArrayList<String> kisiEkleUserArrayList;
+    static ArrayList<String> kisiEkleEmailUserArrayList;
 
 
 
@@ -70,6 +78,11 @@ public class ZikirUsersActivity extends AppCompatActivity {
         // OneSignal Initialization
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
+
+        kisiEkleUserArrayList = new ArrayList<>();
+        kisiEkleEmailUserArrayList = new ArrayList<>();
+
+
 
 
         modelZikirUsersArrayList = new ArrayList<>();
@@ -103,6 +116,20 @@ public class ZikirUsersActivity extends AppCompatActivity {
         }
 
 
+        binding.KisiEklebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent kisiEkleIntent = new Intent(ZikirUsersActivity.this, KisilerActivity.class);
+                kisiEkleIntent.putExtra("goVcKisiler","ZikirUsersPage");
+                startActivity(kisiEkleIntent);
+
+
+            }
+        });
+
+
 
 
     }
@@ -130,10 +157,14 @@ public class ZikirUsersActivity extends AppCompatActivity {
 
 
 
+
+
     }
 
     public void getUsersMyzikir () {
 
+
+        modelZikirUsersArrayList.clear();
 
         firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("myZikir").document(zikirDocumentIDUsers).collection("Users").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -147,6 +178,7 @@ public class ZikirUsersActivity extends AppCompatActivity {
 
                 if (value != null) {
 
+                    modelZikirUsersArrayList.removeAll(modelZikirUsersArrayList);
 
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 
@@ -168,9 +200,13 @@ public class ZikirUsersActivity extends AppCompatActivity {
 
 
 
-                        ModelZikirUsers modelZikirUsers = new ModelZikirUsers(userName,zikirCompleteCount,zikirCount,inviteAnsver,emailUsers);
+                        ModelZikirUsers modelZikirUsers = new ModelZikirUsers(userName,zikirCount,zikirCompleteCount,inviteAnsver,emailUsers);
                         modelZikirUsersArrayList.add(modelZikirUsers);
 
+                        kisiEkleUserArrayList.add(userName);
+
+                        System.out.println("kisiler " + kisiEkleUserArrayList);
+                        kisiEkleEmailUserArrayList.add(emailUsers);
 
 
                     }
@@ -195,6 +231,7 @@ public class ZikirUsersActivity extends AppCompatActivity {
     public void getUsersIstirakZikir () {
 
 
+
         firebaseFirestore.collection("ZikirMatik").document(zikirOwnerEmailUsers).collection("myZikir").document(zikirDocumentIDUsers).collection("Users").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -208,6 +245,8 @@ public class ZikirUsersActivity extends AppCompatActivity {
                 if (value != null) {
 
 
+                    modelZikirUsersArrayList.removeAll(modelZikirUsersArrayList);
+
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 
 
@@ -220,6 +259,7 @@ public class ZikirUsersActivity extends AppCompatActivity {
                         String emailUsers = (String) data.get("email");
 
 
+
                         Integer zikirCompleteCount = zcc.intValue();
                         Integer zikirCount = zc.intValue();
 
@@ -227,6 +267,8 @@ public class ZikirUsersActivity extends AppCompatActivity {
 
                         ModelZikirUsers modelZikirUsers = new ModelZikirUsers(userName,zikirCompleteCount,zikirCount,inviteAnsver,emailUsers);
                         modelZikirUsersArrayList.add(modelZikirUsers);
+
+
 
 
 

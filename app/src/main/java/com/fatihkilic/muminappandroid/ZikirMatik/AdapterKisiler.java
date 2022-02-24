@@ -1,8 +1,14 @@
 package com.fatihkilic.muminappandroid.ZikirMatik;
 
 
+
+import static com.fatihkilic.muminappandroid.ZikirMatik.KisilerActivity.toVcKisilerStaticNew;
+import static com.fatihkilic.muminappandroid.ZikirMatik.KisilerActivity.zikirNewUserArraylist;
 import static com.fatihkilic.muminappandroid.ZikirMatik.ZikirAddActivity.kiekleEmailArrayList;
 import static com.fatihkilic.muminappandroid.ZikirMatik.ZikirAddActivity.kisiEkleArrayList;
+import static com.fatihkilic.muminappandroid.ZikirMatik.ZikirUsersActivity.kisiEkleEmailUserArrayList;
+import static com.fatihkilic.muminappandroid.ZikirMatik.ZikirUsersActivity.kisiEkleUserArrayList;
+import static com.fatihkilic.muminappandroid.ZikirMatik.ZikirUsersActivity.toVcKisilerStatic;
 
 
 import android.graphics.Color;
@@ -39,56 +45,128 @@ public class AdapterKisiler extends RecyclerView.Adapter<AdapterKisiler.KisilerH
     public void onBindViewHolder(@NonNull KisilerHolder holder, int position) {
 
 
-        holder.kisilerRowBinding.nameTextView.setText(modelKisilerArrayList.get(position).frienduserName);
+        if (toVcKisilerStaticNew.equals("ZikirAddPage")) {
 
-        if (kisiEkleArrayList.contains(modelKisilerArrayList.get(position).frienduserName)) {
+            holder.kisilerRowBinding.nameTextView.setText(modelKisilerArrayList.get(position).frienduserName);
 
-            holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(100,43,45));
+            if (kisiEkleArrayList.contains(modelKisilerArrayList.get(position).frienduserName)) {
+
+                holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(100, 43, 45));
 
 
-        } else {
+            } else  {
 
-            holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(255,255,255));
+                holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(255, 255, 255));
 
-        }
+            }
+
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    if (kisiEkleArrayList.contains(modelKisilerArrayList.get(position).frienduserName)) {
+
+
+                        holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(255, 255, 255));
+
+                        kisiEkleArrayList.remove(modelKisilerArrayList.get(position).frienduserName);
+                        kiekleEmailArrayList.remove(modelKisilerArrayList.get(position).friendsEmail);
+
+                        System.out.println(kisiEkleArrayList);
+
+
+                    } else {
+
+                        holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(100, 43, 45));
+
+                        kisiEkleArrayList.add(modelKisilerArrayList.get(position).frienduserName);
+                        kiekleEmailArrayList.add(modelKisilerArrayList.get(position).friendsEmail);
+
+                        System.out.println(kisiEkleArrayList);
+
+                    }
+
+
+                }
+            });
+
+
+        } else if (toVcKisilerStaticNew.equals("ZikirUsersPage")) {
+
+
+
+
+            holder.kisilerRowBinding.nameTextView.setText(modelKisilerArrayList.get(position).frienduserName);
+
+            if (kisiEkleUserArrayList.contains(modelKisilerArrayList.get(position).frienduserName)) {
+
+                holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(100,43,45));
+
+
+            } else {
+
+                holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(255,255,255));
+
+            }
 
 
 
 
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                @Override
+                public void onClick(View v) {
 
 
-                if (kisiEkleArrayList.contains(modelKisilerArrayList.get(position).frienduserName)) {
+
+                    if (kisiEkleUserArrayList.contains(modelKisilerArrayList.get(position).frienduserName)) {
 
 
-                    holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(255,255,255));
-
-                    kisiEkleArrayList.remove(modelKisilerArrayList.get(position).frienduserName);
-                    kiekleEmailArrayList.remove(modelKisilerArrayList.get(position).friendsEmail);
-
-                    System.out.println(kisiEkleArrayList);
+                        holder.itemView.setEnabled(false);
 
 
-                } else {
+                    }
 
-                    holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(100,43,45));
 
-                    kisiEkleArrayList.add(modelKisilerArrayList.get(position).frienduserName);
-                    kiekleEmailArrayList.add(modelKisilerArrayList.get(position).friendsEmail);
+                    if (zikirNewUserArraylist.contains(modelKisilerArrayList.get(position).frienduserName)) {
 
-                    System.out.println(kisiEkleArrayList);
+
+
+                        holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(255,255,255));
+
+                        zikirNewUserArraylist.remove(modelKisilerArrayList.get(position).frienduserName);
+
+
+                        System.out.println(kisiEkleArrayList);
+
+
+
+
+                    } else {
+
+
+                        zikirNewUserArraylist.add(modelKisilerArrayList.get(position).frienduserName);
+                        holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(0,0,255));
+
+
+                        System.out.println(kisiEkleArrayList);
+
+
+
+
+                    }
+
 
                 }
-
-
-            }
-        });
+            });
 
 
 
+
+
+        }
 
 
 

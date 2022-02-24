@@ -2,6 +2,8 @@ package com.fatihkilic.muminappandroid.ZikirMatik;
 
 
 
+
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -213,6 +215,7 @@ public class ZikirAddActivity extends AppCompatActivity {
                 reZikirBitisTarihi = binding.zikirBitisTarihiEditText.getText().toString();
                 reZikirDuasi = binding.zikirDuasiEditText.getText().toString();
                 Intent kisiEkleIntent = new Intent(ZikirAddActivity.this, KisilerActivity.class);
+                kisiEkleIntent.putExtra("goVcKisiler","ZikirAddPage");
                 startActivity(kisiEkleIntent);
 
             }

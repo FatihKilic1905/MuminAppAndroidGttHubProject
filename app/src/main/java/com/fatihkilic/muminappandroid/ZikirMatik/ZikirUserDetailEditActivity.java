@@ -55,9 +55,12 @@ public class ZikirUserDetailEditActivity extends AppCompatActivity {
     String userNameUser;
 
     ArrayList<Integer> zikirTotalCountArrayList;
+    ArrayList<Integer> zikirTotalCompleteCountArrayList;
     Integer zikirTotalcount;
+    Integer zikirTotalCompleteCount;
 
     Integer zikirGenelCountInteger;
+    Integer zikirGenelCompleteCountInteger;
 
 
     @Override
@@ -83,6 +86,7 @@ public class ZikirUserDetailEditActivity extends AppCompatActivity {
         OneSignal.setAppId(ONESIGNAL_APP_ID);
 
         zikirTotalCountArrayList = new ArrayList<>();
+        zikirTotalCompleteCountArrayList = new ArrayList<>();
         getzikirTotalcount();
 
 
@@ -93,6 +97,7 @@ public class ZikirUserDetailEditActivity extends AppCompatActivity {
         userNameUser = userEditIntent.getStringExtra("inviteUserName");
         zikirDocumentId = userEditIntent.getStringExtra("");
         zikirCountInt = userEditIntent.getIntExtra("zikirCountIntent",0);
+        zikirCompleteCount = userEditIntent.getIntExtra("zikirCompleteCountIntent",0);
 
         String zikrCount = String.valueOf(userEditIntent.getIntExtra("zikirCountIntent",0));
         String zikirtotalCount = String.valueOf(userEditIntent.getIntExtra("zikirCompleteCountIntent",0));
@@ -108,7 +113,7 @@ public class ZikirUserDetailEditActivity extends AppCompatActivity {
         if (inviteAnsver.equals("1")) {
 
             binding.userNameTextView.setText(userEditIntent.getStringExtra("inviteUserName"));
-            binding.countTextView.setText(zikrCount + " / " + zikirtotalCount);
+            binding.countTextView.setText(zikirtotalCount + " / " + zikrCount);
 
             binding.davetGonderbutton.setVisibility(View.INVISIBLE);
             binding.davetIptalButton.setVisibility(View.INVISIBLE);
@@ -117,7 +122,7 @@ public class ZikirUserDetailEditActivity extends AppCompatActivity {
         } else if (inviteAnsver.equals("2")) {
 
             binding.userNameTextView.setText(userEditIntent.getStringExtra("inviteUserName"));
-            binding.countTextView.setText("0" + " / " + "0");
+            binding.countTextView.setText("Katılmadı");
 
             binding.zikirdeCikarButton.setVisibility(View.INVISIBLE);
             binding.zikirCountEditButton.setVisibility(View.INVISIBLE);
@@ -205,18 +210,74 @@ public class ZikirUserDetailEditActivity extends AppCompatActivity {
 
                             zikirTotalcount = zikirTotalCountInteger;
 
-                            System.out.println("count " + zikirTotalCountInteger);
 
-                            System.out.println("count " + zikirTotalcount);
 
-                            System.out.println("count " + zikirTotalCountArrayList);
+
+
+
+
+                        }
+
+                    }
+                });
+
+
+                zikirTotalCompleteCountArrayList.clear();
+
+                firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("myZikir").document(zikirDocumentIDUsers).collection("Users").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                        if (error != null) {
+
+                            System.out.println("Zikirlerim cekilemedi");
+
+                        }
+
+                        if (value != null) {
+
+
+                            for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+
+                                Map<String, Object> data = snapshot.getData();
+
+
+                                Long zc = (Long) data.get("zikirCompleteCount");
+
+                                Integer zikirCount = zc.intValue();
+
+                                zikirTotalCompleteCountArrayList.add(zikirCount);
+
+                                System.out.println("count " + zikirTotalCompleteCountArrayList);
+
+
+                            }
+
+                            Integer zikirTotalCountInteger = 0;
+
+                            for (int TC : zikirTotalCompleteCountArrayList) {
+
+
+                                zikirTotalCountInteger = zikirTotalCountInteger + TC;
+
+
+                            }
+
+
+                            zikirTotalCompleteCount = zikirTotalCountInteger;
+
+
+                            binding.kucukTextView.setText("0");
+                            binding.buyukTextView.setText(String.valueOf(zikirGenelCountInteger - zikirTotalcount + zikirCountInt ));
 
                             System.out.println("count " + zikirGenelCountInteger);
 
+                            System.out.println("count " + zikirTotalcount);
+
                             System.out.println("count " + zikirCountInt);
 
-                            binding.kucukTextView.setText("0");
-                            binding.buyukTextView.setText(String.valueOf(zikirGenelCountInteger - zikirTotalcount + zikirCountInt));
+                            System.out.println("count " + zikirTotalCompleteCount);
 
 
 
@@ -509,34 +570,30 @@ public class ZikirUserDetailEditActivity extends AppCompatActivity {
                 } else {
 
 
-                    HashMap<String, Object> invitemydata = new HashMap<>();
-
-                    invitemydata.put("beginDate", FieldValue.serverTimestamp());
-
-                    invitemydata.put("inviteStatus", "1");
-                    invitemydata.put("zikirMyCount", editInteger);
+                    HashMap<String, Object> updateUserZikriCountData = new HashMap<>();
+                    updateUserZikriCountData.put("zikirCount", editInteger);
 
 
-                    firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("invitedZikir").document(zikirDavetDocumentID).update(invitemydata).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                    firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("myZikir").document(zikirDocumentIDUsers).collection("Users").document(usersEmail).update(updateUserZikriCountData).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(@NonNull Void unused) {
 
-                            HashMap<String, Object> inviteownerData = new HashMap<>();
 
-                            inviteownerData.put("zikirCompleteCount", 0);
-                            inviteownerData.put("inviteAnsver", "1");
-                            inviteownerData.put("nickName", userName);
-                            inviteownerData.put("zikirCount", editInteger);
+                            HashMap<String, Object> updateUserZikriCountData = new HashMap<>();
+                            updateUserZikriCountData.put("zikirCount", editInteger);
 
 
-                            firebaseFirestore.collection("ZikirMatik").document(davetEmeilString).collection("myZikir").document(zikirDavetDocumentID).collection("Users").document(auth.getCurrentUser().getEmail()).update(inviteownerData).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                            firebaseFirestore.collection("ZikirMatik").document(usersEmail).collection("invitedZikir").document(zikirDocumentIDUsers).update(updateUserZikriCountData).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(@NonNull Void unused) {
 
 
-                                    Toast.makeText(ZikirDavetDetailActivity.this, "Katılımızını için teşekkür ediyoruz. İştirak sayfasından zikriniz takipedebilirsiniz.", Toast.LENGTH_LONG).show();
-                                    Intent kabulIntent = new Intent(ZikirDavetDetailActivity.this, ZikirMatikMainActivity.class);
-                                    startActivity(kabulIntent);
+                                    Toast.makeText(ZikirUserDetailEditActivity.this, userNameUser + "adlı kullanıcının zikir sayısı güncellendi", Toast.LENGTH_LONG).show();
+                                    binding.buyukTextView.setText(String.valueOf(editInteger));
+                                    binding.zikirSayisiBackground.setVisibility(View.INVISIBLE);
+                                    binding.emptyBackground.setVisibility(View.INVISIBLE);
 
                                 }
 
@@ -544,7 +601,7 @@ public class ZikirUserDetailEditActivity extends AppCompatActivity {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
 
-                                    Toast.makeText(ZikirDavetDetailActivity.this, "Cevap verilemedi. Lütfen tekrar deneyin.", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(ZikirUserDetailEditActivity.this, "Zikir sayısı güncellenmedi. Lütfen tekrar deneyin.", Toast.LENGTH_LONG).show();
 
                                 }
 
@@ -557,7 +614,7 @@ public class ZikirUserDetailEditActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
 
-                            Toast.makeText(ZikirDavetDetailActivity.this, "Cevap verilemedi. Lütfen tekrar deneyin.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ZikirUserDetailEditActivity.this, "Zikir sayısı güncellenmedi. Lütfen tekrar deneyin.", Toast.LENGTH_LONG).show();
 
                         }
 
@@ -603,6 +660,44 @@ public class ZikirUserDetailEditActivity extends AppCompatActivity {
                         zikirGenelCountInteger = zgc.intValue();
 
                         System.out.println("count genel" + zikirGenelCountInteger);
+
+
+                    } else {
+                        System.out.println("Olumsuz");
+                    }
+
+                } else {
+
+                    System.out.println("cekme başarısız");
+                }
+
+            }
+
+
+        });
+
+
+    }
+
+    public void getzikirTotalCompletecount() {
+
+
+
+        DocumentReference usdRef = firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("myZikir").document(zikirDocumentIDUsers);
+        usdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                if (task.isSuccessful()) {
+
+                    DocumentSnapshot document = task.getResult();
+
+                    if (document.exists()) {
+
+                        Long zgc = (Long) document.get("zikirCompleteCount");
+
+                        zikirGenelCompleteCountInteger = zgc.intValue();
+
 
 
                     } else {
