@@ -84,7 +84,6 @@ public class EzanVaktiActivity extends AppCompatActivity {
 
 
 
-
         Button gecisyap = (Button) view.findViewById(R.id.konumOnaylaButton);
         gecisyap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,8 +137,6 @@ public class EzanVaktiActivity extends AppCompatActivity {
                 binding.konumTextView.setText(ilceNameGet);
 
                 sharedPreferences.edit().putString("storedKonum", ilceNameGet).apply();
-
-
 
                 System.out.println("cursor 2 " + cursor.getCount());
 

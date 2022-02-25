@@ -59,7 +59,7 @@ public class KisilerActivity extends AppCompatActivity {
     String myUserName;
 
     String zikirNameUsers;
-    String zikirSayisiUsers;
+    Integer zikirSayisiUsers;
     String zikirBitisTarihiUsers;
     String zikirNiyetiUsers;
 
@@ -369,10 +369,11 @@ public class KisilerActivity extends AppCompatActivity {
                     if (document.exists()) {
 
                         zikirNameUsers = (String) document.get("zikirName");
-                        zikirSayisiUsers = (String) document.get("zikirCount");
+                        Long ZSU = (Long) document.get("zikirCount");
                         zikirBitisTarihiUsers = (String) document.get("endDate");
                         zikirNiyetiUsers = (String) document.get("zikirDescription");
 
+                        zikirSayisiUsers = ZSU.intValue();
 
 
                     } else {
