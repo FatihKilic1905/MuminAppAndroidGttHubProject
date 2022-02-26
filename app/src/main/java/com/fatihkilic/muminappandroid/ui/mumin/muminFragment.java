@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
@@ -32,11 +33,15 @@ import com.fatihkilic.muminappandroid.Ayarlar.Receiver.EzanVaktiBildirimReceiver
 import com.fatihkilic.muminappandroid.Ayarlar.Receiver.ImsakOncesiBildirimReceiver;
 import com.fatihkilic.muminappandroid.Ayarlar.Receiver.ImsakVaktiBildirimReceiver;
 import com.fatihkilic.muminappandroid.DayInfo.DayInfoActivity;
+import com.fatihkilic.muminappandroid.EzanVaktiCoplete.EzanVakitleriModel;
+import com.fatihkilic.muminappandroid.EzanVaktiCoplete.EzanVaktiPost;
+import com.fatihkilic.muminappandroid.EzanVaktiService;
 import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.Ulkeler.KonumActivity;
 import com.fatihkilic.muminappandroid.User.SignInActivity;
 import com.fatihkilic.muminappandroid.ZikirMatik.ZikirMatikMainActivity;
+import com.fatihkilic.muminappandroid.databinding.ActivityEzanVaktiBinding;
 import com.fatihkilic.muminappandroid.databinding.FragmentMuminBinding;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -49,6 +54,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.onesignal.OneSignal;
 
 import java.sql.SQLOutput;
@@ -56,16 +63,31 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class muminFragment extends Fragment {
 
     private FragmentMuminBinding binding;
     SQLiteDatabase vakitDatabase;
+
+    ArrayList<EzanVakitleriModel> ezanVakitleriModels;
+    ArrayList<EzanVaktiPost> ezanVaktiPostArrayList;
+
+    private String BaseUrl = "https://ezanvakti.herokuapp.com/";
+
+    Retrofit retrofitIlce;
 
     String imsakVakti;
     String gunesVakti;
@@ -186,6 +208,10 @@ public class muminFragment extends Fragment {
         binding = FragmentMuminBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        Gson gsonIlce = new GsonBuilder().setLenient().create();
+
+        retrofitIlce = new Retrofit.Builder().baseUrl(BaseUrl).addConverterFactory(GsonConverterFactory.create(gsonIlce)).build();
+
         sharedPreferences = requireActivity().getSharedPreferences("com.fatihkilic.muminappandroid", Context.MODE_PRIVATE);
 
         notificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -200,6 +226,8 @@ public class muminFragment extends Fragment {
 
 
         binding.konumtitle.setText(sharedPreferences.getString("storedKonum","Konum"));
+
+        loadEzanVakti();
 
 
         try {
@@ -311,6 +339,91 @@ public class muminFragment extends Fragment {
 
         return root;
 
+
+    }
+
+    public void loadEzanVakti() {
+
+
+        vakitDatabase = getActivity().openOrCreateDatabase("EZANVAKITLERIDATA", Context.MODE_PRIVATE, null);
+        vakitDatabase.execSQL("CREATE TABLE IF NOT EXISTS ezanvakitleridatabase(id INTEGER PRIMARY KEY, imsakVakti VARCHAR, gunesVakti VARCHAR, ogleVakti VARCHAR, ikindiVakti VARCHAR, aksamVakti VARCHAR, yatsiVakti VARCHAR, miladiKisa VARCHAR, miladiUzun VARCHAR, hicriUzun VARCHAR)");
+
+
+
+
+
+        Cursor cursor =  vakitDatabase.rawQuery("SELECT * FROM ezanvakitleridatabase", null);
+        System.out.println("buyuk degil " + cursor.getColumnName(7).equals(sistemTarihiStr));
+
+        if (cursor.getColumnName(7).equals(sistemTarihiStr)) {
+
+            System.out.println("Buyuk degil");
+
+
+
+        } else {
+
+            System.out.println("Buyuk degil 222");
+
+            String ilceIDShare = sharedPreferences.getString("ilceID","9451");
+
+            System.out.println("Buyuk degil 111" + ilceIDShare);
+
+            EzanVaktiService ezanVaktiService = retrofitIlce.create(EzanVaktiService.class);
+            Call<List<EzanVakitleriModel>> call = ezanVaktiService.getEzanData(ilceIDShare);
+
+            call.enqueue(new Callback<List<EzanVakitleriModel>>() {
+                @Override
+                public void onResponse(Call<List<EzanVakitleriModel>> call, Response<List<EzanVakitleriModel>> response) {
+
+                    if (response.isSuccessful()) {
+
+                        List<EzanVakitleriModel> responseList = response.body();
+                        ezanVakitleriModels = new ArrayList<>(responseList);
+
+                        for (EzanVakitleriModel vakitleriModel : ezanVakitleriModels) {
+
+                            try {
+
+
+                                vakitDatabase.execSQL("CREATE TABLE IF NOT EXISTS ezanvakitleridatabase(id INTEGER PRIMARY KEY, imsakVakti VARCHAR, gunesVakti VARCHAR, ogleVakti VARCHAR, ikindiVakti VARCHAR, aksamVakti VARCHAR, yatsiVakti VARCHAR, miladiKisa VARCHAR, miladiUzun VARCHAR, hicriUzun VARCHAR)");
+                                String EzanVakitleriDatabaseString = "INSERT INTO ezanvakitleridatabase(imsakVakti, gunesVakti, ogleVakti, ikindiVakti, aksamVakti, yatsiVakti, miladiKisa, miladiUzun, hicriUzun) VALUES(?,?,?,?,?,?,?,?,?)";
+                                SQLiteStatement sqLiteStatementEzanVakti = vakitDatabase.compileStatement(EzanVakitleriDatabaseString);
+                                sqLiteStatementEzanVakti.bindString(1, vakitleriModel.Imsak);
+                                sqLiteStatementEzanVakti.bindString(2, vakitleriModel.Gunes);
+                                sqLiteStatementEzanVakti.bindString(3, vakitleriModel.Ogle);
+                                sqLiteStatementEzanVakti.bindString(4, vakitleriModel.Ikindi);
+                                sqLiteStatementEzanVakti.bindString(5, vakitleriModel.Aksam);
+                                sqLiteStatementEzanVakti.bindString(6, vakitleriModel.Yatsi);
+                                sqLiteStatementEzanVakti.bindString(7, vakitleriModel.MiladiTarihKisa);
+                                sqLiteStatementEzanVakti.bindString(8, vakitleriModel.MiladiTarihUzun);
+                                sqLiteStatementEzanVakti.bindString(9, vakitleriModel.HicriTarihUzun);
+                                sqLiteStatementEzanVakti.execute();
+
+                                System.out.println("vakitler" + vakitleriModel.Yatsi);
+
+
+
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<List<EzanVakitleriModel>> call, Throwable t) {
+
+                    t.printStackTrace();
+
+                }
+            });
+
+
+        }
 
     }
 

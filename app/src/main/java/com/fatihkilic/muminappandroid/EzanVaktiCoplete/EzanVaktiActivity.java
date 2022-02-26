@@ -137,6 +137,7 @@ public class EzanVaktiActivity extends AppCompatActivity {
                 binding.konumTextView.setText(ilceNameGet);
 
                 sharedPreferences.edit().putString("storedKonum", ilceNameGet).apply();
+                sharedPreferences.edit().putString("ilceID",ilceIDGet).apply();
 
                 System.out.println("cursor 2 " + cursor.getCount());
 
@@ -203,6 +204,7 @@ public class EzanVaktiActivity extends AppCompatActivity {
                 binding.konumTextView.setText(ilceNameGet);
 
                 sharedPreferences.edit().putString("storedKonum", ilceNameGet).apply();
+                sharedPreferences.edit().putString("ilceID",ilceIDGet).apply();
 
                 EzanVaktiService ezanVaktiService = retrofitIlce.create(EzanVaktiService.class);
                 Call<List<EzanVakitleriModel>> call = ezanVaktiService.getEzanData(ilceIDGet);
