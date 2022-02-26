@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
+import com.fatihkilic.muminappandroid.SifremiUnuttumActivity;
 import com.fatihkilic.muminappandroid.ZikirMatik.ZikirMatikMainActivity;
 import com.fatihkilic.muminappandroid.databinding.ActivitySignInBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivityZekatMatikBinding;
@@ -128,6 +130,7 @@ public class SignInActivity extends AppCompatActivity {
 
                                                    firebaseFirestore.collection("OneSignal").document(playeridDocumentId).update(OnesignalData);
 
+                                                   System.out.println("comepage" + comePage);
 
                                                    if (comePage.equals("MainPage")) {
 
@@ -135,9 +138,16 @@ public class SignInActivity extends AppCompatActivity {
                                                        finish();
                                                        startActivity(girisYapIntentMain);
 
-                                                   } else if (comePage.equals("UsersPage")) {
+                                                   } else if (comePage.equals("MenuPage")) {
 
-                                                       Intent girisYapIntent = new Intent(SignInActivity.this, MyAccountActivity.class);
+                                                       Intent girisYapIntent = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
+                                                       finish();
+                                                       startActivity(girisYapIntent);
+
+
+                                                   } else if (comePage.equals("MainPageUser")) {
+
+                                                       Intent girisYapIntent = new Intent(SignInActivity.this, MainActivity.class);
                                                        finish();
                                                        startActivity(girisYapIntent);
 
@@ -231,6 +241,17 @@ public class SignInActivity extends AppCompatActivity {
 
                 Intent kaydolButton = new Intent(SignInActivity.this, CreateUserActivity.class);
                 startActivity(kaydolButton);
+
+            }
+        });
+
+        binding.sifriemiUnuttumButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent foegotPassword = new Intent(SignInActivity.this, SifremiUnuttumActivity.class);
+                startActivity(foegotPassword);
+
 
             }
         });

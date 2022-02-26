@@ -71,6 +71,7 @@
             android:indeterminateOnly="false"
             android:progressDrawable="@drawable/circleprogresbar"
             android:progress="10"
+            android:padding="5dp"
             android:layout_marginTop="5dp"
 
 

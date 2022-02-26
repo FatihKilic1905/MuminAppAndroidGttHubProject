@@ -1,5 +1,7 @@
 package com.fatihkilic.muminappandroid.Ayarlar;
 
+import androidx.activity.OnBackPressedDispatcherOwner;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -90,6 +92,21 @@ public class SesSettingsActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+
+    }
+
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+        getBildirimSound();
 
     }
 
@@ -226,11 +243,15 @@ public class SesSettingsActivity extends AppCompatActivity {
         } else if (vOImsakSesStr.equals(notSesi55)) {
 
             binding.imsakVOSoundTitle.setText(notSesi5);
+
         } else if (vOImsakSesStr.equals("Kapalı")) {
 
             binding.imsakVOSoundTitle.setText("Kapalı");
+            binding.imsakVOLabel.setText("Vaktinden Önce");
 
         }
+
+
 
         if (vImsakSesStr.equals(notSesi11)) {
 
@@ -251,52 +272,18 @@ public class SesSettingsActivity extends AppCompatActivity {
         } else if (vImsakSesStr.equals(notSesi55)) {
 
             binding.imsakVSoundTitle.setText(notSesi5);
+
+        } else if (vImsakSesStr.equals("Kapalı")) {
+
+            binding.imsakVSoundTitle.setText("Kapalı");
+
+
         }
 
 
 
 
-        if (vOYatsiSesStr.equals(notSesi11)) {
 
-            binding.yatsiVOSoundTitle.setText(notSesi1);
-
-        } else if (vOYatsiSesStr.equals(notSesi22)) {
-
-            binding.yatsiVOSoundTitle.setText(notSesi2);
-
-        } else if (vOYatsiSesStr.equals(notSesi33)) {
-
-            binding.yatsiVOSoundTitle.setText(notSesi3);
-
-        } else if (vOYatsiSesStr.equals(notSesi44)) {
-
-            binding.yatsiVOSoundTitle.setText(notSesi4);
-
-        } else if (vOYatsiSesStr.equals(notSesi55)) {
-
-            binding.yatsiVOSoundTitle.setText(notSesi5);
-        }
-
-        if (vYatsiSesStr.equals(notSesi11)) {
-
-            binding.yatsiVSoundTitle.setText(notSesi1);
-
-        } else if (vImsakSesStr.equals(notSesi22)) {
-
-            binding.yatsiVSoundTitle.setText(notSesi2);
-
-        } else if (vImsakSesStr.equals(notSesi33)) {
-
-            binding.yatsiVSoundTitle.setText(notSesi3);
-
-        } else if (vImsakSesStr.equals(notSesi44)) {
-
-            binding.yatsiVSoundTitle.setText(notSesi4);
-
-        } else if (vImsakSesStr.equals(notSesi55)) {
-
-            binding.yatsiVSoundTitle.setText(notSesi5);
-        }
 
 
 
@@ -320,7 +307,16 @@ public class SesSettingsActivity extends AppCompatActivity {
         } else if (vOGunesSesStr.equals(notSesi55)) {
 
             binding.gunesVOSoundTitle.setText(notSesi5);
+
+        }  else if (vOGunesSesStr.equals("Kapalı")) {
+
+            binding.gunesVOSoundTitle.setText("Kapalı");
+            binding.gunesVOTitle.setText("Vaktinden Önce");
+
         }
+
+
+
 
         if (vGunesSesStr.equals(notSesi11)) {
 
@@ -341,7 +337,14 @@ public class SesSettingsActivity extends AppCompatActivity {
         } else if (vGunesSesStr.equals(notSesi55)) {
 
             binding.gunesVSoundTitle.setText(notSesi5);
+
+        } else if (vGunesSesStr.equals("Kapalı")) {
+
+            binding.gunesVSoundTitle.setText("Kapalı");
+
+
         }
+
 
 
 
@@ -365,7 +368,17 @@ public class SesSettingsActivity extends AppCompatActivity {
         } else if (vOOgleSesStr.equals(notSesi55)) {
 
             binding.ogleVOSoundTitle.setText(notSesi5);
+
+        }  else if (vOOgleSesStr.equals("Kapalı")) {
+
+            binding.ogleVOSoundTitle.setText("Kapalı");
+            binding.ogleVOtitle.setText("Vaktinden Önce");
+
         }
+
+
+
+
 
         if (vOgleSesStr.equals(notSesi11)) {
 
@@ -386,7 +399,14 @@ public class SesSettingsActivity extends AppCompatActivity {
         } else if (vOgleSesStr.equals(notSesi55)) {
 
             binding.ogleVSoundTitle.setText(notSesi5);
+
+        } else if (vOgleSesStr.equals("Kapalı")) {
+
+            binding.ogleVSoundTitle.setText("Kapalı");
+
+
         }
+
 
 
 
@@ -410,7 +430,16 @@ public class SesSettingsActivity extends AppCompatActivity {
         } else if (vOIkindiSesStr.equals(notSesi55)) {
 
             binding.ikindiVOSoundTitle.setText(notSesi5);
+
+        }  else if (vOIkindiSesStr.equals("Kapalı")) {
+
+            binding.ikindiVOSoundTitle.setText("Kapalı");
+            binding.ikindiVOTitle.setText("Vaktinden Önce");
+
         }
+
+
+
 
         if (vIkindiSesStr.equals(notSesi11)) {
 
@@ -431,6 +460,12 @@ public class SesSettingsActivity extends AppCompatActivity {
         } else if (vIkindiSesStr.equals(notSesi55)) {
 
             binding.ikindiVSoundTitle.setText(notSesi5);
+
+        } else if (vIkindiSesStr.equals("Kapalı")) {
+
+            binding.ikindiVSoundTitle.setText("Kapalı");
+
+
         }
 
 
@@ -455,7 +490,17 @@ public class SesSettingsActivity extends AppCompatActivity {
         } else if (vOAksamSesStr.equals(notSesi55)) {
 
             binding.aksamVOSoundTitle.setText(notSesi5);
+
+        }  else if (vOAksamSesStr.equals("Kapalı")) {
+
+            binding.aksamVOSoundTitle.setText("Kapalı");
+            binding.aksamVOTitle.setText("Vaktinden Önce");
+
         }
+
+
+
+
 
         if (vAksamSesStr.equals(notSesi11)) {
 
@@ -476,9 +521,71 @@ public class SesSettingsActivity extends AppCompatActivity {
         } else if (vAksamSesStr.equals(notSesi55)) {
 
             binding.aksamVSoundTitle.setText(notSesi5);
+
+        } else if (vAksamSesStr.equals("Kapalı")) {
+
+            binding.aksamVSoundTitle.setText("Kapalı");
+
+
         }
 
 
+        if (vOYatsiSesStr.equals(notSesi11)) {
+
+            binding.yatsiVOSoundTitle.setText(notSesi1);
+
+        } else if (vOYatsiSesStr.equals(notSesi22)) {
+
+            binding.yatsiVOSoundTitle.setText(notSesi2);
+
+        } else if (vOYatsiSesStr.equals(notSesi33)) {
+
+            binding.yatsiVOSoundTitle.setText(notSesi3);
+
+        } else if (vOYatsiSesStr.equals(notSesi44)) {
+
+            binding.yatsiVOSoundTitle.setText(notSesi4);
+
+        } else if (vOYatsiSesStr.equals(notSesi55)) {
+
+            binding.yatsiVOSoundTitle.setText(notSesi5);
+
+        }  else if (vOYatsiSesStr.equals("Kapalı")) {
+
+            binding.yatsiVOSoundTitle.setText("Kapalı");
+            binding.yatsiVOTitle.setText("Vaktinden Önce");
+
+        }
+
+
+
+
+        if (vYatsiSesStr.equals(notSesi11)) {
+
+            binding.yatsiVSoundTitle.setText(notSesi1);
+
+        } else if (vYatsiSesStr.equals(notSesi22)) {
+
+            binding.yatsiVSoundTitle.setText(notSesi2);
+
+        } else if (vYatsiSesStr.equals(notSesi33)) {
+
+            binding.yatsiVSoundTitle.setText(notSesi3);
+
+        } else if (vYatsiSesStr.equals(notSesi44)) {
+
+            binding.yatsiVSoundTitle.setText(notSesi4);
+
+        } else if (vYatsiSesStr.equals(notSesi55)) {
+
+            binding.yatsiVSoundTitle.setText(notSesi5);
+
+        } else if (vYatsiSesStr.equals("Kapalı")) {
+
+            binding.yatsiVSoundTitle.setText("Kapalı");
+
+
+        }
 
 
 

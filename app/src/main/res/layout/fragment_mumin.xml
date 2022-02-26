@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.mumin.muminFragment"
+
     >
 
     <ScrollView
@@ -28,6 +29,30 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
             </ScrollView>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/userNameBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/layer_stroke_4_corner">
+
+                <TextView
+                    android:id="@+id/userNameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Giriş Yap"
+                    android:padding="5dp"
+
+                    android:textColor="@color/muminAppGreen"
+                    android:textStyle="bold"></TextView>
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
@@ -173,10 +198,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:layout_marginEnd="25dp"
                     android:text="İkindi"
                     android:textColor="@color/muminAppGreen"
-                    app:layout_constraintEnd_toStartOf="@+id/aksamTitle"
+                    android:layout_marginStart="25dp"
+                    app:layout_constraintStart_toEndOf="@+id/ogleTitle"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -184,10 +209,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:layout_marginEnd="25dp"
+                    android:layout_marginStart="25dp"
                     android:text="Akşam"
                     android:textColor="@color/muminAppGreen"
-                    app:layout_constraintEnd_toStartOf="@+id/yatsiTitle"
+
+                    app:layout_constraintStart_toEndOf="@+id/aikindiTitle"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -195,10 +221,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:layout_marginEnd="20dp"
                     android:text="Yatsı"
                     android:textColor="@color/muminAppGreen"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="25dp"
+                    app:layout_constraintStart_toEndOf="@+id/aksamTitle"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView

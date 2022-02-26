@@ -7,49 +7,49 @@
     tools:context=".ui.home.HomeFragment">
 
 
-    <Button
+    <ImageButton
         android:id="@+id/hatimDuasiButton"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginStart="56dp"
+        android:background="@drawable/hatim_duasi_buttonxxxhdpi"
         android:text="hatim duası"
-        app:layout_constraintBottom_toTopOf="@+id/vedaHutbesiButton"
-        app:layout_constraintEnd_toStartOf="@+id/ezanDuasiButton"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/vedaHutbesiButton"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginBottom="252dp"
+        android:background="@drawable/veda_hutbesi_buttonxxxhdpi"
         android:text="veda hutbesi"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ezanDuasiButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hatimDuasiButton" />
 
-    <Button
+    <ImageButton
         android:id="@+id/tesbihatButton"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginEnd="60dp"
+        android:background="@drawable/tesbihat_buttonxxxhdpi"
         android:text="Tesbihat"
-        app:layout_constraintBottom_toTopOf="@+id/ezanDuasiButton"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/ezanDuasiButton"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="252dp"
+        android:background="@drawable/ezan_duasi_buttonxxxhdpi"
         android:text="Ezan Duası"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toBottomOf="@+id/tesbihatButton" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -59,11 +59,15 @@
         android:layout_centerHorizontal="true"
         app:adSize="BANNER"
         app:adUnitId="ca-app-pub-9766355257187956/5774943033"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.952"
-        tools:ignore="MissingConstraints"></com.google.android.gms.ads.AdView>
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="526dp"></com.google.android.gms.ads.AdView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="205dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

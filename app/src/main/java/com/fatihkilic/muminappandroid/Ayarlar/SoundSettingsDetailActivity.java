@@ -1,9 +1,11 @@
 package com.fatihkilic.muminappandroid.Ayarlar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -113,6 +115,8 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
                     binding.minuteSelectButton.setVisibility(View.VISIBLE);
                     binding.minuteTitle.setVisibility(View.VISIBLE);
                     binding.dakikaOnceTitle.setVisibility(View.VISIBLE);
+                    binding.vaktindenOnceSoundTitle.setText("Ahmad Al Nafees");
+                    VOSesString = "Ahmad Al Nafees";
 
                 } else {
 
@@ -129,6 +133,10 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+
         anahtarVaktinde.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -140,6 +148,8 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                     binding.vaktindeSoundTitle.setText(mainVtitle);
                     binding.vaktindeSoundSelectButton.setVisibility(View.VISIBLE);
+                    binding.vaktindeSoundTitle.setText("Ahmad Al Nafees");
+                    VaktindeSesString = "Ahmad Al Nafees";
 
 
                 } else {
@@ -827,6 +837,443 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed () {
+
+
+        AlertDialog.Builder backAlert = new AlertDialog.Builder(SoundSettingsDetailActivity.this);
+        backAlert.setTitle("Uyarı");
+        backAlert.setMessage("Yaptığınız değişiklikler kaydesilsin mi?");
+        backAlert.setPositiveButton("Evet", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Kapalı")) {
+
+                    sharedPreferences.edit().putString("vOImsakSesStr", "Kapalı").apply();
+
+                } else if (VakitInfo.equals("İmsak Vakti")) {
+
+
+                    if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Kuş Sesi")) {
+
+                        sharedPreferences.edit().putString("vOImsakSesStr", "kussesi1").apply();
+                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Kuş Sesi 2")) {
+
+                        sharedPreferences.edit().putString("vOImsakSesStr", "kussesi2").apply();
+                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Ahmad Al Nafees")) {
+
+                        sharedPreferences.edit().putString("vOImsakSesStr", "ahmadalnafes").apply();
+                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Masjid Al Haram")) {
+
+                        sharedPreferences.edit().putString("vOImsakSesStr", "masjidalharam").apply();
+                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("İmsak Vakti") && VOSesString.equals("Mishary Rashid Alafasy")) {
+
+                        sharedPreferences.edit().putString("vOImsakSesStr", "misharyrasidalafasy").apply();
+                        sharedPreferences.edit().putInt("vOImsakSureInt", VOsureInt).apply();
+
+                    }
+
+
+
+                }
+
+                if (VakitInfo.equals("İmsak Vakti") && VaktindeSesString.equals("Kapalı")) {
+
+                    sharedPreferences.edit().putString("vImsakSesStr", "Kapalı").apply();
+
+                } else if (VakitInfo.equals("İmsak Vakti")) {
+
+                    if (VakitInfo.equals("İmsak Vakti") && VaktindeSesString.equals("Kuş Sesi")) {
+
+                        sharedPreferences.edit().putString("vImsakSesStr", "kussesi1").apply();
+
+                    } else if (VakitInfo.equals("İmsak Vakti") && VaktindeSesString.equals("Kuş Sesi 2")) {
+
+                        sharedPreferences.edit().putString("vImsakSesStr", "kussesi2").apply();
+
+                    } else if (VakitInfo.equals("İmsak Vakti") && VaktindeSesString.equals("Ahmad Al Nafees")) {
+
+                        sharedPreferences.edit().putString("vImsakSesStr", "ahmadalnafes").apply();
+
+                    } else if (VakitInfo.equals("İmsak Vakti") && VaktindeSesString.equals("Masjid Al Haram")) {
+
+                        sharedPreferences.edit().putString("vImsakSesStr", "masjidalharam").apply();
+
+                    } else if (VakitInfo.equals("İmsak Vakti") && VaktindeSesString.equals("Mishary Rashid Alafasy")) {
+
+                        sharedPreferences.edit().putString("vImsakSesStr", "misharyrasidalafasy").apply();
+
+                    }
+
+                }
+
+                if (VakitInfo.equals("Güneş Vakti") && VOSesString.equals("Kapalı")) {
+
+                    sharedPreferences.edit().putString("vOGunesSesStr", "Kapalı").apply();
+
+                } else if (VakitInfo.equals("Güneş Vakti")) {
+
+                    if (VakitInfo.equals("Güneş Vakti") && VOSesString.equals("Kuş Sesi")) {
+
+                        sharedPreferences.edit().putString("vOGunesSesStr", "kussesi1").apply();
+                        sharedPreferences.edit().putInt("vOGunesSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("Güneş Vakti") && VOSesString.equals("Kuş Sesi 2")) {
+
+                        sharedPreferences.edit().putString("vOGunesSesStr", "kussesi2").apply();
+                        sharedPreferences.edit().putInt("vOGunesSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("Güneş Vakti") && VOSesString.equals("Ahmad Al Nafees")) {
+
+                        sharedPreferences.edit().putString("vOGunesSesStr", "ahmadalnafes").apply();
+                        sharedPreferences.edit().putInt("vOGunesSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("Güneş Vakti") && VOSesString.equals("Masjid Al Haram")) {
+
+                        sharedPreferences.edit().putString("vOGunesSesStr", "masjidalharam").apply();
+                        sharedPreferences.edit().putInt("vOGunesSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("Güneş Vakti") && VOSesString.equals("Mishary Rashid Alafasy")) {
+
+                        sharedPreferences.edit().putString("vOGunesSesStr", "misharyrasidalafasy").apply();
+                        sharedPreferences.edit().putInt("vOGunesSureInt", VOsureInt).apply();
+
+                    }
+
+                }
+
+                if (VakitInfo.equals("Güneş Vakti") && VaktindeSesString.equals("Kapalı")) {
+
+                    sharedPreferences.edit().putString("vGunesSesStr", "Kapalı").apply();
+
+                } else if (VakitInfo.equals("Güneş Vakti")) {
+
+                    if (VakitInfo.equals("Güneş Vakti") && VaktindeSesString.equals("Kuş Sesi")) {
+
+                        sharedPreferences.edit().putString("vGunesSesStr", "kussesi1").apply();
+
+                    } else if (VakitInfo.equals("Güneş Vakti") && VaktindeSesString.equals("Kuş Sesi 2")) {
+
+                        sharedPreferences.edit().putString("vGunesSesStr", "kussesi2").apply();
+
+                    } else if (VakitInfo.equals("Güneş Vakti") && VaktindeSesString.equals("Ahmad Al Nafees")) {
+
+                        sharedPreferences.edit().putString("vGunesSesStr", "ahmadalnafes").apply();
+
+                    } else if (VakitInfo.equals("Güneş Vakti") && VaktindeSesString.equals("Masjid Al Haram")) {
+
+                        sharedPreferences.edit().putString("vGunesSesStr", "masjidalharam").apply();
+
+                    } else if (VakitInfo.equals("Güneş Vakti") && VaktindeSesString.equals("Mishary Rashid Alafasy")) {
+
+                        sharedPreferences.edit().putString("vGunesSesStr", "misharyrasidalafasy").apply();
+
+                    }
+
+                }
+
+
+                if (VakitInfo.equals("Öğle Vakti") && VOSesString.equals("Kapalı")) {
+
+                    sharedPreferences.edit().putString("vOOgleSesStr", "Kapalı").apply();
+
+                } else if (VakitInfo.equals("Öğle Vakti")) {
+
+                    if (VakitInfo.equals("Öğle Vakti") && VOSesString.equals("Kuş Sesi")) {
+
+                        sharedPreferences.edit().putString("vOOgleSesStr", "kussesi1").apply();
+                        sharedPreferences.edit().putInt("vOOgleSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("Öğle Vakti") && VOSesString.equals("Kuş Sesi 2")) {
+
+                        sharedPreferences.edit().putString("vOOgleSesStr", "kussesi2").apply();
+                        sharedPreferences.edit().putInt("vOOgleSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("Öğle Vakti") && VOSesString.equals("Ahmad Al Nafees")) {
+
+                        sharedPreferences.edit().putString("vOOgleSesStr", "ahmadalnafes").apply();
+                        sharedPreferences.edit().putInt("vOOgleSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("Öğle Vakti") && VOSesString.equals("Masjid Al Haram")) {
+
+                        sharedPreferences.edit().putString("vOOgleSesStr", "masjidalharam").apply();
+                        sharedPreferences.edit().putInt("vOOgleSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("Öğle Vakti") && VOSesString.equals("Mishary Rashid Alafasy")) {
+
+                        sharedPreferences.edit().putString("vOOgleSesStr", "misharyrasidalafasy").apply();
+                        sharedPreferences.edit().putInt("vOOgleSureInt", VOsureInt).apply();
+
+                    }
+
+                }
+
+                if (VakitInfo.equals("Öğle Vakti") && VaktindeSesString.equals("Kapalı")) {
+
+                    sharedPreferences.edit().putString("vOgleSesStr", "Kapalı").apply();
+
+                } else if (VakitInfo.equals("Öğle Vakti")) {
+
+                    if (VakitInfo.equals("Öğle Vakti") && VaktindeSesString.equals("Kuş Sesi")) {
+
+                        sharedPreferences.edit().putString("vOgleSesStr", "kussesi1").apply();
+
+                    } else if (VakitInfo.equals("Öğle Vakti") && VaktindeSesString.equals("Kuş Sesi 2")) {
+
+                        sharedPreferences.edit().putString("vOgleSesStr", "kussesi2").apply();
+
+                    } else if (VakitInfo.equals("Öğle Vakti") && VaktindeSesString.equals("Ahmad Al Nafees")) {
+
+                        sharedPreferences.edit().putString("vOgleSesStr", "ahmadalnafes").apply();
+
+                    } else if (VakitInfo.equals("Öğle Vakti") && VaktindeSesString.equals("Masjid Al Haram")) {
+
+                        sharedPreferences.edit().putString("vOgleSesStr", "masjidalharam").apply();
+
+                    } else if (VakitInfo.equals("Öğle Vakti") && VaktindeSesString.equals("Mishary Rashid Alafasy")) {
+
+                        sharedPreferences.edit().putString("vOgleSesStr", "misharyrasidalafasy").apply();
+
+                    }
+
+                }
+
+
+                if (VakitInfo.equals("İkindi Vakti") && VOSesString.equals("Kapalı")) {
+
+                    sharedPreferences.edit().putString("vOIkindiSesStr", "Kapalı").apply();
+
+                } else if (VakitInfo.equals("İkindi Vakti")) {
+
+
+                    if (VakitInfo.equals("İkindi Vakti") && VOSesString.equals("Kuş Sesi")) {
+
+                        sharedPreferences.edit().putString("vOIkindiSesStr", "kussesi1").apply();
+                        sharedPreferences.edit().putInt("vOIkindiSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("İkindi Vakti") && VOSesString.equals("Kuş Sesi 2")) {
+
+                        sharedPreferences.edit().putString("vOIkindiSesStr", "kussesi2").apply();
+                        sharedPreferences.edit().putInt("vOIkindiSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("İkindi Vakti") && VOSesString.equals("Ahmad Al Nafees")) {
+
+                        sharedPreferences.edit().putString("vOIkindiSesStr", "ahmadalnafes").apply();
+                        sharedPreferences.edit().putInt("vOIkindiSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("İkindi Vakti") && VOSesString.equals("Masjid Al Haram")) {
+
+                        sharedPreferences.edit().putString("vOIkindiSesStr", "masjidalharam").apply();
+                        sharedPreferences.edit().putInt("vOIkindiSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("İkindi Vakti") && VOSesString.equals("Mishary Rashid Alafasy")) {
+
+                        sharedPreferences.edit().putString("vOIkindiSesStr", "misharyrasidalafasy").apply();
+                        sharedPreferences.edit().putInt("vOIkindiSureInt", VOsureInt).apply();
+
+                    }
+
+                }
+
+                if (VakitInfo.equals("İkindi Vakti") && VaktindeSesString.equals("Kapalı")) {
+
+                    sharedPreferences.edit().putString("vIkindiSesStr", "Kapalı").apply();
+
+                } else if (VakitInfo.equals("İkindi Vakti")) {
+
+
+                    if (VakitInfo.equals("İkindi Vakti") && VaktindeSesString.equals("Kuş Sesi")) {
+
+                        sharedPreferences.edit().putString("vIkindiSesStr", "kussesi1").apply();
+
+                    } else if (VakitInfo.equals("İkindi Vakti") && VaktindeSesString.equals("Kuş Sesi 2")) {
+
+                        sharedPreferences.edit().putString("vIkindiSesStr", "kussesi2").apply();
+
+                    } else if (VakitInfo.equals("İkindi Vakti") && VaktindeSesString.equals("Ahmad Al Nafees")) {
+
+                        sharedPreferences.edit().putString("vIkindiSesStr", "ahmadalnafes").apply();
+
+                    } else if (VakitInfo.equals("İkindi Vakti") && VaktindeSesString.equals("Masjid Al Haram")) {
+
+                        sharedPreferences.edit().putString("vIkindiSesStr", "masjidalharam").apply();
+
+                    } else if (VakitInfo.equals("İkindi Vakti") && VaktindeSesString.equals("Mishary Rashid Alafasy")) {
+
+                        sharedPreferences.edit().putString("vIkindiSesStr", "misharyrasidalafasy").apply();
+
+                    }
+
+                }
+
+
+                if (VakitInfo.equals("Akşam Vakti") && VOSesString.equals("Kapalı")) {
+
+                    sharedPreferences.edit().putString("vOAksamSesStr", "Kapalı").apply();
+
+                } else if (VakitInfo.equals("Akşam Vakti")) {
+
+
+                    if (VakitInfo.equals("Akşam Vakti") && VOSesString.equals("Kuş Sesi")) {
+
+                        sharedPreferences.edit().putString("vOAksamSesStr", "kussesi1").apply();
+                        sharedPreferences.edit().putInt("vOAksamSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("Akşam Vakti") && VOSesString.equals("Kuş Sesi 2")) {
+
+                        sharedPreferences.edit().putString("vOAksamSesStr", "kussesi2").apply();
+                        sharedPreferences.edit().putInt("vOAksamSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("Akşam Vakti") && VOSesString.equals("Ahmad Al Nafees")) {
+
+                        sharedPreferences.edit().putString("vOAksamSesStr", "ahmadalnafes").apply();
+                        sharedPreferences.edit().putInt("vOAksamSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("Akşam Vakti") && VOSesString.equals("Masjid Al Haram")) {
+
+                        sharedPreferences.edit().putString("vOAksamSesStr", "masjidalharam").apply();
+                        sharedPreferences.edit().putInt("vOAksamSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("Akşam Vakti") && VOSesString.equals("Mishary Rashid Alafasy")) {
+
+                        sharedPreferences.edit().putString("vOAksamSesStr", "misharyrasidalafasy").apply();
+                        sharedPreferences.edit().putInt("vOAksamSureInt", VOsureInt).apply();
+
+                    }
+
+                }
+
+                if (VakitInfo.equals("Akşam Vakti") && VaktindeSesString.equals("Kapalı")) {
+
+                    sharedPreferences.edit().putString("vAksamSesStr", "Kapalı").apply();
+
+                } else if (VakitInfo.equals("Akşam Vakti")) {
+
+                    if (VakitInfo.equals("Akşam Vakti") && VaktindeSesString.equals("Kuş Sesi")) {
+
+                        sharedPreferences.edit().putString("vAksamSesStr", "kussesi1").apply();
+
+                    } else if (VakitInfo.equals("Akşam Vakti") && VaktindeSesString.equals("Kuş Sesi 2")) {
+
+                        sharedPreferences.edit().putString("vAksamSesStr", "kussesi2").apply();
+
+                    } else if (VakitInfo.equals("Akşam Vakti") && VaktindeSesString.equals("Ahmad Al Nafees")) {
+
+                        sharedPreferences.edit().putString("vAksamSesStr", "ahmadalnafes").apply();
+
+                    } else if (VakitInfo.equals("Akşam Vakti") && VaktindeSesString.equals("Masjid Al Haram")) {
+
+                        sharedPreferences.edit().putString("vAksamSesStr", "masjidalharam").apply();
+
+                    } else if (VakitInfo.equals("Akşam Vakti") && VaktindeSesString.equals("Mishary Rashid Alafasy")) {
+
+                        sharedPreferences.edit().putString("vAksamSesStr", "misharyrasidalafasy").apply();
+
+                    }
+
+                }
+
+
+                if (VakitInfo.equals("Yatsı Vakti") && VOSesString.equals("Kapalı")) {
+
+                    sharedPreferences.edit().putString("vOYatsiSesStr", "Kapalı").apply();
+
+                } else  if (VakitInfo.equals("Yatsı Vakti")){
+
+                    if (VakitInfo.equals("Yatsı Vakti") && VOSesString.equals("Kuş Sesi")) {
+
+                        sharedPreferences.edit().putString("vOYatsiSesStr", "kussesi1").apply();
+                        sharedPreferences.edit().putInt("vOYatsiSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("Yatsı Vakti") && VOSesString.equals("Kuş Sesi 2")) {
+
+                        sharedPreferences.edit().putString("vOYatsiSesStr", "kussesi2").apply();
+                        sharedPreferences.edit().putInt("vOYatsiSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("Yatsı Vakti") && VOSesString.equals("Ahmad Al Nafees")) {
+
+                        sharedPreferences.edit().putString("vOYatsiSesStr", "ahmadalnafes").apply();
+                        sharedPreferences.edit().putInt("vOYatsiSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("Yatsı Vakti") && VOSesString.equals("Masjid Al Haram")) {
+
+                        sharedPreferences.edit().putString("vOYatsiSesStr", "masjidalharam").apply();
+                        sharedPreferences.edit().putInt("vOYatsiSureInt", VOsureInt).apply();
+
+                    } else if (VakitInfo.equals("Yatsı Vakti") && VOSesString.equals("Mishary Rashid Alafasy")) {
+
+                        sharedPreferences.edit().putString("vOYatsiSesStr", "misharyrasidalafasy").apply();
+                        sharedPreferences.edit().putInt("vOYatsiSureInt", VOsureInt).apply();
+
+                    }
+
+                }
+
+                if (VakitInfo.equals("Yatsı Vakti") && VaktindeSesString.equals("Kapalı")) {
+
+                    sharedPreferences.edit().putString("vYatsiSesStr", "Kapalı").apply();
+
+                } else if (VakitInfo.equals("Yatsı Vakti")) {
+
+                    if (VakitInfo.equals("Yatsı Vakti") && VaktindeSesString.equals("Kuş Sesi")) {
+
+                        sharedPreferences.edit().putString("vYatsiSesStr", "kussesi1").apply();
+
+                    } else if (VakitInfo.equals("Yatsı Vakti") && VaktindeSesString.equals("Kuş Sesi 2")) {
+
+                        sharedPreferences.edit().putString("vYatsiSesStr", "kussesi2").apply();
+
+                    } else if (VakitInfo.equals("Yatsı Vakti") && VaktindeSesString.equals("Ahmad Al Nafees")) {
+
+                        sharedPreferences.edit().putString("vYatsiSesStr", "ahmadalnafes").apply();
+
+                    } else if (VakitInfo.equals("Yatsı Vakti") && VaktindeSesString.equals("Masjid Al Haram")) {
+
+                        sharedPreferences.edit().putString("vYatsiSesStr", "masjidalharam").apply();
+
+                    } else if (VakitInfo.equals("Yatsı Vakti") && VaktindeSesString.equals("Mishary Rashid Alafasy")) {
+
+                        sharedPreferences.edit().putString("vYatsiSesStr", "misharyrasidalafasy").apply();
+
+                    }
+
+                }
+
+                finish();
+
+            }
+
+
+
+
+        });
+
+        backAlert.setNegativeButton("Hayır", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                finish();
+
+            }
+        });
+
+        backAlert.show();
+
+
+
+
+
+    }
+
     public void getBildirimSound() {
 
         vOImsakSureInt = sharedPreferences.getInt("vOImsakSureInt", 45);
@@ -907,6 +1354,15 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi5);
                 mainvOTitle = notSesi5;
+
+            } else if (voTitle.equals("Kapalı")) {
+
+                binding.vaktindenOnceSoundTitle.setText("Kapalı");
+                binding.vaktindenOnceSwitch.setChecked(false);
+
+
+
+
             }
 
 
@@ -934,7 +1390,15 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 binding.vaktindeSoundTitle.setText(notSesi5);
                 mainVtitle = notSesi5;
+
+            } else if (vtitle.equals("Kapalı")) {
+
+                binding.vaktindenOnceSoundTitle.setText("Kapalı");
+                binding.vaktindeSwitch.setChecked(false);
+
+
             }
+
 
 
         } else if (VakitInfo.equals("Güneş Vakti")) {
@@ -973,6 +1437,14 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi5);
                 mainvOTitle = notSesi5;
+
+            } else if (voTitle.equals("Kapalı")) {
+
+                binding.vaktindenOnceSoundTitle.setText("Kapalı");
+                binding.vaktindenOnceSwitch.setChecked(false);
+
+
+
             }
 
 
@@ -1000,6 +1472,12 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 binding.vaktindeSoundTitle.setText(notSesi5);
                 mainVtitle = notSesi5;
+            }  else if (vtitle.equals("Kapalı")) {
+
+                binding.vaktindenOnceSoundTitle.setText("Kapalı");
+                binding.vaktindeSwitch.setChecked(false);
+
+
             }
 
 
@@ -1039,6 +1517,14 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi5);
                 mainvOTitle = notSesi5;
+
+            } else if (voTitle.equals("Kapalı")) {
+
+                binding.vaktindenOnceSoundTitle.setText("Kapalı");
+                binding.vaktindenOnceSwitch.setChecked(false);
+
+
+
             }
 
 
@@ -1066,6 +1552,12 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 binding.vaktindeSoundTitle.setText(notSesi5);
                 mainVtitle = notSesi5;
+            }  else if (vtitle.equals("Kapalı")) {
+
+                binding.vaktindenOnceSoundTitle.setText("Kapalı");
+                binding.vaktindeSwitch.setChecked(false);
+
+
             }
 
 
@@ -1105,6 +1597,13 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi5);
                 mainvOTitle = notSesi5;
+            } else if (voTitle.equals("Kapalı")) {
+
+                binding.vaktindenOnceSoundTitle.setText("Kapalı");
+                binding.vaktindenOnceSwitch.setChecked(false);
+
+
+
             }
 
 
@@ -1132,6 +1631,12 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 binding.vaktindeSoundTitle.setText(notSesi5);
                 mainVtitle = notSesi5;
+            }  else if (vtitle.equals("Kapalı")) {
+
+                binding.vaktindenOnceSoundTitle.setText("Kapalı");
+                binding.vaktindeSwitch.setChecked(false);
+
+
             }
 
 
@@ -1171,6 +1676,13 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi5);
                 mainvOTitle = notSesi5;
+            } else if (voTitle.equals("Kapalı")) {
+
+                binding.vaktindenOnceSoundTitle.setText("Kapalı");
+                binding.vaktindenOnceSwitch.setChecked(false);
+
+
+
             }
 
 
@@ -1198,6 +1710,12 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 binding.vaktindeSoundTitle.setText(notSesi5);
                 mainVtitle = notSesi5;
+            }  else if (vtitle.equals("Kapalı")) {
+
+                binding.vaktindenOnceSoundTitle.setText("Kapalı");
+                binding.vaktindeSwitch.setChecked(false);
+
+
             }
 
 
@@ -1237,6 +1755,13 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 binding.vaktindenOnceSoundTitle.setText(notSesi5);
                 mainvOTitle = notSesi5;
+            } else if (voTitle.equals("Kapalı")) {
+
+                binding.vaktindenOnceSoundTitle.setText("Kapalı");
+                binding.vaktindenOnceSwitch.setChecked(false);
+
+
+
             }
 
 
@@ -1264,6 +1789,12 @@ public class SoundSettingsDetailActivity extends AppCompatActivity {
 
                 binding.vaktindeSoundTitle.setText(notSesi5);
                 mainVtitle = notSesi5;
+            }  else if (vtitle.equals("Kapalı")) {
+
+                binding.vaktindenOnceSoundTitle.setText("Kapalı");
+                binding.vaktindeSwitch.setChecked(false);
+
+
             }
 
         }

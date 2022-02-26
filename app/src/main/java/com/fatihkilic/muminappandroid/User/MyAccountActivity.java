@@ -1,12 +1,15 @@
 package com.fatihkilic.muminappandroid.User;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
@@ -76,10 +79,46 @@ public class MyAccountActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                auth.signOut();
-                Intent logoutIntent = new Intent(MyAccountActivity.this, MainActivity.class);
-                startActivity(logoutIntent);
-                finish();
+                AlertDialog.Builder logoutAlert = new AlertDialog.Builder(MyAccountActivity.this);
+
+                logoutAlert.setTitle("Uyarı");
+                logoutAlert.setMessage("Oturumunuz kapatılacak!");
+                logoutAlert.setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        try {
+
+                            auth.signOut();
+                            Intent logoutIntent = new Intent(MyAccountActivity.this, MainActivity.class);
+                            startActivity(logoutIntent);
+                            finish();
+
+
+                        } catch (Exception e) {
+
+
+                            Toast.makeText(MyAccountActivity.this, "Çıkış yapılamadı! Lütfen tekrar deneyin",Toast.LENGTH_LONG).show();
+
+
+                        }
+
+
+
+
+                    }
+                });
+
+                logoutAlert.setNegativeButton("Vazgeç", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+
+                logoutAlert.show();
+
 
 
             }

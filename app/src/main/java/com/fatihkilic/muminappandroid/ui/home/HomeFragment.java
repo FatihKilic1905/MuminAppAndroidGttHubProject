@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -52,7 +53,7 @@ public class HomeFragment extends Fragment {
 
 
 
-        Button tesbihatButton = binding.tesbihatButton;
+        ImageButton tesbihatButton = binding.tesbihatButton;
         tesbihatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +64,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        Button ezanDuasiButton = binding.ezanDuasiButton;
+        ImageButton ezanDuasiButton = binding.ezanDuasiButton;
         ezanDuasiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +76,7 @@ public class HomeFragment extends Fragment {
         });
 
 
-        Button hatimDuasiButton = binding.hatimDuasiButton;
+        ImageButton hatimDuasiButton = binding.hatimDuasiButton;
         hatimDuasiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +86,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        Button vedaHutbesiButton = binding.vedaHutbesiButton;
+        ImageButton vedaHutbesiButton = binding.vedaHutbesiButton;
         vedaHutbesiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

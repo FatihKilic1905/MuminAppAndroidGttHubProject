@@ -126,10 +126,13 @@
 
     <ImageButton
         android:id="@+id/usersButton"
-        android:layout_width="70dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/users_png"
+        android:backgroundTint="@color/muminAppGreen"
         app:layout_constraintEnd_toStartOf="@+id/ZikirButton"
+        app:layout_constraintHorizontal_bias="0.402"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/zikirDuasiTextview"></ImageButton>
 
@@ -142,17 +145,17 @@
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="28dp"
         app:adSize="BANNER"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="2dp"
         app:adUnitId="ca-app-pub-9766355257187956/5774943033"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
 
 
