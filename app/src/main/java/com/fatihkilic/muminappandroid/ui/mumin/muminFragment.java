@@ -231,6 +231,14 @@ public class muminFragment extends Fragment {
         binding.konumtitle.setText(sharedPreferences.getString("storedKonum","Konum"));
 
 
+        if (auth.getCurrentUser() != null) {
+
+            getProfil();
+
+
+        }
+
+
 
 
         try {
@@ -250,11 +258,6 @@ public class muminFragment extends Fragment {
 
 
 
-        if (auth.getCurrentUser() != null) {
-
-            getProfil();
-
-        }
 
         binding.userNameText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -263,23 +266,25 @@ public class muminFragment extends Fragment {
                 String userText = binding.userNameText.getText().toString();
 
 
-                if (userText.equals("Giriş Yap")) {
+                    if (auth.getCurrentUser() != null) {
 
-                    Intent zikirmatikIntent = new Intent(getActivity(), SignInActivity.class);
-                    zikirmatikIntent.putExtra("ComePage", "" +
-                             "");
-                    startActivity(zikirmatikIntent);
+                        getProfil();
 
+                        Intent zikirmatikIntent = new Intent(getActivity(), MyAccountActivity.class);
+                        startActivity(zikirmatikIntent);
 
-
-                } else {
+                    } else {
 
 
-                    Intent zikirmatikIntent = new Intent(getActivity(), MyAccountActivity.class);
-                    startActivity(zikirmatikIntent);
+                        Intent zikirmatikIntent = new Intent(getActivity(), SignInActivity.class);
+                        zikirmatikIntent.putExtra("ComePage", "MainPageUser");
+                        startActivity(zikirmatikIntent);
 
 
-                }
+                    }
+
+
+
 
 
 
@@ -372,7 +377,7 @@ public class muminFragment extends Fragment {
             } else {
 
                 Intent zikirmatikIntent = new Intent(getActivity(), SignInActivity.class);
-                zikirmatikIntent.putExtra("ComePage", "MainPage");
+                zikirmatikIntent.putExtra("ComePage", "MainPageZikir");
                 startActivity(zikirmatikIntent);
 
             }
@@ -565,6 +570,13 @@ public class muminFragment extends Fragment {
             getGunAsiriVakit();
 
         } catch (Exception e) {
+
+
+        }
+
+        if (auth.getCurrentUser() != null) {
+
+            getProfil();
 
 
         }

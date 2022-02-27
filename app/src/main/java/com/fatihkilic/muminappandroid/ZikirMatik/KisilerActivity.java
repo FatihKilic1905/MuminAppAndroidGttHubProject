@@ -106,7 +106,13 @@ public class KisilerActivity extends AppCompatActivity {
         OneSignal.setAppId(ONESIGNAL_APP_ID);
 
         getProfil();
-        getZikirInfo();
+
+        if (toVcKisilerStaticNew.equals("ZikirUsersPage")) {
+
+            getZikirInfo();
+        }
+
+
 
         currentUser = auth.getCurrentUser().getEmail();
 

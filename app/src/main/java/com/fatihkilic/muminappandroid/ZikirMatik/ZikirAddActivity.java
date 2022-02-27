@@ -120,6 +120,8 @@ public class ZikirAddActivity extends AppCompatActivity {
         endDatePicker.setVisibility(View.INVISIBLE);
 
 
+
+
         if (reZikirName == null) {
 
             binding.zikirNameEditText.setText("");
@@ -194,11 +196,13 @@ public class ZikirAddActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
+
+                binding.zikirNameEditText.setEnabled(false);
                 binding.emptyBackground.setVisibility(View.VISIBLE);
                 binding.zikirlerpickerList.setVisibility(View.VISIBLE);
                 binding.numberPickerBackground.setVisibility(View.VISIBLE);
                 binding.numberPickerOkButton.setVisibility(View.VISIBLE);
-                binding.zikirNameEditText.setEnabled(false);
+
 
             }
         });

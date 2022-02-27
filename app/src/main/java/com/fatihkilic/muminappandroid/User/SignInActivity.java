@@ -132,13 +132,14 @@ public class SignInActivity extends AppCompatActivity {
 
                                                    System.out.println("comepage" + comePage);
 
-                                                   if (comePage.equals("MainPage")) {
+
+                                                   if (comePage.equals("MainPageZikir")) {
 
                                                        Intent girisYapIntentMain = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
                                                        finish();
                                                        startActivity(girisYapIntentMain);
 
-                                                   } else if (comePage.equals("MenuPage")) {
+                                                   } else if (comePage.equals("MenuPageZikir")) {
 
                                                        Intent girisYapIntent = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
                                                        finish();
@@ -147,39 +148,10 @@ public class SignInActivity extends AppCompatActivity {
 
                                                    } else if (comePage.equals("MainPageUser")) {
 
-                                                       Intent girisYapIntent = new Intent(SignInActivity.this, MainActivity.class);
+                                                       Intent girisYapIntent = new Intent(SignInActivity.this, MyAccountActivity.class);
                                                        finish();
                                                        startActivity(girisYapIntent);
 
-
-                                                   }
-
-
-
-                                               } else {
-
-                                                   System.out.println("One signal id daha once kaydedilmiş");
-
-                                               }
-                                           }
-
-
-
-                                       } else {
-
-                                           HashMap<String, Object> OnesignalData = new HashMap<>();
-                                           OnesignalData.put("email", email);
-                                           OnesignalData.put("player_id", OsPlayerId);
-
-                                           firebaseFirestore.collection("OneSignal").add(OnesignalData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                               @Override
-                                               public void onSuccess(@NonNull DocumentReference documentReference) {
-
-                                                   if (comePage.equals("MainPage")) {
-
-                                                       Intent girisYapIntentMain = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
-                                                       finish();
-                                                       startActivity(girisYapIntentMain);
 
                                                    } else if (comePage.equals("UsersPage")) {
 
@@ -192,6 +164,60 @@ public class SignInActivity extends AppCompatActivity {
 
 
 
+
+
+                                               } else {
+
+                                                   System.out.println("One signal id daha once kaydedilmiş");
+
+                                               }
+                                           }
+
+                                       } else {
+
+                                           HashMap<String, Object> OnesignalData = new HashMap<>();
+                                           OnesignalData.put("email", email);
+                                           OnesignalData.put("player_id", OsPlayerId);
+
+                                           firebaseFirestore.collection("OneSignal").add(OnesignalData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                               @Override
+                                               public void onSuccess(@NonNull DocumentReference documentReference) {
+
+
+                                                   if (comePage.equals("MainPageZikir")) {
+
+                                                       Intent girisYapIntentMain = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
+                                                       finish();
+                                                       startActivity(girisYapIntentMain);
+
+                                                   } else if (comePage.equals("MenuPageZikir")) {
+
+                                                       Intent girisYapIntent = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
+                                                       finish();
+                                                       startActivity(girisYapIntent);
+
+
+                                                   } else if (comePage.equals("MainPageUser")) {
+
+                                                       Intent girisYapIntent = new Intent(SignInActivity.this, MyAccountActivity.class);
+                                                       finish();
+                                                       startActivity(girisYapIntent);
+
+
+                                                   } else if (comePage.equals("UsersPage")) {
+
+                                                       Intent girisYapIntent = new Intent(SignInActivity.this, MyAccountActivity.class);
+                                                       finish();
+                                                       startActivity(girisYapIntent);
+
+
+                                                   }
+
+
+
+
+
+
                                                }
                                            });
 
@@ -200,6 +226,39 @@ public class SignInActivity extends AppCompatActivity {
                                    }
 
                                });
+
+
+
+                               if (comePage.equals("MainPageZikir")) {
+
+                                   Intent girisYapIntentMain = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
+                                   finish();
+                                   startActivity(girisYapIntentMain);
+
+                               } else if (comePage.equals("MenuPageZikir")) {
+
+                                   Intent girisYapIntent = new Intent(SignInActivity.this, ZikirMatikMainActivity.class);
+                                   finish();
+                                   startActivity(girisYapIntent);
+
+
+                               } else if (comePage.equals("MainPageUser")) {
+
+                                   Intent girisYapIntent = new Intent(SignInActivity.this, MyAccountActivity.class);
+                                   finish();
+                                   startActivity(girisYapIntent);
+
+
+                               } else if (comePage.equals("UsersPage")) {
+
+                                   Intent girisYapIntent = new Intent(SignInActivity.this, MyAccountActivity.class);
+                                   finish();
+                                   startActivity(girisYapIntent);
+
+
+                               }
+
+
 
 
                            } else {

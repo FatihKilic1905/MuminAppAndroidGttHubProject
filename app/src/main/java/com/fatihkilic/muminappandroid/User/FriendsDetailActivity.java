@@ -231,7 +231,12 @@ public class FriendsDetailActivity extends AppCompatActivity {
                             firebaseFirestore.collection("User").document(currentEmail).collection("FriendsRequest").document(friendsRequestEmail).delete();
 
                         }
+
+
+
                     });
+
+                    friendsAlert.show();
 
 
 
@@ -257,7 +262,16 @@ public class FriendsDetailActivity extends AppCompatActivity {
 
 
 
+
+
+
                     } else if (buttonAddLabel.equals("İstek Gönder")) {
+
+
+                        friendsSearchName = name;
+                        friendsSearchSurname = surname;
+                        friendsSearchUserName = userName;
+                        friendsSearchImage = image;
 
 
                         HashMap<String, Object> searchData = new HashMap<>();
@@ -813,6 +827,7 @@ public class FriendsDetailActivity extends AppCompatActivity {
                                                                                         binding.usernameTexView.setText(friendsUserName);
                                                                                         friendsName = (String) document.get("name");
                                                                                         friendsSurname = (String) document.get("surName");
+                                                                                        String email = (String) document.get("email");
 
                                                                                         StringBuilder ns = new StringBuilder();
                                                                                         ns.append(friendsName);
@@ -832,6 +847,10 @@ public class FriendsDetailActivity extends AppCompatActivity {
                                                                                             Picasso.get().load(friendsSearchImage).into(binding.ppImageView);
 
                                                                                         }
+
+                                                                                        friendsSearchEmail = email;
+
+
 
                                                                                     } else {
                                                                                         System.out.println("Olumsuz");
@@ -873,6 +892,7 @@ public class FriendsDetailActivity extends AppCompatActivity {
                                                                                 binding.usernameTexView.setText(friendsUserName);
                                                                                 friendsName = (String) document.get("name");
                                                                                 friendsSurname = (String) document.get("surName");
+
 
                                                                                 StringBuilder ns = new StringBuilder();
                                                                                 ns.append(friendsName);
@@ -920,7 +940,7 @@ public class FriendsDetailActivity extends AppCompatActivity {
                                         }
 
 
-                                        if (value.isEmpty()) {
+                                       /* if (value.isEmpty()) {
 
 
                                             System.out.println("karşı tarafın istek listesi bos");
@@ -975,15 +995,13 @@ public class FriendsDetailActivity extends AppCompatActivity {
 
 
 
-                                        }
+                                        } */
 
                                     }
 
                                 });
 
                             }
-
-
                     }
                 }
             });
@@ -1013,6 +1031,7 @@ public class FriendsDetailActivity extends AppCompatActivity {
                         name = (String) document.get("name");
                         surname = (String) document.get("surName");
                         image = (String) document.get("image");
+
 
 
                     } else {

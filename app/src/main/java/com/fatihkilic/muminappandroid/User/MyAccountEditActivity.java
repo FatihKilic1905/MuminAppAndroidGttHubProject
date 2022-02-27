@@ -204,6 +204,44 @@ public class MyAccountEditActivity extends AppCompatActivity {
                         }
                     });
 
+                } else {
+
+
+
+
+                    HashMap<String, Object>profileEditData = new HashMap<>();
+                    profileEditData.put("image", "downloadPPImageData");
+                    profileEditData.put("userName", binding.usernameTextView.getText().toString());
+                    profileEditData.put("name",binding.NameTextView.getText().toString());
+                    profileEditData.put("surName",binding.surNameTextView.getText().toString());
+                    profileEditData.put("birthday",binding.birthdayTextView.getText().toString());
+                    profileEditData.put("gender",binding.genderTextView.getText().toString());
+                    profileEditData.put("description",binding.descriptionTextView.getText().toString());
+                    profileEditData.put("country",binding.countryTextView.getText().toString());
+                    profileEditData.put("state",binding.provinceTextView.getText().toString());
+                    profileEditData.put("userNameDate", FieldValue.serverTimestamp());
+
+                    firebaseFirestore.collection("User").document(currentEmail).set(profileEditData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(@NonNull Void unused) {
+
+                            Toast.makeText(MyAccountEditActivity.this, "Tebrikler. profiliniz güncellendi.", Toast.LENGTH_LONG).show();
+
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                            Toast.makeText(MyAccountEditActivity.this, "Güncelleme başarısız! İnternet bağlantısında bir problem var.", Toast.LENGTH_LONG).show();
+
+
+                        }
+                    });
+
+
+
+
                 }
 
             }
@@ -459,6 +497,8 @@ public class MyAccountEditActivity extends AppCompatActivity {
                         province = (String) document.get("state");
                         email = (String) document.get("email");
                         image = (String) document.get("image");
+
+
 
 
 

@@ -108,7 +108,7 @@ public class NotificationsFragment extends Fragment {
                 } else {
 
                     Intent zikirmatikIntent = new Intent(getActivity(), SignInActivity.class);
-                    zikirmatikIntent.putExtra("ComePage", "MenuPage");
+                    zikirmatikIntent.putExtra("ComePage", "MenuPageZikir");
                     startActivity(zikirmatikIntent);
 
                 }
