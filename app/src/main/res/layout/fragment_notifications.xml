@@ -10,44 +10,67 @@
 
     <ImageButton
         android:id="@+id/ayarlarButton"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:background="@drawable/ayarlar_buttonxxxhdpi"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/corner_4_radius"
         android:onClick="gecisyap"
-        android:text="Ayarlar"
+        android:src="@mipmap/ic_ayarlar_button"
         android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="parent" />
 
+
+
     <ImageButton
         android:id="@+id/usersButton"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:background="@drawable/kullanici_buttonxxxhdpi"
-        android:text="Kullanıcı"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/corner_4_radius"
+        android:src="@mipmap/ic_hesap_button"
         app:layout_constraintBottom_toTopOf="@+id/ayarlarButton"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/zikirMatikButton" />
 
+
+    <Button
+        android:id="@+id/usersNotButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/circle_red"
+        android:gravity="center"
+        android:text="5"
+        android:textColor="@color/white"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/usersButton"
+        app:layout_constraintEnd_toEndOf="@+id/usersButton"
+        app:layout_constraintHorizontal_bias="0.928"
+        app:layout_constraintStart_toStartOf="@+id/usersButton"
+        app:layout_constraintTop_toTopOf="@+id/usersButton"
+        app:layout_constraintVertical_bias="0.0"></Button>
+
     <ImageButton
         android:id="@+id/ZekatmatikButton"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:background="@drawable/zekatmatik_androidxxxhdpi"
-        android:text="Zekatmatik"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/corner_4_radius"
+        android:src="@mipmap/ic_zekatmatik_button"
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
 
     <ImageButton
         android:id="@+id/canliButton"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:background="@drawable/kabe_canli_buttonxxxhdpi"
-        android:text="Kabe Canlı"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/corner_4_radius"
+        android:src="@mipmap/ic_live_button"
         app:layout_constraintBottom_toTopOf="@+id/ayarlarButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -55,14 +78,32 @@
 
     <ImageButton
         android:id="@+id/zikirMatikButton"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:background="@drawable/zikirmatik_xxxhdpi"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/corner_4_radius"
+        android:src="@mipmap/ic_zikirmatik_button"
         android:layout_marginTop="40dp"
         android:text="Online Zikirmatik"
+
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/zikrmatikNotButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/circle_red"
+        android:gravity="center"
+        android:text="5"
+        android:textColor="@color/white"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/zikirMatikButton"
+        app:layout_constraintEnd_toEndOf="@+id/zikirMatikButton"
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintStart_toStartOf="@+id/zikirMatikButton"
+        app:layout_constraintTop_toTopOf="@+id/zikirMatikButton"
+        app:layout_constraintVertical_bias="0.177"></Button>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"

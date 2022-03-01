@@ -710,7 +710,7 @@ public class FriendsDetailActivity extends AppCompatActivity {
 
                                                         System.out.println("email friends" + oldFriendsRequestListArray);
 
-                                                        if (oldFriendsRequestListArray.contains(friendsemailIntent)) {
+                                                        if (oldFriendsRequestListArray.contains(myCurrentEmail)) {
 
                                                             binding.friendAddButton.setText("Arkadaşlık İsteği Gönderildi");
 

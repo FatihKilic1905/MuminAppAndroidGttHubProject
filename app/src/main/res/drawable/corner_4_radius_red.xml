@@ -5,6 +5,6 @@
         android:topLeftRadius="10dp"
         android:bottomRightRadius="10dp"
         android:bottomLeftRadius="10dp"></corners>
-    <solid android:color="@color/muminAppGreen"></solid>
+    <solid android:color="@color/red"></solid>
 
 </shape>

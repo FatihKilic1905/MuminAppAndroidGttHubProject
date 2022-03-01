@@ -53,6 +53,8 @@ public class HomeFragment extends Fragment {
 
 
 
+
+
         ImageButton tesbihatButton = binding.tesbihatButton;
         tesbihatButton.setOnClickListener(new View.OnClickListener() {
             @Override

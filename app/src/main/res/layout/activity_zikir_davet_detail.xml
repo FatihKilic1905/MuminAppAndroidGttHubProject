@@ -101,6 +101,9 @@
         android:text="Kabul Et"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
+        android:background="@drawable/corner_4_radius"
+        android:textColor="@color/white"
+        android:textStyle="bold"
         ></Button>
 
 
@@ -110,8 +113,11 @@
         android:layout_height="48dp"
         android:text="Geri Çevir"
         android:layout_gravity="center"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/red"
+        android:background="@drawable/corner_4_radius"
+        android:textColor="@color/white"
+        android:textStyle="bold"
         ></Button>
 
 
@@ -219,6 +225,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
+                android:background="@drawable/corner_4_radius"
+                android:textColor="@color/white"
+                android:textStyle="bold"
 
 
                 android:text="Vazgeç" ></Button>
@@ -229,7 +238,10 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Tamam" ></Button>
+                    android:text="Tamam"
+                    android:background="@drawable/corner_4_radius"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"></Button>
 
             </LinearLayout>
 

@@ -55,6 +55,16 @@ public class TesbihatActivity extends AppCompatActivity {
         binding.aksamButton.setVisibility(View.INVISIBLE);
         binding.yatsiButton.setVisibility(View.INVISIBLE);
         binding.tesbihatTextview.setVisibility(View.INVISIBLE);
+        binding.sabahButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+        binding.sabahButton.setTextColor(getResources().getColor(R.color.white));
+        binding.ogleButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+        binding.ogleButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+        binding.ikindiButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+        binding.ikindiButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+        binding.aksamButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+        binding.aksamButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+        binding.yatsiButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+        binding.yatsiButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
 
 
 
@@ -116,6 +126,17 @@ public class TesbihatActivity extends AppCompatActivity {
 
                 }
 
+                binding.sabahButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                binding.sabahButton.setTextColor(getResources().getColor(R.color.white));
+                binding.ogleButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.ogleButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.ikindiButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.ikindiButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.aksamButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.aksamButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.yatsiButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.yatsiButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+
 
 
             }
@@ -135,6 +156,17 @@ public class TesbihatActivity extends AppCompatActivity {
                     ogleArapca();
 
                 }
+
+                binding.sabahButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.sabahButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.ogleButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                binding.ogleButton.setTextColor(getResources().getColor(R.color.white));
+                binding.ikindiButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.ikindiButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.aksamButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.aksamButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.yatsiButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.yatsiButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
 
 
 
@@ -156,6 +188,17 @@ public class TesbihatActivity extends AppCompatActivity {
 
                 }
 
+                binding.sabahButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.sabahButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.ogleButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.ogleButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.ikindiButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                binding.ikindiButton.setTextColor(getResources().getColor(R.color.white));
+                binding.aksamButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.aksamButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.yatsiButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.yatsiButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+
 
 
             }
@@ -176,6 +219,17 @@ public class TesbihatActivity extends AppCompatActivity {
 
                 }
 
+                binding.sabahButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.sabahButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.ogleButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.ogleButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.ikindiButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.ikindiButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.aksamButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                binding.aksamButton.setTextColor(getResources().getColor(R.color.white));
+                binding.yatsiButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.yatsiButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+
 
 
             }
@@ -195,6 +249,18 @@ public class TesbihatActivity extends AppCompatActivity {
                     yatsiArapca();
 
                 }
+
+                binding.sabahButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.sabahButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.ogleButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.ogleButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.ikindiButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.ikindiButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.aksamButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.aksamButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.yatsiButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                binding.yatsiButton.setTextColor(getResources().getColor(R.color.white));
+
 
 
 

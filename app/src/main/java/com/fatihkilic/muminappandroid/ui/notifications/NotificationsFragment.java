@@ -1,14 +1,17 @@
 package com.fatihkilic.muminappandroid.ui.notifications;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.fatihkilic.muminappandroid.Ayarlar.AyarlarActivity;
@@ -22,12 +25,24 @@ import com.fatihkilic.muminappandroid.ZekatMatik.ZekatMatikActivity;
 import com.fatihkilic.muminappandroid.ZikirMatik.ZikirMatikMainActivity;
 import com.fatihkilic.muminappandroid.databinding.FragmentNotificationsBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
     private FragmentNotificationsBinding binding;
     private FirebaseAuth auth;
+    private FirebaseFirestore firebaseFirestore;
+
+    ArrayList<String> friendsRequestCount;
+    ArrayList<String> zikirRequestCount;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +52,23 @@ public class NotificationsFragment extends Fragment {
         View root = binding.getRoot();
 
         auth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
+        binding.zikrmatikNotButton.setVisibility(View.INVISIBLE);
+        binding.usersNotButton.setVisibility(View.INVISIBLE);
+
+        if (auth.getCurrentUser() != null) {
+
+            friendsRequestCount = new ArrayList<>();
+            zikirRequestCount = new ArrayList<>();
+
+            getZikirCount();
+            getfriendsCount();
+
+
+        }
+
+
 
         ImageButton gecisyap = (ImageButton)root.findViewById(R.id.ayarlarButton);
         gecisyap.setOnClickListener(new View.OnClickListener() {
@@ -128,9 +160,130 @@ public class NotificationsFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        binding.zikrmatikNotButton.setVisibility(View.INVISIBLE);
+        binding.usersNotButton.setVisibility(View.INVISIBLE);
+
+        if (auth.getCurrentUser() != null) {
+
+            friendsRequestCount = new ArrayList<>();
+            zikirRequestCount = new ArrayList<>();
+
+            getZikirCount();
+            getfriendsCount();
+
+
+        }
+
+
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+
+    public void getfriendsCount () {
+
+
+
+        firebaseFirestore.collection("User").document(auth.getCurrentUser().getEmail()).collection("FriendsRequest").addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                if (error != null) {
+
+                    Toast.makeText(getActivity(), "İnternet bağlantısında bir problem var", Toast.LENGTH_LONG).show();
+
+                }
+
+                if (value != null) {
+
+                    for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+                        Map<String, Object> data = snapshot.getData();
+
+                        String emailList = (String) data.get("email");
+
+                        friendsRequestCount.add(emailList);
+
+                        if (friendsRequestCount.size() > 0) {
+
+                            binding.usersNotButton.setVisibility(View.VISIBLE);
+                            binding.usersNotButton.setText(friendsRequestCount.size());
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+
+            }
+
+        });
+
+
+
+
+    }
+
+
+    public void getZikirCount () {
+
+
+
+        firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("invitedZikir").addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                if (error != null) {
+
+                    Toast.makeText(getActivity(), "İnternet bağlantısında bir problem var", Toast.LENGTH_LONG).show();
+
+                }
+
+                if (value != null) {
+
+                    for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+                        Map<String, Object> data = snapshot.getData();
+
+                        String emailList = (String) data.get("email");
+
+                        zikirRequestCount.add(emailList);
+
+                        if (zikirRequestCount.size() > 0) {
+
+                            binding.zikrmatikNotButton.setVisibility(View.VISIBLE);
+                            binding.zikrmatikNotButton.setText(zikirRequestCount.size());
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+
+            }
+
+        });
+
+
+
+
     }
 
     public void gecisyap() {

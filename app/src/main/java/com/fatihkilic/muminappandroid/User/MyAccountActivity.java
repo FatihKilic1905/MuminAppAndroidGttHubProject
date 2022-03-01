@@ -1,6 +1,7 @@
 package com.fatihkilic.muminappandroid.User;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +21,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 public class MyAccountActivity extends AppCompatActivity {
 
@@ -33,6 +41,8 @@ public class MyAccountActivity extends AppCompatActivity {
     String name;
     String surname;
     String image;
+
+    ArrayList<String> friendsRequestCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +57,10 @@ public class MyAccountActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
+        friendsRequestCount = new ArrayList<>();
+
         getProfil();
+        getfriendsCount();
 
 
         Button friendsButton = binding.friendsButton;
@@ -148,6 +161,7 @@ public class MyAccountActivity extends AppCompatActivity {
                         userName = (String) document.get("userName");
                         name = (String) document.get("name");
                         surname = (String) document.get("surName");
+                        image = (String) document.get("image");
 
                         binding.userNameTextView.setText(userName);
 
@@ -155,6 +169,7 @@ public class MyAccountActivity extends AppCompatActivity {
                         nameSurname.append(name);
                         nameSurname.append("");
                         nameSurname.append(surname);
+                        Picasso.get().load(image).into(binding.ppImageView);
 
                         binding.nameTextView.setText(nameSurname.toString());
 
@@ -173,6 +188,56 @@ public class MyAccountActivity extends AppCompatActivity {
 
         });
 
+
+
+
+
+    }
+
+    public void getfriendsCount () {
+
+
+
+        firebaseFirestore.collection("User").document(auth.getCurrentUser().getEmail()).collection("FriendsRequest").addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                if (error != null) {
+
+                    Toast.makeText(MyAccountActivity.this, "İnternet bağlantısında bir problem var", Toast.LENGTH_LONG).show();
+
+                }
+
+                if (value != null) {
+
+                    for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+                        Map<String, Object> data = snapshot.getData();
+
+                        String emailList = (String) data.get("email");
+
+                        friendsRequestCount.add(emailList);
+
+                        if (friendsRequestCount.size() > 0) {
+
+
+                            binding.friendsButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius_red));
+
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+
+            }
+
+        });
 
 
 

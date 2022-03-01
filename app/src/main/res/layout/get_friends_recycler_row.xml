@@ -20,6 +20,7 @@
             android:layout_height="80dp"
             tools:layout_editor_absoluteX="136dp"
             tools:layout_editor_absoluteY="48dp"
+            android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/avatars"></ImageView>
 
 

@@ -104,7 +104,7 @@ public class MyZikirDetailActivity extends AppCompatActivity {
 
         AdRequest adRequestGecis = new AdRequest.Builder().build();
 
-        InterstitialAd.load(MyZikirDetailActivity.this,"ca-app-pub-3940256099942544/1033173712", adRequestGecis,
+        InterstitialAd.load(MyZikirDetailActivity.this,"ca-app-pub-9766355257187956/4850077826", adRequestGecis,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {

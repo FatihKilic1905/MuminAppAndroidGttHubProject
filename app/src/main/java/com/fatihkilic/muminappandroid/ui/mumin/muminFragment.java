@@ -579,6 +579,7 @@ public class muminFragment extends Fragment {
             DayInfoGet();
             getTomorrowVakit();
             getGunAsiriVakit();
+            getfriendsCount();
 
         } catch (Exception e) {
 

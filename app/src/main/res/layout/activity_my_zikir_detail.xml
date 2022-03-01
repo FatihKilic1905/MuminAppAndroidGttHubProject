@@ -18,7 +18,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:scrollbars="vertical"
-        android:text="asasdkkabgdaskjdaksjhdkjashdkjahskjdhakjshdkjhaskjdhakjshdkjahskdjhaskjhdkjashdkjhaskjhdkjahsdkjaskjdhakjshdkjadkjhasdjhakjsdhakjhdkjashdkjashdkjahsdkjashdkjahskjdhakjshdakjshdkjashdkjasdjkahsdkjashdjkashdkjashdkajshdkjahdkj"
+        android:text=""
         android:textColor="@color/muminAppGreen"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/ZikirButton"

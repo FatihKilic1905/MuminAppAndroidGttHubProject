@@ -615,7 +615,10 @@
                 android:layout_marginBottom="15dp"
                 android:layout_gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"></Button>
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/corner_4_radius"
+                android:textColor="@color/white"
+                android:textStyle="bold"></Button>
 
         </LinearLayout>
     </ScrollView>

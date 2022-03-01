@@ -14,7 +14,10 @@
         android:text="Geri Dön"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/corner_4_radius"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/davetGonderbutton"
@@ -24,7 +27,10 @@
         android:text="Tekrar Davet Gönder"
         app:layout_constraintBottom_toTopOf="@+id/geriDonButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/corner_4_radius"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
 
 
     <Button
@@ -35,7 +41,10 @@
         android:text="Daveti İptal Et"
         app:layout_constraintBottom_toTopOf="@+id/geriDonButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/corner_4_radius"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
 
 
     <Button
@@ -47,7 +56,10 @@
         app:layout_constraintBottom_toTopOf="@+id/davetGonderbutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/corner_4_radius"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/zikirCountEditButton"
@@ -58,7 +70,10 @@
         app:layout_constraintBottom_toTopOf="@+id/geriDonButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/corner_4_radius"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/kullaniciDuenleTextView"
@@ -205,7 +220,10 @@
                     android:layout_margin="5dp"
 
 
-                    android:text="Vazgeç" ></Button>
+                    android:text="Vazgeç"
+                    android:background="@drawable/corner_4_radius"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"></Button>
 
                 <Button
                     android:id="@+id/KabulEtOnayButton"
@@ -213,7 +231,10 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Tamam" ></Button>
+                    android:text="Tamam"
+                    android:background="@drawable/corner_4_radius"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"></Button>
 
             </LinearLayout>
 

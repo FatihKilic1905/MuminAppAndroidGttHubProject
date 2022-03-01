@@ -86,8 +86,10 @@ public class FriendsOperationActivity extends AppCompatActivity {
         binding.getFriendsRequestRecylerView.setVisibility(View.INVISIBLE);
         binding.friendsSearchView.setVisibility(View.INVISIBLE);
         binding.friendsSearchListview.setVisibility(View.INVISIBLE);
-        binding.friendsButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
-        binding.friendsButton.setTextColor(getResources().getColor(R.color.white));
+
+
+
+
 
         searchUserNameArrayList = new ArrayList<String>();
         searchAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,searchUserNameArrayList);
@@ -109,9 +111,12 @@ public class FriendsOperationActivity extends AppCompatActivity {
 
                     binding.friendsSearchListview.setVisibility(View.INVISIBLE);
 
+                    binding.uyariTextView.setVisibility(View.VISIBLE);
+
                 } else {
 
 
+                    binding.uyariTextView.setVisibility(View.INVISIBLE);
                     binding.friendsSearchListview.setVisibility(View.VISIBLE);
                     searchAdapter.getFilter().filter(s);
 
@@ -195,12 +200,47 @@ public class FriendsOperationActivity extends AppCompatActivity {
                 binding.getFriendsRequestRecylerView.setVisibility(View.INVISIBLE);
                 binding.friendsSearchView.setVisibility(View.INVISIBLE);
                 binding.friendsSearchListview.setVisibility(View.INVISIBLE);
-                binding.friendsButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
-                binding.friendsButton.setTextColor(getResources().getColor(R.color.white));
-                binding.isteklerButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
-                binding.isteklerButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
-                binding.searchButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
-                binding.searchButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+
+
+
+                if (modelGetFriendsRequestArrayList.size() > 0 ) {
+
+                    binding.friendsButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                    binding.friendsButton.setTextColor(getResources().getColor(R.color.white));
+                    binding.isteklerButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner_red));
+                    binding.isteklerButton.setTextColor(getResources().getColor(R.color.red));
+                    binding.searchButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.searchButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.isteklerButton.setText("İstekler" + "(" + modelGetFriendsRequestArrayList.size() + ")");
+
+
+
+                } else {
+
+
+                    binding.friendsButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                    binding.friendsButton.setTextColor(getResources().getColor(R.color.white));
+                    binding.isteklerButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.isteklerButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.searchButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.searchButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+
+
+
+                }
+
+                if (modelGetFriendsArrayList.size() > 0) {
+
+                    binding.uyariTextView.setVisibility(View.INVISIBLE);
+
+                } else {
+
+                    binding.uyariTextView.setVisibility(View.VISIBLE);
+                    binding.uyariTextView.setText("Bu alanda arkadaşlarınızı görebilirsiniz.");
+
+
+                }
+
 
 
 
@@ -216,12 +256,46 @@ public class FriendsOperationActivity extends AppCompatActivity {
                 binding.getFriendsRequestRecylerView.setVisibility(View.VISIBLE);
                 binding.friendsSearchView.setVisibility(View.INVISIBLE);
                 binding.friendsSearchListview.setVisibility(View.INVISIBLE);
-                binding.friendsButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
-                binding.friendsButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
-                binding.isteklerButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
-                binding.isteklerButton.setTextColor(getResources().getColor(R.color.white));
-                binding.searchButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
-                binding.searchButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+
+
+
+                if (modelGetFriendsRequestArrayList.size() > 0 ) {
+
+                    binding.friendsButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.friendsButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.isteklerButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius_red));
+                    binding.isteklerButton.setTextColor(getResources().getColor(R.color.white));
+                    binding.searchButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.searchButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.isteklerButton.setText("İstekler" + "(" + modelGetFriendsRequestArrayList.size() + ")");
+
+
+
+                } else {
+
+
+                    binding.friendsButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.friendsButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.isteklerButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                    binding.isteklerButton.setTextColor(getResources().getColor(R.color.white));
+                    binding.searchButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.searchButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+
+
+
+                }
+
+                if (modelGetFriendsRequestArrayList.size() > 0) {
+
+                    binding.uyariTextView.setVisibility(View.INVISIBLE);
+
+                } else {
+
+                    binding.uyariTextView.setVisibility(View.VISIBLE);
+                    binding.uyariTextView.setText("Bu alanda arkadaşlık davetleriniz görebilirsiniz.");
+
+
+                }
 
 
 
@@ -239,12 +313,51 @@ public class FriendsOperationActivity extends AppCompatActivity {
                 binding.getFriendsRequestRecylerView.setVisibility(View.INVISIBLE);
                 binding.friendsSearchView.setVisibility(View.VISIBLE);
                 binding.friendsSearchListview.setVisibility(View.INVISIBLE);
-                binding.friendsButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
-                binding.friendsButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
-                binding.isteklerButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
-                binding.isteklerButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
-                binding.searchButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
-                binding.searchButton.setTextColor(getResources().getColor(R.color.white));
+
+                binding.uyariTextView.setVisibility(View.VISIBLE);
+                binding.uyariTextView.setText("Bu alanda arkadaşlarınızı arayıp arkadaş olarak ekleyebilirsiniz.");
+
+
+
+                if (modelGetFriendsRequestArrayList.size() > 0 ) {
+
+                    binding.friendsButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.friendsButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.isteklerButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner_red));
+                    binding.isteklerButton.setTextColor(getResources().getColor(R.color.red));
+                    binding.searchButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                    binding.searchButton.setTextColor(getResources().getColor(R.color.white));
+                    binding.isteklerButton.setText("İstekler" + "(" + modelGetFriendsRequestArrayList.size() + ")");
+
+
+
+                } else {
+
+
+                    binding.friendsButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.friendsButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.isteklerButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.isteklerButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.searchButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                    binding.searchButton.setTextColor(getResources().getColor(R.color.white));
+
+
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             }
@@ -339,6 +452,43 @@ public class FriendsOperationActivity extends AppCompatActivity {
 
                     }
 
+                    if (modelGetFriendsRequestArrayList.size() > 0 ) {
+
+                        binding.friendsButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                        binding.friendsButton.setTextColor(getResources().getColor(R.color.white));
+                        binding.isteklerButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner_red));
+                        binding.isteklerButton.setTextColor(getResources().getColor(R.color.red));
+                        binding.searchButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                        binding.searchButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                        binding.isteklerButton.setText("İstekler" + "(" + modelGetFriendsRequestArrayList.size() + ")");
+
+
+
+                    } else {
+
+
+                        binding.friendsButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                        binding.friendsButton.setTextColor(getResources().getColor(R.color.white));
+                        binding.isteklerButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                        binding.isteklerButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                        binding.searchButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                        binding.searchButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+
+
+
+                    }
+
+                    if (modelGetFriendsArrayList.size() > 0) {
+
+                        binding.uyariTextView.setVisibility(View.INVISIBLE);
+
+                    } else {
+
+                        binding.uyariTextView.setVisibility(View.VISIBLE);
+                        binding.uyariTextView.setText("Bu alanda arkadaşlarınızı görebilirsiniz.");
+
+
+                    }
 
                     getFriendsPostAdapter.notifyDataSetChanged();
 
@@ -394,7 +544,27 @@ public class FriendsOperationActivity extends AppCompatActivity {
 
 
 
-    public void getAddFriends () {
+    public void getAddFriends ()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {
 
         firebaseFirestore.collection("User").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override

@@ -61,7 +61,10 @@
             android:text="Seç"
 
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/corner_4_radius"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/vaktindenOnceSoundSelectButton"
@@ -71,7 +74,10 @@
             android:layout_marginEnd="16dp"
             android:text="Seç"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/corner_4_radius"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
 
         <Switch
             android:id="@+id/vaktindenOnceSwitch"
@@ -115,7 +121,10 @@
             android:layout_marginEnd="16dp"
             android:text="Seç"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/corner_4_radius"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
 
         <Switch
             android:id="@+id/vaktindeSwitch"
@@ -194,7 +203,10 @@ android:thumbTint="@color/muminAppGreen"         app:layout_constraintStart_toEn
             android:text="Tamam"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/corner_4_radius"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -206,7 +218,10 @@ android:thumbTint="@color/muminAppGreen"         app:layout_constraintStart_toEn
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/corner_4_radius"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

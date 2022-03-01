@@ -93,6 +93,31 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
         binding.davetRecyclerView.setAdapter(adapterZikirDavet);
 
 
+        if (modelZikirDAvetArrayList.size() > 0 ) {
+
+            binding.zikirlerimButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+            binding.zikirlerimButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+            binding.istirakButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+            binding.istirakButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+            binding.davetButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner_red));
+            binding.davetButton.setTextColor(getResources().getColor(R.color.red));
+            binding.davetButton.setText("Davet " + "(" + modelZikirDAvetArrayList.size() + ")");
+
+
+
+        } else {
+
+
+            binding.zikirlerimButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+            binding.zikirlerimButton.setTextColor(getResources().getColor(R.color.white));
+            binding.istirakButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+            binding.istirakButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+            binding.davetButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+            binding.davetButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+
+
+
+        }
 
 
 
@@ -100,7 +125,10 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
 
 
 
-        
+
+
+
+
 
         binding.zikirBaslatButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +150,51 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
                 binding.istirakRecyclerView.setVisibility(View.INVISIBLE);
                 binding.davetRecyclerView.setVisibility(View.INVISIBLE);
 
+
+                if (modelZikirlerimArrayList.size() > 0) {
+
+                   binding.uyariTextView.setVisibility(View.INVISIBLE);
+
+                } else {
+
+                    binding.uyariTextView.setVisibility(View.VISIBLE);
+                    binding.uyariTextView.setText("Bu alanda sizin oluşturduğunuz zikirleri görebilirsiniz.");
+
+
+                }
+
+
+
+
+                if (modelZikirDAvetArrayList.size() > 0 ) {
+
+                    binding.zikirlerimButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.zikirlerimButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.istirakButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.istirakButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.davetButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner_red));
+                    binding.davetButton.setTextColor(getResources().getColor(R.color.red));
+                    binding.davetButton.setText("Davet " + "(" + modelZikirDAvetArrayList.size() + ")");
+
+
+
+                } else {
+
+
+                    binding.zikirlerimButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                    binding.zikirlerimButton.setTextColor(getResources().getColor(R.color.white));
+                    binding.istirakButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.istirakButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.davetButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.davetButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+
+
+
+                }
+
+
+
+
             }
         });
 
@@ -134,6 +207,48 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
                 binding.istirakRecyclerView.setVisibility(View.VISIBLE);
                 binding.davetRecyclerView.setVisibility(View.INVISIBLE);
 
+
+                if (modelZikirIstirakArrayList.size() > 0) {
+
+                    binding.uyariTextView.setVisibility(View.INVISIBLE);
+
+                } else {
+
+                    binding.uyariTextView.setVisibility(View.VISIBLE);
+                    binding.uyariTextView.setText("Bu alanda katıldığınız zikirleri görebilirsiniz.");
+
+
+                }
+
+
+
+                if (modelZikirDAvetArrayList.size() > 0 ) {
+
+                    binding.zikirlerimButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.zikirlerimButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.istirakButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.istirakButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.davetButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner_red));
+                    binding.davetButton.setTextColor(getResources().getColor(R.color.red));
+                    binding.davetButton.setText("Davet " + "(" + modelZikirDAvetArrayList.size() + ")");
+
+
+
+                } else {
+
+
+                    binding.zikirlerimButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.zikirlerimButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.istirakButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                    binding.istirakButton.setTextColor(getResources().getColor(R.color.white));
+                    binding.davetButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.davetButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+
+
+                }
+
+
+
             }
         });
 
@@ -144,6 +259,60 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
                 binding.myZikirRecyclerView.setVisibility(View.INVISIBLE);
                 binding.istirakRecyclerView.setVisibility(View.INVISIBLE);
                 binding.davetRecyclerView.setVisibility(View.VISIBLE);
+
+
+                if (modelZikirDAvetArrayList.size() > 0) {
+
+                    binding.uyariTextView.setVisibility(View.INVISIBLE);
+
+                } else {
+
+                    binding.uyariTextView.setVisibility(View.VISIBLE);
+                    binding.uyariTextView.setText("Bu alanda zikir davetlerinizi görebilirsiniz.");
+
+
+                }
+
+
+
+
+                if (modelZikirDAvetArrayList.size() > 0 ) {
+
+                    binding.zikirlerimButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.zikirlerimButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.istirakButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.istirakButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.davetButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius_red));
+                    binding.davetButton.setTextColor(getResources().getColor(R.color.white));
+                    binding.davetButton.setText("Davet " + "(" + modelZikirDAvetArrayList.size() + ")");
+
+
+
+                } else {
+
+
+                    binding.zikirlerimButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.zikirlerimButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.istirakButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                    binding.istirakButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                    binding.davetButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                    binding.davetButton.setTextColor(getResources().getColor(R.color.white));
+
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             }
         });
@@ -202,6 +371,18 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
                         ModelZikirlerim modelZikirlerim = new ModelZikirlerim(zikirName,zikirCompleteCount,zikirCount,endDate,documentId);
                         modelZikirlerimArrayList.add(modelZikirlerim);
                         System.out.println("nerede " + modelZikirlerimArrayList);
+
+
+                    }
+
+                    if (modelZikirlerimArrayList.size() > 0) {
+
+                        binding.uyariTextView.setVisibility(View.INVISIBLE);
+
+                    } else {
+
+                        binding.uyariTextView.setVisibility(View.VISIBLE);
+                        binding.uyariTextView.setText("Bu alanda sizin oluşturduğunuz zikirleri görebilirsiniz.");
 
 
                     }

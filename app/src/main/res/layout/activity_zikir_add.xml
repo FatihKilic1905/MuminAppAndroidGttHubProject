@@ -80,7 +80,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="Kişi Ekle" />
+            android:text="Kişi Ekle"
+            android:background="@drawable/corner_4_radius"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
 
 
 
@@ -90,7 +93,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="Zikri Başlat" />
+            android:text="Zikri Başlat"
+            android:background="@drawable/corner_4_radius"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
 
 
     </LinearLayout>
@@ -137,7 +143,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="20dp"
-                android:text="Tamam" ></Button>
+                android:text="Tamam"
+                android:background="@drawable/corner_4_radius"
+                android:textColor="@color/white"
+                android:textStyle="bold"></Button>
 
 
 
@@ -190,7 +199,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="20dp"
-                android:text="Tamam" ></Button>
+                android:text="Tamam"
+                android:background="@drawable/corner_4_radius"
+                android:textColor="@color/white"
+                android:textStyle="bold"></Button>
 
         </LinearLayout>
 
@@ -223,6 +235,9 @@
             android:layout_margin="20dp"
             android:gravity="center"
             android:text="Tamam"
+            android:background="@drawable/corner_4_radius"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             ></Button>
 
 
@@ -272,6 +287,9 @@
             android:layout_margin="20dp"
             android:gravity="center"
             android:text="Tamam"
+            android:background="@drawable/corner_4_radius"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             ></Button>
 
 

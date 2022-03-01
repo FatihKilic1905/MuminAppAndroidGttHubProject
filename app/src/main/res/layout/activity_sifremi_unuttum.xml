@@ -27,7 +27,10 @@
         android:text="Şifre Sıfırla"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/emailTextView"
+        android:background="@drawable/corner_4_radius"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

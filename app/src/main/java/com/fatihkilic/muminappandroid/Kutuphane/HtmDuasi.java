@@ -32,6 +32,14 @@ public class HtmDuasi extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Hatim Duası");
 
+        binding.arapcaButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+        binding.arapcaButton.setTextColor(getResources().getColor(R.color.white));
+        binding.turkceButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+        binding.turkceButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+        binding.mealButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+        binding.mealButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+
+
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
@@ -51,7 +59,19 @@ public class HtmDuasi extends AppCompatActivity {
             public void onClick(View v) {
 
                 arapcaHatimDuasi();
+
+                binding.arapcaButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                binding.arapcaButton.setTextColor(getResources().getColor(R.color.white));
+                binding.turkceButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.turkceButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.mealButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.mealButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+
+
             }
+
+
+
         });
 
         Button turkceButton = binding.turkceButton;
@@ -60,6 +80,14 @@ public class HtmDuasi extends AppCompatActivity {
             public void onClick(View v) {
 
                 turkceHatimDuasi();
+
+                binding.arapcaButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.arapcaButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.turkceButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                binding.turkceButton.setTextColor(getResources().getColor(R.color.white));
+                binding.mealButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.mealButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+
             }
         });
 
@@ -69,6 +97,15 @@ public class HtmDuasi extends AppCompatActivity {
             public void onClick(View v) {
 
                 mealHatimDuasi();
+
+                binding.arapcaButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.arapcaButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.turkceButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
+                binding.turkceButton.setTextColor(getResources().getColor(R.color.muminAppGreen));
+                binding.mealButton.setBackground(getResources().getDrawable(R.drawable.corner_4_radius));
+                binding.mealButton.setTextColor(getResources().getColor(R.color.white));
+
+
             }
         });
 
