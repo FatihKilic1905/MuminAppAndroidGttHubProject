@@ -399,6 +399,8 @@
                 android:layout_marginTop="10dp"
                 android:textSize="20dp"
                 android:text="Online Zikirmatik"
+                android:background="@drawable/corner_4_radius"
+                android:textColor="@color/white"
 
                 ></Button>
 

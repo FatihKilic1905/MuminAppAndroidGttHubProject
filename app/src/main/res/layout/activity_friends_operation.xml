@@ -21,7 +21,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="Arkadaşlar" />
+            android:text="Arkadaşlar"
+            android:background="@drawable/layer_stroke_4_corner"
+            android:textColor="@color/muminAppGreen"/>
 
         <Button
             android:id="@+id/isteklerButton"
@@ -29,7 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="İstekler" />
+            android:text="İstekler"
+            android:background="@drawable/layer_stroke_4_corner"
+            android:textColor="@color/muminAppGreen"/>
 
         <Button
             android:id="@+id/search_button"
@@ -37,7 +41,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="Ara" />
+            android:text="Ara"
+            android:background="@drawable/layer_stroke_4_corner"
+            android:textColor="@color/muminAppGreen"/>
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

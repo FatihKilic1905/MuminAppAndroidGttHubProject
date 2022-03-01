@@ -206,7 +206,7 @@
 
     <Button
         android:id="@+id/konumOnaylaButton"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Onayla"
@@ -214,6 +214,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/konumLabel2" />
+        app:layout_constraintTop_toTopOf="@+id/konumLabel2"
+        android:background="@drawable/corner_4_radius"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

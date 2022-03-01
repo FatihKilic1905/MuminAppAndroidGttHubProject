@@ -59,14 +59,17 @@
         android:id="@+id/ezanDuası"
         android:layout_width="160dp"
         android:layout_height="42dp"
-        android:text="ezan duası"
+        android:text="Ezan Duası"
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
         app:layout_constraintBottom_toTopOf="@+id/closeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vaktinAHTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/vaktinAHTextView"
+        android:background="@drawable/corner_4_radius"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
 
 
     <Button
@@ -80,7 +83,10 @@
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/corner_4_radius"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

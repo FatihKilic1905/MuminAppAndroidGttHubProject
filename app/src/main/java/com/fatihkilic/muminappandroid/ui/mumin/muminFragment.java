@@ -39,6 +39,7 @@ import com.fatihkilic.muminappandroid.EzanVaktiService;
 import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.Ulkeler.KonumActivity;
+import com.fatihkilic.muminappandroid.User.FriendsDetailActivity;
 import com.fatihkilic.muminappandroid.User.MyAccountActivity;
 import com.fatihkilic.muminappandroid.User.SignInActivity;
 import com.fatihkilic.muminappandroid.ZikirMatik.ZikirMatikMainActivity;
@@ -54,7 +55,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.onesignal.OneSignal;
@@ -69,6 +73,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -185,7 +190,7 @@ public class muminFragment extends Fragment {
     String vaktinAyetiStr;
     String vaktinHadisiStr;
 
-    String dayControl;
+    ArrayList<String> friendsRequestCount;
 
     private AdView mAdView;
     private AdView mAdView2;
@@ -231,9 +236,15 @@ public class muminFragment extends Fragment {
         binding.konumtitle.setText(sharedPreferences.getString("storedKonum","Konum"));
 
 
+
+
         if (auth.getCurrentUser() != null) {
 
+            friendsRequestCount = new ArrayList<>();
+
             getProfil();
+
+            getfriendsCount();
 
 
         }
@@ -645,6 +656,54 @@ public class muminFragment extends Fragment {
 
 
 
+
+    public void getfriendsCount () {
+
+
+
+        firebaseFirestore.collection("User").document(auth.getCurrentUser().getEmail()).collection("FriendsRequest").addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                if (error != null) {
+
+                    Toast.makeText(getActivity(), "İnternet bağlantısında bir problem var", Toast.LENGTH_LONG).show();
+
+                }
+
+                if (value != null) {
+
+                    for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+                        Map<String, Object> data = snapshot.getData();
+
+                        String emailList = (String) data.get("email");
+
+                        friendsRequestCount.add(emailList);
+
+                        if (friendsRequestCount.size() > 0) {
+
+                            binding.userNameText.setTextColor(Color.RED);
+                            binding.userNameText.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner_red));
+
+                        }
+
+
+                    }
+
+
+                }
+
+
+            }
+
+        });
+
+
+
+
+    }
 
 
     public void getEzanVakti() {

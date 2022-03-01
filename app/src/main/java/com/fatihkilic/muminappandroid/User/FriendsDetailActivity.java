@@ -1030,4 +1030,12 @@ public class FriendsDetailActivity extends AppCompatActivity {
 
     }
 
+
+
+
+
+
+
+
+
 }

@@ -16,7 +16,10 @@
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold"
+        android:background="@drawable/corner_4_radius"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/sesSettigsButton"
@@ -28,5 +31,8 @@
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/konumSettigsButton" />
+        app:layout_constraintTop_toBottomOf="@+id/konumSettigsButton"
+        android:background="@drawable/corner_4_radius"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
