@@ -72,8 +72,6 @@ public class KisilerActivity extends AppCompatActivity {
 
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +87,9 @@ public class KisilerActivity extends AppCompatActivity {
         zikirNewUserArraylist = new ArrayList<>();
         zikirNewEmailArrayList = new ArrayList<>();
         UIDUsers = govcIntent.getStringExtra("UsersUID");
+
+        getSupportActionBar().setTitle("Kişi Ekle");
+
 
 
 

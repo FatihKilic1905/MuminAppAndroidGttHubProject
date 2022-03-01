@@ -181,7 +181,7 @@
                 <ImageView
                     android:layout_width="39dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_buyuk_foreground"
+                    android:src="@drawable/ic_kucuk_foreground"
 
                     android:tint="@color/muminAppGreen"></ImageView>
 

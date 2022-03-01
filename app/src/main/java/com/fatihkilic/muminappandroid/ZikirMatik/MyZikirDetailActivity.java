@@ -160,11 +160,14 @@ public class MyZikirDetailActivity extends AppCompatActivity {
 
             getMyzikirVoid();
             getMezikirVoid();
+            getSupportActionBar().setTitle(zikirName);
+
 
         } else if (toVcZikir.equals("IstirakZikir")) {
 
             getIstirakZikirVoid();
             getUsersZikirVoid();
+            getSupportActionBar().setTitle(zikirName);
 
         }
 
