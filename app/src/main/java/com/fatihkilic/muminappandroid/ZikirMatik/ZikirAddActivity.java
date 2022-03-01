@@ -651,7 +651,22 @@ public class ZikirAddActivity extends AppCompatActivity {
                     usersData.put("zikirStatus", "1");
                     usersData.put("zikirMyCount",0);
 
-                    firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("myZikir").document(UID).collection("Users").document(auth.getCurrentUser().getEmail()).set(usersData);
+                    firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("myZikir").document(UID).collection("Users").document(auth.getCurrentUser().getEmail()).set(usersData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(@NonNull Void unused) {
+
+
+                            Intent zikirBaslatIntent = new Intent(ZikirAddActivity.this, ZikirMatikMainActivity.class);
+                            finish();
+                            startActivity(zikirBaslatIntent);
+
+
+
+
+
+
+                        }
+                    });
 
 
                 }

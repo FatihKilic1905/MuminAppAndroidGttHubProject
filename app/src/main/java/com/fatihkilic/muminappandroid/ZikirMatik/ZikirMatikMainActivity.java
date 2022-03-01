@@ -349,6 +349,8 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
 
                 if (value != null) {
 
+                    modelZikirlerimArrayList.remove(modelZikirlerimArrayList);
+
 
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 
@@ -419,6 +421,7 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
 
                 if (value != null) {
 
+                    modelZikirlerimArrayList.remove(modelZikirIstirakArrayList);
 
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 
@@ -485,6 +488,7 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
 
                 if (value != null) {
 
+                    modelZikirDAvetArrayList.remove(modelZikirDAvetArrayList);
 
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 

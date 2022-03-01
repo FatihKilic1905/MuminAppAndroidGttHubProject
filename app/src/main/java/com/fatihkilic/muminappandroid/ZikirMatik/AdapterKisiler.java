@@ -52,7 +52,7 @@ public class AdapterKisiler extends RecyclerView.Adapter<AdapterKisiler.KisilerH
 
             if (kisiEkleArrayList.contains(modelKisilerArrayList.get(position).frienduserName)) {
 
-                holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(100, 43, 45));
+                holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(119, 195, 68));
 
 
             } else  {
@@ -80,7 +80,7 @@ public class AdapterKisiler extends RecyclerView.Adapter<AdapterKisiler.KisilerH
 
                     } else {
 
-                        holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(100, 43, 45));
+                        holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(119, 195, 68));
 
                         kisiEkleArrayList.add(modelKisilerArrayList.get(position).frienduserName);
                         kiekleEmailArrayList.add(modelKisilerArrayList.get(position).friendsEmail);
@@ -103,7 +103,7 @@ public class AdapterKisiler extends RecyclerView.Adapter<AdapterKisiler.KisilerH
 
             if (kisiEkleUserArrayList.contains(modelKisilerArrayList.get(position).frienduserName)) {
 
-                holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(100,43,45));
+                holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(119,195,68));
 
 
             } else {
@@ -157,7 +157,7 @@ public class AdapterKisiler extends RecyclerView.Adapter<AdapterKisiler.KisilerH
 
                         zikirNewUserArraylist.add(modelKisilerArrayList.get(position).frienduserName);
                         zikirNewEmailArrayList.add(modelKisilerArrayList.get(position).friendsEmail);
-                        holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(0,0,255));
+                        holder.kisilerRowBinding.nameCheckBox.setBackgroundColor(Color.rgb(119,195,68));
 
 
                         System.out.println(zikirNewUserArraylist);
