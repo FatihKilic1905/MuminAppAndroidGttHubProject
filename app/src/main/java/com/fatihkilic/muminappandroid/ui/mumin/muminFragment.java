@@ -396,6 +396,13 @@ public class muminFragment extends Fragment {
             }
         });
 
+        if (auth.getCurrentUser() != null) {
+
+            System.out.println("kullanıcı  " + auth.getCurrentUser().getEmail());
+
+        }
+
+
         return root;
 
 

@@ -57,13 +57,22 @@ public class NotificationsFragment extends Fragment {
         binding.zikrmatikNotButton.setVisibility(View.INVISIBLE);
         binding.usersNotButton.setVisibility(View.INVISIBLE);
 
+        friendsRequestCount = new ArrayList<>();
+        zikirRequestCount = new ArrayList<>();
+
+
+
+
+
         if (auth.getCurrentUser() != null) {
 
-            friendsRequestCount = new ArrayList<>();
-            zikirRequestCount = new ArrayList<>();
 
-            getZikirCount();
-            getfriendsCount();
+
+            System.out.println("kullanıcı  " + auth.getCurrentUser().getEmail());
+
+           getZikirCount();
+           getZikirCount();
+
 
 
         }
@@ -163,16 +172,12 @@ public class NotificationsFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        binding.zikrmatikNotButton.setVisibility(View.INVISIBLE);
-        binding.usersNotButton.setVisibility(View.INVISIBLE);
 
         if (auth.getCurrentUser() != null) {
 
-            friendsRequestCount = new ArrayList<>();
-            zikirRequestCount = new ArrayList<>();
-
-            getZikirCount();
             getfriendsCount();
+            getZikirCount();
+
 
 
         }
@@ -189,9 +194,9 @@ public class NotificationsFragment extends Fragment {
 
     public void getfriendsCount () {
 
+        String currenUser = auth.getCurrentUser().getEmail();
 
-
-        firebaseFirestore.collection("User").document(auth.getCurrentUser().getEmail()).collection("FriendsRequest").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firebaseFirestore.collection("User").document(currenUser).collection("FriendsRequest").addSnapshotListener(new EventListener<QuerySnapshot>() {
 
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -204,6 +209,8 @@ public class NotificationsFragment extends Fragment {
 
                 if (value != null) {
 
+                    friendsRequestCount.clear();
+
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 
                         Map<String, Object> data = snapshot.getData();
@@ -215,7 +222,7 @@ public class NotificationsFragment extends Fragment {
                         if (friendsRequestCount.size() > 0) {
 
                             binding.usersNotButton.setVisibility(View.VISIBLE);
-                            binding.usersNotButton.setText(friendsRequestCount.size());
+                            binding.usersNotButton.setText(String.valueOf(friendsRequestCount.size()));
 
 
                         }
@@ -239,9 +246,9 @@ public class NotificationsFragment extends Fragment {
 
     public void getZikirCount () {
 
+        String currenUser = auth.getCurrentUser().getEmail();
 
-
-        firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("invitedZikir").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firebaseFirestore.collection("ZikirMatik").document(currenUser).collection("invitedZikir").addSnapshotListener(new EventListener<QuerySnapshot>() {
 
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -252,7 +259,10 @@ public class NotificationsFragment extends Fragment {
 
                 }
 
+
                 if (value != null) {
+
+                    zikirRequestCount.clear();
 
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 
@@ -265,7 +275,7 @@ public class NotificationsFragment extends Fragment {
                         if (zikirRequestCount.size() > 0) {
 
                             binding.zikrmatikNotButton.setVisibility(View.VISIBLE);
-                            binding.zikrmatikNotButton.setText(zikirRequestCount.size());
+                            binding.zikrmatikNotButton.setText(String.valueOf(zikirRequestCount.size()));
 
 
                         }
