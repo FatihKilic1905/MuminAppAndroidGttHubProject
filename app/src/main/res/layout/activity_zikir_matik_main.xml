@@ -61,8 +61,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myZikirRecyclerView"
         android:layout_width="400dp"
-        android:layout_height="wrap_content"
+        android:layout_height="484dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/zikirBaslatButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.363"
@@ -73,8 +74,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/istirakRecyclerView"
         android:layout_width="400dp"
-        android:layout_height="wrap_content"
+        android:layout_height="484dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
 
         app:layout_constraintBottom_toTopOf="@+id/zikirBaslatButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,8 +88,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/davetRecyclerView"
         android:layout_width="400dp"
-        android:layout_height="wrap_content"
+        android:layout_height="484dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/zikirBaslatButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"

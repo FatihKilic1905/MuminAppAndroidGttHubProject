@@ -248,7 +248,7 @@ public class NotificationsFragment extends Fragment {
 
         String currenUser = auth.getCurrentUser().getEmail();
 
-        firebaseFirestore.collection("ZikirMatik").document(currenUser).collection("invitedZikir").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firebaseFirestore.collection("ZikirMatik").document(currenUser).collection("invitedZikir").whereEqualTo("inviteStatus","0").addSnapshotListener(new EventListener<QuerySnapshot>() {
 
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
