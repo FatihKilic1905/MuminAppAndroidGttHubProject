@@ -17,6 +17,7 @@ import com.fatihkilic.muminappandroid.databinding.ActivityFriendsDetailBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivityMyAccountBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -317,7 +318,17 @@ public class FriendsDetailActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
-                            firebaseFirestore.collection("User").document(myCurrentEmail).collection("FriendsRequest").document(friendsemailIntent).delete();
+                            firebaseFirestore.collection("User").document(myCurrentEmail).collection("FriendsRequest").document(friendsemailIntent).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(@NonNull Void unused) {
+
+                                    binding.friendAddButton.setText("İstek Gönder");
+                                    onBackPressed();
+
+
+
+                                }
+                            });
 
                         }
                     });

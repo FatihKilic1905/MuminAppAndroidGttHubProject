@@ -143,6 +143,13 @@ public class MyAccountActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        getfriendsCount();
+    }
+
     public void getProfil () {
 
         String email = auth.getCurrentUser().getEmail();
@@ -210,6 +217,8 @@ public class MyAccountActivity extends AppCompatActivity {
                 }
 
                 if (value != null) {
+
+                    friendsRequestCount.clear();
 
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 

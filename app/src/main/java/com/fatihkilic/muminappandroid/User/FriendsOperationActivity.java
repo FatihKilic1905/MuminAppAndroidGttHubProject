@@ -80,7 +80,7 @@ public class FriendsOperationActivity extends AppCompatActivity {
         getAddFriends();
 
         friendsRequestCount = new ArrayList<>();
-        getfriendsCount();
+
 
         binding.getFriendsRecylerView.setVisibility(View.VISIBLE);
         binding.getFriendsRequestRecylerView.setVisibility(View.INVISIBLE);
@@ -88,7 +88,7 @@ public class FriendsOperationActivity extends AppCompatActivity {
         binding.friendsSearchListview.setVisibility(View.INVISIBLE);
 
 
-
+        System.out.println("model array" + friendsRequestCount.size());
 
 
         searchUserNameArrayList = new ArrayList<String>();
@@ -292,7 +292,7 @@ public class FriendsOperationActivity extends AppCompatActivity {
                 } else {
 
                     binding.uyariTextView.setVisibility(View.VISIBLE);
-                    binding.uyariTextView.setText("Bu alanda arkadaşlık davetleriniz görebilirsiniz.");
+                    binding.uyariTextView.setText("Bu alanda arkadaşlık davetlerinizi görebilirsiniz.");
 
 
                 }
@@ -370,54 +370,19 @@ public class FriendsOperationActivity extends AppCompatActivity {
     }
 
 
-    public void getfriendsCount () {
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        getfriendsRequest();
+        getfriends();
+        getAddFriends();
 
-
-        firebaseFirestore.collection("User").document(auth.getCurrentUser().getEmail()).collection("FriendsRequest").addSnapshotListener(new EventListener<QuerySnapshot>() {
-
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                if (error != null) {
-
-                    Toast.makeText(FriendsOperationActivity.this, "İnternet bağlantısında bir problem var", Toast.LENGTH_LONG).show();
-
-                }
-
-                if (value != null) {
-
-                    for (DocumentSnapshot snapshot : value.getDocuments()) {
-
-                        Map<String, Object> data = snapshot.getData();
-
-                        String emailList = (String) data.get("email");
-
-                        friendsRequestCount.add(emailList);
-
-                        if (friendsRequestCount.size() > 0) {
-
-                            binding.isteklerButton.setText("İstekler " + "(" + friendsRequestCount.size() + ")");
-                            binding.isteklerButton.setTextColor(Color.RED);
-                            binding.isteklerButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner_red));
-
-                        }
-
-
-                    }
-
-
-                }
-
-
-            }
-
-        });
-
-
-
+        System.out.println("model array on resume" );
 
     }
+
+
 
 
 
@@ -435,6 +400,8 @@ public class FriendsOperationActivity extends AppCompatActivity {
                 }
 
                 if (value != null) {
+
+                    modelGetFriendsArrayList.clear();
 
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 
@@ -515,6 +482,8 @@ public class FriendsOperationActivity extends AppCompatActivity {
 
                 if (value != null) {
 
+                    modelGetFriendsRequestArrayList.clear();
+
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 
                         Map<String, Object> data = snapshot.getData();
@@ -532,6 +501,20 @@ public class FriendsOperationActivity extends AppCompatActivity {
 
                     getFriendsRequestadapter.notifyDataSetChanged();
 
+                    if (modelGetFriendsRequestArrayList.size() > 0) {
+
+                        binding.isteklerButton.setText("İstekler " + "(" + modelGetFriendsRequestArrayList.size() + ")");
+                        binding.isteklerButton.setTextColor(Color.RED);
+                        binding.isteklerButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner_red));
+
+                    } else {
+
+
+
+
+
+                    }
+
                 }
 
             }
@@ -540,31 +523,7 @@ public class FriendsOperationActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-    public void getAddFriends ()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    {
+    public void getAddFriends () {
 
         firebaseFirestore.collection("User").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override

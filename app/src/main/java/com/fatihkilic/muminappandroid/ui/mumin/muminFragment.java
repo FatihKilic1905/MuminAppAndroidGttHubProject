@@ -252,20 +252,25 @@ public class muminFragment extends Fragment {
 
 
 
+
         try {
+
 
             sistemTarihiVoid();
             sistemSaatiVoid();
             getEzanVakti();
             getBildirimSound();
             DayInfoGet();
+
             getTomorrowVakit();
             getGunAsiriVakit();
-            loadEzanVakti();
+
         } catch (Exception e) {
 
 
         }
+
+        loadEzanVakti();
 
 
 
@@ -410,6 +415,7 @@ public class muminFragment extends Fragment {
 
     public void loadEzanVakti() {
 
+        System.out.println("buyuk sun" );
 
         vakitDatabase = getActivity().openOrCreateDatabase("EZANVAKITLERIDATA", Context.MODE_PRIVATE, null);
         vakitDatabase.execSQL("CREATE TABLE IF NOT EXISTS ezanvakitleridatabase(id INTEGER PRIMARY KEY, imsakVakti VARCHAR, gunesVakti VARCHAR, ogleVakti VARCHAR, ikindiVakti VARCHAR, aksamVakti VARCHAR, yatsiVakti VARCHAR, miladiKisa VARCHAR, miladiUzun VARCHAR, hicriUzun VARCHAR)");
@@ -420,6 +426,8 @@ public class muminFragment extends Fragment {
             Cursor cursor = vakitDatabase.rawQuery("SELECT * FROM ezanvakitleridatabase WHERE miladiKisa = ?", new String[]{sistemTarihiStr});
 
             int miladiKisaIx = cursor.getColumnIndex("miladiKisa");
+
+            System.out.println("buyuk " + miladiKisaIx);
 
 
             while (cursor.moveToNext()){
@@ -438,7 +446,7 @@ public class muminFragment extends Fragment {
 
             System.out.println("buyuk degil" + todayStr);
 
-            if (todayStr.equals(sistemTarihiStr)) {
+            if (todayStr != null) {
 
                 System.out.println("Buyuk degil");
 
@@ -448,7 +456,7 @@ public class muminFragment extends Fragment {
 
                 System.out.println("Buyuk degil 222");
 
-                String ilceIDShare = sharedPreferences.getString("ilceID","");
+                String ilceIDShare = sharedPreferences.getString("ilceID","9451");
 
                 System.out.println("Buyuk degil 111" + ilceIDShare);
 
@@ -596,6 +604,7 @@ public class muminFragment extends Fragment {
         if (auth.getCurrentUser() != null) {
 
             getProfil();
+            getfriendsCount();
 
 
         }

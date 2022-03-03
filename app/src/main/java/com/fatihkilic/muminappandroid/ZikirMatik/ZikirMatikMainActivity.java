@@ -93,6 +93,8 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
         binding.davetRecyclerView.setAdapter(adapterZikirDavet);
 
 
+
+
         if (modelZikirDAvetArrayList.size() > 0 ) {
 
             binding.zikirlerimButton.setBackground(getResources().getDrawable(R.drawable.layer_stroke_4_corner));
