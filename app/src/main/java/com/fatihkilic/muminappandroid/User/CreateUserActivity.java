@@ -120,7 +120,7 @@ public class CreateUserActivity extends AppCompatActivity {
 
 
                                     HashMap<String, Object> createUserData = new HashMap<>();
-                                    createUserData.put("image", "");
+                                    createUserData.put("image", "https://firebasestorage.googleapis.com/v0/b/muminapp-8b77b.appspot.com/o/pp_yesil.png?alt=media&token=ad9ca7cd-35f5-40d3-b17c-75591540682e");
                                     createUserData.put("userName", un);
                                     createUserData.put("email", em);
                                     createUserData.put("name","");

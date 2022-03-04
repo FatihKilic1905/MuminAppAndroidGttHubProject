@@ -140,21 +140,28 @@ public class MyAccountEditActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
+                System.out.println("image" + ppImageData);
+
                 if (ppImageData != null ) {
 
-                    storageReference.child(currentEmail).child("profilPhoto").putFile(ppImageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    String imageName = currentEmail + "/pp.jpg";
+
+                    storageReference.child(imageName).putFile(ppImageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
 
+                            System.out.println("image" + ppImageData);
 
-                            StorageReference newreference = firebaseStorage.getReference("imagdata yazılacak");
+                            StorageReference newreference = firebaseStorage.getReference(imageName);
                             newreference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(@NonNull Uri uri) {
 
                                     String downloadPPImageData = uri.toString();
+                                    System.out.println("image" + downloadPPImageData);
 
-                                    HashMap<String, Object>profileEditData = new HashMap<>();
+
+                                    HashMap<String, Object> profileEditData = new HashMap<>();
                                     profileEditData.put("image", downloadPPImageData);
                                     profileEditData.put("userName", binding.usernameTextView.getText().toString());
                                     profileEditData.put("name",binding.NameTextView.getText().toString());
@@ -164,9 +171,9 @@ public class MyAccountEditActivity extends AppCompatActivity {
                                     profileEditData.put("description",binding.descriptionTextView.getText().toString());
                                     profileEditData.put("country",binding.countryTextView.getText().toString());
                                     profileEditData.put("state",binding.provinceTextView.getText().toString());
-                                    profileEditData.put("userNameDate", FieldValue.serverTimestamp());
 
-                                    firebaseFirestore.collection("User").document(currentEmail).set(profileEditData).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                                    firebaseFirestore.collection("User").document(currentEmail).update(profileEditData).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(@NonNull Void unused) {
 
@@ -210,7 +217,10 @@ public class MyAccountEditActivity extends AppCompatActivity {
 
 
                     HashMap<String, Object>profileEditData = new HashMap<>();
-                    profileEditData.put("image", "downloadPPImageData");
+
+
+
+                    profileEditData.put("image", image);
                     profileEditData.put("userName", binding.usernameTextView.getText().toString());
                     profileEditData.put("name",binding.NameTextView.getText().toString());
                     profileEditData.put("surName",binding.surNameTextView.getText().toString());
@@ -219,9 +229,9 @@ public class MyAccountEditActivity extends AppCompatActivity {
                     profileEditData.put("description",binding.descriptionTextView.getText().toString());
                     profileEditData.put("country",binding.countryTextView.getText().toString());
                     profileEditData.put("state",binding.provinceTextView.getText().toString());
-                    profileEditData.put("userNameDate", FieldValue.serverTimestamp());
 
-                    firebaseFirestore.collection("User").document(currentEmail).set(profileEditData).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                    firebaseFirestore.collection("User").document(currentEmail).update(profileEditData).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(@NonNull Void unused) {
 
@@ -438,6 +448,8 @@ public class MyAccountEditActivity extends AppCompatActivity {
 
                        binding.ppImageView.setImageURI(ppImageData);
 
+
+
                   
 
 
@@ -499,10 +511,9 @@ public class MyAccountEditActivity extends AppCompatActivity {
                         image = (String) document.get("image");
 
 
-
-
-
                         Picasso.get().load(image).into(binding.ppImageView);
+
+
                         binding.usernameTextView.setText(userName);
                         binding.NameTextView.setText(name);
                         binding.surNameTextView.setText(surName);

@@ -47,17 +47,10 @@ public class  AdapterGetFriends extends RecyclerView.Adapter<AdapterGetFriends.M
 
         holder.getFriendsRecyclerRowBinding.nameSurnameTextView.setText(ns.toString());
 
-        String imageFile = modelGetFriendsArrayList.get(position).friendsImage;
 
-        if (imageFile.equals("")){
+        Picasso.get().load(modelGetFriendsArrayList.get(position).friendsImage).into(holder.getFriendsRecyclerRowBinding.ppImageView);
 
-            holder.getFriendsRecyclerRowBinding.ppImageView.setImageResource(R.drawable.ic_menu_toolbar);
 
-        } else {
-
-            Picasso.get().load(modelGetFriendsArrayList.get(position).friendsImage).into(holder.getFriendsRecyclerRowBinding.ppImageView);
-
-        }
 
 
 
