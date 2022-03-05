@@ -144,6 +144,8 @@ public class ZikirDavetDetailActivity extends AppCompatActivity {
                             binding.buyukTextView.setText(String.valueOf(zikirCountDavet - zikirTotalcount));
 
 
+
+
                         }
 
                     }
@@ -165,6 +167,11 @@ public class ZikirDavetDetailActivity extends AppCompatActivity {
                 Integer zikirCountBuyuk = Integer.parseInt(binding.buyukTextView.getText().toString());
 
                 Integer editInteger = Integer.parseInt(binding.manuelzikirEditText.getText().toString());
+
+
+
+
+
 
                 if (editInteger > zikirCountBuyuk) {
 

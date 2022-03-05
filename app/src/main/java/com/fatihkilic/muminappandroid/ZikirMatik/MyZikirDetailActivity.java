@@ -150,7 +150,7 @@ public class MyZikirDetailActivity extends AppCompatActivity {
         toVcZikir = istirakZikirIntent.getStringExtra("goVcZikir");
         zikirOwnerEmail = istirakZikirIntent.getStringExtra("zikirOwnerEmail");
 
-        System.out.println("tovc " + toVcZikir);
+        System.out.println("tovc " + zikirOwnerEmail);
 
 
 
@@ -415,10 +415,25 @@ public class MyZikirDetailActivity extends AppCompatActivity {
                                 updateZikirGenelCountData.put("ZikirCompleteCount", totalZikirCount);
 
 
+
                                 firebaseFirestore.collection("ZikirMatik").document(zikirOwnerEmail).collection("myZikir").document(istirakZikirDocumentId).update(updateZikirGenelCountData).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(@NonNull Void unused) {
 
+
+                                    }
+                                });
+
+
+                                HashMap<String, Object> updateIstirakTotalZikirData = new HashMap<>();
+                                updateIstirakTotalZikirData.put("zikirCompleteCount", totalZikirCount);
+
+
+                                firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("invitedZikir").document(istirakZikirDocumentId).update(updateIstirakTotalZikirData).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                        System.out.println("istirakMeCountBasarısız");
 
                                     }
                                 });
@@ -434,6 +449,24 @@ public class MyZikirDetailActivity extends AppCompatActivity {
 
                             }
                         });
+
+
+                        HashMap<String, Object> updateIstirakZikirData = new HashMap<>();
+                        updateIstirakZikirData.put("zikirMyCompleteCount", meZikirCompleteCount);
+
+                        firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("invitedZikir").document(istirakZikirDocumentId).update(updateIstirakZikirData).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                                System.out.println("istirakMeCountBasarısız");
+
+                            }
+                        });
+
+
+
+
+
 
 
                     }
@@ -711,7 +744,7 @@ public class MyZikirDetailActivity extends AppCompatActivity {
 
 
 
-        firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("myZikir").document(myzikirDocumentId).collection("Users").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firebaseFirestore.collection("ZikirMatik").document(zikirOwnerEmail).collection("myZikir").document(istirakZikirDocumentId).collection("Users").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 

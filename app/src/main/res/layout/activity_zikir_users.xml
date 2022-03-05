@@ -9,23 +9,30 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/zikirUsersRecykerview"
         android:layout_width="380dp"
-        android:layout_height="491dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/layer_stroke_4_corner"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_goneMarginBottom="140dp" />
 
     <Button
         android:id="@+id/KisiEklebutton"
         android:layout_width="380dp"
         android:layout_height="56dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/corner_4_radius"
         android:text="Kullanıcı Ekle"
+        android:textColor="@color/white"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zikirUsersRecykerview" />
+
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

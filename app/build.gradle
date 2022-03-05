@@ -12,8 +12,8 @@ android {
         applicationId "com.fatihkilic.muminappandroid"
         minSdk 21
         targetSdk 31
-        versionCode 8
-        versionName "1.8"
+        versionCode 10
+        versionName "1.10"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -237,8 +237,7 @@ public class KisilerActivity extends AppCompatActivity {
 
 
 
-                    Intent secimiTamamlaIntent = new Intent(KisilerActivity.this, ZikirAddActivity.class);
-                    startActivity(secimiTamamlaIntent);
+                    onBackPressed();
                     finish();
 
 

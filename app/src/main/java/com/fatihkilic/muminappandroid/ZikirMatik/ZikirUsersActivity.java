@@ -101,8 +101,8 @@ public class ZikirUsersActivity extends AppCompatActivity {
 
         if (toVcUsersStatic.equals("MyZikir")) {
 
-            modelZikirUsersArrayList.clear();
-          getUsersMyzikir();
+
+            getUsersMyzikir();
 
         } else if (toVcUsersStatic.equals("IstirakZikir")) {
 
@@ -156,6 +156,7 @@ public class ZikirUsersActivity extends AppCompatActivity {
             binding.KisiEklebutton.setVisibility(View.INVISIBLE);
 
 
+
         }
 
 
@@ -181,7 +182,7 @@ public class ZikirUsersActivity extends AppCompatActivity {
 
                 if (value != null) {
 
-                    modelZikirUsersArrayList.removeAll(modelZikirUsersArrayList);
+                    modelZikirUsersArrayList.clear();
 
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 
@@ -249,7 +250,7 @@ public class ZikirUsersActivity extends AppCompatActivity {
                 if (value != null) {
 
 
-                    modelZikirUsersArrayList.removeAll(modelZikirUsersArrayList);
+                    modelZikirUsersArrayList.clear();
 
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 
