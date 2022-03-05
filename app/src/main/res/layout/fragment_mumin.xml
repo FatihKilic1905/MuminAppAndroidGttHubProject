@@ -93,6 +93,7 @@
                         android:layout_height="54dp"
                         android:layout_gravity="center"
                         android:text="25"
+                        android:autoSizeTextType="uniform"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="48sp"
