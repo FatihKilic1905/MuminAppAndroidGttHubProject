@@ -12,6 +12,12 @@ import android.view.View;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.ActivityDayInfoBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivityZekatMatikBinding;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,6 +42,10 @@ public class DayInfoActivity extends AppCompatActivity {
 
     ArrayList<todayInHistoryModel> todayInHistoryArrayList;
     todayInHistoryAdapter todayInHistoryAdapter;
+
+    private AdView mAdView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +64,18 @@ public class DayInfoActivity extends AppCompatActivity {
 
         Intent getDetailınfoIntent = getIntent();
         getDetailınfo = getDetailınfoIntent.getStringExtra("DayInfoPageInfo");
+
+        MobileAds.initialize(DayInfoActivity.this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        mAdView = binding.adView;
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
 
         if (getDetailınfo.equals("Meal")) {
 

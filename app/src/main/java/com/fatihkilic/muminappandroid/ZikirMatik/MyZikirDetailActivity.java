@@ -235,7 +235,7 @@ public class MyZikirDetailActivity extends AppCompatActivity {
 
 
                                 System.out.println("totalCount2" + getZikirTotalCountArraylist);
-                                getTotalCountVoid();
+                                getTotalCountVoidMyzikir();
 
                                 Integer totalZikirCount = 0;
 
@@ -290,7 +290,7 @@ public class MyZikirDetailActivity extends AppCompatActivity {
 
                     StringBuilder finisMesaj = new StringBuilder();
                     finisMesaj.append(zikirName);
-                    finisMesaj.append(" zikrinde çekmeniz gereken kısmı tamamladınız. Zikirlerim kısmından takip edebilirsiniz.");
+                    finisMesaj.append(" zikrinde çekmeniz gereken kısmı tamamladınız. İstirak kısmından takip edebilirsiniz.");
 
                     if (meZikirCompleteCount >= meZikirCountInt) {
 
@@ -389,7 +389,7 @@ public class MyZikirDetailActivity extends AppCompatActivity {
 
 
                                 System.out.println("totalCount2" + getZikirTotalCountArraylist);
-                                getTotalCountVoid();
+                                getTotalCountVoidIstirak();
 
                                 Integer totalZikirCount = 0;
 
@@ -737,7 +737,7 @@ public class MyZikirDetailActivity extends AppCompatActivity {
     }
 
 
-    public void getTotalCountVoid () {
+    public void getTotalCountVoidIstirak () {
 
 
 
@@ -745,6 +745,57 @@ public class MyZikirDetailActivity extends AppCompatActivity {
 
 
         firebaseFirestore.collection("ZikirMatik").document(zikirOwnerEmail).collection("myZikir").document(istirakZikirDocumentId).collection("Users").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                if (error != null) {
+
+                    System.out.println("Zikirlerim cekilemedi");
+
+                }
+
+                if (value != null) {
+
+
+                    getZikirTotalCountArraylist.clear();
+
+                    for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+                        Map<String, Object> data = snapshot.getData();
+
+
+                        Long zcc = (Long) data.get("zikirCompleteCount");
+
+                        Integer zikirCompleteCount = zcc.intValue();
+
+                        getZikirTotalCountArraylist.add(zikirCompleteCount);
+
+                        System.out.println("totalCount array" + getZikirTotalCountArraylist);
+
+
+
+                    }
+
+
+                }
+
+            }
+        });
+
+
+
+
+    }
+
+
+    public void getTotalCountVoidMyzikir () {
+
+
+
+
+
+
+        firebaseFirestore.collection("ZikirMatik").document(auth.getCurrentUser().getEmail()).collection("myZikir").document(myzikirDocumentId).collection("Users").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 

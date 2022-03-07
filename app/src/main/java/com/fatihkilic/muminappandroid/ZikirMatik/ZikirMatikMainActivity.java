@@ -329,9 +329,15 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        getZikirlerim();
+        getIstirak();
+        getDavet();
 
-
+    }
 
     private void getZikirlerim() {
 
@@ -351,7 +357,7 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
 
                 if (value != null) {
 
-                    modelZikirlerimArrayList.remove(modelZikirlerimArrayList);
+                    modelZikirlerimArrayList.clear();
 
 
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
@@ -423,7 +429,7 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
 
                 if (value != null) {
 
-                    modelZikirlerimArrayList.remove(modelZikirIstirakArrayList);
+                    modelZikirIstirakArrayList.clear();
 
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 
@@ -490,7 +496,7 @@ public class ZikirMatikMainActivity extends AppCompatActivity {
 
                 if (value != null) {
 
-                    modelZikirDAvetArrayList.remove(modelZikirDAvetArrayList);
+                    modelZikirDAvetArrayList.clear();
 
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 
