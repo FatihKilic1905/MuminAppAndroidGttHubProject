@@ -255,7 +255,6 @@ public class muminFragment extends Fragment {
 
         try {
 
-
             sistemTarihiVoid();
             sistemSaatiVoid();
             getEzanVakti();

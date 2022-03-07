@@ -7,8 +7,9 @@
     tools:context=".ui.home.HomeFragment">
 
 
+
     <ImageButton
-        android:id="@+id/hatimDuasiButton"
+        android:id="@+id/kuranıKerimButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@drawable/corner_4_radius"
@@ -20,6 +21,20 @@
 
         />
 
+
+    <ImageButton
+        android:id="@+id/hatimDuasiButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/corner_4_radius"
+        android:src="@mipmap/ic_hatim_duasi_button"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/kuranıKerimButton" />
+
     <ImageButton
         android:id="@+id/vedaHutbesiButton"
         android:layout_width="100dp"
@@ -28,9 +43,9 @@
         android:background="@drawable/corner_4_radius"
         android:src="@mipmap/ic_veda_hutbesi_button"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hatimDuasiButton"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/hatimDuasiButton" />
 
     <ImageButton
         android:id="@+id/tesbihatButton"

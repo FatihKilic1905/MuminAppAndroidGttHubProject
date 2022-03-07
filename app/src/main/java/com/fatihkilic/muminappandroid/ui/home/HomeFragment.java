@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.fatihkilic.muminappandroid.Kutuphane.EzanDuasiActivity;
 import com.fatihkilic.muminappandroid.Kutuphane.HtmDuasi;
+import com.fatihkilic.muminappandroid.Kutuphane.KuraniKerimMainActivity;
 import com.fatihkilic.muminappandroid.Kutuphane.NamazHocasiActivity;
 import com.fatihkilic.muminappandroid.Kutuphane.TesbihatActivity;
 import com.fatihkilic.muminappandroid.Kutuphane.VedaHutbesiActivity;
@@ -52,7 +53,16 @@ public class HomeFragment extends Fragment {
 
 
 
+        binding.kuranKerimButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent kuraniKerimIntent = new Intent(getActivity(), KuraniKerimMainActivity.class);
+                startActivity(kuraniKerimIntent);
+
+
+            }
+        });
 
 
         ImageButton tesbihatButton = binding.tesbihatButton;
@@ -65,6 +75,7 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
 
         ImageButton ezanDuasiButton = binding.ezanDuasiButton;
         ezanDuasiButton.setOnClickListener(new View.OnClickListener() {
