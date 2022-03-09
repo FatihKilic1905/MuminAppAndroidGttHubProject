@@ -28,6 +28,7 @@ import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -333,9 +334,11 @@ public class EzanVaktiActivity extends AppCompatActivity {
                     List<EzanVakitleriModel> responseList = response.body();
                     ezanVakitleriModels = new ArrayList<>(responseList);
 
+
                     for (EzanVakitleriModel vakitleriModel : ezanVakitleriModels) {
 
                         try {
+
 
 
                             binding.imsakTime.setText(vakitleriModel.Imsak);

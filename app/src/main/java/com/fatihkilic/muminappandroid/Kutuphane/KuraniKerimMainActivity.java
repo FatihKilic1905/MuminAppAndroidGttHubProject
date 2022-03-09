@@ -130,7 +130,7 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
 
                         try {
 
-                            turkceDibQuranDAtabase = openOrCreateDatabase("QuranDatabase", MODE_PRIVATE,null);
+                            arapcaKuranDatabase = openOrCreateDatabase("QuranDatabase", MODE_PRIVATE,null);
                             arapcaKuranDatabase.execSQL("CREATE TABLE IF NOT EXISTS arapcaKuranDatabase(id INTEGER PRIMARY KEY, juzArap INTEGER, numberArap INTEGER, numberInSurahArap INTEGER, pageArap INTEGER, sajdaArap INTEGER, surahNameTrArap VARCHAR, surahNumberArap VARCHAR, textArap VARCHAR)");
                             String ArapcaKuranString = "INSERT INTO arapcaKuranDatabase(juzArap, numberArap, numberInSurahArap, pageArap, sajdaArap, surahNameTrArap, surahNumberArap, textArap) VALUES(?,?,?,?,?,?,?,?)";
                             SQLiteStatement sqLiteStatementArapcaKuran = arapcaKuranDatabase.compileStatement(ArapcaKuranString);
@@ -228,7 +228,7 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
                         try {
 
                             turkceDibQuranDAtabase = openOrCreateDatabase("QuranDatabase", MODE_PRIVATE,null);
-                            turkceDibQuranDAtabase.execSQL("CREATE TABLE IF NOT EXISTS arapcaKuranDatabase(id INTEGER PRIMARY KEY, juzTrDib INTEGER, numberTrDib INTEGER, numberInSurahTrDib INTEGER, pageTrDib INTEGER, sajdaTrDib INTEGER, surahNameTrDib VARCHAR, surahNumberTrDib VARCHAR, textTrdib VARCHAR)");
+                            turkceDibQuranDAtabase.execSQL("CREATE TABLE IF NOT EXISTS turkceDibQuranDatabase(id INTEGER PRIMARY KEY, juzTrDib INTEGER, numberTrDib INTEGER, numberInSurahTrDib INTEGER, pageTrDib INTEGER, sajdaTrDib INTEGER, surahNameTrDib VARCHAR, surahNumberTrDib VARCHAR, textTrdib VARCHAR)");
                             String TurkceKuranDibString = "INSERT INTO arapcaKuranDatabase(juzTrDib, numberTrDib, numberInSurahTrDib, pageTrDib, sajdaTrDib, surahNameTrDib, surahNumberTrDib, textTrdib) VALUES(?,?,?,?,?,?,?,?)";
                             SQLiteStatement sqLiteStatementTurkceDibKuran = turkceDibQuranDAtabase.compileStatement(TurkceKuranDibString);
                             sqLiteStatementTurkceDibKuran.bindLong(1, turkceDibKuran.juzTrDib);

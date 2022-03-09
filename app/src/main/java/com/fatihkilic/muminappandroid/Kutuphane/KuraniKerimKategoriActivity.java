@@ -3,6 +3,7 @@ package com.fatihkilic.muminappandroid.Kutuphane;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 
@@ -18,8 +19,11 @@ public class KuraniKerimKategoriActivity extends AppCompatActivity {
 
     private ActivityKuraniKerimKategoriBinding binding;
 
+
     ArrayList<ModelKuraniKerimKategori> modelKuraniKerimKategoriArrayList;
     AdapterKuraniKerimKategori adapterKuraniKerimKategori;
+
+
 
 
     @Override
