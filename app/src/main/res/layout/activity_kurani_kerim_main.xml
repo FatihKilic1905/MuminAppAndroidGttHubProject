@@ -8,13 +8,16 @@
 
     <Button
         android:id="@+id/surelerButton"
-        android:layout_width="308dp"
-        android:layout_height="131dp"
-        android:text="SURELER"
+        android:layout_width="329dp"
+        android:layout_height="514dp"
         android:background="@drawable/corner_4_radius"
+        android:text="SURELER"
         android:textColor="@color/white"
-        android:textStyle="bold"
         android:textSize="20dp"
-        tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="68dp" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.fatihkilic.muminappandroid.Kutuphane;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,15 @@ public class AdapterKuraniKerimKategori extends RecyclerView.Adapter<AdapterKura
     private ArrayList<ModelKuraniKerimKategori> modelKuraniKerimKategoriArrayList;
 
     public AdapterKuraniKerimKategori(ArrayList<ModelKuraniKerimKategori> modelKuraniKerimKategoriArrayList) {
+
+
+
         this.modelKuraniKerimKategoriArrayList = modelKuraniKerimKategoriArrayList;
+
+
+
     }
+
 
     @NonNull
     @Override
@@ -34,6 +42,18 @@ public class AdapterKuraniKerimKategori extends RecyclerView.Adapter<AdapterKura
 
         holder.rowKuranKerimKategoriBinding.suraNameTextView.setText(modelKuraniKerimKategoriArrayList.get(position).kategoriName);
 
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent sureIntent = new Intent(holder.itemView.getContext(), KuraniKerimActivity.class);
+                sureIntent.putExtra("SureName", modelKuraniKerimKategoriArrayList.get(position).kategoriName);
+                sureIntent.putExtra("KategoriName", "Sureler";
+                holder.itemView.getContext().startActivity(sureIntent);
+
+            }
+        });
 
 
     }

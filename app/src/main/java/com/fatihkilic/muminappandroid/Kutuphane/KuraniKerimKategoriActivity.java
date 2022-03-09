@@ -1,11 +1,13 @@
 package com.fatihkilic.muminappandroid.Kutuphane;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
 import android.view.View;
 
 import com.fatihkilic.muminappandroid.R;
+import com.fatihkilic.muminappandroid.ZikirMatik.AdapterZikirlerim;
 import com.fatihkilic.muminappandroid.databinding.ActivityKuraniKerimKategoriBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivityKuraniKerimMainBinding;
 
@@ -17,6 +19,7 @@ public class KuraniKerimKategoriActivity extends AppCompatActivity {
     private ActivityKuraniKerimKategoriBinding binding;
 
     ArrayList<ModelKuraniKerimKategori> modelKuraniKerimKategoriArrayList;
+    AdapterKuraniKerimKategori adapterKuraniKerimKategori;
 
 
     @Override
@@ -30,14 +33,10 @@ public class KuraniKerimKategoriActivity extends AppCompatActivity {
         setContentView(view);
 
         modelKuraniKerimKategoriArrayList = new ArrayList<>();
-
         getSurelerList();
-
-
-
-
-
-
+        binding.surelerRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+        adapterKuraniKerimKategori = new AdapterKuraniKerimKategori(modelKuraniKerimKategoriArrayList);
+        binding.surelerRecyclerview.setAdapter(adapterKuraniKerimKategori);
 
 
 
