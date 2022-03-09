@@ -6,13 +6,13 @@ public class ModelKuraniKerimTurkceDib {
     public Integer numberTrDib;
     public Integer numberInSurahTrDib;
     public Integer pageTrDib;
-    public  Boolean sajdaTrDib;
+    public  Integer sajdaTrDib;
     public String surahNameTrDib;
     public String surahNumberTrDib;
     public String textTrdib;
 
 
-    public ModelKuraniKerimTurkceDib(Integer juzTrDib, Integer numberTrDib, Integer numberInSurahTrDib, Integer pageTrDib, Boolean sajdaTrDib, String surahNameTrDib, String surahNumberTrDib, String textTrdib) {
+    public ModelKuraniKerimTurkceDib(Integer juzTrDib, Integer numberTrDib, Integer numberInSurahTrDib, Integer pageTrDib, Integer sajdaTrDib, String surahNameTrDib, String surahNumberTrDib, String textTrdib) {
         this.juzTrDib = juzTrDib;
         this.numberTrDib = numberTrDib;
         this.numberInSurahTrDib = numberInSurahTrDib;

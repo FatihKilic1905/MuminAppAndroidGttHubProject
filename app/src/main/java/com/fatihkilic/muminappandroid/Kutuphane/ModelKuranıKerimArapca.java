@@ -7,13 +7,13 @@ public class ModelKuranıKerimArapca {
     public Integer numberArap;
     public Integer numberInSurahArap;
     public Integer pageArap;
-    public  Boolean sajdaArap;
+    public  Integer sajdaArap;
     public String surahNameTrArap;
     public String surahNumberArap;
     public String textArap;
 
 
-    public ModelKuranıKerimArapca(Integer juzArap, Integer numberArap, Integer numberInSurahArap, Integer pageArap, Boolean sajdaArap, String surahNameTrArap, String surahNumberArap, String textArap) {
+    public ModelKuranıKerimArapca(Integer juzArap, Integer numberArap, Integer numberInSurahArap, Integer pageArap, Integer sajdaArap, String surahNameTrArap, String surahNumberArap, String textArap) {
         this.juzArap = juzArap;
         this.numberArap = numberArap;
         this.numberInSurahArap = numberInSurahArap;

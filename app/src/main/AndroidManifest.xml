@@ -17,6 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MuminAppAndroid">
         <activity
+            android:name=".Kutuphane.KuraniKerimKategoriActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Kutuphane.KuraniKerimActivity"
+            android:exported="false" />
+        <activity
             android:name=".Kutuphane.KuraniKerimMainActivity"
             android:exported="false" />
         <activity

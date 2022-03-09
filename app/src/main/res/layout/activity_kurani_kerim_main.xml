@@ -6,4 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".Kutuphane.KuraniKerimMainActivity">
 
+    <Button
+        android:id="@+id/surelerButton"
+        android:layout_width="308dp"
+        android:layout_height="131dp"
+        android:text="SURELER"
+        android:background="@drawable/corner_4_radius"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        tools:layout_editor_absoluteX="51dp"
+        tools:layout_editor_absoluteY="68dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.fatihkilic.muminappandroid.Kutuphane;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
 
     SQLiteDatabase arapcaKuranDatabase;
+    SQLiteDatabase turkceDibQuranDAtabase;
 
 
     ArrayList<ModelKuranıKerimArapca> modelKuranıKerimArapcaArrayList;
@@ -52,6 +54,16 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
         modelKuraniKerimTurkceDibArrayList = new ArrayList<>();
 
 
+        binding.surelerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent surahIntent = new Intent(KuraniKerimMainActivity.this, KuraniKerimKategoriActivity.class);
+                startActivity(surahIntent);
+
+
+            }
+        });
 
 
     }
@@ -92,9 +104,21 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
                         Integer numberInSurah = numberInSurahLong.intValue();
                         Integer page = pageLong.intValue();
 
+                        Integer sajdaInt = null;
+
+                        if (sajda == true) {
+
+                            sajdaInt = 1;
+
+                        } else if (sajda == false) {
+
+                            sajdaInt = 0;
+
+                        }
 
 
-                        ModelKuranıKerimArapca modelKuranıKerimArapca = new ModelKuranıKerimArapca(juz,number,numberInSurah,page,sajda,surahNameTr,surahNumber,text);
+
+                        ModelKuranıKerimArapca modelKuranıKerimArapca = new ModelKuranıKerimArapca(juz,number,numberInSurah,page,sajdaInt,surahNameTr,surahNumber,text);
                         modelKuranıKerimArapcaArrayList.add(modelKuranıKerimArapca);
 
 
@@ -103,19 +127,28 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
 
                     for (ModelKuranıKerimArapca arapcaKuran : modelKuranıKerimArapcaArrayList) {
 
-                        arapcaKuranDatabase.execSQL("CREATE TABLE IF NOT EXISTS arapcaKuranDatabase(id INTEGER PRIMARY KEY, juzArap INTEGER, numberArap INTEGER, numberInSurahArap INTEGER, pageArap INTEGER, sajdaArap INTEGER, surahNameTrArap VARCHAR, surahNumberArap VARCHAR, textArap VARCHAR)");
-                        String ArapcaKuranString = "INSERT INTO arapcaKuranDatabase(juzArap, numberArap, numberInSurahArap, pageArap, sajdaArap, surahNameTrArap, surahNumberArap, textArap) VALUES(?,?,?,?,?,?,?,?)";
-                        SQLiteStatement sqLiteStatementArapcaKuran = arapcaKuranDatabase.compileStatement(ArapcaKuranString);
-                        sqLiteStatementArapcaKuran.bindLong(1, arapcaKuran.juzArap);
-                        sqLiteStatementArapcaKuran.bindLong(2, arapcaKuran.numberArap);
-                        sqLiteStatementArapcaKuran.bindLong(3, arapcaKuran.numberInSurahArap);
-                        sqLiteStatementArapcaKuran.bindLong(4, arapcaKuran.pageArap);
-                        sqLiteStatementArapcaKuran.bindLong(5, arapcaKuran.sajdaArap);
-                        sqLiteStatementArapcaKuran.bindString(6, vakitleriModel.Yatsi);
-                        sqLiteStatementArapcaKuran.bindString(7, vakitleriModel.MiladiTarihKisa);
-                        sqLiteStatementArapcaKuran.bindString(8, vakitleriModel.MiladiTarihUzun);
-                        sqLiteStatementArapcaKuran.bindString(9, vakitleriModel.HicriTarihUzun);
 
+                        try {
+
+                            turkceDibQuranDAtabase = openOrCreateDatabase("QuranDatabase", MODE_PRIVATE,null);
+                            arapcaKuranDatabase.execSQL("CREATE TABLE IF NOT EXISTS arapcaKuranDatabase(id INTEGER PRIMARY KEY, juzArap INTEGER, numberArap INTEGER, numberInSurahArap INTEGER, pageArap INTEGER, sajdaArap INTEGER, surahNameTrArap VARCHAR, surahNumberArap VARCHAR, textArap VARCHAR)");
+                            String ArapcaKuranString = "INSERT INTO arapcaKuranDatabase(juzArap, numberArap, numberInSurahArap, pageArap, sajdaArap, surahNameTrArap, surahNumberArap, textArap) VALUES(?,?,?,?,?,?,?,?)";
+                            SQLiteStatement sqLiteStatementArapcaKuran = arapcaKuranDatabase.compileStatement(ArapcaKuranString);
+                            sqLiteStatementArapcaKuran.bindLong(1, arapcaKuran.juzArap);
+                            sqLiteStatementArapcaKuran.bindLong(2, arapcaKuran.numberArap);
+                            sqLiteStatementArapcaKuran.bindLong(3, arapcaKuran.numberInSurahArap);
+                            sqLiteStatementArapcaKuran.bindLong(4, arapcaKuran.pageArap);
+                            sqLiteStatementArapcaKuran.bindLong(5, arapcaKuran.sajdaArap);
+                            sqLiteStatementArapcaKuran.bindString(6, arapcaKuran.surahNameTrArap);
+                            sqLiteStatementArapcaKuran.bindString(7, arapcaKuran.surahNumberArap);
+                            sqLiteStatementArapcaKuran.bindString(8, arapcaKuran.textArap);
+                            sqLiteStatementArapcaKuran.execute();
+
+                        } catch (Exception e) {
+
+                            e.printStackTrace();
+
+                        }
 
 
                     }
@@ -169,9 +202,50 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
                         Integer page = pageLong.intValue();
 
 
+                        Integer sajdaInt = null;
 
-                        ModelKuraniKerimTurkceDib modelKuranıKerimArapca = new ModelKuraniKerimTurkceDib(juz,number,numberInSurah,page,sajda,surahNameTr,surahNumber,text);
+                        if (sajda == true) {
+
+                            sajdaInt = 1;
+
+                        } else if (sajda == false) {
+
+                            sajdaInt = 0;
+
+                        }
+
+
+                        ModelKuraniKerimTurkceDib modelKuranıKerimArapca = new ModelKuraniKerimTurkceDib(juz,number,numberInSurah,page,sajdaInt,surahNameTr,surahNumber,text);
                         modelKuraniKerimTurkceDibArrayList.add(modelKuranıKerimArapca);
+
+
+                    }
+
+
+                    for (ModelKuraniKerimTurkceDib turkceDibKuran : modelKuraniKerimTurkceDibArrayList) {
+
+
+                        try {
+
+                            turkceDibQuranDAtabase = openOrCreateDatabase("QuranDatabase", MODE_PRIVATE,null);
+                            turkceDibQuranDAtabase.execSQL("CREATE TABLE IF NOT EXISTS arapcaKuranDatabase(id INTEGER PRIMARY KEY, juzTrDib INTEGER, numberTrDib INTEGER, numberInSurahTrDib INTEGER, pageTrDib INTEGER, sajdaTrDib INTEGER, surahNameTrDib VARCHAR, surahNumberTrDib VARCHAR, textTrdib VARCHAR)");
+                            String TurkceKuranDibString = "INSERT INTO arapcaKuranDatabase(juzTrDib, numberTrDib, numberInSurahTrDib, pageTrDib, sajdaTrDib, surahNameTrDib, surahNumberTrDib, textTrdib) VALUES(?,?,?,?,?,?,?,?)";
+                            SQLiteStatement sqLiteStatementTurkceDibKuran = turkceDibQuranDAtabase.compileStatement(TurkceKuranDibString);
+                            sqLiteStatementTurkceDibKuran.bindLong(1, turkceDibKuran.juzTrDib);
+                            sqLiteStatementTurkceDibKuran.bindLong(2, turkceDibKuran.numberTrDib);
+                            sqLiteStatementTurkceDibKuran.bindLong(3, turkceDibKuran.numberInSurahTrDib);
+                            sqLiteStatementTurkceDibKuran.bindLong(4, turkceDibKuran.pageTrDib);
+                            sqLiteStatementTurkceDibKuran.bindLong(5, turkceDibKuran.sajdaTrDib);
+                            sqLiteStatementTurkceDibKuran.bindString(6, turkceDibKuran.surahNameTrDib);
+                            sqLiteStatementTurkceDibKuran.bindString(7, turkceDibKuran.surahNumberTrDib);
+                            sqLiteStatementTurkceDibKuran.bindString(8, turkceDibKuran.textTrdib);
+                            sqLiteStatementTurkceDibKuran.execute();
+
+                        } catch (Exception e) {
+
+                            e.printStackTrace();
+
+                        }
 
 
                     }

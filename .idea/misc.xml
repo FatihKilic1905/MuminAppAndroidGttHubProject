@@ -104,6 +104,7 @@
         <entry key="app/src/main/res/layout/activity_istirak.xml" value="0.34375" />
         <entry key="app/src/main/res/layout/activity_kisiler.xml" value="0.34375" />
         <entry key="app/src/main/res/layout/activity_konum.xml" value="0.49773550724637683" />
+        <entry key="app/src/main/res/layout/activity_kurani_kerim_kategori.xml" value="0.5911458333333334" />
         <entry key="app/src/main/res/layout/activity_kurani_kerim_main.xml" value="0.5911458333333334" />
         <entry key="app/src/main/res/layout/activity_live_tv.xml" value="0.32760416666666664" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
@@ -131,6 +132,7 @@
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.25" />
         <entry key="app/src/main/res/layout/ilceler_row.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/istirak_row.xml" value="0.3183876811594203" />
+        <entry key="app/src/main/res/layout/row_kuran_kerim_kategori.xml" value="0.7014925373134329" />
         <entry key="app/src/main/res/layout/sehirler_row.xml" value="0.42083333333333334" />
         <entry key="app/src/main/res/layout/ulkeler_row.xml" value="0.3796875" />
         <entry key="app/src/main/res/layout/zikir_davet_row.xml" value="0.2753623188405797" />

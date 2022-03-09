@@ -492,10 +492,6 @@ public class muminFragment extends Fragment {
                                     sqLiteStatementEzanVakti.bindString(9, vakitleriModel.HicriTarihUzun);
                                     sqLiteStatementEzanVakti.execute();
 
-                                    System.out.println("vakitler" + vakitleriModel.Yatsi);
-
-
-
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
