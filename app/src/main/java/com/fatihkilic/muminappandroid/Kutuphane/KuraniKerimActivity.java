@@ -62,8 +62,7 @@ public class KuraniKerimActivity extends AppCompatActivity {
         getSupportActionBar().setTitle( surahName + " Suresi");
 
         binding.kuraniKerimRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapterKuraniKerimPage = new AdapterKuraniKerimPage(modelKuranıKerimPageArapcaArrayList);
-
+        adapterKuraniKerimPage = new AdapterKuraniKerimPage(modelKuranıKerimPageArapcaArrayList,modelKraniKerimPageMealArrayList);
         binding.kuraniKerimRecyclerView.setAdapter(adapterKuraniKerimPage);
 
     }

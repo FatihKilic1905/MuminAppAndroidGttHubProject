@@ -17,14 +17,12 @@ public class AdapterKuraniKerimPage extends RecyclerView.Adapter<AdapterKuraniKe
 
 
     private ArrayList<ModelKuranıKerimPageArapca> modelKuranıKerimPageArapcaArrayList;
-
-    public AdapterKuraniKerimPage(ArrayList<ModelKuranıKerimPageArapca> modelKuranıKerimPageArapcaArrayList) {
-        this.modelKuranıKerimPageArapcaArrayList = modelKuranıKerimPageArapcaArrayList;
-    }
-
     private ArrayList<ModelKraniKerimPageMeal> modelKraniKerimPageMealArrayList;
 
-
+    public AdapterKuraniKerimPage(ArrayList<ModelKuranıKerimPageArapca> modelKuranıKerimPageArapcaArrayList, ArrayList<ModelKraniKerimPageMeal> modelKraniKerimPageMealArrayList) {
+        this.modelKuranıKerimPageArapcaArrayList = modelKuranıKerimPageArapcaArrayList;
+        this.modelKraniKerimPageMealArrayList = modelKraniKerimPageMealArrayList;
+    }
 
     @NonNull
     @Override
@@ -37,6 +35,7 @@ public class AdapterKuraniKerimPage extends RecyclerView.Adapter<AdapterKuraniKe
     public void onBindViewHolder(@NonNull KuraniKerimHolder holder, int position) {
 
         holder.kuraniKerimRowBinding.arapcaTextView.setText(modelKuranıKerimPageArapcaArrayList.get(position).textArapPage);
+        holder.kuraniKerimRowBinding.turkceTextView.setText(modelKraniKerimPageMealArrayList.get(position).textMeal);
 
 
 
