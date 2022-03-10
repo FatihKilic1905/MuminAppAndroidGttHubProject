@@ -195,6 +195,7 @@ public class ZekatMatikActivity extends AppCompatActivity {
                     double data = Double.parseDouble(binding.tlTextView.getText().toString());
                     varlikTl = data;
 
+
                 }
 
                 if (!binding.dolarTextView.getText().toString().matches("")) {
@@ -557,6 +558,9 @@ public class ZekatMatikActivity extends AppCompatActivity {
                         dolarCr = (double) document.get("selling");
                         System.out.println(dolarCr);
 
+                        binding.dolarTextView.setHint("Dolar (" + dolarCr + " TL)");
+                        binding.borcdolarTextView.setHint("Dolar (" + dolarCr + " TL)");
+
                     } else {
                         System.out.println("Olumsuz");
                     }
@@ -590,6 +594,9 @@ public class ZekatMatikActivity extends AppCompatActivity {
 
                         euroCr = (double) document.get("selling");
                         System.out.println(euroCr);
+
+                        binding.euroTextView.setHint("Euro (" + euroCr + " TL)");
+                        binding.borceuroTextView.setHint("Euro (" + euroCr + " TL)");
 
                     } else {
                         System.out.println("Olumsuz");
@@ -625,6 +632,9 @@ public class ZekatMatikActivity extends AppCompatActivity {
                         fullGoldCr = (double) document.get("selling");
                         System.out.println(fullGoldCr);
 
+                        binding.tamAltinTexView.setHint("Tam Altın (" + fullGoldCr + " TL)");
+                        binding.borctamAltinTexView.setHint("Tam Altın (" + fullGoldCr + " TL)");
+
                     } else {
                         System.out.println("Olumsuz");
                     }
@@ -658,6 +668,9 @@ public class ZekatMatikActivity extends AppCompatActivity {
 
                         halfGoldCr = (double) document.get("selling");
                         System.out.println(halfGoldCr);
+
+                        binding.yarimAltinTextView.setHint("Yarım Altın (" + halfGoldCr + " TL)");
+                        binding.borcyarimAltinTextView.setHint("Yarım Altın (" + halfGoldCr + " TL)");
 
                     } else {
                         System.out.println("Olumsuz");
@@ -693,6 +706,9 @@ public class ZekatMatikActivity extends AppCompatActivity {
                         quarterGoldCr = (double) document.get("selling");
                         System.out.println(quarterGoldCr);
 
+                        binding.ceyrekAltinTextView.setHint("Çeyrek Altın (" + quarterGoldCr + " TL)");
+                        binding.borcceyrekAltinTextView.setHint("Çeyrek Altın (" + quarterGoldCr + " TL)");
+
                     } else {
                         System.out.println("Olumsuz");
                     }
@@ -726,6 +742,9 @@ public class ZekatMatikActivity extends AppCompatActivity {
 
                         carats14Cr = (double) document.get("selling");
                         System.out.println(carats14Cr);
+
+                        binding.ayar14TextView.setHint("14 Ayar Altın (" + carats14Cr + " TL)");
+                        binding.borcayar14TextView.setHint("14 Ayar Altın (" + carats14Cr + " TL)");
 
                     } else {
                         System.out.println("Olumsuz");
@@ -761,6 +780,9 @@ public class ZekatMatikActivity extends AppCompatActivity {
                         carats18Cr = (double) document.get("selling");
                         System.out.println(carats18Cr);
 
+                        binding.ayar18TextView.setHint("18 Ayar Altın (" + carats18Cr + " TL)");
+                        binding.borcayar18TextView.setHint("18 Ayar Altın (" + carats18Cr + " TL)");
+
                     } else {
                         System.out.println("Olumsuz");
                     }
@@ -795,6 +817,9 @@ public class ZekatMatikActivity extends AppCompatActivity {
                         carats22Cr = (double) document.get("selling");
                         System.out.println(carats22Cr);
 
+                        binding.ayar22TextView.setHint("22 Ayar Altın (" + carats22Cr + " TL)");
+                        binding.borcayar22TextView.setHint("22 Ayar Altın (" + carats22Cr + " TL)");
+
                     } else {
                         System.out.println("Olumsuz");
                     }
@@ -828,6 +853,9 @@ public class ZekatMatikActivity extends AppCompatActivity {
 
                         gramCr = (double) document.get("selling");
                         System.out.println(gramCr);
+
+                        binding.gramAltinTextView.setHint("Gram Altın (" + gramCr + " TL)");
+                        binding.borcgramAltinTextView.setHint("Gram Altın (" + gramCr + " TL)");
 
                     } else {
                         System.out.println("Olumsuz");

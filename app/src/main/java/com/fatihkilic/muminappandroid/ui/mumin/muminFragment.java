@@ -429,6 +429,8 @@ public class muminFragment extends Fragment {
             System.out.println("buyuk " + miladiKisaIx);
 
 
+            System.out.println("cursor" + cursor.getCount());
+
             while (cursor.moveToNext()){
 
 

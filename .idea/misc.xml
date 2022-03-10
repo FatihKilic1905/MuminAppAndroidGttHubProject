@@ -23,7 +23,6 @@
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_bildirim.xml" value="0.25" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_create_user.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_day_info.xml" value="0.20606884057971014" />
-        <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_ezan_vakti.xml" value="0.2740036231884058" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_friends_detail.xml" value="0.346875" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_friends_operation.xml" value="0.346875" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_hatim_duasi.xml" value="0.24375" />
@@ -32,7 +31,6 @@
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_istirak.xml" value="0.3625" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_kisiler.xml" value="0.24375" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_konum.xml" value="0.24375" />
-        <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_kurani_kerim_main.xml" value="0.3087719298245614" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_live_tv.xml" value="0.24375" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_main.xml" value="0.24375" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/activity_my_account.xml" value="0.346875" />
@@ -64,7 +62,6 @@
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/istirak_row.xml" value="0.24375" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/kisiler_row.xml" value="0.25" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/meal_row.xml" value="0.20606884057971014" />
-        <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/row_kuran_kerim_kategori.xml" value="0.3087719298245614" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/sehirler_row.xml" value="0.24375" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/tih_row.xml" value="0.24375" />
         <entry key="..\:/Users/Pc/Desktop/MuminAppAndroid/app/src/main/res/layout/ulkeler_row.xml" value="0.24375" />
@@ -107,6 +104,9 @@
         <entry key="app/src/main/res/layout/activity_istirak.xml" value="0.34375" />
         <entry key="app/src/main/res/layout/activity_kisiler.xml" value="0.34375" />
         <entry key="app/src/main/res/layout/activity_konum.xml" value="0.49773550724637683" />
+        <entry key="app/src/main/res/layout/activity_kurani_kerim.xml" value="0.5911458333333334" />
+        <entry key="app/src/main/res/layout/activity_kurani_kerim_kategori.xml" value="0.5911458333333334" />
+        <entry key="app/src/main/res/layout/activity_kurani_kerim_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_live_tv.xml" value="0.32760416666666664" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_my_account_edit.xml" value="0.5915343915343916" />
@@ -133,6 +133,8 @@
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.25" />
         <entry key="app/src/main/res/layout/ilceler_row.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/istirak_row.xml" value="0.3183876811594203" />
+        <entry key="app/src/main/res/layout/kurani_kerim_row.xml" value="0.5911458333333334" />
+        <entry key="app/src/main/res/layout/row_kuran_kerim_kategori.xml" value="0.7014925373134329" />
         <entry key="app/src/main/res/layout/sehirler_row.xml" value="0.42083333333333334" />
         <entry key="app/src/main/res/layout/ulkeler_row.xml" value="0.3796875" />
         <entry key="app/src/main/res/layout/zikir_davet_row.xml" value="0.2753623188405797" />

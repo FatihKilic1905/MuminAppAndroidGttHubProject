@@ -114,6 +114,7 @@ public class CreateUserActivity extends AppCompatActivity {
                         } else {
 
 
+
                             auth.createUserWithEmailAndPassword(emailTextView.getText().toString(), sifreTextView.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(@NonNull AuthResult authResult) {

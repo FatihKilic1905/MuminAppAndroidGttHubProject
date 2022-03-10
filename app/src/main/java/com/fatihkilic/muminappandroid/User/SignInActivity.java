@@ -88,6 +88,8 @@ public class SignInActivity extends AppCompatActivity {
 
                 } else {
 
+
+
                     auth.signInWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(@NonNull AuthResult authResult) {

@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.os.Bundle;
@@ -49,6 +50,7 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         modelKuranıKerimArapcaArrayList = new ArrayList<>();
         modelKuraniKerimTurkceDibArrayList = new ArrayList<>();
@@ -65,11 +67,53 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
             }
         });
 
+        arapcaKuranDatabase = openOrCreateDatabase("QuranDatabase", MODE_PRIVATE,null);
+        arapcaKuranDatabase.execSQL("CREATE TABLE IF NOT EXISTS arapcaKuranDatabase(id INTEGER PRIMARY KEY, juzArap INTEGER, numberArap INTEGER, numberInSurahArap INTEGER, pageArap INTEGER, sajdaArap INTEGER, surahNameTrArap VARCHAR, surahNumberArap VARCHAR, textArap VARCHAR)");
+
+
+        try {
+
+
+            Cursor cursor = arapcaKuranDatabase.rawQuery("SELECT * FROM arapcaKuranDatabase ", null);
+
+            System.out.println("cursor" + cursor.getCount());
+
+            if (cursor.getCount() == 0) {
+
+               getKuraniKerimArapca();
+               getKuraniKerimTrDib();
+               binding.surelerButton.setVisibility(View.INVISIBLE);
+               binding.progressBar2.setVisibility(View.VISIBLE);
+                binding.uyariTextview.setVisibility(View.VISIBLE);
+
+
+
+
+            } else {
+
+                System.out.println("cursor" + cursor.getCount());
+                binding.surelerButton.setVisibility(View.VISIBLE);
+                binding.progressBar2.setVisibility(View.INVISIBLE);
+                binding.uyariTextview.setVisibility(View.INVISIBLE);
+
+            }
+
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+
 
     }
 
 
     public void getKuraniKerimArapca () {
+
+
+
+
 
         firebaseFirestore.collection("QuranCloud").document("data").collection("QuranText").addSnapshotListener(new EventListener<QuerySnapshot>() {
 
@@ -120,6 +164,15 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
 
                         ModelKuranıKerimArapca modelKuranıKerimArapca = new ModelKuranıKerimArapca(juz,number,numberInSurah,page,sajdaInt,surahNameTr,surahNumber,text);
                         modelKuranıKerimArapcaArrayList.add(modelKuranıKerimArapca);
+
+                        if (modelKuranıKerimArapcaArrayList.size() == 6236) {
+
+
+                            binding.surelerButton.setVisibility(View.VISIBLE);
+                            binding.progressBar2.setVisibility(View.INVISIBLE);
+                            binding.uyariTextview.setVisibility(View.INVISIBLE);
+
+                        }
 
 
                     }
@@ -218,6 +271,14 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
                         ModelKuraniKerimTurkceDib modelKuranıKerimArapca = new ModelKuraniKerimTurkceDib(juz,number,numberInSurah,page,sajdaInt,surahNameTr,surahNumber,text);
                         modelKuraniKerimTurkceDibArrayList.add(modelKuranıKerimArapca);
 
+                        if (modelKuraniKerimTurkceDibArrayList.size() == 6236) {
+
+
+                            binding.surelerButton.setVisibility(View.VISIBLE);
+                            binding.progressBar2.setVisibility(View.INVISIBLE);
+                            binding.uyariTextview.setVisibility(View.INVISIBLE);
+
+                        }
 
                     }
 

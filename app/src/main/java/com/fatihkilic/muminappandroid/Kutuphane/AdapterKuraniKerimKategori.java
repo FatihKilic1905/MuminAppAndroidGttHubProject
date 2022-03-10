@@ -49,7 +49,7 @@ public class AdapterKuraniKerimKategori extends RecyclerView.Adapter<AdapterKura
 
                 Intent sureIntent = new Intent(holder.itemView.getContext(), KuraniKerimActivity.class);
                 sureIntent.putExtra("SureName", modelKuraniKerimKategoriArrayList.get(position).kategoriName);
-                sureIntent.putExtra("KategoriName", "Sureler";
+                sureIntent.putExtra("KategoriName", "Sureler");
                 holder.itemView.getContext().startActivity(sureIntent);
 
             }
