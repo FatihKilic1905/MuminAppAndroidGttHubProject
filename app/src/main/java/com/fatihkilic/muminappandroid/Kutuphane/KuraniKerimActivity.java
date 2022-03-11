@@ -78,7 +78,7 @@ public class KuraniKerimActivity extends AppCompatActivity {
         try {
 
 
-            Cursor cursor = arapcaKuranDatabase.rawQuery("SELECT * FROM arapcaKuranDatabase WHERE surahNameTrArap = ? ORDER BY numberInSurahArap ASC", new String[]{surahName});
+            Cursor cursor = arapcaKuranDatabase.rawQuery("SELECT * FROM arapcaKuranDatabase WHERE surahNameTrArap = ? ORDER BY numberArap ASC", new String[]{surahName});
 
             int juzArapIx = cursor.getColumnIndex("juzArap");
             int numberArapIx = cursor.getColumnIndex("numberArap");
@@ -88,6 +88,8 @@ public class KuraniKerimActivity extends AppCompatActivity {
             int surahNameTrArapIx = cursor.getColumnIndex("surahNameTrArap");
             int surahNumberArapIx = cursor.getColumnIndex("surahNumberArap");
             int textArapıx = cursor.getColumnIndex("textArap");
+
+            modelKuranıKerimPageArapcaArrayList.clear();
 
             while (cursor.moveToNext()) {
 
@@ -135,7 +137,7 @@ public class KuraniKerimActivity extends AppCompatActivity {
         try {
 
 
-            Cursor cursor = turkceDibQuranDAtabase.rawQuery("SELECT * FROM turkceDibQuranDatabase WHERE surahNameTrDib = ? ORDER BY numberInSurahTrDib ASC", new String[]{surahName});
+            Cursor cursor = turkceDibQuranDAtabase.rawQuery("SELECT * FROM turkceDibQuranDatabase WHERE surahNameTrDib = ? ORDER BY numberTrDib ASC", new String[]{surahName});
 
             int juzTrDibIx = cursor.getColumnIndex("juzTrDib");
             int numberTrDibIx = cursor.getColumnIndex("numberTrDib");
@@ -145,6 +147,8 @@ public class KuraniKerimActivity extends AppCompatActivity {
             int surahNameTrDibIx = cursor.getColumnIndex("surahNameTrDib");
             int surahNumberTrDibIx = cursor.getColumnIndex("surahNumberTrDib");
             int textTrdibıx = cursor.getColumnIndex("textTrdib");
+
+            modelKraniKerimPageMealArrayList.clear();
 
             while (cursor.moveToNext()) {
 
@@ -163,7 +167,7 @@ public class KuraniKerimActivity extends AppCompatActivity {
 
             }
 
-
+            System.out.println("sizeee" + modelKraniKerimPageMealArrayList.size());
             cursor.close();
 
 

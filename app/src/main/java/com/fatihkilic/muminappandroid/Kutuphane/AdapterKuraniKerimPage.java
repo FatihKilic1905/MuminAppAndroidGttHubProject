@@ -35,7 +35,7 @@ public class AdapterKuraniKerimPage extends RecyclerView.Adapter<AdapterKuraniKe
     public void onBindViewHolder(@NonNull KuraniKerimHolder holder, int position) {
 
         holder.kuraniKerimRowBinding.arapcaTextView.setText(modelKuranıKerimPageArapcaArrayList.get(position).textArapPage);
-        holder.kuraniKerimRowBinding.turkceTextView.setText(modelKraniKerimPageMealArrayList.get(position).textMeal);
+
 
 
 
