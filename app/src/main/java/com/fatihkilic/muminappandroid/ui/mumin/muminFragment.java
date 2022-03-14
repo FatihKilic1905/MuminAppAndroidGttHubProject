@@ -1,5 +1,7 @@
 package com.fatihkilic.muminappandroid.ui.mumin;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -36,6 +38,9 @@ import com.fatihkilic.muminappandroid.DayInfo.DayInfoActivity;
 import com.fatihkilic.muminappandroid.EzanVaktiCoplete.EzanVakitleriModel;
 import com.fatihkilic.muminappandroid.EzanVaktiCoplete.EzanVaktiPost;
 import com.fatihkilic.muminappandroid.EzanVaktiService;
+import com.fatihkilic.muminappandroid.Kutuphane.KuraniKerimMainActivity;
+import com.fatihkilic.muminappandroid.Kutuphane.ModelKuraniKerimTurkceDib;
+import com.fatihkilic.muminappandroid.Kutuphane.ModelKuranıKerimArapca;
 import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.Ulkeler.KonumActivity;
@@ -202,6 +207,13 @@ public class muminFragment extends Fragment {
     private static final String ONESIGNAL_APP_ID = "1966721c-a30c-4299-9d7a-38e084b98072";
 
 
+    SQLiteDatabase arapcaKuranDatabase;
+    SQLiteDatabase turkceDibQuranDAtabase;
+
+
+    ArrayList<ModelKuranıKerimArapca> modelKuranıKerimArapcaArrayList;
+
+    ArrayList<ModelKuraniKerimTurkceDib> modelKuraniKerimTurkceDibArrayList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -220,7 +232,7 @@ public class muminFragment extends Fragment {
 
         retrofitIlce = new Retrofit.Builder().baseUrl(BaseUrl).addConverterFactory(GsonConverterFactory.create(gsonIlce)).build();
 
-        sharedPreferences = requireActivity().getSharedPreferences("com.fatihkilic.muminappandroid", Context.MODE_PRIVATE);
+        sharedPreferences = requireActivity().getSharedPreferences("com.fatihkilic.muminappandroid", MODE_PRIVATE);
 
         notificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -231,6 +243,13 @@ public class muminFragment extends Fragment {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
+
+        modelKuranıKerimArapcaArrayList = new ArrayList<>();
+        modelKuraniKerimTurkceDibArrayList = new ArrayList<>();
+
+
+
+
 
 
         binding.konumtitle.setText(sharedPreferences.getString("storedKonum","Konum"));
@@ -309,9 +328,21 @@ public class muminFragment extends Fragment {
         String konumControl = binding.konumtitle.getText().toString();
         if (konumControl.equals("Konum")) {
 
+
+
+
+
+
+
             Intent ilkGirisIntent = new Intent(getActivity(),KonumActivity.class);
             sharedPreferences.edit().putString("IlkGiris", "1").apply();
             startActivity(ilkGirisIntent);
+
+
+
+
+
+
 
         } else {
 
@@ -412,11 +443,15 @@ public class muminFragment extends Fragment {
 
     }
 
+
+
+
+
     public void loadEzanVakti() {
 
         System.out.println("buyuk sun" );
 
-        vakitDatabase = getActivity().openOrCreateDatabase("EZANVAKITLERIDATA", Context.MODE_PRIVATE, null);
+        vakitDatabase = getActivity().openOrCreateDatabase("EZANVAKITLERIDATA", MODE_PRIVATE, null);
         vakitDatabase.execSQL("CREATE TABLE IF NOT EXISTS ezanvakitleridatabase(id INTEGER PRIMARY KEY, imsakVakti VARCHAR, gunesVakti VARCHAR, ogleVakti VARCHAR, ikindiVakti VARCHAR, aksamVakti VARCHAR, yatsiVakti VARCHAR, miladiKisa VARCHAR, miladiUzun VARCHAR, hicriUzun VARCHAR)");
 
 
@@ -571,6 +606,9 @@ public class muminFragment extends Fragment {
         super.onPause();
 
 
+
+
+
     }
 
 
@@ -722,7 +760,7 @@ public class muminFragment extends Fragment {
 
     public void getEzanVakti() {
 
-        vakitDatabase = getActivity().openOrCreateDatabase("EZANVAKITLERIDATA", Context.MODE_PRIVATE,null);
+        vakitDatabase = getActivity().openOrCreateDatabase("EZANVAKITLERIDATA", MODE_PRIVATE,null);
 
         try {
 
@@ -788,7 +826,7 @@ public class muminFragment extends Fragment {
 
     public void getTomorrowVakit () {
 
-        vakitDatabase = getActivity().openOrCreateDatabase("EZANVAKITLERIDATA", Context.MODE_PRIVATE,null);
+        vakitDatabase = getActivity().openOrCreateDatabase("EZANVAKITLERIDATA", MODE_PRIVATE,null);
 
         try {
 
@@ -832,7 +870,7 @@ public class muminFragment extends Fragment {
 
     public void getGunAsiriVakit () {
 
-        vakitDatabase = getActivity().openOrCreateDatabase("EZANVAKITLERIDATA", Context.MODE_PRIVATE,null);
+        vakitDatabase = getActivity().openOrCreateDatabase("EZANVAKITLERIDATA", MODE_PRIVATE,null);
 
         try {
 
