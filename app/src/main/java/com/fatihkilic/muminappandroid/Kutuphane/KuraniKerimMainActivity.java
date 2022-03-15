@@ -193,105 +193,144 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
     public void getKuraniKerimArapca () {
 
 
+        final Thread t = new Thread() {
 
-        firebaseFirestore.collection("QuranCloud").document("data").collection("QuranText").addSnapshotListener(new EventListener<QuerySnapshot>() {
 
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+            public void run () {
 
-                if (error != null) {
 
-                    Toast.makeText(KuraniKerimMainActivity.this, "İnternet bağlantısında bir problem var", Toast.LENGTH_LONG).show();
 
-                }
+                    firebaseFirestore.collection("QuranCloud").document("data").collection("QuranText").addSnapshotListener(new EventListener<QuerySnapshot>() {
 
-                if (value != null) {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                    modelKuranıKerimArapcaArrayList.clear();
+                            if (error != null) {
 
-                    for (DocumentSnapshot snapshot : value.getDocuments()) {
+                                Toast.makeText(KuraniKerimMainActivity.this, "İnternet bağlantısında bir problem var", Toast.LENGTH_LONG).show();
 
-                        Map<String, Object> data = snapshot.getData();
+                            }
 
-                        Long juzLong = (Long) data.get("juz");
-                        Long numberLong = (Long) data.get("number");
-                        Long numberInSurahLong = (Long) data.get("numberInSurah");
-                        Long pageLong = (Long) data.get("page");
-                        Boolean sajda = (Boolean) data.get("sajda");
-                        String surahNameTr = (String) data.get("surahNameTr");
-                        String surahNumber = (String) data.get("surahNumber");
-                        String text = (String) data.get("text");
+                            if (value != null) {
 
-                        Integer juz = juzLong.intValue();
-                        Integer number = numberLong.intValue();
-                        Integer numberInSurah = numberInSurahLong.intValue();
-                        Integer page = pageLong.intValue();
+                                modelKuranıKerimArapcaArrayList.clear();
 
-                        Integer sajdaInt = null;
 
-                        if (sajda == true) {
 
-                            sajdaInt = 1;
+                                for (DocumentSnapshot snapshot : value.getDocuments()) {
 
-                        } else if (sajda == false) {
+                                    Map<String, Object> data = snapshot.getData();
 
-                            sajdaInt = 0;
+                                    Long juzLong = (Long) data.get("juz");
+                                    Long numberLong = (Long) data.get("number");
+                                    Long numberInSurahLong = (Long) data.get("numberInSurah");
+                                    Long pageLong = (Long) data.get("page");
+                                    Boolean sajda = (Boolean) data.get("sajda");
+                                    String surahNameTr = (String) data.get("surahNameTr");
+                                    String surahNumber = (String) data.get("surahNumber");
+                                    String text = (String) data.get("text");
+
+                                    Integer juz = juzLong.intValue();
+                                    Integer number = numberLong.intValue();
+                                    Integer numberInSurah = numberInSurahLong.intValue();
+                                    Integer page = pageLong.intValue();
+
+                                    Integer sajdaInt = null;
+
+                                    if (sajda == true) {
+
+                                        sajdaInt = 1;
+
+                                    } else if (sajda == false) {
+
+                                        sajdaInt = 0;
+
+                                    }
+
+
+
+                                    ModelKuranıKerimArapca modelKuranıKerimArapca = new ModelKuranıKerimArapca(juz,number,numberInSurah,page,sajdaInt,surahNameTr,surahNumber,text);
+                                    modelKuranıKerimArapcaArrayList.add(modelKuranıKerimArapca);
+
+
+
+
+                                    try {
+
+
+                                        Integer jump = (int) Math.ceil(modelKuranıKerimArapcaArrayList.size()*50/6236);
+                                        binding.progressBar2.setProgress(jump);
+                                        binding.yuzdeTextView.setText("% " + jump);
+                                        System.out.println(jump);
+
+                                    } catch (Exception s) {
+
+
+                                        s.printStackTrace();
+
+                                    }
+
+
+
+
+
+
+
+
+
+                                    try {
+
+                                        arapcaKuranDatabase = openOrCreateDatabase("QuranDatabase", MODE_PRIVATE,null);
+                                        arapcaKuranDatabase.execSQL("CREATE TABLE IF NOT EXISTS arapcaKuranDatabase(id INTEGER PRIMARY KEY, juzArap INTEGER, numberArap INTEGER, numberInSurahArap INTEGER, pageArap INTEGER, sajdaArap INTEGER, surahNameTrArap VARCHAR, surahNumberArap VARCHAR, textArap VARCHAR)");
+                                        String ArapcaKuranString = "INSERT INTO arapcaKuranDatabase(juzArap, numberArap, numberInSurahArap, pageArap, sajdaArap, surahNameTrArap, surahNumberArap, textArap) VALUES(?,?,?,?,?,?,?,?)";
+                                        SQLiteStatement sqLiteStatementArapcaKuran = arapcaKuranDatabase.compileStatement(ArapcaKuranString);
+                                        sqLiteStatementArapcaKuran.bindLong(1, modelKuranıKerimArapca.juzArap);
+                                        sqLiteStatementArapcaKuran.bindLong(2, modelKuranıKerimArapca.numberArap);
+                                        sqLiteStatementArapcaKuran.bindLong(3, modelKuranıKerimArapca.numberInSurahArap);
+                                        sqLiteStatementArapcaKuran.bindLong(4, modelKuranıKerimArapca.pageArap);
+                                        sqLiteStatementArapcaKuran.bindLong(5, modelKuranıKerimArapca.sajdaArap);
+                                        sqLiteStatementArapcaKuran.bindString(6, modelKuranıKerimArapca.surahNameTrArap);
+                                        sqLiteStatementArapcaKuran.bindString(7, modelKuranıKerimArapca.surahNumberArap);
+                                        sqLiteStatementArapcaKuran.bindString(8, modelKuranıKerimArapca.textArap);
+                                        sqLiteStatementArapcaKuran.execute();
+
+
+
+
+                                    } catch (Exception e) {
+
+                                        e.printStackTrace();
+
+                                    }
+
+                                    if (modelKuranıKerimArapcaArrayList.size() == 6236) {
+
+                                        getKuraniKerimTrDib();
+
+                                    }
+
+
+
+
+                                }
+
+
+
+
+
+                            }
+
+
+
+
+
 
                         }
 
-
-
-                        ModelKuranıKerimArapca modelKuranıKerimArapca = new ModelKuranıKerimArapca(juz,number,numberInSurah,page,sajdaInt,surahNameTr,surahNumber,text);
-                        modelKuranıKerimArapcaArrayList.add(modelKuranıKerimArapca);
-
-                        double yuzde = Math.ceil(modelKuranıKerimArapcaArrayList.size()*50/6236);
-
-                        System.out.println("yuzde" + yuzde);
-
-                        binding.progressBar2.setProgress((int) yuzde);
-                        binding.yuzdeTextView.setText("% " + yuzde);
-
-                        try {
-
-                            arapcaKuranDatabase = openOrCreateDatabase("QuranDatabase", MODE_PRIVATE,null);
-                            arapcaKuranDatabase.execSQL("CREATE TABLE IF NOT EXISTS arapcaKuranDatabase(id INTEGER PRIMARY KEY, juzArap INTEGER, numberArap INTEGER, numberInSurahArap INTEGER, pageArap INTEGER, sajdaArap INTEGER, surahNameTrArap VARCHAR, surahNumberArap VARCHAR, textArap VARCHAR)");
-                            String ArapcaKuranString = "INSERT INTO arapcaKuranDatabase(juzArap, numberArap, numberInSurahArap, pageArap, sajdaArap, surahNameTrArap, surahNumberArap, textArap) VALUES(?,?,?,?,?,?,?,?)";
-                            SQLiteStatement sqLiteStatementArapcaKuran = arapcaKuranDatabase.compileStatement(ArapcaKuranString);
-                            sqLiteStatementArapcaKuran.bindLong(1, modelKuranıKerimArapca.juzArap);
-                            sqLiteStatementArapcaKuran.bindLong(2, modelKuranıKerimArapca.numberArap);
-                            sqLiteStatementArapcaKuran.bindLong(3, modelKuranıKerimArapca.numberInSurahArap);
-                            sqLiteStatementArapcaKuran.bindLong(4, modelKuranıKerimArapca.pageArap);
-                            sqLiteStatementArapcaKuran.bindLong(5, modelKuranıKerimArapca.sajdaArap);
-                            sqLiteStatementArapcaKuran.bindString(6, modelKuranıKerimArapca.surahNameTrArap);
-                            sqLiteStatementArapcaKuran.bindString(7, modelKuranıKerimArapca.surahNumberArap);
-                            sqLiteStatementArapcaKuran.bindString(8, modelKuranıKerimArapca.textArap);
-                            sqLiteStatementArapcaKuran.execute();
+                    });
 
 
 
-
-                        } catch (Exception e) {
-
-                            e.printStackTrace();
-
-                        }
-
-                        if (modelKuranıKerimArapcaArrayList.size() == 6236) {
-
-                            getKuraniKerimTrDib();
-
-                        }
-
-
-
-
-                    }
-
-
-
-
-
-                }
 
 
 
@@ -300,7 +339,17 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
 
             }
 
-        });
+
+
+
+        };
+
+        t.start();
+
+
+
+
+
 
 
     }
