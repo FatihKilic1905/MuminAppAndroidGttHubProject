@@ -1,8 +1,10 @@
 package com.fatihkilic.muminappandroid.Kutuphane;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -38,6 +40,8 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
 
     ArrayList<ModelKuraniKerimTurkceDib> modelKuraniKerimTurkceDibArrayList;
 
+    static String QuranStatus;
+
 
 
     @Override
@@ -61,7 +65,73 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent surahIntent = new Intent(KuraniKerimMainActivity.this, KuraniKerimKategoriActivity.class);
+                surahIntent.putExtra("QuranStatus",QuranStatus);
                 startActivity(surahIntent);
+
+
+            }
+        });
+
+        binding.onlineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                binding.onlineButton.setVisibility(View.INVISIBLE);
+                binding.offlineButton.setVisibility(View.INVISIBLE);
+                binding.uyaricevrimiciTextView.setVisibility(View.INVISIBLE);
+                binding.uyaricevrimidisiTextView.setVisibility(View.INVISIBLE);
+                binding.surelerButton.setVisibility(View.VISIBLE);
+
+                QuranStatus = "online";
+
+
+            }
+        });
+
+        binding.offlineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                AlertDialog.Builder cevrimdidsiAlert = new AlertDialog.Builder(KuraniKerimMainActivity.this);
+
+                cevrimdidsiAlert.setTitle("Kuran-ı Kerim telefonunuza yüklenecek.");
+                cevrimdidsiAlert.setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        binding.onlineButton.setVisibility(View.INVISIBLE);
+                        binding.offlineButton.setVisibility(View.INVISIBLE);
+                        binding.uyaricevrimiciTextView.setVisibility(View.INVISIBLE);
+                        binding.uyaricevrimidisiTextView.setVisibility(View.INVISIBLE);
+
+
+
+                        binding.uyariTextview.setVisibility(View.VISIBLE);
+                        binding.progressBar2.setVisibility(View.VISIBLE);
+                        binding.yuzdeTextView.setVisibility(View.VISIBLE);
+                        binding.progressBar2.setMax(100);
+                        getKuraniKerimArapca();
+
+
+
+
+
+                    }
+                });
+
+                cevrimdidsiAlert.setNegativeButton("Vazgeç", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+
+
+                    }
+                });
+
+                cevrimdidsiAlert.show();
+
+
 
 
             }
@@ -81,21 +151,31 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
 
             if (cursor.getCount() == 0) {
 
-               getKuraniKerimArapca();
-               getKuraniKerimTrDib();
+
+               binding.onlineButton.setVisibility(View.VISIBLE);
+               binding.offlineButton.setVisibility(View.VISIBLE);
+               binding.uyaricevrimiciTextView.setVisibility(View.VISIBLE);
+               binding.uyaricevrimidisiTextView.setVisibility(View.VISIBLE);
                binding.surelerButton.setVisibility(View.INVISIBLE);
-               binding.progressBar2.setVisibility(View.VISIBLE);
-                binding.uyariTextview.setVisibility(View.VISIBLE);
+               binding.progressBar2.setVisibility(View.INVISIBLE);
+               binding.uyariTextview.setVisibility(View.INVISIBLE);
+               binding.yuzdeTextView.setVisibility(View.INVISIBLE);
 
 
 
 
             } else {
 
-                System.out.println("cursor" + cursor.getCount());
+                QuranStatus = "ofline";
                 binding.surelerButton.setVisibility(View.VISIBLE);
                 binding.progressBar2.setVisibility(View.INVISIBLE);
                 binding.uyariTextview.setVisibility(View.INVISIBLE);
+                binding.onlineButton.setVisibility(View.INVISIBLE);
+                binding.offlineButton.setVisibility(View.INVISIBLE);
+                binding.uyaricevrimiciTextView.setVisibility(View.INVISIBLE);
+                binding.uyaricevrimidisiTextView.setVisibility(View.INVISIBLE);
+                binding.yuzdeTextView.setVisibility(View.INVISIBLE);
+
 
             }
 
@@ -111,8 +191,6 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
 
 
     public void getKuraniKerimArapca () {
-
-
 
 
 
@@ -166,21 +244,12 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
                         ModelKuranıKerimArapca modelKuranıKerimArapca = new ModelKuranıKerimArapca(juz,number,numberInSurah,page,sajdaInt,surahNameTr,surahNumber,text);
                         modelKuranıKerimArapcaArrayList.add(modelKuranıKerimArapca);
 
-                        if (modelKuranıKerimArapcaArrayList.size() == 6236) {
+                        double yuzde = Math.ceil(modelKuranıKerimArapcaArrayList.size()*50/6236);
 
+                        System.out.println("yuzde" + yuzde);
 
-                            binding.surelerButton.setVisibility(View.VISIBLE);
-                            binding.progressBar2.setVisibility(View.INVISIBLE);
-                            binding.uyariTextview.setVisibility(View.INVISIBLE);
-
-                        }
-
-
-                    }
-
-
-                    for (ModelKuranıKerimArapca arapcaKuran : modelKuranıKerimArapcaArrayList) {
-
+                        binding.progressBar2.setProgress((int) yuzde);
+                        binding.yuzdeTextView.setText("% " + yuzde);
 
                         try {
 
@@ -188,15 +257,18 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
                             arapcaKuranDatabase.execSQL("CREATE TABLE IF NOT EXISTS arapcaKuranDatabase(id INTEGER PRIMARY KEY, juzArap INTEGER, numberArap INTEGER, numberInSurahArap INTEGER, pageArap INTEGER, sajdaArap INTEGER, surahNameTrArap VARCHAR, surahNumberArap VARCHAR, textArap VARCHAR)");
                             String ArapcaKuranString = "INSERT INTO arapcaKuranDatabase(juzArap, numberArap, numberInSurahArap, pageArap, sajdaArap, surahNameTrArap, surahNumberArap, textArap) VALUES(?,?,?,?,?,?,?,?)";
                             SQLiteStatement sqLiteStatementArapcaKuran = arapcaKuranDatabase.compileStatement(ArapcaKuranString);
-                            sqLiteStatementArapcaKuran.bindLong(1, arapcaKuran.juzArap);
-                            sqLiteStatementArapcaKuran.bindLong(2, arapcaKuran.numberArap);
-                            sqLiteStatementArapcaKuran.bindLong(3, arapcaKuran.numberInSurahArap);
-                            sqLiteStatementArapcaKuran.bindLong(4, arapcaKuran.pageArap);
-                            sqLiteStatementArapcaKuran.bindLong(5, arapcaKuran.sajdaArap);
-                            sqLiteStatementArapcaKuran.bindString(6, arapcaKuran.surahNameTrArap);
-                            sqLiteStatementArapcaKuran.bindString(7, arapcaKuran.surahNumberArap);
-                            sqLiteStatementArapcaKuran.bindString(8, arapcaKuran.textArap);
+                            sqLiteStatementArapcaKuran.bindLong(1, modelKuranıKerimArapca.juzArap);
+                            sqLiteStatementArapcaKuran.bindLong(2, modelKuranıKerimArapca.numberArap);
+                            sqLiteStatementArapcaKuran.bindLong(3, modelKuranıKerimArapca.numberInSurahArap);
+                            sqLiteStatementArapcaKuran.bindLong(4, modelKuranıKerimArapca.pageArap);
+                            sqLiteStatementArapcaKuran.bindLong(5, modelKuranıKerimArapca.sajdaArap);
+                            sqLiteStatementArapcaKuran.bindString(6, modelKuranıKerimArapca.surahNameTrArap);
+                            sqLiteStatementArapcaKuran.bindString(7, modelKuranıKerimArapca.surahNumberArap);
+                            sqLiteStatementArapcaKuran.bindString(8, modelKuranıKerimArapca.textArap);
                             sqLiteStatementArapcaKuran.execute();
+
+
+
 
                         } catch (Exception e) {
 
@@ -204,11 +276,26 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
 
                         }
 
+                        if (modelKuranıKerimArapcaArrayList.size() == 6236) {
+
+                            getKuraniKerimTrDib();
+
+                        }
+
+
+
 
                     }
 
 
+
+
+
                 }
+
+
+
+
 
 
             }
@@ -269,8 +356,41 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
                         }
 
 
-                        ModelKuraniKerimTurkceDib modelKuranıKerimArapca = new ModelKuraniKerimTurkceDib(juz,number,numberInSurah,page,sajdaInt,surahNameTr,surahNumber,text);
-                        modelKuraniKerimTurkceDibArrayList.add(modelKuranıKerimArapca);
+                        ModelKuraniKerimTurkceDib modelKuraniKerimTurkceDib = new ModelKuraniKerimTurkceDib(juz,number,numberInSurah,page,sajdaInt,surahNameTr,surahNumber,text);
+                        modelKuraniKerimTurkceDibArrayList.add(modelKuraniKerimTurkceDib);
+
+
+                        double yuzde = Math.ceil(modelKuraniKerimTurkceDibArrayList.size()*50/6236 + 50);
+
+                        System.out.println("yuzde" + yuzde);
+
+                        binding.progressBar2.setProgress((int) yuzde);
+                        binding.yuzdeTextView.setText("% " + yuzde);
+
+
+                        try {
+
+                            turkceDibQuranDAtabase = openOrCreateDatabase("QuranDatabase", MODE_PRIVATE,null);
+                            turkceDibQuranDAtabase.execSQL("CREATE TABLE IF NOT EXISTS turkceDibQuranDatabase(id INTEGER PRIMARY KEY, juzTrDib INTEGER, numberTrDib INTEGER, numberInSurahTrDib INTEGER, pageTrDib INTEGER, sajdaTrDib INTEGER, surahNameTrDib VARCHAR, surahNumberTrDib VARCHAR, textTrdib VARCHAR)");
+                            String TurkceKuranDibString = "INSERT INTO turkceDibQuranDatabase(juzTrDib, numberTrDib, numberInSurahTrDib, pageTrDib, sajdaTrDib, surahNameTrDib, surahNumberTrDib, textTrdib) VALUES(?,?,?,?,?,?,?,?)";
+                            SQLiteStatement sqLiteStatementTurkceDibKuran = turkceDibQuranDAtabase.compileStatement(TurkceKuranDibString);
+                            sqLiteStatementTurkceDibKuran.bindLong(1, modelKuraniKerimTurkceDib.juzTrDib);
+                            sqLiteStatementTurkceDibKuran.bindLong(2, modelKuraniKerimTurkceDib.numberTrDib);
+                            sqLiteStatementTurkceDibKuran.bindLong(3, modelKuraniKerimTurkceDib.numberInSurahTrDib);
+                            sqLiteStatementTurkceDibKuran.bindLong(4, modelKuraniKerimTurkceDib.pageTrDib);
+                            sqLiteStatementTurkceDibKuran.bindLong(5, modelKuraniKerimTurkceDib.sajdaTrDib);
+                            sqLiteStatementTurkceDibKuran.bindString(6, modelKuraniKerimTurkceDib.surahNameTrDib);
+                            sqLiteStatementTurkceDibKuran.bindString(7, modelKuraniKerimTurkceDib.surahNumberTrDib);
+                            sqLiteStatementTurkceDibKuran.bindString(8, modelKuraniKerimTurkceDib.textTrdib);
+                            sqLiteStatementTurkceDibKuran.execute();
+
+                        } catch (Exception e) {
+
+                            e.printStackTrace();
+
+                        }
+
+
 
                         if (modelKuraniKerimTurkceDibArrayList.size() == 6236) {
 
@@ -283,34 +403,6 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
 
                     }
 
-
-                    for (ModelKuraniKerimTurkceDib turkceDibKuran : modelKuraniKerimTurkceDibArrayList) {
-
-
-                        try {
-
-                            turkceDibQuranDAtabase = openOrCreateDatabase("QuranDatabase", MODE_PRIVATE,null);
-                            turkceDibQuranDAtabase.execSQL("CREATE TABLE IF NOT EXISTS turkceDibQuranDatabase(id INTEGER PRIMARY KEY, juzTrDib INTEGER, numberTrDib INTEGER, numberInSurahTrDib INTEGER, pageTrDib INTEGER, sajdaTrDib INTEGER, surahNameTrDib VARCHAR, surahNumberTrDib VARCHAR, textTrdib VARCHAR)");
-                            String TurkceKuranDibString = "INSERT INTO turkceDibQuranDatabase(juzTrDib, numberTrDib, numberInSurahTrDib, pageTrDib, sajdaTrDib, surahNameTrDib, surahNumberTrDib, textTrdib) VALUES(?,?,?,?,?,?,?,?)";
-                            SQLiteStatement sqLiteStatementTurkceDibKuran = turkceDibQuranDAtabase.compileStatement(TurkceKuranDibString);
-                            sqLiteStatementTurkceDibKuran.bindLong(1, turkceDibKuran.juzTrDib);
-                            sqLiteStatementTurkceDibKuran.bindLong(2, turkceDibKuran.numberTrDib);
-                            sqLiteStatementTurkceDibKuran.bindLong(3, turkceDibKuran.numberInSurahTrDib);
-                            sqLiteStatementTurkceDibKuran.bindLong(4, turkceDibKuran.pageTrDib);
-                            sqLiteStatementTurkceDibKuran.bindLong(5, turkceDibKuran.sajdaTrDib);
-                            sqLiteStatementTurkceDibKuran.bindString(6, turkceDibKuran.surahNameTrDib);
-                            sqLiteStatementTurkceDibKuran.bindString(7, turkceDibKuran.surahNumberTrDib);
-                            sqLiteStatementTurkceDibKuran.bindString(8, turkceDibKuran.textTrdib);
-                            sqLiteStatementTurkceDibKuran.execute();
-
-                        } catch (Exception e) {
-
-                            e.printStackTrace();
-
-                        }
-
-
-                    }
 
 
                 }

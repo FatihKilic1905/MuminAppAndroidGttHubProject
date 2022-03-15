@@ -23,6 +23,7 @@ public class KuraniKerimKategoriActivity extends AppCompatActivity {
     ArrayList<ModelKuraniKerimKategori> modelKuraniKerimKategoriArrayList;
     AdapterKuraniKerimKategori adapterKuraniKerimKategori;
 
+    String QuranStatus;
 
 
 
@@ -35,6 +36,9 @@ public class KuraniKerimKategoriActivity extends AppCompatActivity {
         binding = ActivityKuraniKerimKategoriBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+
+
 
         modelKuraniKerimKategoriArrayList = new ArrayList<>();
         getSurelerList();
