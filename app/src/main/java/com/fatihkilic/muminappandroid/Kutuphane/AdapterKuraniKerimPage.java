@@ -38,9 +38,6 @@ public class AdapterKuraniKerimPage extends RecyclerView.Adapter<AdapterKuraniKe
         holder.kuraniKerimRowBinding.turkceTextView.setText(modelKraniKerimPageMealArrayList.get(position).textMeal);
 
 
-
-
-
         StringBuilder juzText = new StringBuilder();
         juzText.append(modelKuranıKerimPageArapcaArrayList.get(position).juzArapPage);
         juzText.append(".");

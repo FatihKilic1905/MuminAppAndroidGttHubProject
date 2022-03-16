@@ -23,7 +23,7 @@ public class KuraniKerimKategoriActivity extends AppCompatActivity {
     ArrayList<ModelKuraniKerimKategori> modelKuraniKerimKategoriArrayList;
     AdapterKuraniKerimKategori adapterKuraniKerimKategori;
 
-    String QuranStatus;
+
 
 
 

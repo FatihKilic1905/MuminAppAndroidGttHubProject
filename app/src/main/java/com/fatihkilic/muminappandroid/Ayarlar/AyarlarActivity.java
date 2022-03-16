@@ -3,12 +3,14 @@ package com.fatihkilic.muminappandroid.Ayarlar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 
 import com.fatihkilic.muminappandroid.EzanVaktiCoplete.EzanVaktiActivity;
+import com.fatihkilic.muminappandroid.MainActivity;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.Ulkeler.KonumActivity;
 import com.fatihkilic.muminappandroid.databinding.ActivityAyarlarBinding;
@@ -28,7 +30,10 @@ public class AyarlarActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+
         getSupportActionBar().setTitle("Ayarlar");
+
+
 
 
 
@@ -50,6 +55,8 @@ public class AyarlarActivity extends AppCompatActivity {
         startActivity(konumSettingsIntent);
 
     }
+
+
 
 
 

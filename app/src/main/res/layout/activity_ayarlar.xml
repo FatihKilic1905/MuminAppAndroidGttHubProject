@@ -35,4 +35,6 @@
         android:background="@drawable/corner_4_radius"
         android:textColor="@color/white"
         android:textStyle="bold"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

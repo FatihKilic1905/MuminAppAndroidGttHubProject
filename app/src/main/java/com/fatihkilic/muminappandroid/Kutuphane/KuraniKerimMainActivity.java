@@ -40,7 +40,7 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
 
     ArrayList<ModelKuraniKerimTurkceDib> modelKuraniKerimTurkceDibArrayList;
 
-    static String QuranStatus;
+
 
 
 
@@ -65,77 +65,13 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent surahIntent = new Intent(KuraniKerimMainActivity.this, KuraniKerimKategoriActivity.class);
-                surahIntent.putExtra("QuranStatus",QuranStatus);
+
                 startActivity(surahIntent);
 
 
             }
         });
 
-        binding.onlineButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                binding.onlineButton.setVisibility(View.INVISIBLE);
-                binding.offlineButton.setVisibility(View.INVISIBLE);
-                binding.uyaricevrimiciTextView.setVisibility(View.INVISIBLE);
-                binding.uyaricevrimidisiTextView.setVisibility(View.INVISIBLE);
-                binding.surelerButton.setVisibility(View.VISIBLE);
-
-                QuranStatus = "online";
-
-
-            }
-        });
-
-        binding.offlineButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                AlertDialog.Builder cevrimdidsiAlert = new AlertDialog.Builder(KuraniKerimMainActivity.this);
-
-                cevrimdidsiAlert.setTitle("Kuran-ı Kerim telefonunuza yüklenecek.");
-                cevrimdidsiAlert.setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        binding.onlineButton.setVisibility(View.INVISIBLE);
-                        binding.offlineButton.setVisibility(View.INVISIBLE);
-                        binding.uyaricevrimiciTextView.setVisibility(View.INVISIBLE);
-                        binding.uyaricevrimidisiTextView.setVisibility(View.INVISIBLE);
-
-
-
-                        binding.uyariTextview.setVisibility(View.VISIBLE);
-                        binding.progressBar2.setVisibility(View.VISIBLE);
-                        binding.yuzdeTextView.setVisibility(View.VISIBLE);
-                        binding.progressBar2.setMax(100);
-                        getKuraniKerimArapca();
-
-
-
-
-
-                    }
-                });
-
-                cevrimdidsiAlert.setNegativeButton("Vazgeç", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-
-
-                    }
-                });
-
-                cevrimdidsiAlert.show();
-
-
-
-
-            }
-        });
 
 
         arapcaKuranDatabase = openOrCreateDatabase("QuranDatabase", MODE_PRIVATE,null);
@@ -152,29 +88,23 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
             if (cursor.getCount() == 0) {
 
 
-               binding.onlineButton.setVisibility(View.VISIBLE);
-               binding.offlineButton.setVisibility(View.VISIBLE);
-               binding.uyaricevrimiciTextView.setVisibility(View.VISIBLE);
-               binding.uyaricevrimidisiTextView.setVisibility(View.VISIBLE);
+
                binding.surelerButton.setVisibility(View.INVISIBLE);
                binding.progressBar2.setVisibility(View.INVISIBLE);
                binding.uyariTextview.setVisibility(View.INVISIBLE);
-               binding.yuzdeTextView.setVisibility(View.INVISIBLE);
+               getKuraniKerimArapca();
+
 
 
 
 
             } else {
 
-                QuranStatus = "ofline";
+
                 binding.surelerButton.setVisibility(View.VISIBLE);
                 binding.progressBar2.setVisibility(View.INVISIBLE);
                 binding.uyariTextview.setVisibility(View.INVISIBLE);
-                binding.onlineButton.setVisibility(View.INVISIBLE);
-                binding.offlineButton.setVisibility(View.INVISIBLE);
-                binding.uyaricevrimiciTextView.setVisibility(View.INVISIBLE);
-                binding.uyaricevrimidisiTextView.setVisibility(View.INVISIBLE);
-                binding.yuzdeTextView.setVisibility(View.INVISIBLE);
+
 
 
             }
@@ -193,10 +123,7 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
     public void getKuraniKerimArapca () {
 
 
-        final Thread t = new Thread() {
 
-
-            public void run () {
 
 
 
@@ -253,31 +180,6 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
                                     modelKuranıKerimArapcaArrayList.add(modelKuranıKerimArapca);
 
 
-
-
-                                    try {
-
-
-                                        Integer jump = (int) Math.ceil(modelKuranıKerimArapcaArrayList.size()*50/6236);
-                                        binding.progressBar2.setProgress(jump);
-                                        binding.yuzdeTextView.setText("% " + jump);
-                                        System.out.println(jump);
-
-                                    } catch (Exception s) {
-
-
-                                        s.printStackTrace();
-
-                                    }
-
-
-
-
-
-
-
-
-
                                     try {
 
                                         arapcaKuranDatabase = openOrCreateDatabase("QuranDatabase", MODE_PRIVATE,null);
@@ -323,8 +225,6 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
 
 
 
-
-
                         }
 
                     });
@@ -337,14 +237,10 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
 
 
 
-            }
 
 
 
 
-        };
-
-        t.start();
 
 
 
@@ -408,13 +304,6 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
                         ModelKuraniKerimTurkceDib modelKuraniKerimTurkceDib = new ModelKuraniKerimTurkceDib(juz,number,numberInSurah,page,sajdaInt,surahNameTr,surahNumber,text);
                         modelKuraniKerimTurkceDibArrayList.add(modelKuraniKerimTurkceDib);
 
-
-                        double yuzde = Math.ceil(modelKuraniKerimTurkceDibArrayList.size()*50/6236 + 50);
-
-                        System.out.println("yuzde" + yuzde);
-
-                        binding.progressBar2.setProgress((int) yuzde);
-                        binding.yuzdeTextView.setText("% " + yuzde);
 
 
                         try {

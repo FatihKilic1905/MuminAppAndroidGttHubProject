@@ -1,6 +1,6 @@
 package com.fatihkilic.muminappandroid.Kutuphane;
 
-import static com.fatihkilic.muminappandroid.Kutuphane.KuraniKerimMainActivity.QuranStatus;
+
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +25,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.core.OrderBy;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -64,8 +65,6 @@ public class KuraniKerimActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        Intent getIntent = getIntent();
-
 
 
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -75,23 +74,14 @@ public class KuraniKerimActivity extends AppCompatActivity {
         kategoriName = kategoriIntent.getStringExtra("KategoriName");
 
 
+
+         getSureArap();
+         getSureMeal();
+
+
+
         modelKuranıKerimPageArapcaArrayList = new ArrayList<>();
         modelKraniKerimPageMealArrayList = new ArrayList<>();
-
-
-
-        if (QuranStatus.equals("online")) {
-
-            getSureArapFirebase();
-            getSureTrDibFirebase();
-
-        } else if (QuranStatus.equals("ofline")) {
-
-
-            getSureArap();
-            getSureMeal();
-
-        }
 
 
 
@@ -225,14 +215,14 @@ public class KuraniKerimActivity extends AppCompatActivity {
 
     public void getSureArapFirebase () {
 
-        firebaseFirestore.collection("QuranCloud").document("data").collection("QuranText").whereEqualTo("surahNameTr",surahName).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firebaseFirestore.collection("QuranCloud").document("data").collection("QuranText").whereEqualTo("surahNameTr",surahName).orderBy("number", Query.Direction.ASCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
 
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
                 if (error != null) {
 
-                    Toast.makeText(KuraniKerimActivity.this, "İnternet bağlantısında bir problem var", Toast.LENGTH_LONG).show();
+                    System.out.println("Error: 101");
 
                 }
 
@@ -276,81 +266,81 @@ public class KuraniKerimActivity extends AppCompatActivity {
 
 
                     }
-                }
-            }
-        });
-
-    }
-
-    public void getSureTrDibFirebase () {
-
-        firebaseFirestore.collection("QuranCloud").document("data").collection("QuranMeal").document("tr").collection("tr-diyanet").whereEqualTo("surahNameTr",surahName).addSnapshotListener(new EventListener<QuerySnapshot>() {
-
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                if (error != null) {
-
-                    Toast.makeText(KuraniKerimActivity.this, "İnternet bağlantısında bir problem var", Toast.LENGTH_LONG).show();
-
-                }
-
-                if (value != null) {
-
-                    modelKraniKerimPageMealArrayList.clear();
-
-                    for (DocumentSnapshot snapshot : value.getDocuments()) {
-
-                        Map<String, Object> data = snapshot.getData();
-
-                        Long juzLong = (Long) data.get("juz");
-                        Long numberLong = (Long) data.get("number");
-                        Long numberInSurahLong = (Long) data.get("numberInSurah");
-                        Long pageLong = (Long) data.get("page");
-                        Boolean sajda = (Boolean) data.get("sajda");
-                        String surahNameTr = (String) data.get("surahNameTr");
-                        String surahNumber = (String) data.get("surahNumber");
-                        String text = (String) data.get("text");
-
-                        Integer juz = juzLong.intValue();
-                        Integer number = numberLong.intValue();
-                        Integer numberInSurah = numberInSurahLong.intValue();
-                        Integer page = pageLong.intValue();
 
 
-                        Integer sajdaInt = null;
 
-                        if (sajda == true) {
 
-                            sajdaInt = 1;
+                    firebaseFirestore.collection("QuranCloud").document("data").collection("QuranMeal").document("tr").collection("tr-diyanet").whereEqualTo("surahNameTr",surahName).orderBy("number", Query.Direction.ASCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
 
-                        } else if (sajda == false) {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                            sajdaInt = 0;
+                            if (error != null) {
+
+                                System.out.println("Error: 101");
+                            }
+
+                            if (value != null) {
+
+                                modelKraniKerimPageMealArrayList.clear();
+
+                                for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+                                    Map<String, Object> data = snapshot.getData();
+
+                                    Long juzLong = (Long) data.get("juz");
+                                    Long numberLong = (Long) data.get("number");
+                                    Long numberInSurahLong = (Long) data.get("numberInSurah");
+                                    Long pageLong = (Long) data.get("page");
+                                    Boolean sajda = (Boolean) data.get("sajda");
+                                    String surahNameTr = (String) data.get("surahNameTr");
+                                    String surahNumber = (String) data.get("surahNumber");
+                                    String text = (String) data.get("text");
+
+                                    Integer juz = juzLong.intValue();
+                                    Integer number = numberLong.intValue();
+                                    Integer numberInSurah = numberInSurahLong.intValue();
+                                    Integer page = pageLong.intValue();
+
+
+                                    Integer sajdaInt = null;
+
+                                    if (sajda == true) {
+
+                                        sajdaInt = 1;
+
+                                    } else if (sajda == false) {
+
+                                        sajdaInt = 0;
+
+                                    }
+
+
+                                    ModelKraniKerimPageMeal modelKraniKerimPageMeal = new ModelKraniKerimPageMeal(juz,number,numberInSurah,page,sajdaInt,surahNameTr,surahNumber,text);
+                                    modelKraniKerimPageMealArrayList.add(modelKraniKerimPageMeal);
+
+                                }
+
+                                adapterKuraniKerimPage.notifyDataSetChanged();
+
+
+                            }
+
 
                         }
 
-
-                        ModelKraniKerimPageMeal modelKraniKerimPageMeal = new ModelKraniKerimPageMeal(juz,number,numberInSurah,page,sajdaInt,surahNameTr,surahNumber,text);
-                        modelKraniKerimPageMealArrayList.add(modelKraniKerimPageMeal);
-
-                    }
+                    });
 
 
 
                 }
-
-
             }
-
         });
 
 
 
-
-
-
     }
+
 
 
 
