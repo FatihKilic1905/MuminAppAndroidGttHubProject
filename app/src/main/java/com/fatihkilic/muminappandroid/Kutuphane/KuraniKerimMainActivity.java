@@ -90,9 +90,10 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
 
 
                binding.surelerButton.setVisibility(View.INVISIBLE);
-               binding.progressBar2.setVisibility(View.INVISIBLE);
-               binding.uyariTextview.setVisibility(View.INVISIBLE);
+               binding.progressBar2.setVisibility(View.VISIBLE);
+               binding.uyariTextview.setVisibility(View.VISIBLE);
                getKuraniKerimArapca();
+
 
 
 
@@ -178,6 +179,9 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
 
                                     ModelKuranıKerimArapca modelKuranıKerimArapca = new ModelKuranıKerimArapca(juz,number,numberInSurah,page,sajdaInt,surahNameTr,surahNumber,text);
                                     modelKuranıKerimArapcaArrayList.add(modelKuranıKerimArapca);
+
+                                    binding.uyariTextview.setText(String.valueOf(modelKuranıKerimArapcaArrayList.size()));
+                                    System.out.println(modelKuranıKerimArapcaArrayList.size());
 
 
                                     try {
@@ -301,9 +305,13 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
                         }
 
 
+
                         ModelKuraniKerimTurkceDib modelKuraniKerimTurkceDib = new ModelKuraniKerimTurkceDib(juz,number,numberInSurah,page,sajdaInt,surahNameTr,surahNumber,text);
                         modelKuraniKerimTurkceDibArrayList.add(modelKuraniKerimTurkceDib);
 
+
+                        binding.uyariTextview.setText(String.valueOf(modelKuraniKerimTurkceDibArrayList.size()));
+                        System.out.println(modelKuraniKerimTurkceDibArrayList.size());
 
 
                         try {
