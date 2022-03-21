@@ -95,6 +95,7 @@
         <entry key="app/src/main/res/drawable/layer_stroke_4_corner.xml" value="0.44583333333333336" />
         <entry key="app/src/main/res/drawable/layer_stroke_4_corner_red.xml" value="0.3255" />
         <entry key="app/src/main/res/drawable/layer_stroke_bottom_corner_radius.xml" value="0.44583333333333336" />
+        <entry key="app/src/main/res/layout/activity_ayarlar.xml" value="0.21481481481481482" />
         <entry key="app/src/main/res/layout/activity_bildirim.xml" value="0.38768115942028986" />
         <entry key="app/src/main/res/layout/activity_day_info.xml" value="0.31567028985507245" />
         <entry key="app/src/main/res/layout/activity_ezan_duasi.xml" value="0.25407608695652173" />
@@ -114,7 +115,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_my_account_edit.xml" value="0.5915343915343916" />
         <entry key="app/src/main/res/layout/activity_my_zikir.xml" value="0.5806159420289855" />
-        <entry key="app/src/main/res/layout/activity_my_zikir_detail.xml" value="0.29846014492753625" />
+        <entry key="app/src/main/res/layout/activity_my_zikir_detail.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_namaz_duasi.xml" value="0.31567028985507245" />
         <entry key="app/src/main/res/layout/activity_namaz_hocasi.xml" value="0.31567028985507245" />
         <entry key="app/src/main/res/layout/activity_qibla_compas.xml" value="0.3375" />

@@ -13,7 +13,8 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@drawable/corner_4_radius"
-        android:src="@mipmap/ic_hatim_duasi_button"
+        android:src="@mipmap/ic_kuran_buttonnn"
+
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,6 +28,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="50dp"
+
         android:background="@drawable/corner_4_radius"
         android:src="@mipmap/ic_hatim_duasi_button"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -40,6 +42,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="50dp"
+
         android:background="@drawable/corner_4_radius"
         android:src="@mipmap/ic_veda_hutbesi_button"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -52,6 +55,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@drawable/corner_4_radius"
+
         android:layout_marginTop="40dp"
         android:src="@mipmap/ic_tesbihat_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,6 +66,7 @@
         android:id="@+id/ezanDuasiButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
+
         android:background="@drawable/corner_4_radius"
         android:src="@mipmap/ic_ezan_duasi_button"
         android:layout_marginTop="50dp"

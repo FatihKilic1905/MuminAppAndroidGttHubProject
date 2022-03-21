@@ -528,9 +528,11 @@ public class MyZikirDetailActivity extends AppCompatActivity {
                     if (document.exists()) {
 
 
-                        binding.zikirAdiTextview.setText((String) document.get("zikirName"));
+
 
                         zikirName = (String) document.get("zikirName");
+                        getSupportActionBar().setTitle(zikirName);
+
 
                         binding.bitisTarihiTextView.setText((String) document.get("endDate"));
                         binding.zikirNiyetiTextView.setText((String) document.get("zikirDescription"));
@@ -641,9 +643,11 @@ public class MyZikirDetailActivity extends AppCompatActivity {
                     if (document.exists()) {
 
 
-                        binding.zikirAdiTextview.setText((String) document.get("zikirName"));
+
 
                         zikirName = (String) document.get("zikirName");
+
+                        getSupportActionBar().setTitle(zikirName);
 
                         binding.bitisTarihiTextView.setText((String) document.get("endDate"));
                         binding.zikirNiyetiTextView.setText((String) document.get("zikirDescription"));

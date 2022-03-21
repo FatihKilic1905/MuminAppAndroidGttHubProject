@@ -10,10 +10,10 @@
 
     <TextView
         android:id="@+id/zikirDuasiTextview"
-        android:layout_width="380dp"
-        android:layout_height="88dp"
+        android:layout_width="379dp"
+        android:layout_height="116dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/layer_stroke_4_corner"
         android:gravity="center"
         android:padding="10dp"
@@ -30,7 +30,7 @@
         android:layout_width="380dp"
         android:layout_height="45dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/layer_stroke_4_corner"
         android:gravity="center"
         android:padding="10dp"
@@ -39,43 +39,24 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/zikirDuasiTextview"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"></TextView>
-
-
-    <TextView
-        android:id="@+id/zikirAdiTextview"
-        android:layout_width="150dp"
-        android:layout_height="37dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/layer_stroke_4_corner"
-        android:gravity="center"
-        android:padding="5dp"
-        android:text="Zikir Adı"
-        android:textColor="@color/muminAppGreen"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/zikirNiyetiTextView"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
 
     <TextView
         android:id="@+id/bitisTarihiTextView"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="64dp"
         android:background="@drawable/layer_stroke_4_corner"
         android:gravity="center"
         android:padding="5dp"
         android:text="Bitiş Tarihi"
         android:textColor="@color/muminAppGreen"
         android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/zikirNiyetiTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ZikirButton"></TextView>
 
     <TextView
         android:id="@+id/genelCountTextview"
@@ -120,19 +101,21 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498"
         app:layout_constraintWidth_percent="0.1"></ImageButton>
 
     <ImageButton
         android:id="@+id/usersButton"
         android:layout_width="50dp"
         android:layout_height="35dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="64dp"
         android:background="@drawable/users_png"
         android:backgroundTint="@color/muminAppGreen"
         app:layout_constraintEnd_toStartOf="@+id/ZikirButton"
-        app:layout_constraintHorizontal_bias="0.402"
+        app:layout_constraintHorizontal_bias="0.415"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/zikirDuasiTextview"></ImageButton>
 
