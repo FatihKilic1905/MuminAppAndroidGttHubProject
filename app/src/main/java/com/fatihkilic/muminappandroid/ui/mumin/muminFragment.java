@@ -492,7 +492,10 @@ public class muminFragment extends Fragment {
 
                 System.out.println("Buyuk degil 222");
 
-                String ilceIDShare = sharedPreferences.getString("ilceID","9451");
+                String ilceIDShare = sharedPreferences.getString("ilceID","");
+
+
+
 
                 System.out.println("Buyuk degil 111" + ilceIDShare);
 

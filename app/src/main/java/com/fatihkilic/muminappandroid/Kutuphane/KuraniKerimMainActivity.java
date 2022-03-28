@@ -26,6 +26,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
+import retrofit2.http.DELETE;
+
 public class KuraniKerimMainActivity extends AppCompatActivity {
 
     private ActivityKuraniKerimMainBinding binding;
@@ -85,14 +87,42 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
 
             System.out.println("cursor" + cursor.getCount());
 
-            if (cursor.getCount() == 0) {
+            if (cursor.getCount() != 6236)  {
 
 
 
-               binding.surelerButton.setVisibility(View.INVISIBLE);
-               binding.progressBar2.setVisibility(View.VISIBLE);
-               binding.uyariTextview.setVisibility(View.VISIBLE);
-               getKuraniKerimArapca();
+                binding.surelerButton.setVisibility(View.INVISIBLE);
+                binding.progressBar2.setVisibility(View.INVISIBLE);
+                binding.uyariTextview.setVisibility(View.INVISIBLE);
+
+                AlertDialog.Builder uyariAlert = new AlertDialog.Builder(this);
+                uyariAlert.setTitle("Uyarı");
+                uyariAlert.setMessage("Kuran-ı Kerim telefonunuza yüklenecek. Bu işlem internet hızınıza bağlı olarak bir kaç dakika sürebilir.");
+                uyariAlert.setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                        binding.progressBar2.setVisibility(View.VISIBLE);
+                        binding.uyariTextview.setVisibility(View.VISIBLE);
+                        getKuraniKerimArapca();
+
+
+                    }
+                });
+
+                uyariAlert.setNegativeButton("Geri Dön", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        onBackPressed();
+
+                    }
+                });
+
+
+                uyariAlert.show();
+
 
 
 
@@ -180,8 +210,7 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
                                     ModelKuranıKerimArapca modelKuranıKerimArapca = new ModelKuranıKerimArapca(juz,number,numberInSurah,page,sajdaInt,surahNameTr,surahNumber,text);
                                     modelKuranıKerimArapcaArrayList.add(modelKuranıKerimArapca);
 
-                                    binding.uyariTextview.setText(String.valueOf(modelKuranıKerimArapcaArrayList.size()));
-                                    System.out.println(modelKuranıKerimArapcaArrayList.size());
+
 
 
                                     try {
@@ -310,8 +339,7 @@ public class KuraniKerimMainActivity extends AppCompatActivity {
                         modelKuraniKerimTurkceDibArrayList.add(modelKuraniKerimTurkceDib);
 
 
-                        binding.uyariTextview.setText(String.valueOf(modelKuraniKerimTurkceDibArrayList.size()));
-                        System.out.println(modelKuraniKerimTurkceDibArrayList.size());
+
 
 
                         try {
