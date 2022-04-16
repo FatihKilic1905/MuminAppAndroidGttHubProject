@@ -28,9 +28,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.applovin.mediation.MaxAd;
+import com.applovin.mediation.MaxAdViewAdListener;
+import com.applovin.mediation.MaxError;
+import com.applovin.mediation.ads.MaxAdView;
+import com.applovin.sdk.AppLovinSdk;
+import com.applovin.sdk.AppLovinSdkConfiguration;
 import com.fatihkilic.muminappandroid.Ayarlar.Receiver.EzanVaktiBildirimReceiver;
 import com.fatihkilic.muminappandroid.Ayarlar.Receiver.ImsakOncesiBildirimReceiver;
 import com.fatihkilic.muminappandroid.Ayarlar.Receiver.ImsakVaktiBildirimReceiver;
@@ -88,7 +95,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class muminFragment extends Fragment {
+public class muminFragment extends Fragment  {
 
     private FragmentMuminBinding binding;
     SQLiteDatabase vakitDatabase;
@@ -197,9 +204,7 @@ public class muminFragment extends Fragment {
 
     ArrayList<String> friendsRequestCount;
 
-    private AdView mAdView;
-    private AdView mAdView2;
-    private AdView mAdView3;
+
 
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth auth;
@@ -209,6 +214,9 @@ public class muminFragment extends Fragment {
 
     SQLiteDatabase arapcaKuranDatabase;
     SQLiteDatabase turkceDibQuranDAtabase;
+
+    private MaxAdView adView;
+    private MaxAdView adView2;
 
 
     ArrayList<ModelKuranıKerimArapca> modelKuranıKerimArapcaArrayList;
@@ -399,14 +407,24 @@ public class muminFragment extends Fragment {
             }
         });
 
-        mAdView = binding.adView;
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
 
 
-        mAdView3 = binding.adView3;
-        AdRequest adRequest3 = new AdRequest.Builder().build();
-        mAdView3.loadAd(adRequest3);
+
+
+
+        AppLovinSdk.getInstance( requireContext() ).setMediationProvider( "max" );
+        AppLovinSdk.initializeSdk( requireContext(), new AppLovinSdk.SdkInitializationListener() {
+            @Override
+            public void onSdkInitialized(final AppLovinSdkConfiguration configuration)
+            {
+
+                createBannerAd();
+
+                createBannerAd2();
+
+
+            }
+        } );
 
 
 
@@ -442,6 +460,61 @@ public class muminFragment extends Fragment {
 
 
     }
+
+    private void createBannerAd() {
+
+
+        adView = new MaxAdView( "b06d01f284423f8f", requireActivity() );
+
+
+        // Stretch to the width of the screen for banners to be fully functional
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+
+        // Banner height on phones and tablets is 50 and 90, respectively
+        int heightPx = getResources().getDimensionPixelSize( R.dimen.banner_height );
+
+        adView.setLayoutParams( new FrameLayout.LayoutParams( width, heightPx ) );
+
+        // Set background or background color for banners to be fully functional
+
+
+        ViewGroup rootView = binding.adViewAppLovin1;
+        rootView.addView( adView );
+
+        // Load the ad
+        adView.loadAd();
+
+
+
+    }
+
+    private void createBannerAd2() {
+
+
+        adView2 = new MaxAdView( "b06d01f284423f8f", requireActivity() );
+
+
+        // Stretch to the width of the screen for banners to be fully functional
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+
+        // Banner height on phones and tablets is 50 and 90, respectively
+        int heightPx = getResources().getDimensionPixelSize( R.dimen.banner_height );
+
+        adView2.setLayoutParams( new FrameLayout.LayoutParams( width, heightPx ) );
+
+        // Set background or background color for banners to be fully functional
+
+
+        ViewGroup rootView = binding.adViewAppLovin2;
+        rootView.addView( adView2 );
+
+        // Load the ad
+        adView2.loadAd();
+
+
+
+    }
+
 
 
 

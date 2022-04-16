@@ -6,18 +6,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.applovin.mediation.ads.MaxAdView;
+import com.applovin.sdk.AppLovinSdk;
+import com.applovin.sdk.AppLovinSdkConfiguration;
 import com.fatihkilic.muminappandroid.Kutuphane.EzanDuasiActivity;
 import com.fatihkilic.muminappandroid.Kutuphane.HtmDuasi;
 import com.fatihkilic.muminappandroid.Kutuphane.KuraniKerimMainActivity;
 import com.fatihkilic.muminappandroid.Kutuphane.NamazHocasiActivity;
 import com.fatihkilic.muminappandroid.Kutuphane.TesbihatActivity;
 import com.fatihkilic.muminappandroid.Kutuphane.VedaHutbesiActivity;
+import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.FragmentHomeBinding;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -30,7 +35,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
 
-    private AdView mAdView;
+    private MaxAdView adView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,15 +45,20 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
 
-        mAdView = binding.adView;
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        AppLovinSdk.getInstance( requireContext() ).setMediationProvider( "max" );
+        AppLovinSdk.initializeSdk( requireContext(), new AppLovinSdk.SdkInitializationListener() {
+            @Override
+            public void onSdkInitialized(final AppLovinSdkConfiguration configuration)
+            {
+
+                createBannerAd();
+
+
+
+
+            }
+        } );
 
 
 
@@ -111,6 +121,33 @@ public class HomeFragment extends Fragment {
 
 
         return root;
+    }
+
+    private void createBannerAd() {
+
+
+        adView = new MaxAdView( "b06d01f284423f8f", requireActivity() );
+
+
+        // Stretch to the width of the screen for banners to be fully functional
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+
+        // Banner height on phones and tablets is 50 and 90, respectively
+        int heightPx = getResources().getDimensionPixelSize( R.dimen.banner_height );
+
+        adView.setLayoutParams( new FrameLayout.LayoutParams( width, heightPx ) );
+
+        // Set background or background color for banners to be fully functional
+
+
+        ViewGroup rootView = binding.adViewAppLovin1;
+        rootView.addView( adView );
+
+        // Load the ad
+        adView.loadAd();
+
+
+
     }
 
     @Override

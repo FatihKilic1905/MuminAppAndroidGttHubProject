@@ -330,20 +330,14 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/adView"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                app:adSize="BANNER"
-                android:layout_marginTop="18dp"
-                android:layout_marginBottom="2dp"
-                app:adUnitId="ca-app-pub-9766355257187956/5774943033"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
+            <com.applovin.mediation.ads.MaxAdView
+                android:id="@+id/adViewAppLovin1"
+                xmlns:maxads="http://schemas.applovin.com/android/1.0"
+                maxads:adUnitId="b06d01f284423f8f"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/banner_height"
+                android:layout_marginTop="10dp"/>
 
 
 
@@ -351,7 +345,7 @@
                 android:layout_width="380dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/corner_layer_top_2_radius">
 
                 <TextView
@@ -573,20 +567,14 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/adView3"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                app:adSize="BANNER"
-                android:layout_marginTop="18dp"
-                android:layout_marginBottom="2dp"
-                app:adUnitId="ca-app-pub-9766355257187956/5774943033"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
+            <com.applovin.mediation.ads.MaxAdView
+                android:id="@+id/adViewAppLovin2"
+                xmlns:maxads="http://schemas.applovin.com/android/1.0"
+                maxads:adUnitId="b06d01f284423f8f"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/banner_height"
+                android:layout_marginTop="10dp"/>
 
 
         </LinearLayout>

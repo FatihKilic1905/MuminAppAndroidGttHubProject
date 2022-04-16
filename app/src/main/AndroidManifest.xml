@@ -156,6 +156,9 @@
         <receiver android:name=".Ayarlar.Receiver.AksamOncesiBildirimReceiver" />
         <receiver android:name=".Ayarlar.Receiver.YatsiBildirimReceiver" />
         <receiver android:name=".Ayarlar.Receiver.YatsiOncesiBildirimReceiver" />
+
+        <meta-data android:name="applovin.sdk.key"
+            android:value="_-8GozLgcxabx__LC9t5a1D3Z3W0kdgWqAxlPaoUrh2k4al95W9cucUaiHRIDdGLEuresTimcr1vZA0ZHZIzKz"/>
     </application>
 
 </manifest>

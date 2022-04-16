@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.applovin.mediation.ads.MaxAdView;
+import com.applovin.sdk.AppLovinSdk;
+import com.applovin.sdk.AppLovinSdkConfiguration;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.FragmentDashboardBinding;
 import com.google.android.gms.ads.AdRequest;
@@ -68,7 +72,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     private FusedLocationProviderClient fusedLocationClient;
     float bearingTo;
 
-    private AdView mAdView;
+    private MaxAdView adView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -205,17 +209,52 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         compassImage = binding.compass;
         mSensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
 
-
-        MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
+        AppLovinSdk.getInstance( requireContext() ).setMediationProvider( "max" );
+        AppLovinSdk.initializeSdk( requireContext(), new AppLovinSdk.SdkInitializationListener() {
             @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            public void onSdkInitialized(final AppLovinSdkConfiguration configuration)
+            {
+
+                createBannerAd();
+
+
+
+
             }
-        });
-        mAdView = binding.adView;
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        } );
+
+
+
+
 
         return root;
+    }
+
+    private void createBannerAd() {
+
+
+        adView = new MaxAdView( "b06d01f284423f8f", requireActivity() );
+
+
+        // Stretch to the width of the screen for banners to be fully functional
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+
+        // Banner height on phones and tablets is 50 and 90, respectively
+        int heightPx = getResources().getDimensionPixelSize( R.dimen.banner_height );
+
+        adView.setLayoutParams( new FrameLayout.LayoutParams( width, heightPx ) );
+
+        // Set background or background color for banners to be fully functional
+
+
+        ViewGroup rootView = binding.adViewAppLovin1;
+        rootView.addView( adView );
+
+        // Load the ad
+        adView.loadAd();
+
+
+
     }
 
 

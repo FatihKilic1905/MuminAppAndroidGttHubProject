@@ -5,9 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.applovin.mediation.ads.MaxAdView;
+import com.applovin.sdk.AppLovinSdk;
+import com.applovin.sdk.AppLovinSdkConfiguration;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.ActivityTesbihatBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivityVedaHutbesiBinding;
@@ -22,9 +27,11 @@ import org.intellij.lang.annotations.Language;
 public class TesbihatActivity extends AppCompatActivity {
 
     private ActivityTesbihatBinding binding;
-    private AdView mAdView;
+
     String language = null;
 
+
+    private MaxAdView adView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,15 +44,19 @@ public class TesbihatActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Tesbihat");
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+        AppLovinSdk.getInstance( this ).setMediationProvider( "max" );
+        AppLovinSdk.initializeSdk( this, new AppLovinSdk.SdkInitializationListener() {
             @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
+            public void onSdkInitialized(final AppLovinSdkConfiguration configuration)
+            {
 
-        mAdView = binding.adView;
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+
+
+                createBannerAd();
+
+
+            }
+        } );
 
 
 
@@ -272,6 +283,35 @@ public class TesbihatActivity extends AppCompatActivity {
 
 
     }
+
+
+    private void createBannerAd() {
+
+
+        adView = new MaxAdView( "b06d01f284423f8f", this );
+
+
+        // Stretch to the width of the screen for banners to be fully functional
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+
+        // Banner height on phones and tablets is 50 and 90, respectively
+        int heightPx = getResources().getDimensionPixelSize( R.dimen.banner_height );
+
+        adView.setLayoutParams( new FrameLayout.LayoutParams( width, heightPx ) );
+
+        // Set background or background color for banners to be fully functional
+
+
+        ViewGroup rootView = binding.maxAdView;
+        rootView.addView( adView );
+
+        // Load the ad
+        adView.loadAd();
+
+
+
+    }
+
 
 
     public void sabahArapca () {

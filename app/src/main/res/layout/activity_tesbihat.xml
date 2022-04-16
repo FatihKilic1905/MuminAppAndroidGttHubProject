@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:maxads="http://schemas.applovin.com/android/1.0"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -101,56 +102,53 @@
         android:padding="15dp"
         android:scrollbars="vertical"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         app:layout_constraintVertical_bias="0.0" />
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        app:adSize="BANNER"
-        android:layout_marginBottom="16dp"
-        app:adUnitId="ca-app-pub-9766355257187956/5774943033"
+
+    <com.applovin.mediation.ads.MaxAdView
+        android:id="@+id/maxAdView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/banner_height"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
+        app:layout_constraintTop_toBottomOf="@+id/tesbihatTextview"
+        app:layout_constraintVertical_bias="0.25"
+        maxads:adUnitId="YOUR_AD_UNIT_ID"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/turkceButton"
         android:layout_width="170dp"
         android:layout_height="44dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="136dp"
-        android:text="Türkçe"
-        android:textSize="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="152dp"
         android:background="@drawable/corner_4_radius"
+        android:text="Türkçe"
         android:textColor="@color/white"
-        android:textStyle="bold"/>
+        android:textSize="10dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/maxAdView"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/arapcaButton"
         android:layout_width="170dp"
         android:layout_height="44dp"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="136dp"
+        android:layout_marginBottom="152dp"
+        android:background="@drawable/corner_4_radius"
         android:text="Arapça"
+        android:textColor="@color/white"
         android:textSize="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/maxAdView"
         app:layout_constraintEnd_toStartOf="@+id/turkceButton"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/corner_4_radius"
-        android:textColor="@color/white"
-        android:textStyle="bold"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
