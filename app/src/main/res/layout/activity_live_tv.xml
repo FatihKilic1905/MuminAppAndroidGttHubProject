@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:maxads="http://schemas.applovin.com/android/1.0"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LiveTvActivity"
@@ -14,19 +15,14 @@
         android:layout_height="wrap_content"/>
 
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        app:adSize="BANNER"
-        android:layout_marginBottom="16dp"
+    <com.applovin.mediation.ads.MaxAdView
+        android:id="@+id/maxAdView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/banner_height"
+        android:background="@color/white"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="150dp"
-        app:adUnitId="ca-app-pub-9766355257187956/5774943033"></com.google.android.gms.ads.AdView>
+        maxads:adUnitId="b06d01f284423f8f" />
 
-
-   
 
 </LinearLayout>

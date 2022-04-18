@@ -5,8 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.applovin.mediation.ads.MaxAdView;
+import com.applovin.sdk.AppLovinSdk;
+import com.applovin.sdk.AppLovinSdkConfiguration;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.ActivityAyarlarBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivityVedaHutbesiBinding;
@@ -19,7 +24,7 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 public class VedaHutbesiActivity extends AppCompatActivity {
 
     private ActivityVedaHutbesiBinding binding;
-    private AdView mAdView;
+    private MaxAdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +37,19 @@ public class VedaHutbesiActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Veda Hutbesi");
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+        AppLovinSdk.getInstance( this ).setMediationProvider( "max" );
+        AppLovinSdk.initializeSdk( this, new AppLovinSdk.SdkInitializationListener() {
             @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
+            public void onSdkInitialized(final AppLovinSdkConfiguration configuration)
+            {
 
-        mAdView = binding.adView;
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+                createBannerAd();
+
+            }
+        } );
+
+
+
 
         TextView vedaHutbesiText = binding.vedaHutbesiText;
         vedaHutbesiText.setText("Allah'a hamd olsun. O'nu över, O'na şükrederiz. O'ndan medet umarız. O'ndan bağışlanma dileriz, tevbe ederek O'na ita\u00ADate yöneliriz. Nefislerimizin kötülük telkin\u00ADlerinden ve kötü ameller işlemesinden Al\u00ADlah'a sığınırız. Allah kime doğruyu göste\u00ADrirse, kimse onu hak yoldan uzaklaştıra\u00ADmaz. Kimin de hak yoldan uzaklaşmasına özgürlük tanırsa, kimse ona doğruyu gös\u00ADteremez. Tek Allah'tan başka tanrı olma\u00ADdığını, ilahlığında, otoritesinde, mülkün\u00ADde, tasarruflarında ortağı bulunmadığını kabul ve tasdik ederim. Muhammed'in O'nun kulu ve Rasûlü olduğunu kabul ve tasdik ederim. (1)\n" +
@@ -179,4 +188,33 @@ public class VedaHutbesiActivity extends AppCompatActivity {
 
 
     }
+
+
+    private void createBannerAd() {
+
+
+        adView = new MaxAdView( "b06d01f284423f8f", this );
+
+
+        // Stretch to the width of the screen for banners to be fully functional
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+
+        // Banner height on phones and tablets is 50 and 90, respectively
+        int heightPx = getResources().getDimensionPixelSize( R.dimen.banner_height );
+
+        adView.setLayoutParams( new FrameLayout.LayoutParams( width, heightPx ) );
+
+        // Set background or background color for banners to be fully functional
+
+
+        ViewGroup rootView = binding.maxAdView;
+        rootView.addView( adView );
+
+        // Load the ad
+        adView.loadAd();
+
+
+
+    }
+
 }

@@ -16,8 +16,13 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.applovin.mediation.ads.MaxAdView;
+import com.applovin.sdk.AppLovinSdk;
+import com.applovin.sdk.AppLovinSdkConfiguration;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.User.FriendsDetailActivity;
 import com.fatihkilic.muminappandroid.User.MyAccountEditActivity;
@@ -69,7 +74,7 @@ public class MyZikirDetailActivity extends AppCompatActivity {
 
     private InterstitialAd mInterstitialAd;
 
-    private AdView mAdView;
+    private MaxAdView adView;
 
     String myzikirDocumentId;
 
@@ -128,16 +133,16 @@ public class MyZikirDetailActivity extends AppCompatActivity {
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+        AppLovinSdk.getInstance( this ).setMediationProvider( "max" );
+        AppLovinSdk.initializeSdk( this, new AppLovinSdk.SdkInitializationListener() {
             @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            public void onSdkInitialized(final AppLovinSdkConfiguration configuration)
+            {
+
+                createBannerAd();
+
             }
-        });
-
-        mAdView = binding.adView;
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
+        } );
         binding.zikirDuasiTextview.setMovementMethod(new ScrollingMovementMethod());
 
         Intent myZikirIntent = getIntent();
@@ -786,6 +791,33 @@ public class MyZikirDetailActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+    }
+
+    private void createBannerAd() {
+
+
+        adView = new MaxAdView( "b06d01f284423f8f", this );
+
+
+        // Stretch to the width of the screen for banners to be fully functional
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+
+        // Banner height on phones and tablets is 50 and 90, respectively
+        int heightPx = getResources().getDimensionPixelSize( R.dimen.banner_height );
+
+        adView.setLayoutParams( new FrameLayout.LayoutParams( width, heightPx ) );
+
+        // Set background or background color for banners to be fully functional
+
+
+        ViewGroup rootView = binding.maxAdView;
+        rootView.addView( adView );
+
+        // Load the ad
+        adView.loadAd();
 
 
 

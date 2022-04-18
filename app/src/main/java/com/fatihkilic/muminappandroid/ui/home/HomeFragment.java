@@ -54,9 +54,6 @@ public class HomeFragment extends Fragment {
 
                 createBannerAd();
 
-
-
-
             }
         } );
 

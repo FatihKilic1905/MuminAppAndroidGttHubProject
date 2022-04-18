@@ -4,8 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
+import com.applovin.mediation.ads.MaxAdView;
+import com.applovin.sdk.AppLovinSdk;
+import com.applovin.sdk.AppLovinSdkConfiguration;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.ActivityEzanDuasiBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivityVedaHutbesiBinding;
@@ -18,7 +23,7 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 public class EzanDuasiActivity extends AppCompatActivity {
 
     private ActivityEzanDuasiBinding binding;
-    private AdView mAdView;
+    private MaxAdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +36,16 @@ public class EzanDuasiActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Ezan Duası");
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+        AppLovinSdk.getInstance( this ).setMediationProvider( "max" );
+        AppLovinSdk.initializeSdk( this, new AppLovinSdk.SdkInitializationListener() {
             @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
+            public void onSdkInitialized(final AppLovinSdkConfiguration configuration)
+            {
 
-        mAdView = binding.adView;
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+                createBannerAd();
+
+            }
+        } );
 
 
         String arapca = "أَللّٰهُمَّ رَبَّ هٰذِهِ الدَّعْوَةِ التَّآمَّةِ وَالصَّلاَةِ الْقَآئِمَةِ اٰتِ مُحَمَّدًا الْوَسِيلَةَ وَالْفَضِيلَةَ وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذ۪ى وَعَدْتَهُ";
@@ -76,6 +82,33 @@ public class EzanDuasiActivity extends AppCompatActivity {
                 binding.textView.setText(Meal);
             }
         });
+
+    }
+
+    private void createBannerAd() {
+
+
+        adView = new MaxAdView( "b06d01f284423f8f", this );
+
+
+        // Stretch to the width of the screen for banners to be fully functional
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+
+        // Banner height on phones and tablets is 50 and 90, respectively
+        int heightPx = getResources().getDimensionPixelSize( R.dimen.banner_height );
+
+        adView.setLayoutParams( new FrameLayout.LayoutParams( width, heightPx ) );
+
+        // Set background or background color for banners to be fully functional
+
+
+        ViewGroup rootView = binding.maxAdView;
+        rootView.addView( adView );
+
+        // Load the ad
+        adView.loadAd();
+
+
 
     }
 

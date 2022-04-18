@@ -317,7 +317,7 @@ public class TesbihatActivity extends AppCompatActivity {
     public void sabahArapca () {
 
 
-        String tesbihatStr = "Sabah namazının farzını kılıb, selamı müteakib:\n" +
+        String tesbihatStr = "Sabah namazının farzını kılıp, selamı müteakib:\n" +
                 "\n" +
                 "اَللّٰهُمَّ اَنْتَ السَّلَامُ وَ مِنْكَ السَّلَامُ تَبَارَكْتَ يَا ذَا الْجَلَالِ وَ اْلاِكْرَامِ\n" +
                 "\n" +
