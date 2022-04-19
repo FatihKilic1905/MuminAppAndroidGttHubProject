@@ -255,11 +255,6 @@ public class muminFragment extends Fragment  {
         modelKuranıKerimArapcaArrayList = new ArrayList<>();
         modelKuraniKerimTurkceDibArrayList = new ArrayList<>();
 
-
-
-
-
-
         binding.konumtitle.setText(sharedPreferences.getString("storedKonum","Konum"));
 
 
@@ -286,8 +281,6 @@ public class muminFragment extends Fragment  {
             sistemSaatiVoid();
             getEzanVakti();
             getBildirimSound();
-            DayInfoGet();
-
             getTomorrowVakit();
             getGunAsiriVakit();
 
@@ -297,6 +290,7 @@ public class muminFragment extends Fragment  {
         }
 
         loadEzanVakti();
+        DayInfoGet();
 
 
 
@@ -400,15 +394,6 @@ public class muminFragment extends Fragment  {
 
             }
         });
-
-        MobileAds.initialize(getActivity(), new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-
-
-
 
 
 
@@ -514,10 +499,6 @@ public class muminFragment extends Fragment  {
 
 
     }
-
-
-
-
 
 
     public void loadEzanVakti() {
@@ -674,21 +655,11 @@ public class muminFragment extends Fragment  {
 
     }
 
-
-
-
     @Override
     public void onPause() {
         super.onPause();
 
-
-
-
-
     }
-
-
-
 
     @Override
     public void onResume() {
@@ -702,15 +673,17 @@ public class muminFragment extends Fragment  {
             sistemSaatiVoid();
             getEzanVakti();
             getBildirimSound();
-            DayInfoGet();
+
             getTomorrowVakit();
             getGunAsiriVakit();
             getfriendsCount();
+
 
         } catch (Exception e) {
 
 
         }
+        DayInfoGet();
 
         if (auth.getCurrentUser() != null) {
 
@@ -1399,6 +1372,8 @@ public class muminFragment extends Fragment  {
         SimpleDateFormat sistemtarih = new SimpleDateFormat("dd.MM.yyyy");
         Date sistemtarihi = new Date();
         sistemTarihiStr = sistemtarih.format(sistemtarihi);
+        System.out.println("day  "+sistemTarihiStr);
+
 
         long bugunLong = sistemtarihi.getTime();
 
@@ -1500,7 +1475,7 @@ public class muminFragment extends Fragment  {
 
     private void DayInfoGet() {
 
-
+        System.out.println("day       "+sistemTarihiStr);
 
         DocumentReference usdRef = firebaseFirestore.collection("DayInfo").document(sistemTarihiStr);
         usdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -1509,9 +1484,12 @@ public class muminFragment extends Fragment  {
 
                 if (task.isSuccessful()) {
 
+
                     DocumentSnapshot document = task.getResult();
 
+
                     if (document.exists()) {
+
 
                         babyName = (String) document.get("babyName");
                         binding.babyNameText.setText(babyName);

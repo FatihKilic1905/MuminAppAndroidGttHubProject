@@ -8,7 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.renderscript.ScriptGroup;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
+import com.applovin.mediation.ads.MaxAdView;
+import com.applovin.sdk.AppLovinSdk;
+import com.applovin.sdk.AppLovinSdkConfiguration;
 import com.fatihkilic.muminappandroid.R;
 import com.fatihkilic.muminappandroid.databinding.ActivityDayInfoBinding;
 import com.fatihkilic.muminappandroid.databinding.ActivityZekatMatikBinding;
@@ -43,7 +48,7 @@ public class DayInfoActivity extends AppCompatActivity {
     ArrayList<todayInHistoryModel> todayInHistoryArrayList;
     todayInHistoryAdapter todayInHistoryAdapter;
 
-    private AdView mAdView;
+    private MaxAdView adView;
 
 
     @Override
@@ -65,15 +70,19 @@ public class DayInfoActivity extends AppCompatActivity {
         Intent getDetailınfoIntent = getIntent();
         getDetailınfo = getDetailınfoIntent.getStringExtra("DayInfoPageInfo");
 
-        MobileAds.initialize(DayInfoActivity.this, new OnInitializationCompleteListener() {
+        AppLovinSdk.getInstance( this ).setMediationProvider( "max" );
+        AppLovinSdk.initializeSdk( this, new AppLovinSdk.SdkInitializationListener() {
             @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
+            public void onSdkInitialized(final AppLovinSdkConfiguration configuration)
+            {
 
-        mAdView = binding.adView;
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+
+
+                createBannerAd();
+
+
+            }
+        } );
 
 
 
@@ -102,8 +111,37 @@ public class DayInfoActivity extends AppCompatActivity {
 
     }
 
+    private void createBannerAd() {
+
+
+        adView = new MaxAdView( "b06d01f284423f8f", this );
+
+
+        // Stretch to the width of the screen for banners to be fully functional
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+
+        // Banner height on phones and tablets is 50 and 90, respectively
+        int heightPx = getResources().getDimensionPixelSize( R.dimen.banner_height );
+
+        adView.setLayoutParams( new FrameLayout.LayoutParams( width, heightPx ) );
+
+        // Set background or background color for banners to be fully functional
+
+
+        ViewGroup rootView = binding.maxAdView;
+        rootView.addView( adView );
+
+        // Load the ad
+        adView.loadAd();
+
+
+
+    }
+
 
     public void getMealOfTheDay () {
+
+        System.out.println("day2"+sistemTarihiStr);
 
         firebaseFirestore.collection("DayInfo").document(sistemTarihiStr).collection("recipe").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -192,7 +230,7 @@ public class DayInfoActivity extends AppCompatActivity {
 
     void sistemTarihiVoid() {
 
-        SimpleDateFormat sistemtarih = new SimpleDateFormat("dd.M.yyyy");
+        SimpleDateFormat sistemtarih = new SimpleDateFormat("dd.MM.yyyy");
         Date sistemtarihi = new Date();
         sistemTarihiStr = sistemtarih.format(sistemtarihi);
 
