@@ -271,14 +271,14 @@ public class muminFragment extends Fragment  {
 
         }
 
-
+        sistemTarihiVoid();
+        sistemSaatiVoid();
 
 
 
         try {
 
-            sistemTarihiVoid();
-            sistemSaatiVoid();
+
             getEzanVakti();
             getBildirimSound();
             getTomorrowVakit();
@@ -665,12 +665,12 @@ public class muminFragment extends Fragment  {
     public void onResume() {
         super.onResume();
 
-
+        sistemTarihiVoid();
+        sistemSaatiVoid();
 
         try {
 
-            sistemTarihiVoid();
-            sistemSaatiVoid();
+
             getEzanVakti();
             getBildirimSound();
 
